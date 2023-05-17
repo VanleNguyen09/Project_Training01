@@ -22,41 +22,54 @@ Partial Class Register
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txt_confirm_pass = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txt_phone = New System.Windows.Forms.TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.dtp_birthday = New System.Windows.Forms.DateTimePicker()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
+        Me.rtb_detail_addr = New System.Windows.Forms.RichTextBox()
+        Me.cbb_ward = New System.Windows.Forms.ComboBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.cbb_district = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.cbb_province = New System.Windows.Forms.ComboBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.rb_female = New System.Windows.Forms.RadioButton()
+        Me.rb_male = New System.Windows.Forms.RadioButton()
+        Me.txt_fullname = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.txt_email = New System.Windows.Forms.TextBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.txt_pass = New System.Windows.Forms.TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.btnReset = New System.Windows.Forms.Button()
         Me.btnRegister = New System.Windows.Forms.Button()
+        Me.EmployeeManagementDataSet = New Training01.EmployeeManagementDataSet()
+        Me.ProvincesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.ProvincesTableAdapter = New Training01.EmployeeManagementDataSetTableAdapters.provincesTableAdapter()
+        Me.ProvincesBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
+        Me.Provinces = New Training01.Provinces()
+        Me.ProvincesBindingSource2 = New System.Windows.Forms.BindingSource(Me.components)
+        Me.ProvincesTableAdapter1 = New Training01.ProvincesTableAdapters.provincesTableAdapter()
         Me.Panel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        CType(Me.EmployeeManagementDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ProvincesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ProvincesBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Provinces, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ProvincesBindingSource2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -80,12 +93,13 @@ Partial Class Register
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Email"
         '
-        'TextBox1
+        'txt_confirm_pass
         '
-        Me.TextBox1.Location = New System.Drawing.Point(179, 97)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(220, 20)
-        Me.TextBox1.TabIndex = 1
+        Me.txt_confirm_pass.Location = New System.Drawing.Point(179, 97)
+        Me.txt_confirm_pass.Name = "txt_confirm_pass"
+        Me.txt_confirm_pass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txt_confirm_pass.Size = New System.Drawing.Size(220, 20)
+        Me.txt_confirm_pass.TabIndex = 1
         '
         'Label3
         '
@@ -116,9 +130,9 @@ Partial Class Register
         Me.Label6.ForeColor = System.Drawing.Color.White
         Me.Label6.Location = New System.Drawing.Point(36, 18)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(82, 17)
+        Me.Label6.Size = New System.Drawing.Size(54, 17)
         Me.Label6.TabIndex = 0
-        Me.Label6.Text = "Điện thoại"
+        Me.Label6.Text = "Phone"
         '
         'txt_phone
         '
@@ -130,10 +144,10 @@ Partial Class Register
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Salmon
-        Me.Panel1.Controls.Add(Me.DateTimePicker2)
+        Me.Panel1.Controls.Add(Me.dtp_birthday)
         Me.Panel1.Controls.Add(Me.GroupBox2)
         Me.Panel1.Controls.Add(Me.GroupBox1)
-        Me.Panel1.Controls.Add(Me.TextBox3)
+        Me.Panel1.Controls.Add(Me.txt_fullname)
         Me.Panel1.Controls.Add(Me.txt_phone)
         Me.Panel1.Controls.Add(Me.Label12)
         Me.Panel1.Controls.Add(Me.Label13)
@@ -143,22 +157,22 @@ Partial Class Register
         Me.Panel1.Size = New System.Drawing.Size(668, 296)
         Me.Panel1.TabIndex = 3
         '
-        'DateTimePicker2
+        'dtp_birthday
         '
-        Me.DateTimePicker2.Location = New System.Drawing.Point(38, 243)
-        Me.DateTimePicker2.Name = "DateTimePicker2"
-        Me.DateTimePicker2.Size = New System.Drawing.Size(259, 20)
-        Me.DateTimePicker2.TabIndex = 4
+        Me.dtp_birthday.Location = New System.Drawing.Point(38, 243)
+        Me.dtp_birthday.Name = "dtp_birthday"
+        Me.dtp_birthday.Size = New System.Drawing.Size(259, 20)
+        Me.dtp_birthday.TabIndex = 4
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.RichTextBox1)
-        Me.GroupBox2.Controls.Add(Me.ComboBox3)
+        Me.GroupBox2.Controls.Add(Me.rtb_detail_addr)
+        Me.GroupBox2.Controls.Add(Me.cbb_ward)
         Me.GroupBox2.Controls.Add(Me.Label11)
         Me.GroupBox2.Controls.Add(Me.Label10)
-        Me.GroupBox2.Controls.Add(Me.ComboBox2)
+        Me.GroupBox2.Controls.Add(Me.cbb_district)
         Me.GroupBox2.Controls.Add(Me.Label8)
-        Me.GroupBox2.Controls.Add(Me.ComboBox1)
+        Me.GroupBox2.Controls.Add(Me.cbb_province)
         Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
@@ -169,21 +183,21 @@ Partial Class Register
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Địa chỉ"
         '
-        'RichTextBox1
+        'rtb_detail_addr
         '
-        Me.RichTextBox1.Location = New System.Drawing.Point(6, 203)
-        Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(293, 42)
-        Me.RichTextBox1.TabIndex = 5
-        Me.RichTextBox1.Text = ""
+        Me.rtb_detail_addr.Location = New System.Drawing.Point(6, 203)
+        Me.rtb_detail_addr.Name = "rtb_detail_addr"
+        Me.rtb_detail_addr.Size = New System.Drawing.Size(293, 42)
+        Me.rtb_detail_addr.TabIndex = 5
+        Me.rtb_detail_addr.Text = ""
         '
-        'ComboBox3
+        'cbb_ward
         '
-        Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Location = New System.Drawing.Point(6, 155)
-        Me.ComboBox3.Name = "ComboBox3"
-        Me.ComboBox3.Size = New System.Drawing.Size(294, 24)
-        Me.ComboBox3.TabIndex = 4
+        Me.cbb_ward.FormattingEnabled = True
+        Me.cbb_ward.Location = New System.Drawing.Point(6, 155)
+        Me.cbb_ward.Name = "cbb_ward"
+        Me.cbb_ward.Size = New System.Drawing.Size(294, 24)
+        Me.cbb_ward.TabIndex = 4
         '
         'Label11
         '
@@ -192,9 +206,9 @@ Partial Class Register
         Me.Label11.ForeColor = System.Drawing.Color.White
         Me.Label11.Location = New System.Drawing.Point(6, 182)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(153, 17)
+        Me.Label11.Size = New System.Drawing.Size(114, 17)
         Me.Label11.TabIndex = 0
-        Me.Label11.Text = "Thôn/Nhà/Số đường"
+        Me.Label11.Text = "Detail Address"
         '
         'Label10
         '
@@ -203,17 +217,17 @@ Partial Class Register
         Me.Label10.ForeColor = System.Drawing.Color.White
         Me.Label10.Location = New System.Drawing.Point(6, 135)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(27, 17)
+        Me.Label10.Size = New System.Drawing.Size(46, 17)
         Me.Label10.TabIndex = 0
-        Me.Label10.Text = "Xã"
+        Me.Label10.Text = "Ward"
         '
-        'ComboBox2
+        'cbb_district
         '
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(6, 99)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(294, 24)
-        Me.ComboBox2.TabIndex = 4
+        Me.cbb_district.FormattingEnabled = True
+        Me.cbb_district.Location = New System.Drawing.Point(6, 99)
+        Me.cbb_district.Name = "cbb_district"
+        Me.cbb_district.Size = New System.Drawing.Size(294, 24)
+        Me.cbb_district.TabIndex = 4
         '
         'Label8
         '
@@ -222,17 +236,18 @@ Partial Class Register
         Me.Label8.ForeColor = System.Drawing.Color.White
         Me.Label8.Location = New System.Drawing.Point(6, 79)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(54, 17)
+        Me.Label8.Size = New System.Drawing.Size(59, 17)
         Me.Label8.TabIndex = 0
-        Me.Label8.Text = "Huyện"
+        Me.Label8.Text = "District"
         '
-        'ComboBox1
+        'cbb_province
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(6, 44)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(294, 24)
-        Me.ComboBox1.TabIndex = 4
+        Me.cbb_province.FormattingEnabled = True
+        Me.cbb_province.Location = New System.Drawing.Point(6, 44)
+        Me.cbb_province.Name = "cbb_province"
+        Me.cbb_province.Size = New System.Drawing.Size(294, 24)
+        Me.cbb_province.TabIndex = 4
+        Me.cbb_province.ValueMember = "code"
         '
         'Label7
         '
@@ -241,14 +256,14 @@ Partial Class Register
         Me.Label7.ForeColor = System.Drawing.Color.White
         Me.Label7.Location = New System.Drawing.Point(6, 24)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(124, 17)
+        Me.Label7.Size = New System.Drawing.Size(103, 17)
         Me.Label7.TabIndex = 0
-        Me.Label7.Text = "Tỉnh/Thành Phố"
+        Me.Label7.Text = "Province/City"
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.RadioButton2)
-        Me.GroupBox1.Controls.Add(Me.RadioButton1)
+        Me.GroupBox1.Controls.Add(Me.rb_female)
+        Me.GroupBox1.Controls.Add(Me.rb_male)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.ForeColor = System.Drawing.Color.White
         Me.GroupBox1.Location = New System.Drawing.Point(39, 131)
@@ -256,36 +271,36 @@ Partial Class Register
         Me.GroupBox1.Size = New System.Drawing.Size(258, 72)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Giới tính"
+        Me.GroupBox1.Text = "Gender"
         '
-        'RadioButton2
+        'rb_female
         '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(186, 27)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(46, 21)
-        Me.RadioButton2.TabIndex = 0
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "Nữ"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.rb_female.AutoSize = True
+        Me.rb_female.Location = New System.Drawing.Point(164, 27)
+        Me.rb_female.Name = "rb_female"
+        Me.rb_female.Size = New System.Drawing.Size(78, 21)
+        Me.rb_female.TabIndex = 0
+        Me.rb_female.TabStop = True
+        Me.rb_female.Text = "Female"
+        Me.rb_female.UseVisualStyleBackColor = True
         '
-        'RadioButton1
+        'rb_male
         '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(18, 27)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(58, 21)
-        Me.RadioButton1.TabIndex = 0
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "Nam"
-        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.rb_male.AutoSize = True
+        Me.rb_male.Location = New System.Drawing.Point(18, 27)
+        Me.rb_male.Name = "rb_male"
+        Me.rb_male.Size = New System.Drawing.Size(60, 21)
+        Me.rb_male.TabIndex = 0
+        Me.rb_male.TabStop = True
+        Me.rb_male.Text = "Male"
+        Me.rb_male.UseVisualStyleBackColor = True
         '
-        'TextBox3
+        'txt_fullname
         '
-        Me.TextBox3.Location = New System.Drawing.Point(38, 94)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(259, 20)
-        Me.TextBox3.TabIndex = 1
+        Me.txt_fullname.Location = New System.Drawing.Point(38, 94)
+        Me.txt_fullname.Name = "txt_fullname"
+        Me.txt_fullname.Size = New System.Drawing.Size(259, 20)
+        Me.txt_fullname.TabIndex = 1
         '
         'Label12
         '
@@ -294,9 +309,9 @@ Partial Class Register
         Me.Label12.ForeColor = System.Drawing.Color.White
         Me.Label12.Location = New System.Drawing.Point(35, 221)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(80, 17)
+        Me.Label12.Size = New System.Drawing.Size(68, 17)
         Me.Label12.TabIndex = 0
-        Me.Label12.Text = "Ngày sinh"
+        Me.Label12.Text = "Birthday"
         '
         'Label13
         '
@@ -305,24 +320,24 @@ Partial Class Register
         Me.Label13.ForeColor = System.Drawing.Color.White
         Me.Label13.Location = New System.Drawing.Point(35, 74)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(83, 17)
+        Me.Label13.Size = New System.Drawing.Size(75, 17)
         Me.Label13.TabIndex = 0
-        Me.Label13.Text = "Họ và Tên"
+        Me.Label13.Text = "FullName"
         '
-        'TextBox2
+        'txt_email
         '
-        Me.TextBox2.Location = New System.Drawing.Point(88, 24)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(311, 20)
-        Me.TextBox2.TabIndex = 1
+        Me.txt_email.Location = New System.Drawing.Point(88, 24)
+        Me.txt_email.Name = "txt_email"
+        Me.txt_email.Size = New System.Drawing.Size(311, 20)
+        Me.txt_email.TabIndex = 1
         '
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.Salmon
-        Me.Panel2.Controls.Add(Me.TextBox4)
-        Me.Panel2.Controls.Add(Me.TextBox2)
+        Me.Panel2.Controls.Add(Me.txt_pass)
+        Me.Panel2.Controls.Add(Me.txt_email)
         Me.Panel2.Controls.Add(Me.Label3)
-        Me.Panel2.Controls.Add(Me.TextBox1)
+        Me.Panel2.Controls.Add(Me.txt_confirm_pass)
         Me.Panel2.Controls.Add(Me.Label4)
         Me.Panel2.Controls.Add(Me.Label2)
         Me.Panel2.Location = New System.Drawing.Point(67, 371)
@@ -330,12 +345,13 @@ Partial Class Register
         Me.Panel2.Size = New System.Drawing.Size(417, 136)
         Me.Panel2.TabIndex = 4
         '
-        'TextBox4
+        'txt_pass
         '
-        Me.TextBox4.Location = New System.Drawing.Point(118, 62)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(280, 20)
-        Me.TextBox4.TabIndex = 1
+        Me.txt_pass.Location = New System.Drawing.Point(118, 62)
+        Me.txt_pass.Name = "txt_pass"
+        Me.txt_pass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txt_pass.Size = New System.Drawing.Size(280, 20)
+        Me.txt_pass.TabIndex = 1
         '
         'Panel3
         '
@@ -368,8 +384,41 @@ Partial Class Register
         Me.btnRegister.Name = "btnRegister"
         Me.btnRegister.Size = New System.Drawing.Size(204, 44)
         Me.btnRegister.TabIndex = 0
-        Me.btnRegister.Text = "ĐĂNG KÝ"
+        Me.btnRegister.Text = "REGISTER"
         Me.btnRegister.UseVisualStyleBackColor = False
+        '
+        'EmployeeManagementDataSet
+        '
+        Me.EmployeeManagementDataSet.DataSetName = "EmployeeManagementDataSet"
+        Me.EmployeeManagementDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'ProvincesBindingSource
+        '
+        Me.ProvincesBindingSource.DataMember = "provinces"
+        Me.ProvincesBindingSource.DataSource = Me.EmployeeManagementDataSet
+        '
+        'ProvincesTableAdapter
+        '
+        Me.ProvincesTableAdapter.ClearBeforeFill = True
+        '
+        'ProvincesBindingSource1
+        '
+        Me.ProvincesBindingSource1.DataMember = "provinces"
+        Me.ProvincesBindingSource1.DataSource = Me.EmployeeManagementDataSet
+        '
+        'Provinces
+        '
+        Me.Provinces.DataSetName = "Provinces"
+        Me.Provinces.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'ProvincesBindingSource2
+        '
+        Me.ProvincesBindingSource2.DataMember = "provinces"
+        Me.ProvincesBindingSource2.DataSource = Me.Provinces
+        '
+        'ProvincesTableAdapter1
+        '
+        Me.ProvincesTableAdapter1.ClearBeforeFill = True
         '
         'Register
         '
@@ -393,6 +442,11 @@ Partial Class Register
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.Panel3.ResumeLayout(False)
+        CType(Me.EmployeeManagementDataSet, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ProvincesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ProvincesBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Provinces, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ProvincesBindingSource2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -400,32 +454,39 @@ Partial Class Register
 
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txt_confirm_pass As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents txt_phone As TextBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents ComboBox3 As ComboBox
+    Friend WithEvents cbb_ward As ComboBox
     Friend WithEvents Label10 As Label
-    Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents cbb_district As ComboBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cbb_province As ComboBox
     Friend WithEvents Label7 As Label
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents RadioButton2 As RadioButton
-    Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents DateTimePicker2 As DateTimePicker
-    Friend WithEvents RichTextBox1 As RichTextBox
+    Friend WithEvents rb_female As RadioButton
+    Friend WithEvents rb_male As RadioButton
+    Friend WithEvents txt_email As TextBox
+    Friend WithEvents dtp_birthday As DateTimePicker
+    Friend WithEvents rtb_detail_addr As RichTextBox
     Friend WithEvents Label11 As Label
-    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents txt_fullname As TextBox
     Friend WithEvents Label12 As Label
     Friend WithEvents Label13 As Label
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents txt_pass As TextBox
     Friend WithEvents Panel3 As Panel
     Friend WithEvents btnReset As Button
     Friend WithEvents btnRegister As Button
+    Friend WithEvents EmployeeManagementDataSet As EmployeeManagementDataSet
+    Friend WithEvents ProvincesBindingSource As BindingSource
+    Friend WithEvents ProvincesTableAdapter As EmployeeManagementDataSetTableAdapters.provincesTableAdapter
+    Friend WithEvents ProvincesBindingSource1 As BindingSource
+    Friend WithEvents Provinces As Provinces
+    Friend WithEvents ProvincesBindingSource2 As BindingSource
+    Friend WithEvents ProvincesTableAdapter1 As ProvincesTableAdapters.provincesTableAdapter
 End Class
