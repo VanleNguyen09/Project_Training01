@@ -8,4 +8,10 @@
         Dim passWord As String = FuntionCommon.HasMD5.GetHash(TextBox2.Text)
 
     End Sub
+
+    Private Sub btnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
+        Me.Hide()
+        Dim register As New Register
+        register.Show()
+    End Sub
 End Class
