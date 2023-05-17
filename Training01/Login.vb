@@ -11,4 +11,10 @@
         Dim dashboard As New Dashboard
         dashboard.Show()
     End Sub
+
+    Private Sub btnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
+        Me.Hide()
+        Dim register As New Register
+        register.Show()
+    End Sub
 End Class
