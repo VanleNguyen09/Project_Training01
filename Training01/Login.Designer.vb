@@ -31,6 +31,7 @@ Partial Class Login
         Me.SuspendLayout()
         '
         'TextBox1
+        '
         Me.TextBox1.Location = New System.Drawing.Point(32, 78)
         Me.TextBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBox1.Multiline = True
@@ -40,7 +41,7 @@ Partial Class Login
         '
         'TextBox2
         '
-        Me.TextBox2.Location = New System.Drawing.Point(32, 167)
+        Me.TextBox2.Location = New System.Drawing.Point(32, 189)
         Me.TextBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBox2.Multiline = True
         Me.TextBox2.Name = "TextBox2"
@@ -59,10 +60,10 @@ Partial Class Login
         '
         'btnRegister
         '
-        Me.btnRegister.Location = New System.Drawing.Point(170, 269)
+        Me.btnRegister.Location = New System.Drawing.Point(196, 269)
         Me.btnRegister.Margin = New System.Windows.Forms.Padding(2)
         Me.btnRegister.Name = "btnRegister"
-        Me.btnRegister.Size = New System.Drawing.Size(140, 46)
+        Me.btnRegister.Size = New System.Drawing.Size(138, 37)
         Me.btnRegister.TabIndex = 3
         Me.btnRegister.Text = "Register"
         Me.btnRegister.UseVisualStyleBackColor = True
@@ -70,7 +71,7 @@ Partial Class Login
         'Email
         '
         Me.Email.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Email.Location = New System.Drawing.Point(39, 54)
+        Me.Email.Location = New System.Drawing.Point(37, 26)
         Me.Email.Name = "Email"
         Me.Email.Size = New System.Drawing.Size(107, 30)
         Me.Email.TabIndex = 4
@@ -80,7 +81,7 @@ Partial Class Login
         'lblPassWord
         '
         Me.lblPassWord.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPassWord.Location = New System.Drawing.Point(39, 165)
+        Me.lblPassWord.Location = New System.Drawing.Point(37, 141)
         Me.lblPassWord.Name = "lblPassWord"
         Me.lblPassWord.Size = New System.Drawing.Size(107, 30)
         Me.lblPassWord.TabIndex = 5
@@ -91,7 +92,7 @@ Partial Class Login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(413, 433)
+        Me.ClientSize = New System.Drawing.Size(398, 371)
         Me.Controls.Add(Me.lblPassWord)
         Me.Controls.Add(Me.Email)
         Me.Controls.Add(Me.btnRegister)
