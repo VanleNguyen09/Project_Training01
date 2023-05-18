@@ -53,22 +53,11 @@ Partial Class Register
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.btnReset = New System.Windows.Forms.Button()
         Me.btnRegister = New System.Windows.Forms.Button()
-        Me.EmployeeManagementDataSet = New Training01.EmployeeManagementDataSet()
-        Me.ProvincesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.ProvincesTableAdapter = New Training01.EmployeeManagementDataSetTableAdapters.provincesTableAdapter()
-        Me.ProvincesBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
-        Me.Provinces = New Training01.Provinces()
-        Me.ProvincesBindingSource2 = New System.Windows.Forms.BindingSource(Me.components)
-        Me.ProvincesTableAdapter1 = New Training01.ProvincesTableAdapters.provincesTableAdapter()
         Me.Panel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        CType(Me.EmployeeManagementDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ProvincesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ProvincesBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Provinces, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ProvincesBindingSource2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -387,38 +376,6 @@ Partial Class Register
         Me.btnRegister.Text = "REGISTER"
         Me.btnRegister.UseVisualStyleBackColor = False
         '
-        'EmployeeManagementDataSet
-        '
-        Me.EmployeeManagementDataSet.DataSetName = "EmployeeManagementDataSet"
-        Me.EmployeeManagementDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'ProvincesBindingSource
-        '
-        Me.ProvincesBindingSource.DataMember = "provinces"
-        Me.ProvincesBindingSource.DataSource = Me.EmployeeManagementDataSet
-        '
-        'ProvincesTableAdapter
-        '
-        Me.ProvincesTableAdapter.ClearBeforeFill = True
-        '
-        'ProvincesBindingSource1
-        '
-        Me.ProvincesBindingSource1.DataMember = "provinces"
-        Me.ProvincesBindingSource1.DataSource = Me.EmployeeManagementDataSet
-        '
-        'Provinces
-        '
-        Me.Provinces.DataSetName = "Provinces"
-        Me.Provinces.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'ProvincesBindingSource2
-        '
-        Me.ProvincesBindingSource2.DataMember = "provinces"
-        Me.ProvincesBindingSource2.DataSource = Me.Provinces
-        '
-        'ProvincesTableAdapter1
-        '
-        Me.ProvincesTableAdapter1.ClearBeforeFill = True
         '
         'Register
         '
@@ -442,10 +399,8 @@ Partial Class Register
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.Panel3.ResumeLayout(False)
-        CType(Me.EmployeeManagementDataSet, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ProvincesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ProvincesBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Provinces, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ProvincesBindingSource2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -482,11 +437,7 @@ Partial Class Register
     Friend WithEvents Panel3 As Panel
     Friend WithEvents btnReset As Button
     Friend WithEvents btnRegister As Button
-    Friend WithEvents EmployeeManagementDataSet As EmployeeManagementDataSet
     Friend WithEvents ProvincesBindingSource As BindingSource
-    Friend WithEvents ProvincesTableAdapter As EmployeeManagementDataSetTableAdapters.provincesTableAdapter
     Friend WithEvents ProvincesBindingSource1 As BindingSource
-    Friend WithEvents Provinces As Provinces
     Friend WithEvents ProvincesBindingSource2 As BindingSource
-    Friend WithEvents ProvincesTableAdapter1 As ProvincesTableAdapters.provincesTableAdapter
 End Class
