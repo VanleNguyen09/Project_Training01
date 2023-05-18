@@ -1,3 +1,4 @@
+
 ﻿Imports System.Data.SqlClient
 
 Public Class Login
@@ -6,13 +7,11 @@ Public Class Login
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
-        'Dim email As String = TextBox1.Text
-        'Dim passWord As String = FuntionCommon.HasMD5.GetHash(TextBox2.Text)
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnLogin.Clic
 
-        'Me.Hide()
-        'Dim dashboard As New Dashboard
-        'dashboard.Show()
+        Me.Hide()
+        Dim dashboard As New Dashboard
+        dashboard.Show()
     End Sub
 
     Private Sub btnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
@@ -20,4 +19,5 @@ Public Class Login
         Dim register As New RegisterUser
         register.Show()
     End Sub
+
 End Class
