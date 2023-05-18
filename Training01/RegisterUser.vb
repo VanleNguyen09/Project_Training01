@@ -4,6 +4,8 @@ Imports System.Text.RegularExpressions
 Public Class RegisterUser
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private Sub RegisterUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Panel1.BackColor = Color.Transparent
+        Label1.BackColor = Color.Transparent
         txtEmail.Select()
     End Sub
 

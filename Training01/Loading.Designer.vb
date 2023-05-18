@@ -34,7 +34,7 @@ Partial Class Loading
         '
         Me.ProgressBar1.BackColor = System.Drawing.Color.Chartreuse
         Me.ProgressBar1.ForeColor = System.Drawing.Color.Lime
-        Me.ProgressBar1.Location = New System.Drawing.Point(-1, 157)
+        Me.ProgressBar1.Location = New System.Drawing.Point(-1, 163)
         Me.ProgressBar1.Name = "ProgressBar1"
         Me.ProgressBar1.Size = New System.Drawing.Size(585, 10)
         Me.ProgressBar1.TabIndex = 0
@@ -44,6 +44,7 @@ Partial Class Loading
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.ClientSize = New System.Drawing.Size(585, 167)
         Me.Controls.Add(Me.ProgressBar1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
