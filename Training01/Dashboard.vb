@@ -31,7 +31,7 @@ Public Class Dashboard
         End If
 
         Me.Hide()
-        Dim employee As New Employee
+        Dim employee As New frm_Employee
         employee.Show()
 
 
