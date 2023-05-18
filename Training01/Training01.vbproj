@@ -177,6 +177,7 @@
   <ItemGroup>
     <Content Include="Resources\avatar2.jpg" />
     <Content Include="Resources\avatar3.jpg" />
+    <None Include="Resources\BackgroundLogin.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
