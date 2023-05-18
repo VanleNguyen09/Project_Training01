@@ -3,8 +3,6 @@
 Public Class RegisterUser
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private Sub RegisterUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Panel1.BackColor = Color.Transparent
-        Label1.BackColor = Color.Transparent
         txtEmail.Select()
     End Sub
 
@@ -22,26 +20,78 @@ Public Class RegisterUser
     End Sub
 
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
+        Dim email As String = txtEmail.Text.Trim()
+        Dim fullName As String = txtFullName.Text.Trim()
+        Dim password As String = txtPassword.Text.Trim()
+        Dim cPassword As String = txtConfirmPassword.Text.Trim()
+        Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
+        Dim titleMsgBox As String = "ERROR"
+
+        'Validations
+        If email = String.Empty OrElse fullName = String.Empty OrElse password = String.Empty OrElse cPassword = String.Empty Then
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleMsgBox, buttons)
+            Exit Sub
+        End If
+
+        If Not FuntionCommon.Validation.IsEmail(email) Then
+            MessageBox.Show(Message.Message.emailErrorMessage, titleMsgBox, buttons)
+            txtEmail.Select()
+            Exit Sub
+        End If
+
+        If Not FuntionCommon.Validation.CheckPassword(password) Then
+            MessageBox.Show(Message.Message.passwordErrorMessage, titleMsgBox, buttons)
+            txtPassword.Select()
+            Exit Sub
+        End If
+
+        If Not FuntionCommon.Validation.CheckConfirmPassword(password, cPassword) Then
+            MessageBox.Show(Message.Message.cPasswordErrorMessage, titleMsgBox, buttons)
+            txtConfirmPassword.Select()
+            Exit Sub
+        End If
+
+        'Check connection
         If con.State() <> 1 Then
             con.Open()
         End If
-        Dim sqlQuery As String = ""
 
-        If txtEmail.Text <> String.Empty And txtFullName.Text IsNot Nothing AndAlso txtPassword.Text IsNot Nothing And txtConfirmPassword.Text IsNot Nothing Then
+        Dim procedureSql As String = "GetUserByEmail"
 
-        End If
-
-        Using cmd As SqlCommand = New SqlCommand(sqlQuery, con)
+        'Get user to check email is existed?
+        Using cmd As SqlCommand = New SqlCommand(procedureSql, con)
             cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("email", email)
 
-            Dim reader As SqlDataReader
-            reader = cmd.ExecuteReader()
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+
             If reader.Read Then
-                If reader("email") Then
-                    MsgBox("User has been registered.")
+                MessageBox.Show(Message.Message.registeredEmailMsg, titleMsgBox, buttons)
+            Else
+                reader.Close()
+                procedureSql = "AddUser"
+
+                'Add User to database
+                Using subCommand As SqlCommand = New SqlCommand(procedureSql, con)
+                    subCommand.CommandType = CommandType.StoredProcedure
+                    subCommand.Parameters.AddWithValue("email", email)
+                    subCommand.Parameters.AddWithValue("full_name", fullName)
+                    subCommand.Parameters.AddWithValue("password", FuntionCommon.HasMD5.GetHash(password))
+
+                    Dim subReader As SqlDataReader = subCommand.ExecuteReader()
+                End Using
+
+                Dim result As DialogResult = MessageBox.Show(Message.Message.successfulregisterMsg, "Notification", MessageBoxButtons.OK)
+                If result = DialogResult.OK Then
+                    'Switch to Login Form and fill email to email textbox
+                    Dim login As New Login
+                    login.txtEmail.Text = email
+                    Me.Hide()
+                    login.Show()
+                    con.Close()
                 End If
             End If
-            con.Close()
         End Using
     End Sub
+
 End Class
