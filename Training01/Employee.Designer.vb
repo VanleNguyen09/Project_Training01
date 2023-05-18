@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Employee
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class frm_Employee
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,51 +20,42 @@ Partial Class Employee
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btn_Close = New System.Windows.Forms.Button()
         Me.btn_Delete = New System.Windows.Forms.Button()
         Me.btn_Update = New System.Windows.Forms.Button()
         Me.btn_Add = New System.Windows.Forms.Button()
-        Me.dgrv_Employee = New System.Windows.Forms.DataGridView()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txt_Email = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.dt_Birthday = New System.Windows.Forms.DateTimePicker()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.lbl_Email = New System.Windows.Forms.Label()
+        Me.dtp_Birthday = New System.Windows.Forms.DateTimePicker()
+        Me.lbl_Birthday = New System.Windows.Forms.Label()
+        Me.rdo_Female = New System.Windows.Forms.RadioButton()
+        Me.rdo_Male = New System.Windows.Forms.RadioButton()
+        Me.lbl_Gender = New System.Windows.Forms.Label()
         Me.txt_Address = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.lbl_Address = New System.Windows.Forms.Label()
         Me.txt_Phone = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
+        Me.lbl_Phone = New System.Windows.Forms.Label()
         Me.txt_Name = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
+        Me.lbl_Name = New System.Windows.Forms.Label()
         Me.txt_EmployeeID = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lbl_EmployeeID = New System.Windows.Forms.Label()
+        Me.lbl_TitleEmployee = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label11 = New System.Windows.Forms.Label()
+        Me.lbl_Department = New System.Windows.Forms.Label()
         Me.cb_Department = New System.Windows.Forms.ComboBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        CType(Me.dgrv_Employee, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.dgrv_Employee = New System.Windows.Forms.DataGridView()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EmployeeName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.gender = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgrv_Employee, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btn_Close
@@ -111,113 +102,6 @@ Partial Class Employee
         Me.btn_Add.Text = "Add"
         Me.btn_Add.UseVisualStyleBackColor = False
         '
-        'dgrv_Employee
-        '
-        Me.dgrv_Employee.AllowUserToAddRows = False
-        Me.dgrv_Employee.AllowUserToDeleteRows = False
-        Me.dgrv_Employee.BackgroundColor = System.Drawing.Color.PeachPuff
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgrv_Employee.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
-        Me.dgrv_Employee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgrv_Employee.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8})
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgrv_Employee.DefaultCellStyle = DataGridViewCellStyle16
-        Me.dgrv_Employee.Location = New System.Drawing.Point(12, 560)
-        Me.dgrv_Employee.Name = "dgrv_Employee"
-        Me.dgrv_Employee.ReadOnly = True
-        Me.dgrv_Employee.RowHeadersWidth = 51
-        Me.dgrv_Employee.RowTemplate.Height = 24
-        Me.dgrv_Employee.Size = New System.Drawing.Size(1169, 254)
-        Me.dgrv_Employee.TabIndex = 43
-        '
-        'Column1
-        '
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Column1.DefaultCellStyle = DataGridViewCellStyle10
-        Me.Column1.HeaderText = "Employee ID"
-        Me.Column1.MinimumWidth = 6
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Width = 125
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "Name"
-        Me.Column2.MinimumWidth = 6
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        Me.Column2.Width = 125
-        '
-        'Column3
-        '
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Column3.DefaultCellStyle = DataGridViewCellStyle11
-        Me.Column3.HeaderText = "Address"
-        Me.Column3.MinimumWidth = 6
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        Me.Column3.Width = 125
-        '
-        'Column4
-        '
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle12
-        Me.Column4.HeaderText = "Gender"
-        Me.Column4.MinimumWidth = 6
-        Me.Column4.Name = "Column4"
-        Me.Column4.ReadOnly = True
-        Me.Column4.Width = 125
-        '
-        'Column5
-        '
-        DataGridViewCellStyle13.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Column5.DefaultCellStyle = DataGridViewCellStyle13
-        Me.Column5.HeaderText = "Birthday"
-        Me.Column5.MinimumWidth = 6
-        Me.Column5.Name = "Column5"
-        Me.Column5.ReadOnly = True
-        Me.Column5.Width = 125
-        '
-        'Column6
-        '
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Column6.DefaultCellStyle = DataGridViewCellStyle14
-        Me.Column6.HeaderText = "Email"
-        Me.Column6.MinimumWidth = 6
-        Me.Column6.Name = "Column6"
-        Me.Column6.ReadOnly = True
-        Me.Column6.Width = 125
-        '
-        'Column7
-        '
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Column7.DefaultCellStyle = DataGridViewCellStyle15
-        Me.Column7.HeaderText = "Pass"
-        Me.Column7.MinimumWidth = 6
-        Me.Column7.Name = "Column7"
-        Me.Column7.ReadOnly = True
-        Me.Column7.Width = 125
-        '
-        'Column8
-        '
-        Me.Column8.HeaderText = "Confirm Pass"
-        Me.Column8.MinimumWidth = 6
-        Me.Column8.Name = "Column8"
-        Me.Column8.ReadOnly = True
-        Me.Column8.Width = 125
-        '
         'txt_Email
         '
         Me.txt_Email.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -226,71 +110,71 @@ Partial Class Employee
         Me.txt_Email.Size = New System.Drawing.Size(285, 30)
         Me.txt_Email.TabIndex = 40
         '
-        'Label8
+        'lbl_Email
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(17, 399)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(65, 23)
-        Me.Label8.TabIndex = 39
-        Me.Label8.Text = "Email:"
+        Me.lbl_Email.AutoSize = True
+        Me.lbl_Email.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Email.Location = New System.Drawing.Point(17, 399)
+        Me.lbl_Email.Name = "lbl_Email"
+        Me.lbl_Email.Size = New System.Drawing.Size(65, 23)
+        Me.lbl_Email.TabIndex = 39
+        Me.lbl_Email.Text = "Email:"
         '
-        'dt_Birthday
+        'dtp_Birthday
         '
-        Me.dt_Birthday.CalendarFont = New System.Drawing.Font("Times New Roman", 13.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dt_Birthday.CustomFormat = "dd/MM/yyyy"
-        Me.dt_Birthday.Font = New System.Drawing.Font("Times New Roman", 13.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dt_Birthday.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dt_Birthday.Location = New System.Drawing.Point(158, 298)
-        Me.dt_Birthday.Name = "dt_Birthday"
-        Me.dt_Birthday.Size = New System.Drawing.Size(239, 33)
-        Me.dt_Birthday.TabIndex = 38
-        Me.dt_Birthday.Value = New Date(2023, 5, 16, 0, 0, 0, 0)
+        Me.dtp_Birthday.CalendarFont = New System.Drawing.Font("Times New Roman", 13.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtp_Birthday.CustomFormat = "dd/MM/yyyy"
+        Me.dtp_Birthday.Font = New System.Drawing.Font("Times New Roman", 13.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtp_Birthday.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtp_Birthday.Location = New System.Drawing.Point(158, 298)
+        Me.dtp_Birthday.Name = "dtp_Birthday"
+        Me.dtp_Birthday.Size = New System.Drawing.Size(239, 33)
+        Me.dtp_Birthday.TabIndex = 38
+        Me.dtp_Birthday.Value = New Date(2023, 5, 16, 0, 0, 0, 0)
         '
-        'Label7
+        'lbl_Birthday
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(16, 306)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(90, 23)
-        Me.Label7.TabIndex = 37
-        Me.Label7.Text = "Birthday:"
+        Me.lbl_Birthday.AutoSize = True
+        Me.lbl_Birthday.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Birthday.Location = New System.Drawing.Point(16, 306)
+        Me.lbl_Birthday.Name = "lbl_Birthday"
+        Me.lbl_Birthday.Size = New System.Drawing.Size(90, 23)
+        Me.lbl_Birthday.TabIndex = 37
+        Me.lbl_Birthday.Text = "Birthday:"
         '
-        'RadioButton2
+        'rdo_Female
         '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RadioButton2.Location = New System.Drawing.Point(284, 253)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(89, 26)
-        Me.RadioButton2.TabIndex = 36
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "Female"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.rdo_Female.AutoSize = True
+        Me.rdo_Female.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdo_Female.Location = New System.Drawing.Point(284, 253)
+        Me.rdo_Female.Name = "rdo_Female"
+        Me.rdo_Female.Size = New System.Drawing.Size(89, 26)
+        Me.rdo_Female.TabIndex = 36
+        Me.rdo_Female.TabStop = True
+        Me.rdo_Female.Text = "Female"
+        Me.rdo_Female.UseVisualStyleBackColor = True
         '
-        'RadioButton1
+        'rdo_Male
         '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RadioButton1.Location = New System.Drawing.Point(158, 253)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(72, 26)
-        Me.RadioButton1.TabIndex = 35
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "Male"
-        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.rdo_Male.AutoSize = True
+        Me.rdo_Male.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdo_Male.Location = New System.Drawing.Point(158, 253)
+        Me.rdo_Male.Name = "rdo_Male"
+        Me.rdo_Male.Size = New System.Drawing.Size(72, 26)
+        Me.rdo_Male.TabIndex = 35
+        Me.rdo_Male.TabStop = True
+        Me.rdo_Male.Text = "Male"
+        Me.rdo_Male.UseVisualStyleBackColor = True
         '
-        'Label6
+        'lbl_Gender
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(16, 254)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(81, 23)
-        Me.Label6.TabIndex = 34
-        Me.Label6.Text = "Gender:"
+        Me.lbl_Gender.AutoSize = True
+        Me.lbl_Gender.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Gender.Location = New System.Drawing.Point(16, 254)
+        Me.lbl_Gender.Name = "lbl_Gender"
+        Me.lbl_Gender.Size = New System.Drawing.Size(81, 23)
+        Me.lbl_Gender.TabIndex = 34
+        Me.lbl_Gender.Text = "Gender:"
         '
         'txt_Address
         '
@@ -300,15 +184,15 @@ Partial Class Employee
         Me.txt_Address.Size = New System.Drawing.Size(334, 30)
         Me.txt_Address.TabIndex = 33
         '
-        'Label5
+        'lbl_Address
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(16, 199)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(85, 23)
-        Me.Label5.TabIndex = 32
-        Me.Label5.Text = "Address:"
+        Me.lbl_Address.AutoSize = True
+        Me.lbl_Address.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Address.Location = New System.Drawing.Point(16, 199)
+        Me.lbl_Address.Name = "lbl_Address"
+        Me.lbl_Address.Size = New System.Drawing.Size(85, 23)
+        Me.lbl_Address.TabIndex = 32
+        Me.lbl_Address.Text = "Address:"
         '
         'txt_Phone
         '
@@ -318,15 +202,15 @@ Partial Class Employee
         Me.txt_Phone.Size = New System.Drawing.Size(248, 30)
         Me.txt_Phone.TabIndex = 31
         '
-        'Label4
+        'lbl_Phone
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(444, 84)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(69, 23)
-        Me.Label4.TabIndex = 30
-        Me.Label4.Text = "Phone:"
+        Me.lbl_Phone.AutoSize = True
+        Me.lbl_Phone.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Phone.Location = New System.Drawing.Point(444, 84)
+        Me.lbl_Phone.Name = "lbl_Phone"
+        Me.lbl_Phone.Size = New System.Drawing.Size(69, 23)
+        Me.lbl_Phone.TabIndex = 30
+        Me.lbl_Phone.Text = "Phone:"
         '
         'txt_Name
         '
@@ -336,15 +220,15 @@ Partial Class Employee
         Me.txt_Name.Size = New System.Drawing.Size(239, 30)
         Me.txt_Name.TabIndex = 29
         '
-        'Label3
+        'lbl_Name
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(16, 142)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(66, 23)
-        Me.Label3.TabIndex = 28
-        Me.Label3.Text = "Name:"
+        Me.lbl_Name.AutoSize = True
+        Me.lbl_Name.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Name.Location = New System.Drawing.Point(16, 142)
+        Me.lbl_Name.Name = "lbl_Name"
+        Me.lbl_Name.Size = New System.Drawing.Size(66, 23)
+        Me.lbl_Name.TabIndex = 28
+        Me.lbl_Name.Text = "Name:"
         '
         'txt_EmployeeID
         '
@@ -354,26 +238,26 @@ Partial Class Employee
         Me.txt_EmployeeID.Size = New System.Drawing.Size(215, 30)
         Me.txt_EmployeeID.TabIndex = 27
         '
-        'Label2
+        'lbl_EmployeeID
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(16, 79)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(122, 23)
-        Me.Label2.TabIndex = 26
-        Me.Label2.Text = "Employee Id:"
+        Me.lbl_EmployeeID.AutoSize = True
+        Me.lbl_EmployeeID.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_EmployeeID.Location = New System.Drawing.Point(16, 79)
+        Me.lbl_EmployeeID.Name = "lbl_EmployeeID"
+        Me.lbl_EmployeeID.Size = New System.Drawing.Size(122, 23)
+        Me.lbl_EmployeeID.TabIndex = 26
+        Me.lbl_EmployeeID.Text = "Employee Id:"
         '
-        'Label1
+        'lbl_TitleEmployee
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Times New Roman", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.Red
-        Me.Label1.Location = New System.Drawing.Point(299, 9)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(353, 45)
-        Me.Label1.TabIndex = 25
-        Me.Label1.Text = "EMPLOYEE LIST"
+        Me.lbl_TitleEmployee.AutoSize = True
+        Me.lbl_TitleEmployee.Font = New System.Drawing.Font("Times New Roman", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_TitleEmployee.ForeColor = System.Drawing.Color.Red
+        Me.lbl_TitleEmployee.Location = New System.Drawing.Point(299, 9)
+        Me.lbl_TitleEmployee.Name = "lbl_TitleEmployee"
+        Me.lbl_TitleEmployee.Size = New System.Drawing.Size(353, 45)
+        Me.lbl_TitleEmployee.TabIndex = 25
+        Me.lbl_TitleEmployee.Text = "EMPLOYEE LIST"
         '
         'Button1
         '
@@ -387,15 +271,15 @@ Partial Class Employee
         Me.Button1.Text = "Upload"
         Me.Button1.UseVisualStyleBackColor = False
         '
-        'Label11
+        'lbl_Department
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(17, 352)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(118, 23)
-        Me.Label11.TabIndex = 52
-        Me.Label11.Text = "Department:"
+        Me.lbl_Department.AutoSize = True
+        Me.lbl_Department.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Department.Location = New System.Drawing.Point(17, 352)
+        Me.lbl_Department.Name = "lbl_Department"
+        Me.lbl_Department.Size = New System.Drawing.Size(118, 23)
+        Me.lbl_Department.TabIndex = 52
+        Me.lbl_Department.Text = "Department:"
         '
         'cb_Department
         '
@@ -418,42 +302,106 @@ Partial Class Employee
         Me.PictureBox1.TabIndex = 50
         Me.PictureBox1.TabStop = False
         '
-        'Employee
+        'dgrv_Employee
+        '
+        Me.dgrv_Employee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgrv_Employee.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.EmployeeName, Me.phone, Me.address, Me.gender, Me.birthday, Me.email})
+        Me.dgrv_Employee.Location = New System.Drawing.Point(35, 612)
+        Me.dgrv_Employee.Name = "dgrv_Employee"
+        Me.dgrv_Employee.RowHeadersWidth = 51
+        Me.dgrv_Employee.RowTemplate.Height = 24
+        Me.dgrv_Employee.Size = New System.Drawing.Size(868, 190)
+        Me.dgrv_Employee.TabIndex = 54
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "EmployeeID"
+        Me.Column1.MinimumWidth = 6
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Width = 125
+        '
+        'EmployeeName
+        '
+        Me.EmployeeName.HeaderText = "Name"
+        Me.EmployeeName.MinimumWidth = 6
+        Me.EmployeeName.Name = "EmployeeName"
+        Me.EmployeeName.Width = 125
+        '
+        'phone
+        '
+        Me.phone.HeaderText = "Phone"
+        Me.phone.MinimumWidth = 6
+        Me.phone.Name = "phone"
+        Me.phone.Width = 125
+        '
+        'address
+        '
+        Me.address.HeaderText = "Address"
+        Me.address.MinimumWidth = 6
+        Me.address.Name = "address"
+        Me.address.Width = 125
+        '
+        'gender
+        '
+        Me.gender.HeaderText = "Gender"
+        Me.gender.MinimumWidth = 6
+        Me.gender.Name = "gender"
+        Me.gender.Width = 125
+        '
+        'birthday
+        '
+        Me.birthday.HeaderText = "Birthday"
+        Me.birthday.MinimumWidth = 6
+        Me.birthday.Name = "birthday"
+        Me.birthday.Width = 125
+        '
+        'email
+        '
+        Me.email.HeaderText = "Email"
+        Me.email.MinimumWidth = 6
+        Me.email.Name = "email"
+        Me.email.Width = 125
+        '
+        'frm_Employee
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
+        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1347, 881)
+        Me.Controls.Add(Me.dgrv_Employee)
         Me.Controls.Add(Me.cb_Department)
-        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.lbl_Department)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.btn_Close)
         Me.Controls.Add(Me.btn_Delete)
         Me.Controls.Add(Me.btn_Update)
         Me.Controls.Add(Me.btn_Add)
-        Me.Controls.Add(Me.dgrv_Employee)
         Me.Controls.Add(Me.txt_Email)
-        Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.dt_Birthday)
-        Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.RadioButton2)
-        Me.Controls.Add(Me.RadioButton1)
-        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.lbl_Email)
+        Me.Controls.Add(Me.dtp_Birthday)
+        Me.Controls.Add(Me.lbl_Birthday)
+        Me.Controls.Add(Me.rdo_Female)
+        Me.Controls.Add(Me.rdo_Male)
+        Me.Controls.Add(Me.lbl_Gender)
         Me.Controls.Add(Me.txt_Address)
-        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.lbl_Address)
         Me.Controls.Add(Me.txt_Phone)
-        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.lbl_Phone)
         Me.Controls.Add(Me.txt_Name)
-        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.lbl_Name)
         Me.Controls.Add(Me.txt_EmployeeID)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lbl_EmployeeID)
+        Me.Controls.Add(Me.lbl_TitleEmployee)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Name = "Employee"
-        Me.Text = "Employee"
-        CType(Me.dgrv_Employee, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Name = "frm_Employee"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "employees"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgrv_Employee, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -463,33 +411,33 @@ Partial Class Employee
     Friend WithEvents btn_Delete As Button
     Friend WithEvents btn_Update As Button
     Friend WithEvents btn_Add As Button
-    Friend WithEvents dgrv_Employee As DataGridView
     Friend WithEvents txt_Email As TextBox
-    Friend WithEvents Label8 As Label
-    Private WithEvents dt_Birthday As DateTimePicker
-    Friend WithEvents Label7 As Label
-    Friend WithEvents RadioButton2 As RadioButton
-    Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents Label6 As Label
+    Friend WithEvents lbl_Email As Label
+    Private WithEvents dtp_Birthday As DateTimePicker
+    Friend WithEvents lbl_Birthday As Label
+    Friend WithEvents rdo_Female As RadioButton
+    Friend WithEvents rdo_Male As RadioButton
+    Friend WithEvents lbl_Gender As Label
     Friend WithEvents txt_Address As TextBox
-    Friend WithEvents Label5 As Label
+    Friend WithEvents lbl_Address As Label
     Friend WithEvents txt_Phone As TextBox
-    Friend WithEvents Label4 As Label
+    Friend WithEvents lbl_Phone As Label
     Friend WithEvents txt_Name As TextBox
-    Friend WithEvents Label3 As Label
+    Friend WithEvents lbl_Name As Label
     Friend WithEvents txt_EmployeeID As TextBox
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lbl_EmployeeID As Label
+    Friend WithEvents lbl_TitleEmployee As Label
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Button1 As Button
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column4 As DataGridViewTextBoxColumn
-    Friend WithEvents Column5 As DataGridViewTextBoxColumn
-    Friend WithEvents Column6 As DataGridViewTextBoxColumn
-    Friend WithEvents Column7 As DataGridViewTextBoxColumn
-    Friend WithEvents Column8 As DataGridViewTextBoxColumn
-    Friend WithEvents Label11 As Label
+    Friend WithEvents lbl_Department As Label
     Friend WithEvents cb_Department As ComboBox
+    Friend WithEvents dgrv_Employee As DataGridView
+    Friend WithEvents name1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents EmployeeName As DataGridViewTextBoxColumn
+    Friend WithEvents phone As DataGridViewTextBoxColumn
+    Friend WithEvents address As DataGridViewTextBoxColumn
+    Friend WithEvents gender As DataGridViewTextBoxColumn
+    Friend WithEvents birthday As DataGridViewTextBoxColumn
+    Friend WithEvents email As DataGridViewTextBoxColumn
 End Class

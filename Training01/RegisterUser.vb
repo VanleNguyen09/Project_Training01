@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Text.RegularExpressions
 
 Public Class RegisterUser
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
