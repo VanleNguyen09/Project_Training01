@@ -38,6 +38,7 @@ Public Class Dashboard
     End Sub
 
     Private Sub Dashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Label1.BackColor = Color.Transparent
         Dim con As SqlConnection
 
         con = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
