@@ -64,4 +64,10 @@ Public Class Dashboard
         '    End If
         'End Using
     End Sub
+
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        Me.Hide()
+        Dim posMenu As New PositionMenu
+        posMenu.Show()
+    End Sub
 End Class
