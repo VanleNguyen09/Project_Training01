@@ -14,7 +14,7 @@
         Shared emptyDataErrorMessage As String = "Please fill full data!!!"
         Shared emailInvalidMessage As String = "Please fill an valid email!!!"
         Shared phoneInvalidMessage As String = "Please fill an valid phone number!!!"
-        Shared errorInvalidSearch As String = "Cannot find the matching employee!!!"
+        Shared errorInvalidSearch As String = "Cannot find the matching result!!!"
         Shared emptyDataSearchMessage As String = "Please enter search keyword!!!"
         Shared confirmedDelete As String = "Do you confirm delete?"
         Shared selectedRowError As String = "Please select at least one row!"

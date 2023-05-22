@@ -93,9 +93,26 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+
         Friend ReadOnly Property close_btn() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("close-btn", resourceCulture)
+            End Get
+        End Property
+  
+        Friend ReadOnly Property blue_exit_icon_16() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("blue-exit-icon-16", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property icon_close() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("icon_close", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
