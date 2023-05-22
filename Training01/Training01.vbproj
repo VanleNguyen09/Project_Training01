@@ -79,6 +79,12 @@
     <Compile Include="Dashboard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="EmpByPos.Designer.vb">
+      <DependentUpon>EmpByPos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EmpByPos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Employee.Designer.vb">
       <DependentUpon>Employee.vb</DependentUpon>
     </Compile>
@@ -114,6 +120,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PositionMenu.Designer.vb">
+      <DependentUpon>PositionMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PositionMenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Register.Designer.vb">
       <DependentUpon>Register.vb</DependentUpon>
     </Compile>
@@ -131,6 +143,9 @@
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EmpByPos.resx">
+      <DependentUpon>EmpByPos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Employee.resx">
       <DependentUpon>Employee.vb</DependentUpon>
     </EmbeddedResource>
@@ -145,6 +160,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PositionMenu.resx">
+      <DependentUpon>PositionMenu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.vb</DependentUpon>
