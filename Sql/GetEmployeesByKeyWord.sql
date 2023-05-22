@@ -15,7 +15,8 @@ BEGIN
 	ON a.id = b.emp_id
 	JOIN dbo.Department c
 	ON c.id = b.dept_id
-	WHERE a.name  LIKE '%' + @keyword  + '%' OR 
+	WHERE a.id LIKE @keyword OR 
+	a.name LIKE '%' + @keyword  + '%' OR 
 	phone LIKE '%' + @keyword + '%' OR
 	a.address  LIKE '%' + @keyword + '%'
 	OR a.email LIKE '%' + @keyword + '%'
@@ -24,5 +25,3 @@ BEGIN
 	
 END
 
-
-EXEC dbo.GetEmployeesByKeyWord @keyword = N'%Thoảng%' 

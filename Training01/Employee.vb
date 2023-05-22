@@ -293,6 +293,11 @@ Public Class frm_Employee
             Exit Sub
         End If
 
+        If CInt(cb_Department.SelectedItem.hiddenValue) = -1 Then
+            MessageBox.Show("Please select a department!", titleMsgBox, buttons, icons)
+            Return
+        End If
+
         If FuntionCommon.Validation.ValidatePhone(phone) Then
         Else
             MessageBox.Show(Message.Message.phoneInvalidMessage, titleMsgBox, buttons, icons)
@@ -336,6 +341,11 @@ Public Class frm_Employee
         If Not FuntionCommon.Validation.IsEmail(email) Then
             MessageBox.Show(Message.Message.emailInvalidMessage, titleMsgBox, buttons, icons)
             Exit Sub
+        End If
+
+        If CInt(cb_Department.SelectedItem.hiddenValue) = -1 Then
+            MessageBox.Show("Please select a department!", titleMsgBox, buttons, icons)
+            Return
         End If
 
         If Not FuntionCommon.Validation.ValidatePhone(phone) Then
@@ -477,10 +487,6 @@ Public Class frm_Employee
         End If
     End Sub
 
-    Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
-
-    End Sub
-
     Private Sub btn_Search_Click(sender As Object, e As EventArgs) Handles btn_Search.Click
         Dim keyword As String = txt_Search.Text.Trim()
         If Not String.IsNullOrEmpty(keyword) Then
@@ -491,8 +497,6 @@ Public Class frm_Employee
     End Sub
 
     Private Sub btn_Reset_Click(sender As Object, e As EventArgs) Handles btn_Reset.Click
-        'ClearForm()
-        'EnableAdd()
         txt_EmployeeID.Text = selectedEmployees.id
         txt_Name.Text = selectedEmployees.name
         txt_Phone.Text = selectedEmployees.phone
@@ -512,5 +516,11 @@ Public Class frm_Employee
     Private Sub btn_Clear_Click(sender As Object, e As EventArgs) Handles btn_Clear.Click
         ClearForm()
         EnableAdd()
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
+        Me.Hide()
+        Dim dashboard As New Dashboard
+        dashboard.Show()
     End Sub
 End Class
