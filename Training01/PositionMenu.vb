@@ -45,4 +45,14 @@
         Dim empByPos As New EmpByPos
         empByPos.Show()
     End Sub
+
+    Private Sub btnPosition_Click(sender As Object, e As EventArgs) Handles btnPosition.Click
+        Me.Hide()
+        Dim position As New Position
+        position.Show()
+    End Sub
+
+    Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
+        Environment.Exit(0)
+    End Sub
 End Class
