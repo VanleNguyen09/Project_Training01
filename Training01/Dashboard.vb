@@ -41,4 +41,10 @@ Public Class Dashboard
         Dim posMenu As New PositionMenu
         posMenu.Show()
     End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        Me.Hide()
+        Dim Department As New frm_Department
+        Department.Show()
+    End Sub
 End Class

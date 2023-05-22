@@ -79,6 +79,12 @@
     <Compile Include="Dashboard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Department.Designer.vb">
+      <DependentUpon>Department.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Department.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EmpByPos.Designer.vb">
       <DependentUpon>EmpByPos.vb</DependentUpon>
     </Compile>
@@ -120,6 +126,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Position.Designer.vb">
+      <DependentUpon>Position.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Position.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PositionMenu.Designer.vb">
       <DependentUpon>PositionMenu.vb</DependentUpon>
     </Compile>
@@ -143,6 +155,9 @@
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Department.resx">
+      <DependentUpon>Department.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EmpByPos.resx">
       <DependentUpon>EmpByPos.vb</DependentUpon>
     </EmbeddedResource>
@@ -160,6 +175,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Position.resx">
+      <DependentUpon>Position.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PositionMenu.resx">
       <DependentUpon>PositionMenu.vb</DependentUpon>
@@ -196,6 +214,7 @@
   <ItemGroup>
     <Content Include="Resources\avatar2.jpg" />
     <Content Include="Resources\avatar3.jpg" />
+    <None Include="Resources\close-btn.jpg" />
     <None Include="Resources\BackgroundLogin.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
