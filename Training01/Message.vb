@@ -16,5 +16,13 @@
         Shared phoneInvalidMessage As String = "Please fill an valid phone number!!!"
         Shared errorInvalidSearch As String = "Cannot find the matching result!!!"
         Shared emptyDataSearchMessage As String = "Please enter search keyword!!!"
+        Shared confirmedDelete As String = "Do you confirm delete?"
+        Shared selectedRowError As String = "Please select at least one row!"
+        Shared selectedPositionError As String = "Please select position in combobox!"
+        Shared successfully As String = "Successfully!"
+        Shared confirmedDelete As String = "Do you confirm delete?"
+        Shared selectedRowError As String = "Please select at least one row!"
+        Shared selectedPositionError As String = "Please select position in combobox!"
+        Shared successfully As String = "Successfully!"
     End Structure
 End Class

@@ -25,6 +25,8 @@ Partial Class PositionMenu
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnEmployee = New System.Windows.Forms.Button()
         Me.btnPosition = New System.Windows.Forms.Button()
+        Me.closeApp = New System.Windows.Forms.PictureBox()
+        CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -63,6 +65,17 @@ Partial Class PositionMenu
         Me.btnPosition.Text = "MANAGE POSITIONS"
         Me.btnPosition.UseVisualStyleBackColor = False
         '
+        'closeApp
+        '
+        Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.closeApp.Image = Global.Training01.My.Resources.Resources.close_btn
+        Me.closeApp.Location = New System.Drawing.Point(386, 2)
+        Me.closeApp.Name = "closeApp"
+        Me.closeApp.Size = New System.Drawing.Size(33, 32)
+        Me.closeApp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.closeApp.TabIndex = 2
+        Me.closeApp.TabStop = False
+        '
         'PositionMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -70,6 +83,7 @@ Partial Class PositionMenu
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(421, 344)
+        Me.Controls.Add(Me.closeApp)
         Me.Controls.Add(Me.btnPosition)
         Me.Controls.Add(Me.btnEmployee)
         Me.Controls.Add(Me.Label1)
@@ -77,6 +91,7 @@ Partial Class PositionMenu
         Me.Name = "PositionMenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Position"
+        CType(Me.closeApp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -85,4 +100,5 @@ Partial Class PositionMenu
     Friend WithEvents Label1 As Label
     Friend WithEvents btnEmployee As Button
     Friend WithEvents btnPosition As Button
+    Friend WithEvents closeApp As PictureBox
 End Class
