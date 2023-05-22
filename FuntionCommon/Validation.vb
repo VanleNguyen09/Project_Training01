@@ -12,7 +12,7 @@ Public Class Validation
     End Function
   
     Shared Function ValidatePhone(phoneNumber As String) As Boolean
-        Dim phone_regex As String = "^\d{3}-\d{3}-\d{4}$"
+        Dim phone_regex As String = "^\d{10}$"
         Return Regex.IsMatch(phoneNumber, phone_regex)
     End Function
   
