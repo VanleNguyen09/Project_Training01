@@ -4,15 +4,20 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE UpdateEmployees
+USE EmployeeManagement
+GO	
+
+ALTER PROCEDURE UpdateEmployees
 	-- Add the parameters for the stored procedure here
 	@id INT,
-    @name nvarchar(255),
+	@department_id INT,
+    @name NVARCHAR(255),
     @phone VARCHAR(20),
     @address NVARCHAR(255),
-	@gender bit,
-    @birthday datetime,
-    @email varchar(255)
+	@gender BIT,
+    @birthday DATETIME,
+    @email VARCHAR(255),
+	@image VARBINARY(MAX)
 AS
 BEGIN
 	UPDATE Employees
@@ -21,26 +26,34 @@ BEGIN
 		address = @address,
 		gender = @gender,
 		birthday = @birthday,
-		email = @email
+		email = @email,
+		image = @image
 	WHERE id = @id
+	UPDATE dbo.Dept_emp
+	SET dept_id = @department_id
+	WHERE emp_id = @id
 END
 GO
 
 
-CREATE PROCEDURE UpdateEmployees1
-	-- Add the parameters for the stored procedure here
-	@id INT,
-    @name nvarchar(255),
-    @phone VARCHAR(20),
-	@birthday DATETIME
-AS
-BEGIN
-	UPDATE Employees
-	SET name = @name,
-		phone = @phone,
-		birthday = @birthday
-	WHERE id = @id
-END
-GO
 
-DROP PROCEDURE dbo.UpdateEmployees1
+
+
+--CREATE PROCEDURE UpdateEmployees1
+--	-- Add the parameters for the stored procedure here
+--	@id INT,
+--    @name nvarchar(255),
+--    @phone VARCHAR(20),
+--	@birthday DATETIME
+--AS
+--BEGIN
+--	UPDATE Employees
+--	SET name = @name,
+--		phone = @phone,
+--		birthday = @birthday
+--	WHERE id = @id
+--END
+--GO
+
+
+--DROP PROCEDURE dbo.UpdateEmployees1
