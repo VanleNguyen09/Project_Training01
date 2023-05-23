@@ -11,6 +11,5 @@ ALTER PROCEDURE [dbo].[GetDepartmentsByKeyWord]
 AS
 BEGIN
 	SELECT * FROM dbo.Department
-	WHERE id = @keyword OR name  LIKE '%' + @keyword  + '%'
-	
+	WHERE id LIKE @keyword OR name  LIKE '%' + @keyword  + '%'	
 END

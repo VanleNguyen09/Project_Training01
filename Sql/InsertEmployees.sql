@@ -1,6 +1,5 @@
 USE [EmployeeManagement]
 GO
-/****** Object:  StoredProcedure [dbo].[InsertEmployees]    Script Date: 19/05/23 11:34:19 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -27,8 +26,7 @@ BEGIN
 	    email,
 		image
 	)
-	VALUES
-         (@name, @phone, @address, @gender, @birthday, @email, @image)
+	VALUES(@name, @phone, @address, @gender, @birthday, @email, @image)
 	DECLARE @generated_id INT
 	SET @generated_id = SCOPE_IDENTITY()
 	INSERT INTO dbo.Dept_emp(emp_id, dept_id)
