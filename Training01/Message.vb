@@ -22,6 +22,9 @@
         Shared successfully As String = "Successfully!"
         Shared confirmedUpdate As String = "Do you confirm update?"
         Shared nothingChange As String = "Nothing changed in DataTable!"
+        Shared errorInvalidId As String = "Invalid ID. Please enter a numeric value!!!"
+        Shared errorInvalidSalary As String = "Invalid Salary. Please enter a numeric value!!!"
+        Shared errorInvalidDate As String = "Invalid date range. The 'From Date' cannot be greater than the 'To Date'!!!"
     End Structure
 
     Public Structure Title
