@@ -20,5 +20,13 @@
         Shared selectedRowError As String = "Please select at least one row!"
         Shared selectedPositionError As String = "Please select position in combobox!"
         Shared successfully As String = "Successfully!"
+        Shared confirmedUpdate As String = "Do you confirm update?"
+        Shared nothingChange As String = "Nothing changed in DataTable!"
+    End Structure
+
+    Public Structure Title
+        Shared [error] As String = "ERROR"
+        Shared success As String = "SUCCESS"
+        Shared notif As String = "NOTIFICATION"
     End Structure
 End Class
