@@ -85,7 +85,7 @@ Public Class EmpByPos
         Dim posId As Integer = cbPosCreate.SelectedItem.Key
         Dim posIndex As Integer = cbPosCreate.SelectedIndex
 
-        Dim titleMsgBox = "ERROR"
+        Dim titleMsgBox = Message.Title.error
         Dim buttons = MessageBoxButtons.OK
 
         'Validations for Add comboboxes
@@ -107,7 +107,7 @@ Public Class EmpByPos
                 cmd.Parameters.AddWithValue("pos_id", posId)
                 Try
                     cmd.ExecuteNonQuery()
-                    titleMsgBox = "SUCCESS"
+                    titleMsgBox = Message.Title.success
                     MessageBox.Show(Message.Message.successfullAddPosForThisEmp, titleMsgBox, buttons)
 
                     'Reload Data
@@ -140,7 +140,7 @@ Public Class EmpByPos
         End If
 
         'Confirm Delete
-        Dim result As DialogResult = MessageBox.Show(Message.Message.confirmedDelete, "NOTIFICATION", MessageBoxButtons.YesNo)
+        Dim result As DialogResult = MessageBox.Show(Message.Message.confirmedDelete, Message.Title.notif, MessageBoxButtons.YesNo)
         Select Case result
             Case DialogResult.No
                 Exit Sub
@@ -173,7 +173,7 @@ Public Class EmpByPos
                 Finally
                     con.Close()
                 End Try
-                MessageBox.Show(Message.Message.successfullDeleteEmpPos, "NOTIFICATION", MessageBoxButtons.OK)
+                MessageBox.Show(Message.Message.successfullDeleteEmpPos, Message.Title.notif, MessageBoxButtons.OK)
                 'Reload Data
                 LoadDgvEmps(posId)
         End Select

@@ -25,7 +25,7 @@ Public Class RegisterUser
         Dim password As String = txtPassword.Text.Trim()
         Dim cPassword As String = txtConfirmPassword.Text.Trim()
         Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
-        Dim titleMsgBox As String = "ERROR"
+        Dim titleMsgBox As String = Message.Title.error
 
         'Validations
         If email = String.Empty OrElse fullName = String.Empty OrElse password = String.Empty OrElse cPassword = String.Empty Then
@@ -81,7 +81,7 @@ Public Class RegisterUser
                     Dim subReader As SqlDataReader = subCommand.ExecuteReader()
                 End Using
 
-                Dim result As DialogResult = MessageBox.Show(Message.Message.successfulregisterMsg, "Notification", MessageBoxButtons.OK)
+                Dim result As DialogResult = MessageBox.Show(Message.Message.successfulregisterMsg, Message.Title.success, MessageBoxButtons.OK)
                 If result = DialogResult.OK Then
                     'Switch to Login Form and fill email to email textbox
                     Dim login As New Login
