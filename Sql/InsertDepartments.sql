@@ -14,5 +14,6 @@ BEGIN
 	INSERT INTO dbo.Department(name)
     VALUES(@name)
 END
+GO	
 
-EXEC dbo.InsertDepartments @name = N'BrSE'
+--EXEC dbo.InsertDepartments @name = N'BrSE'

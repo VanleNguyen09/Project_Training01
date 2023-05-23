@@ -6,14 +6,12 @@ GO
 USE EmployeeManagement
 GO	
 
-ALTER PROCEDURE DeleteDepartment
+CREATE PROCEDURE DeleteSalaries
 	-- Add the parameters for the stored procedure here
 	@id INT
 AS
-BEGIN	
-	DELETE FROM	dbo.Dept_emp
-	WHERE dept_id = @id
-	DELETE FROM dbo.Department
+BEGIN
+	DELETE FROM dbo.Salaries
 	WHERE id = @id
 END
 GO

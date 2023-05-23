@@ -37,12 +37,12 @@ Partial Class Dashboard
         Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.Button8 = New System.Windows.Forms.Button()
+        Me.btn_Department = New System.Windows.Forms.Button()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.Panel9 = New System.Windows.Forms.Panel()
-        Me.Button10 = New System.Windows.Forms.Button()
+        Me.btn_Salary = New System.Windows.Forms.Button()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Button9 = New System.Windows.Forms.Button()
@@ -208,7 +208,7 @@ Partial Class Dashboard
         '
         Me.Panel4.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel4.Controls.Add(Me.Button8)
+        Me.Panel4.Controls.Add(Me.btn_Department)
         Me.Panel4.Controls.Add(Me.Panel3)
         Me.Panel4.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Panel4.Location = New System.Drawing.Point(-3, -2)
@@ -217,17 +217,17 @@ Partial Class Dashboard
         Me.Panel4.Size = New System.Drawing.Size(149, 175)
         Me.Panel4.TabIndex = 13
         '
-        'Button8
+        'btn_Department
         '
-        Me.Button8.BackColor = System.Drawing.SystemColors.HotTrack
-        Me.Button8.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Button8.Location = New System.Drawing.Point(-3, 137)
-        Me.Button8.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(149, 37)
-        Me.Button8.TabIndex = 2
-        Me.Button8.Text = "Department"
-        Me.Button8.UseVisualStyleBackColor = False
+        Me.btn_Department.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.btn_Department.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btn_Department.Location = New System.Drawing.Point(-3, 137)
+        Me.btn_Department.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.btn_Department.Name = "btn_Department"
+        Me.btn_Department.Size = New System.Drawing.Size(149, 37)
+        Me.btn_Department.TabIndex = 2
+        Me.btn_Department.Text = "Department"
+        Me.btn_Department.UseVisualStyleBackColor = False
         '
         'Panel3
         '
@@ -265,7 +265,7 @@ Partial Class Dashboard
         '
         Me.Panel9.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Panel9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel9.Controls.Add(Me.Button10)
+        Me.Panel9.Controls.Add(Me.btn_Salary)
         Me.Panel9.Controls.Add(Me.Panel11)
         Me.Panel9.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Panel9.Location = New System.Drawing.Point(1104, 247)
@@ -274,17 +274,17 @@ Partial Class Dashboard
         Me.Panel9.Size = New System.Drawing.Size(149, 171)
         Me.Panel9.TabIndex = 14
         '
-        'Button10
+        'btn_Salary
         '
-        Me.Button10.BackColor = System.Drawing.SystemColors.HotTrack
-        Me.Button10.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Button10.Location = New System.Drawing.Point(-3, 137)
-        Me.Button10.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(149, 37)
-        Me.Button10.TabIndex = 2
-        Me.Button10.Text = "Salary"
-        Me.Button10.UseVisualStyleBackColor = False
+        Me.btn_Salary.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.btn_Salary.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btn_Salary.Location = New System.Drawing.Point(-3, 137)
+        Me.btn_Salary.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.btn_Salary.Name = "btn_Salary"
+        Me.btn_Salary.Size = New System.Drawing.Size(149, 37)
+        Me.btn_Salary.TabIndex = 2
+        Me.btn_Salary.Text = "Salary"
+        Me.btn_Salary.UseVisualStyleBackColor = False
         '
         'Panel11
         '
@@ -382,13 +382,13 @@ Partial Class Dashboard
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Panel4 As Panel
-    Friend WithEvents Button8 As Button
+    Friend WithEvents btn_Department As Button
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Button7 As Button
     Friend WithEvents Panel8 As Panel
     Friend WithEvents Panel5 As Panel
     Friend WithEvents Panel9 As Panel
-    Friend WithEvents Button10 As Button
+    Friend WithEvents btn_Salary As Button
     Friend WithEvents Panel11 As Panel
     Friend WithEvents Panel10 As Panel
     Friend WithEvents Button9 As Button

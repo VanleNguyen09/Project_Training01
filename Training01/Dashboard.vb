@@ -42,9 +42,15 @@ Public Class Dashboard
         posMenu.Show()
     End Sub
 
-    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+    Private Sub btn_Department_Click(sender As Object, e As EventArgs) Handles btn_Department.Click
         Me.Hide()
         Dim Department As New frm_Department
+        Department.Show()
+    End Sub
+
+    Private Sub btn_Salary_Click(sender As Object, e As EventArgs) Handles btn_Salary.Click
+        Me.Hide()
+        Dim Department As New frm_Salary
         Department.Show()
     End Sub
 End Class

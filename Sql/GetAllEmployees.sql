@@ -12,11 +12,6 @@ BEGIN
 	SELECT * FROM dbo.Employees
 END
 
---SELECT * FROM dbo.Employees
-
-EXEC dbo.GetAllEmployees
-
-
 
 
 
