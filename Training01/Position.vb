@@ -2,6 +2,7 @@
 
 Public Class Position
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
+    Dim DGVhasChanged As Boolean
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles appClose.Click
         Environment.Exit(0)
@@ -39,6 +40,7 @@ Public Class Position
                 While reader.Read
                     dgvPositions.Rows.Add(New String() {reader("id"), reader("name")})
                 End While
+                DGVhasChanged = False
             End Using
         Catch ex As Exception
             MsgBox($"ERROR Load DGVPosition: {ex.Message}")
@@ -63,7 +65,7 @@ Public Class Position
                 cmd.Parameters.AddWithValue("name", txtPosName.Text.Trim())
                 cmd.ExecuteNonQuery()
 
-                MessageBox.Show(Message.Message.successfully, "NOTIFICATION", MessageBoxButtons.OK)
+                MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
                 Load_DGVPosition()
             End Using
         Catch ex As Exception
@@ -77,7 +79,7 @@ Public Class Position
         Dim senderGrid = DirectCast(sender, DataGridView)
         If TypeOf senderGrid.Columns(e.ColumnIndex) Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
             'Confirm Delete
-            Dim result As DialogResult = MessageBox.Show(Message.Message.confirmedDelete + " The employees involved will be deleted", "NOTIFICATION", MessageBoxButtons.YesNo)
+            Dim result As DialogResult = MessageBox.Show(Message.Message.confirmedDelete + " The employees involved will be deleted", Message.Title.notif, MessageBoxButtons.YesNo)
 
             Select Case result
                 Case DialogResult.No
@@ -97,7 +99,7 @@ Public Class Position
                             cmd.Parameters.AddWithValue("pos_id", posId)
                             cmd.ExecuteNonQuery()
 
-                            MessageBox.Show(Message.Message.successfully, "NOTIFICATION", MessageBoxButtons.OK)
+                            MessageBox.Show(Message.Message.successfully, Message.Title.notif, MessageBoxButtons.OK)
                             Load_DGVPosition()
                         End Using
                     Catch ex As Exception
@@ -113,5 +115,54 @@ Public Class Position
         Me.Hide()
         Dim empByPos As New EmpByPos
         empByPos.Show()
+    End Sub
+
+    Private Sub btnUpdateAll_Click(sender As Object, e As EventArgs) Handles btnUpdateAll.Click
+        If Not DGVhasChanged Then
+            MessageBox.Show(Message.Message.nothingChange, Message.Title.notif, MessageBoxButtons.OK)
+            Exit Sub
+        End If
+
+        Dim posId As Integer
+        Dim editedName As String
+
+        'Confirm Update All
+        Dim result As DialogResult = MessageBox.Show(Message.Message.confirmedUpdate + " The employees involved will be updated", Message.Title.notif, MessageBoxButtons.YesNo)
+
+        Select Case result
+            Case DialogResult.No
+                Exit Sub
+            Case DialogResult.Yes
+                Dim sql = "UpdatePositionById"
+
+                For i = 0 To dgvPositions.Rows.Count - 1
+                    posId = dgvPositions.Rows(i).Cells(0).Value
+                    editedName = dgvPositions.Rows(i).Cells(1).Value
+
+                    'Update Position By Id
+                    Try
+                        If con.State() <> 1 Then
+                            con.Open()
+                        End If
+                        Using cmd As SqlCommand = New SqlCommand(sql, con)
+                            cmd.CommandType = CommandType.StoredProcedure
+                            cmd.Parameters.AddWithValue("pos_id", posId)
+                            cmd.Parameters.AddWithValue("name", editedName)
+                            cmd.ExecuteNonQuery()
+                        End Using
+                    Catch ex As Exception
+                        MsgBox($"{ex.Message}")
+                        Exit Sub
+                    Finally
+                        con.Close()
+                    End Try
+                Next
+                MessageBox.Show(Message.Message.successfully, Message.Title.notif, MessageBoxButtons.OK)
+                Load_DGVPosition()
+        End Select
+    End Sub
+
+    Private Sub dgvPositions_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPositions.CellValueChanged
+        DGVhasChanged = True
     End Sub
 End Class

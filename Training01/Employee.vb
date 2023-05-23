@@ -35,9 +35,7 @@ Public Class frm_Employee
         Public Sub New()
         End Sub
 
-
     End Class
-
     Private selectedEmployees As Selected_Employees = New Selected_Employees()
 
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -236,6 +234,7 @@ Public Class frm_Employee
 
     End Sub
 
+
     Private Sub SearchEmployeesByKeyword(keyword As String)
         Console.WriteLine(keyword)
         If con.State <> 1 Then
@@ -243,6 +242,7 @@ Public Class frm_Employee
         End If
 
         dgrv_Employee.Rows.Clear()
+
         Using cmd As SqlCommand = New SqlCommand("GetEmployeesByKeyWord", con)
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@keyword", keyword)
@@ -403,19 +403,19 @@ Public Class frm_Employee
         Dim id As Integer = Convert.ToInt32(txt_EmployeeID.Text)
         Dim selectedRows As DataGridViewSelectedRowCollection = dgrv_Employee.SelectedRows
 
-        If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected employees?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+        If selectedRows.Count >= 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected employee?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             For Each selectedRow As DataGridViewRow In selectedRows
-
                 dgrv_Employee.Rows.Remove(selectedRow)
             Next
+            Delete_Employee(id)
+            ClearForm()
+            EnableAdd()
+
+        Else
+            MessageBox.Show("Deletion canceled.", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
-        Delete_Employee(id)
-        ClearForm()
-        EnableAdd()
 
     End Sub
-
-
 
     Private Sub txt_Phone_TextChanged(sender As Object, e As EventArgs) Handles txt_Phone.TextChanged
         Dim phone As String = txt_Phone.Text
@@ -493,7 +493,7 @@ Public Class frm_Employee
             SearchEmployeesByKeyword(keyword)
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
-        End if
+        End If
     End Sub
 
     Private Sub btn_Reset_Click(sender As Object, e As EventArgs) Handles btn_Reset.Click

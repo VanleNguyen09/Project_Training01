@@ -7,7 +7,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 ALTER PROCEDURE [dbo].[GetEmployeeByDepartment]
 	@department_id INT
-as
+AS
 
 BEGIN
 	SELECT e.*, c.name AS department_name FROM dbo.Employees AS e
@@ -20,10 +20,3 @@ BEGIN
 END
 
 EXEC dbo.GetEmployeeByDepartment @department_id = 1
-
-
---SELECT b.dept_id, a.* FROM dbo.Employees AS a
---JOIN dbo.Dept_emp AS b
---ON a.id = b.emp_id
---WHERE b.emp_id = '1'
-

@@ -1,4 +1,3 @@
-
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34,26 +33,3 @@ BEGIN
 	WHERE emp_id = @id
 END
 GO
-
-
-
-
-
---CREATE PROCEDURE UpdateEmployees1
---	-- Add the parameters for the stored procedure here
---	@id INT,
---    @name nvarchar(255),
---    @phone VARCHAR(20),
---	@birthday DATETIME
---AS
---BEGIN
---	UPDATE Employees
---	SET name = @name,
---		phone = @phone,
---		birthday = @birthday
---	WHERE id = @id
---END
---GO
-
-
---DROP PROCEDURE dbo.UpdateEmployees1

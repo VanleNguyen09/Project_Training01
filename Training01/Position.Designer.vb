@@ -25,6 +25,8 @@ Partial Class Position
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Position))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvPositions = New System.Windows.Forms.DataGridView()
+        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -34,8 +36,6 @@ Partial Class Position
         Me.appClose = New System.Windows.Forms.PictureBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btnEmpByPos = New System.Windows.Forms.Button()
-        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnUpdateAll = New System.Windows.Forms.Button()
         CType(Me.dgvPositions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -63,6 +63,19 @@ Partial Class Position
         Me.dgvPositions.Name = "dgvPositions"
         Me.dgvPositions.Size = New System.Drawing.Size(348, 282)
         Me.dgvPositions.TabIndex = 1
+        '
+        'id
+        '
+        Me.id.HeaderText = "ID"
+        Me.id.Name = "id"
+        Me.id.ReadOnly = True
+        Me.id.Width = 80
+        '
+        'pos_name
+        '
+        Me.pos_name.HeaderText = "Name"
+        Me.pos_name.Name = "pos_name"
+        Me.pos_name.Width = 120
         '
         'txtSearch
         '
@@ -165,19 +178,6 @@ Partial Class Position
         Me.btnEmpByPos.TabIndex = 3
         Me.btnEmpByPos.Text = "EMPLOYEES LIST BY POSITION"
         Me.btnEmpByPos.UseVisualStyleBackColor = False
-        '
-        'id
-        '
-        Me.id.HeaderText = "ID"
-        Me.id.Name = "id"
-        Me.id.ReadOnly = True
-        Me.id.Width = 80
-        '
-        'pos_name
-        '
-        Me.pos_name.HeaderText = "Name"
-        Me.pos_name.Name = "pos_name"
-        Me.pos_name.Width = 120
         '
         'btnUpdateAll
         '
