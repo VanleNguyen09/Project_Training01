@@ -21,6 +21,3 @@ BEGIN
 	)
     VALUES(@emp_id, @dept_id, @from_date, @to_date)
 END
-
-SELECT * FROM dbo.Dept_emp
-ORDER BY dept_id

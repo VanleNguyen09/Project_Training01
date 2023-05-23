@@ -194,14 +194,17 @@ Public Class frm_Department
         Dim id As Integer = CInt(txt_DepartmentID.Text)
         Dim selectedRows As DataGridViewSelectedRowCollection = dgrv_Department.SelectedRows
 
-        If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected employees?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+        If selectedRows.Count >= 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected department? Employee involved will also be deleted", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             For Each selectedRow As DataGridViewRow In selectedRows
                 dgrv_Department.Rows.Remove(selectedRow)
             Next
+            Delete_Department(id)
+            ClearForm()
+            EnableAdd()
+        Else
+            MessageBox.Show("Deletion canceled.", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
-        Delete_Department(id)
-        ClearForm()
-        EnableAdd()
+
     End Sub
 
     Private Sub btn_Close_Click(sender As Object, e As EventArgs) Handles btn_Close.Click
