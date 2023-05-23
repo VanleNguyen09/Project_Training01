@@ -17,21 +17,4 @@ BEGIN
 	ORDER BY c.name, a.name
 END
 
---SELECT * FROM dbo.Employees
-
 EXEC dbo.GetAllEmployeesByDepartment
-
-
-
-
-
-
-
-'
-
-
-     
-	 
-	   '
-
-

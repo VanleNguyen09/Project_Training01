@@ -26,4 +26,25 @@ Public Class Validation
     Shared Function CheckConfirmPassword(ByVal pass As String, ByVal cPass As String) As Boolean
         Return pass = cPass
     End Function
+
+    Shared Function ValidateID(ByVal input As String) As Boolean
+        Dim result As Integer
+        If Integer.TryParse(input, result) Then
+            Return result > 0
+        End If
+        Return False
+    End Function
+
+    Shared Function ValidateSalary(ByVal input As String) As Boolean
+        Dim result As Single
+        If Single.TryParse(input, result) Then
+            Return result >= 0
+        End If
+        Return False
+
+    End Function
+
+    Shared Function ValidateDate(ByVal fromDate As Date, ByVal toDate As Date)
+        Return fromDate <= toDate
+    End Function
 End Class

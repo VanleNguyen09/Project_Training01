@@ -28,5 +28,8 @@
         Shared [error] As String = "ERROR"
         Shared success As String = "SUCCESS"
         Shared notif As String = "NOTIFICATION"
+        Shared errorInvalidId As String = "Invalid ID. Please enter a numeric value!!!"
+        Shared errorInvalidSalary As String = "Invalid Salary. Please enter a numeric value!!!"
+        Shared errorInvalidDate As String = "Invalid date range. The 'From Date' cannot be greater than the 'To Date'!!!"
     End Structure
 End Class
