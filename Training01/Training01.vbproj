@@ -85,6 +85,12 @@
     <Compile Include="Department.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="EditLeaveForm.Designer.vb">
+      <DependentUpon>EditLeaveForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EditLeaveForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EmpByPos.Designer.vb">
       <DependentUpon>EmpByPos.vb</DependentUpon>
     </Compile>
@@ -95,6 +101,12 @@
       <DependentUpon>Employee.vb</DependentUpon>
     </Compile>
     <Compile Include="Employee.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Leave.Designer.vb">
+      <DependentUpon>Leave.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Leave.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Loading.Designer.vb">
@@ -150,6 +162,12 @@
     <Compile Include="RegisterUser.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Salary.Designer.vb">
+      <DependentUpon>Salary.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Salary.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dashboard.resx">
@@ -158,11 +176,17 @@
     <EmbeddedResource Include="Department.resx">
       <DependentUpon>Department.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditLeaveForm.resx">
+      <DependentUpon>EditLeaveForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EmpByPos.resx">
       <DependentUpon>EmpByPos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Employee.resx">
       <DependentUpon>Employee.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Leave.resx">
+      <DependentUpon>Leave.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Loading.resx">
       <DependentUpon>Loading.vb</DependentUpon>
@@ -187,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RegisterUser.resx">
       <DependentUpon>RegisterUser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary.resx">
+      <DependentUpon>Salary.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -26,6 +26,7 @@ Partial Class PositionMenu
         Me.btnEmployee = New System.Windows.Forms.Button()
         Me.btnPosition = New System.Windows.Forms.Button()
         Me.closeApp = New System.Windows.Forms.PictureBox()
+        Me.btnExit = New System.Windows.Forms.Button()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -76,6 +77,18 @@ Partial Class PositionMenu
         Me.closeApp.TabIndex = 2
         Me.closeApp.TabStop = False
         '
+        'btnExit
+        '
+        Me.btnExit.BackColor = System.Drawing.Color.White
+        Me.btnExit.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnExit.Location = New System.Drawing.Point(64, 270)
+        Me.btnExit.Margin = New System.Windows.Forms.Padding(0)
+        Me.btnExit.Name = "btnExit"
+        Me.btnExit.Size = New System.Drawing.Size(291, 39)
+        Me.btnExit.TabIndex = 1
+        Me.btnExit.Text = "EXIT"
+        Me.btnExit.UseVisualStyleBackColor = False
+        '
         'PositionMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -84,6 +97,7 @@ Partial Class PositionMenu
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(421, 344)
         Me.Controls.Add(Me.closeApp)
+        Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.btnPosition)
         Me.Controls.Add(Me.btnEmployee)
         Me.Controls.Add(Me.Label1)
@@ -101,4 +115,5 @@ Partial Class PositionMenu
     Friend WithEvents btnEmployee As Button
     Friend WithEvents btnPosition As Button
     Friend WithEvents closeApp As PictureBox
+    Friend WithEvents btnExit As Button
 End Class

@@ -53,4 +53,10 @@ Public Class Dashboard
         Dim Department As New frm_Salary
         Department.Show()
     End Sub
+
+    Private Sub btnLeave_Click(sender As Object, e As EventArgs) Handles btnLeave.Click
+        Dim leave As New Leave
+        Me.Hide()
+        leave.Show()
+    End Sub
 End Class
