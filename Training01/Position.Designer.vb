@@ -37,6 +37,7 @@ Partial Class Position
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btnEmpByPos = New System.Windows.Forms.Button()
         Me.btnUpdateAll = New System.Windows.Forms.Button()
+        Me.btnReset = New System.Windows.Forms.Button()
         CType(Me.dgvPositions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.appClose, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -191,6 +192,18 @@ Partial Class Position
         Me.btnUpdateAll.Text = "UPDATE ALL ROWS"
         Me.btnUpdateAll.UseVisualStyleBackColor = False
         '
+        'btnReset
+        '
+        Me.btnReset.BackColor = System.Drawing.Color.Gray
+        Me.btnReset.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReset.ForeColor = System.Drawing.Color.White
+        Me.btnReset.Location = New System.Drawing.Point(375, 251)
+        Me.btnReset.Name = "btnReset"
+        Me.btnReset.Size = New System.Drawing.Size(267, 33)
+        Me.btnReset.TabIndex = 3
+        Me.btnReset.Text = "RESET TABLE"
+        Me.btnReset.UseVisualStyleBackColor = False
+        '
         'Position
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -201,6 +214,7 @@ Partial Class Position
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.appClose)
         Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.btnReset)
         Me.Controls.Add(Me.btnUpdateAll)
         Me.Controls.Add(Me.btnEmpByPos)
         Me.Controls.Add(Me.btnExit)
@@ -234,4 +248,5 @@ Partial Class Position
     Friend WithEvents id As DataGridViewTextBoxColumn
     Friend WithEvents pos_name As DataGridViewTextBoxColumn
     Friend WithEvents btnUpdateAll As Button
+    Friend WithEvents btnReset As Button
 End Class

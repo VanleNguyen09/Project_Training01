@@ -165,4 +165,8 @@ Public Class Position
     Private Sub dgvPositions_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPositions.CellValueChanged
         DGVhasChanged = True
     End Sub
+
+    Private Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
+        Load_DGVPosition()
+    End Sub
 End Class

@@ -2,6 +2,7 @@
     Private Sub PositionMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RoundButton(btnEmployee)
         RoundButton(btnPosition)
+        RoundButton(btnExit)
     End Sub
 
     Private Sub RoundButton(btn As Button)
@@ -54,5 +55,11 @@
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
         Environment.Exit(0)
+    End Sub
+
+    Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
+        Me.Hide()
+        Dim dboard As New Dashboard
+        dboard.Show()
     End Sub
 End Class

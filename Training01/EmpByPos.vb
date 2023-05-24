@@ -164,7 +164,6 @@ Public Class EmpByPos
                                 con.Open()
                             End If
                             cmd.ExecuteNonQuery()
-                            'con.Close()
                         End Using
                     Next
                 Catch ex As Exception
