@@ -68,9 +68,10 @@ Partial Class PositionMenu
         '
         'closeApp
         '
+        Me.closeApp.BackColor = System.Drawing.Color.Transparent
         Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.closeApp.Image = Global.Training01.My.Resources.Resources.close_btn
-        Me.closeApp.Location = New System.Drawing.Point(386, 2)
+        Me.closeApp.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
+        Me.closeApp.Location = New System.Drawing.Point(390, 0)
         Me.closeApp.Name = "closeApp"
         Me.closeApp.Size = New System.Drawing.Size(33, 32)
         Me.closeApp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage

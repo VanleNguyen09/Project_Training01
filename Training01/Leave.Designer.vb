@@ -27,11 +27,6 @@ Partial Class Leave
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.dgvLeave = New System.Windows.Forms.DataGridView()
-        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.id_emp = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.from_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.reason = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.gb_create = New System.Windows.Forms.GroupBox()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.rtxtReason = New System.Windows.Forms.RichTextBox()
@@ -48,6 +43,11 @@ Partial Class Leave
         Me.btnFindFromDate = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.dtpEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.from_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.reason = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvLeave, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gb_create.SuspendLayout()
         Me.gb_actions.SuspendLayout()
@@ -101,45 +101,11 @@ Partial Class Leave
         '
         Me.dgvLeave.AllowUserToAddRows = False
         Me.dgvLeave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvLeave.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.id, Me.id_emp, Me.emp_name, Me.from_date, Me.reason})
+        Me.dgvLeave.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.id, Me.emp_id, Me.emp_name, Me.from_date, Me.reason})
         Me.dgvLeave.Location = New System.Drawing.Point(12, 119)
         Me.dgvLeave.Name = "dgvLeave"
         Me.dgvLeave.Size = New System.Drawing.Size(537, 319)
         Me.dgvLeave.TabIndex = 4
-        '
-        'id
-        '
-        Me.id.HeaderText = "ID"
-        Me.id.Name = "id"
-        Me.id.ReadOnly = True
-        Me.id.Width = 60
-        '
-        'id_emp
-        '
-        Me.id_emp.HeaderText = "ID EMP"
-        Me.id_emp.Name = "id_emp"
-        Me.id_emp.ReadOnly = True
-        Me.id_emp.Width = 80
-        '
-        'emp_name
-        '
-        Me.emp_name.HeaderText = "NAME"
-        Me.emp_name.Name = "emp_name"
-        Me.emp_name.ReadOnly = True
-        '
-        'from_date
-        '
-        Me.from_date.HeaderText = "FROM DATE"
-        Me.from_date.Name = "from_date"
-        Me.from_date.ReadOnly = True
-        Me.from_date.Width = 110
-        '
-        'reason
-        '
-        Me.reason.HeaderText = "REASON"
-        Me.reason.Name = "reason"
-        Me.reason.ReadOnly = True
-        Me.reason.Width = 110
         '
         'gb_create
         '
@@ -259,6 +225,7 @@ Partial Class Leave
         '
         'closeApp
         '
+        Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
         Me.closeApp.Image = Global.Training01.My.Resources.Resources.close_btn
         Me.closeApp.Location = New System.Drawing.Point(852, 0)
         Me.closeApp.Name = "closeApp"
@@ -305,6 +272,40 @@ Partial Class Leave
         Me.dtpEndDate.Name = "dtpEndDate"
         Me.dtpEndDate.Size = New System.Drawing.Size(140, 20)
         Me.dtpEndDate.TabIndex = 8
+        '
+        'id
+        '
+        Me.id.HeaderText = "ID"
+        Me.id.Name = "id"
+        Me.id.ReadOnly = True
+        Me.id.Width = 60
+        '
+        'emp_id
+        '
+        Me.emp_id.HeaderText = "ID EMP"
+        Me.emp_id.Name = "emp_id"
+        Me.emp_id.ReadOnly = True
+        Me.emp_id.Width = 80
+        '
+        'emp_name
+        '
+        Me.emp_name.HeaderText = "NAME"
+        Me.emp_name.Name = "emp_name"
+        Me.emp_name.ReadOnly = True
+        '
+        'from_date
+        '
+        Me.from_date.HeaderText = "FROM DATE"
+        Me.from_date.Name = "from_date"
+        Me.from_date.ReadOnly = True
+        Me.from_date.Width = 110
+        '
+        'reason
+        '
+        Me.reason.HeaderText = "REASON"
+        Me.reason.Name = "reason"
+        Me.reason.ReadOnly = True
+        Me.reason.Width = 110
         '
         'Leave
         '
@@ -361,7 +362,7 @@ Partial Class Leave
     Friend WithEvents Label7 As Label
     Friend WithEvents dtpEndDate As DateTimePicker
     Friend WithEvents id As DataGridViewTextBoxColumn
-    Friend WithEvents id_emp As DataGridViewTextBoxColumn
+    Friend WithEvents emp_id As DataGridViewTextBoxColumn
     Friend WithEvents emp_name As DataGridViewTextBoxColumn
     Friend WithEvents from_date As DataGridViewTextBoxColumn
     Friend WithEvents reason As DataGridViewTextBoxColumn

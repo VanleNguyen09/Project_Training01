@@ -22,7 +22,6 @@ Partial Class EmpByPos
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(EmpByPos))
         Me.lbl_title = New System.Windows.Forms.Label()
         Me.cbSearch = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -88,13 +87,15 @@ Partial Class EmpByPos
         Me.dgvEmpByPos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.id, Me.emp_name, Me.phone, Me.email, Me.birthday})
         Me.dgvEmpByPos.Location = New System.Drawing.Point(24, 126)
         Me.dgvEmpByPos.Name = "dgvEmpByPos"
-        Me.dgvEmpByPos.Size = New System.Drawing.Size(483, 246)
+        Me.dgvEmpByPos.RowHeadersVisible = False
+        Me.dgvEmpByPos.Size = New System.Drawing.Size(515, 246)
         Me.dgvEmpByPos.TabIndex = 3
         '
         'id
         '
         Me.id.HeaderText = "ID"
         Me.id.Name = "id"
+        Me.id.Width = 70
         '
         'emp_name
         '
@@ -110,6 +111,7 @@ Partial Class EmpByPos
         '
         Me.email.HeaderText = "EMAIL"
         Me.email.Name = "email"
+        Me.email.Width = 140
         '
         'birthday
         '
@@ -126,7 +128,7 @@ Partial Class EmpByPos
         Me.grb_create.Controls.Add(Me.Label3)
         Me.grb_create.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grb_create.ForeColor = System.Drawing.Color.White
-        Me.grb_create.Location = New System.Drawing.Point(511, 166)
+        Me.grb_create.Location = New System.Drawing.Point(545, 164)
         Me.grb_create.Name = "grb_create"
         Me.grb_create.Size = New System.Drawing.Size(304, 162)
         Me.grb_create.TabIndex = 4
@@ -192,7 +194,7 @@ Partial Class EmpByPos
         Me.btnRemove.BackColor = System.Drawing.Color.White
         Me.btnRemove.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnRemove.ForeColor = System.Drawing.Color.Black
-        Me.btnRemove.Location = New System.Drawing.Point(511, 126)
+        Me.btnRemove.Location = New System.Drawing.Point(545, 126)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(304, 32)
         Me.btnRemove.TabIndex = 3
@@ -204,7 +206,7 @@ Partial Class EmpByPos
         Me.btnExit.BackColor = System.Drawing.Color.White
         Me.btnExit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnExit.ForeColor = System.Drawing.Color.Black
-        Me.btnExit.Location = New System.Drawing.Point(701, 340)
+        Me.btnExit.Location = New System.Drawing.Point(735, 340)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(114, 32)
         Me.btnExit.TabIndex = 3
@@ -216,8 +218,8 @@ Partial Class EmpByPos
         Me.closeApp.BackColor = System.Drawing.Color.Transparent
         Me.closeApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.closeApp.Image = CType(resources.GetObject("closeApp.Image"), System.Drawing.Image)
-        Me.closeApp.Location = New System.Drawing.Point(785, 0)
+        Me.closeApp.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
+        Me.closeApp.Location = New System.Drawing.Point(832, 0)
         Me.closeApp.Name = "closeApp"
         Me.closeApp.Size = New System.Drawing.Size(41, 39)
         Me.closeApp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -229,7 +231,7 @@ Partial Class EmpByPos
         Me.btnManagePos.BackColor = System.Drawing.Color.White
         Me.btnManagePos.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnManagePos.ForeColor = System.Drawing.Color.Black
-        Me.btnManagePos.Location = New System.Drawing.Point(511, 340)
+        Me.btnManagePos.Location = New System.Drawing.Point(545, 340)
         Me.btnManagePos.Name = "btnManagePos"
         Me.btnManagePos.Size = New System.Drawing.Size(184, 32)
         Me.btnManagePos.TabIndex = 3
@@ -242,7 +244,7 @@ Partial Class EmpByPos
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(827, 406)
+        Me.ClientSize = New System.Drawing.Size(873, 418)
         Me.Controls.Add(Me.closeApp)
         Me.Controls.Add(Me.btnManagePos)
         Me.Controls.Add(Me.btnExit)
@@ -276,12 +278,12 @@ Partial Class EmpByPos
     Friend WithEvents cbPosCreate As ComboBox
     Friend WithEvents Label3 As Label
     Friend WithEvents btnRemove As Button
+    Friend WithEvents btnExit As Button
+    Friend WithEvents closeApp As PictureBox
+    Friend WithEvents btnManagePos As Button
     Friend WithEvents id As DataGridViewTextBoxColumn
     Friend WithEvents emp_name As DataGridViewTextBoxColumn
     Friend WithEvents phone As DataGridViewTextBoxColumn
     Friend WithEvents email As DataGridViewTextBoxColumn
     Friend WithEvents birthday As DataGridViewTextBoxColumn
-    Friend WithEvents btnExit As Button
-    Friend WithEvents closeApp As PictureBox
-    Friend WithEvents btnManagePos As Button
 End Class

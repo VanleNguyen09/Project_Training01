@@ -22,7 +22,6 @@ Partial Class Position
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Position))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvPositions = New System.Windows.Forms.DataGridView()
         Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -147,9 +146,10 @@ Partial Class Position
         '
         'appClose
         '
+        Me.appClose.BackColor = System.Drawing.Color.Transparent
         Me.appClose.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.appClose.Image = CType(resources.GetObject("appClose.Image"), System.Drawing.Image)
-        Me.appClose.Location = New System.Drawing.Point(614, 4)
+        Me.appClose.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
+        Me.appClose.Location = New System.Drawing.Point(620, -1)
         Me.appClose.Name = "appClose"
         Me.appClose.Size = New System.Drawing.Size(35, 36)
         Me.appClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage

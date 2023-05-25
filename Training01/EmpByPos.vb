@@ -78,6 +78,7 @@ Public Class EmpByPos
         cbPosCreate.SelectedIndex = 0
         cbSearch.SelectedIndex = 0
         cbEmpCreate.SelectedIndex = 0
+        EmpByPos_Click(sender, e)
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -125,9 +126,18 @@ Public Class EmpByPos
     End Sub
 
     Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
-        'Selected Rows to Delete
-        If dgvEmpByPos.SelectedRows.Count < 1 Then
-            MsgBox(Message.Message.selectedRowError)
+        Dim selectedRows As New List(Of DataGridViewRow)()
+        If dgvEmpByPos.SelectedCells.Count > 0 Then
+            For Each cell As DataGridViewCell In dgvEmpByPos.SelectedCells
+                Dim row As DataGridViewRow = dgvEmpByPos.Rows(cell.RowIndex)
+
+                'Check row is existed?
+                If Not selectedRows.Contains(row) Then
+                    selectedRows.Add(row)
+                End If
+            Next
+        Else
+            MessageBox.Show(Message.Message.selectedRowError, Message.Title.notif, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -135,7 +145,7 @@ Public Class EmpByPos
 
         'Selected Position to Delete
         If posId < 0 Then
-            MsgBox(Message.Message.selectedPositionError)
+            MessageBox.Show(Message.Message.selectedPositionError, Message.Title.notif, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -147,7 +157,7 @@ Public Class EmpByPos
             Case DialogResult.Yes
                 Dim idEmpList As List(Of Integer) = New List(Of Integer)
 
-                For Each dgvr As DataGridViewRow In dgvEmpByPos.SelectedRows
+                For Each dgvr As DataGridViewRow In selectedRows
                     idEmpList.Add(dgvr.Cells(0).Value)
                 Next
 
@@ -172,7 +182,7 @@ Public Class EmpByPos
                 Finally
                     con.Close()
                 End Try
-                MessageBox.Show(Message.Message.successfullDeleteEmpPos, Message.Title.notif, MessageBoxButtons.OK)
+                MessageBox.Show(Message.Message.successfullDeleteEmpPos, Message.Title.notif, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 'Reload Data
                 LoadDgvEmps(posId)
         End Select
@@ -237,5 +247,11 @@ Public Class EmpByPos
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
         Environment.Exit(0)
+    End Sub
+
+    Private Sub EmpByPos_Click(sender As Object, e As EventArgs) Handles MyBase.Click
+        dgvEmpByPos.EndEdit()
+        ' Bỏ chọn ô đang được chọn
+        dgvEmpByPos.CurrentCell = Nothing
     End Sub
 End Class

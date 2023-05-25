@@ -15,31 +15,40 @@ Public Class Login
         Dim email As String = txtEmail.Text.Trim()
         Dim pass As String = txtPassword.Text.Trim()
         Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
-        Dim titleMsgBox As String = "ERROR"
+        Dim warningIcon = MessageBoxIcon.Warning
+        Dim titleMsgBox As String = Message.Title.error
 
         'Validations
-        If email = String.Empty OrElse pass = String.Empty Then
-            MessageBox.Show(Message.Message.emptyErrorMessage, titleMsgBox, buttons)
+        If email = String.Empty Then
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleMsgBox, buttons, warningIcon)
+            txtEmail.Select()
+            Exit Sub
+        End If
+        If pass = String.Empty Then
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleMsgBox, buttons, warningIcon)
+            txtPassword.Select()
             Exit Sub
         End If
 
         If Not FuntionCommon.Validation.IsEmail(email) Then
-            MessageBox.Show(Message.Message.emailErrorMessage, titleMsgBox, buttons)
+            MessageBox.Show(Message.Message.emailErrorMessage, titleMsgBox, buttons, warningIcon)
+            txtEmail.Select()
             Exit Sub
         End If
 
         If Not FuntionCommon.Validation.CheckPassword(pass) Then
-            MessageBox.Show(Message.Message.passwordErrorMessage, titleMsgBox, buttons)
+            MessageBox.Show(Message.Message.passwordErrorMessage, titleMsgBox, buttons, warningIcon)
+            txtPassword.Select()
             Exit Sub
         End If
 
         'Switch to Dashboard if CheckLogin is successful
         If CheckLogin(email, pass) Then
-            Me.Hide()
+            Me.Close()
             Dim dashboard As New Dashboard
             dashboard.Show()
         Else
-            MessageBox.Show(Message.Message.failedLoginMsg, titleMsgBox, buttons)
+            MessageBox.Show(Message.Message.failedLoginMsg, Message.Title.notif, buttons, MessageBoxIcon.Information)
         End If
 
     End Sub
@@ -76,4 +85,22 @@ Public Class Login
             Return False
         End Using
     End Function
+
+    Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
+        Environment.Exit(0)
+    End Sub
+
+    Private Sub txtEmail_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtEmail.KeyPress
+        EnterClick(e)
+    End Sub
+
+    Private Sub txtPassword_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtPassword.KeyPress
+        EnterClick(e)
+    End Sub
+
+    Private Sub EnterClick(e As KeyPressEventArgs)
+        If e.KeyChar = Convert.ToChar(Keys.Enter) Then
+            btnLogin.PerformClick()
+        End If
+    End Sub
 End Class
