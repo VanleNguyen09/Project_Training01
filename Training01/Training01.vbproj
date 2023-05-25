@@ -121,6 +121,12 @@
     <Compile Include="Login.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Manager.Designer.vb">
+      <DependentUpon>Manager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Manager.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Message.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -194,6 +200,9 @@
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Manager.resx">
+      <DependentUpon>Manager.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -241,6 +250,10 @@
   <ItemGroup>
     <Content Include="Resources\avatar2.jpg" />
     <Content Include="Resources\avatar3.jpg" />
+    <Content Include="Resources\BackgroundLogin2.jpg" />
+    <Content Include="Resources\blue-exit-icon-16.jpg" />
+    <Content Include="Resources\icon_close.jpg" />
+    <Content Include="Resources\loginBack.jpg" />
     <None Include="Resources\close-btn.jpg" />
     <None Include="Resources\BackgroundLogin.jpg" />
   </ItemGroup>
