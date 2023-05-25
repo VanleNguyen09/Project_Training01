@@ -59,4 +59,10 @@ Public Class Dashboard
         Me.Hide()
         leave.Show()
     End Sub
+
+    Private Sub btn_Manager_Click(sender As Object, e As EventArgs) Handles btn_Manager.Click
+        Dim manager As New frm_Manager
+        Me.Hide()
+        manager.Show()
+    End Sub
 End Class

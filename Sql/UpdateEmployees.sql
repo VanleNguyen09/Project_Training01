@@ -2,11 +2,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-
 USE EmployeeManagement
 GO	
-
-ALTER PROCEDURE UpdateEmployees
+CREATE OR ALTER PROCEDURE UpdateEmployees
 	-- Add the parameters for the stored procedure here
 	@id INT,
 	@department_id INT,

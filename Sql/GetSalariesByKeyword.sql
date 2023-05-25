@@ -1,12 +1,10 @@
-
 USE [EmployeeManagement]
 GO
-/****** Object:  StoredProcedure [dbo].[GetEmployeesByName]    Script Date: 17/05/2023 17:19:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[GetSalariesByKeyWord]
+CREATE OR ALTER PROCEDURE [dbo].[GetSalariesByKeyWord]
 	@keyword NVARCHAR(255)
 AS
 BEGIN
@@ -16,6 +14,4 @@ BEGIN
 	OR from_date LIKE '%' + @keyword + '%' OR to_date 
 	LIKE '%' + @keyword + '%'
 END
-GO	
-
-
+GO

@@ -66,6 +66,7 @@ Public Class frm_Department
     Private Sub ClearForm()
         txt_Name.Text = String.Empty
         txt_DepartmentID.Text = String.Empty
+        dgrv_Department.ClearSelection()
     End Sub
 
     Dim titleMsgBox As String = "notification"

@@ -5,7 +5,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-ALTER PROCEDURE [dbo].[InsertDeptEmp]
+CREATE OR ALTER PROCEDURE [dbo].[InsertDeptEmp]
 	@emp_id INT,
 	@dept_id INT,
     @from_date DATETIME,
@@ -21,3 +21,4 @@ BEGIN
 	)
     VALUES(@emp_id, @dept_id, @from_date, @to_date)
 END
+GO

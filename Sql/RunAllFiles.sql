@@ -41,5 +41,18 @@ SET XACT_ABORT ON
 	END   
     COMMIT
 END
+-- Example: exec RunAllFiles 'DESKTOP-11P8S1B\SQLEXPRESS' , 'EmployeeManagement', 'D:\Rikai_Internship_Training_.NET\Project_Training01\Sql\'
 
--- Example: exec RunAllFiles 'DESKTOP-8T6JQDI' , 'EmployeeManagement', 'E:\test\'
+-- ENABLE xp_cmdshell
+-- To allow advanced options to be changed.
+--EXEC sp_configure 'show advanced options', 1
+--GO
+---- To update the currently configured value for advanced options.
+--RECONFIGURE
+--GO
+---- To enable the feature.
+--EXEC sp_configure 'xp_cmdshell', 1
+--GO
+---- To update the currently configured value for this feature.
+--RECONFIGURE
+--GO

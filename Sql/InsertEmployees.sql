@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[InsertEmployees]
+CREATE OR ALTER PROCEDURE [dbo].[InsertEmployees]
 	-- Add the parameters for the stored procedure here
     @name NVARCHAR(255),
 	@department_id INT,
@@ -32,7 +32,4 @@ BEGIN
 	INSERT INTO dbo.Dept_emp(emp_id, dept_id)
 	VALUES(@generated_id, @department_id)
 END
-
-
-
-
+GO

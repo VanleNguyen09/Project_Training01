@@ -6,7 +6,7 @@ GO
 USE EmployeeManagement
 GO	
 
-CREATE PROCEDURE UpdateSalaries
+CREATE OR ALTER PROCEDURE UpdateSalaries
 	-- Add the parameters for the stored procedure here
 	@id INT,
     @emp_id INT,
