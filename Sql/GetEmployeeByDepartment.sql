@@ -5,7 +5,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[GetEmployeeByDepartment]
+CREATE OR ALTER PROCEDURE [dbo].[GetEmployeeByDepartment]
 	@department_id INT
 AS
 
@@ -18,5 +18,4 @@ BEGIN
 	WHERE b.dept_id = @department_id
 	ORDER BY e.name
 END
-
-EXEC dbo.GetEmployeeByDepartment @department_id = 1
+GO

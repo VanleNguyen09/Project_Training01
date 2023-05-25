@@ -1,15 +1,15 @@
 
 USE [EmployeeManagement]
 GO
-/****** Object:  StoredProcedure [dbo].[GetEmployeesByName]    Script Date: 17/05/2023 17:19:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dbo].[GetTotalSalaries]
+CREATE OR ALTER PROCEDURE [dbo].[GetCalculateTotalSalaries]
+    @TotalSalary DECIMAL(18, 2) OUTPUT
 AS
 BEGIN
-	SELECT SUM(salary) AS TotalSalary 
+	SELECT @TotalSalary = SUM(salary)
 	FROM dbo.Salaries
 END
-GO	
+GO

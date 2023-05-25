@@ -7,8 +7,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[GetAllDepartments]
+CREATE OR ALTER PROCEDURE [dbo].[GetAllDepartments]
 AS
 BEGIN
 	SELECT * FROM dbo.Department
 END
+GO

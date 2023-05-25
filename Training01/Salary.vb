@@ -1,6 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Net
-Imports Microsoft.VisualBasic.Devices
 
 Public Class frm_Salary
     Private Sub frm_Salary_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -82,6 +80,7 @@ Public Class frm_Salary
         txt_Salary.Text = String.Empty
         dtp_FromDate.Value = Date.Now()
         dtp_ToDate.Value = Date.Now()
+        dgrv_Salary.ClearSelection()
     End Sub
 
     Public Sub Add_Salaries(emp_id As Integer, salary As Single, from_date As Date, to_date As Date)
@@ -171,7 +170,7 @@ Public Class frm_Salary
             con.Open()
         End If
 
-        Using cmd As SqlCommand = New SqlCommand("GetTotalSalaries", con)
+        Using cmd As SqlCommand = New SqlCommand("GetCalculateTotalSalaries", con)
             cmd.CommandType = CommandType.StoredProcedure
 
             Dim totalSalaryParam As SqlParameter = New SqlParameter("@TotalSalary", SqlDbType.Decimal)
@@ -181,7 +180,7 @@ Public Class frm_Salary
             cmd.ExecuteNonQuery()
 
             Dim totalSalary As Decimal = Convert.ToDecimal(totalSalaryParam.Value)
-            MessageBox.Show("Total Salary: " & totalSalary.ToString())
+            MessageBox.Show("Total Salary: " & totalSalary.ToString(), titleMsgBox)
         End Using
         con.Close()
     End Sub

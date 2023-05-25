@@ -206,7 +206,7 @@ Public Class frm_Employee
         rdo_Female.Checked = False
         dtp_Birthday.Value = Date.Now()
         ptb_Employee.Image = Nothing
-
+        dgrv_Employee.ClearSelection() ' Xóa bỏ việc chọn hàng trong DataGridView             
     End Sub
 
     Dim titleMsgBox As String = "notification"
@@ -235,7 +235,7 @@ Public Class frm_Employee
     End Sub
 
 
-    Private Sub SearchEmployeesByKeyword(keyword As String)
+    Private Sub SearchEmployeesByKeyword(keyword As String, department_id As Integer)
         Console.WriteLine(keyword)
         If con.State <> 1 Then
             con.Open()
@@ -246,6 +246,7 @@ Public Class frm_Employee
         Using cmd As SqlCommand = New SqlCommand("GetEmployeesByKeyWord", con)
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@keyword", keyword)
+            cmd.Parameters.AddWithValue("@department_id", department_id)
             Using reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     While reader.Read()
@@ -489,8 +490,9 @@ Public Class frm_Employee
 
     Private Sub btn_Search_Click(sender As Object, e As EventArgs) Handles btn_Search.Click
         Dim keyword As String = txt_Search.Text.Trim()
+        Dim department_id As Integer = cb_Department_Change.SelectedItem.hiddenvalue
         If Not String.IsNullOrEmpty(keyword) Then
-            SearchEmployeesByKeyword(keyword)
+            SearchEmployeesByKeyword(keyword, department_id)
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
         End If
