@@ -18,7 +18,7 @@ GO
 -- Create date: 23/5/2023
 -- Description:	UpdatePositionById
 -- =============================================
-CREATE PROCEDURE UpdatePositionById
+CREATE OR ALTER PROCEDURE UpdatePositionById
 @pos_id INT,
 @name NVARCHAR(255)
 AS
@@ -28,8 +28,26 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	UPDATE Position
-	SET name = @name
-	WHERE id = @pos_id
+	IF NOT EXISTS (SELECT * FROM Position WHERE name = @name AND status = 1)
+	BEGIN
+		IF EXISTS (SELECT * FROM Position WHERE name = @name AND status = 0)
+		BEGIN
+		-- Delete Emp_Pos
+			DELETE ep
+			FROM Emp_Pos ep
+			INNER JOIN Position p
+			  ON ep.pos_id = p.id
+			WHERE p.name = @name
+		-- Delete Position
+			DELETE FROM Position WHERE name = @name
+		END
+		UPDATE Position
+		SET name = @name
+		WHERE id = @pos_id
+	END
+	ELSE
+	BEGIN
+		THROW 50000, 'Exist this name!', 1;
+	END
 END
 GO

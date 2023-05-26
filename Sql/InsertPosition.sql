@@ -16,9 +16,10 @@ GO
 -- =============================================
 -- Author:		Dat
 -- Create date: 22/5/2023
+-- Update date: 26/5/2023
 -- Description:	Add position
 -- =============================================
-CREATE PROCEDURE InsertPosition
+CREATE OR ALTER PROCEDURE InsertPosition
 @name nvarchar(255)
 AS
 BEGIN
@@ -27,9 +28,18 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	IF NOT EXISTS (SELECT * FROM Position WHERE name = @name)
+	IF NOT EXISTS (SELECT * FROM Position WHERE name = @name AND status = 1)
 	BEGIN
-		INSERT INTO Position(name) VALUES (@name)
+		IF NOT EXISTS (SELECT * FROM Position WHERE name = @name AND status = 0)
+		BEGIN
+			INSERT INTO Position(name, status) VALUES (@name, 1)
+		END
+		ELSE
+		BEGIN
+			UPDATE Position
+			SET status = 1
+			WHERE name = @name
+		END
 	END
 	ELSE
 	BEGIN

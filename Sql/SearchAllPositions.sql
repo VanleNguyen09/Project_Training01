@@ -16,9 +16,10 @@ GO
 -- =============================================
 -- Author:		Dat
 -- Create date: 22/5/2023
+-- Update date: 26/5/2023
 -- Description:	Search all Positions
 -- =============================================
-CREATE PROCEDURE SearchAllPositions
+CREATE OR ALTER PROCEDURE SearchAllPositions
 @text nvarchar(255)
 AS
 BEGIN
@@ -27,7 +28,10 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT * FROM Position p
-	WHERE p.name like '%'+ @text +'%' or p.id like '%'+ @text +'%'
+	SELECT ROW_NUMBER() OVER (ORDER BY p.id) as stt, COUNT(p.id) as emp_num, p.id, p.name FROM Position p
+	RIGHT JOIN Emp_Pos ep ON p.id = ep.pos_id
+	WHERE p.status = 1 AND ep.status = 1
+	GROUP BY p.id, p.name
+	HAVING CAST(COUNT(p.id) AS nvarchar(255)) = @text OR p.name LIKE '%'+ @text +'%'
 END
 GO

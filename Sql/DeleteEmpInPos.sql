@@ -16,9 +16,10 @@ GO
 -- =============================================
 -- Author:		Dat
 -- Create date: 19/5/2023
+-- Update date: 26/5/2023
 -- Description:	Delete An Employee in Selected Position
 -- =============================================
-CREATE PROCEDURE DeleteEmpInPos
+CREATE OR ALTER PROCEDURE DeleteEmpInPos
 @emp_id INT,
 @pos_id INT
 AS
@@ -28,7 +29,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	DELETE FROM Emp_Pos
+	UPDATE Emp_Pos
+	SET status = 0
 	WHERE emp_id = @emp_id AND pos_id = @pos_id
 END
 GO

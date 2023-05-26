@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-
 Public Class EmpByPos
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
 
@@ -78,7 +77,9 @@ Public Class EmpByPos
         cbPosCreate.SelectedIndex = 0
         cbSearch.SelectedIndex = 0
         cbEmpCreate.SelectedIndex = 0
-        EmpByPos_Click(sender, e)
+
+        'Remove selected cell
+        dgvEmpByPos.CurrentCell = Nothing
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -141,14 +142,6 @@ Public Class EmpByPos
             Exit Sub
         End If
 
-        Dim posId As Integer = cbSearch.SelectedItem.Key
-
-        'Selected Position to Delete
-        If posId < 0 Then
-            MessageBox.Show(Message.Message.selectedPositionError, Message.Title.notif, MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
-        End If
-
         'Confirm Delete
         Dim result As DialogResult = MessageBox.Show(Message.Message.confirmedDelete, Message.Title.notif, MessageBoxButtons.YesNo)
         Select Case result
@@ -156,19 +149,21 @@ Public Class EmpByPos
                 Exit Sub
             Case DialogResult.Yes
                 Dim idEmpList As List(Of Integer) = New List(Of Integer)
+                Dim posIdList As List(Of Integer) = New List(Of Integer)
 
                 For Each dgvr As DataGridViewRow In selectedRows
-                    idEmpList.Add(dgvr.Cells(0).Value)
+                    idEmpList.Add(dgvr.Cells("id").Value)
+                    posIdList.Add(dgvr.Cells("pos_id").Value)
                 Next
 
                 Dim sql = "DeleteEmpInPos"
                 Try
-                    For Each empId As Integer In idEmpList
+                    For i As Integer = 0 To idEmpList.Count - 1
                         'Delete An Employee in Selected Position
                         Using cmd As SqlCommand = New SqlCommand(sql, con)
                             cmd.CommandType = CommandType.StoredProcedure
-                            cmd.Parameters.AddWithValue("emp_id", empId)
-                            cmd.Parameters.AddWithValue("pos_id", posId)
+                            cmd.Parameters.AddWithValue("emp_id", idEmpList(i))
+                            cmd.Parameters.AddWithValue("pos_id", posIdList(i))
 
                             If con.State() <> 1 Then
                                 con.Open()
@@ -176,59 +171,102 @@ Public Class EmpByPos
                             cmd.ExecuteNonQuery()
                         End Using
                     Next
+
+                    MessageBox.Show(Message.Message.successfullDeleteEmpPos, Message.Title.notif, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    'Reload Data
+                    LoadDgvEmps(cbSearch.SelectedItem.Key)
                 Catch ex As Exception
                     MsgBox($"ERROR Delete: {ex.Message}")
-                    Exit Sub
                 Finally
                     con.Close()
                 End Try
-                MessageBox.Show(Message.Message.successfullDeleteEmpPos, Message.Title.notif, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                'Reload Data
-                LoadDgvEmps(posId)
+
         End Select
     End Sub
 
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
-        Me.Hide()
+        Me.Close()
         Dim posMenu As New PositionMenu
         posMenu.Show()
     End Sub
 
     Private Sub btnManagePos_Click(sender As Object, e As EventArgs) Handles btnManagePos.Click
-        Me.Hide()
+        Me.Close()
         Dim managePos As New Position
         managePos.Show()
     End Sub
+
+    Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
+        Environment.Exit(0)
+    End Sub
+
+    Private Sub dgvEmpByPos_Sorted(sender As Object, e As EventArgs) Handles dgvEmpByPos.Sorted
+        'If it is stt column, sorted normal 
+        If dgvEmpByPos.SortedColumn.Name <> "stt" Then
+            For i As Integer = 0 To dgvEmpByPos.Rows.Count - 1
+                dgvEmpByPos.Rows(i).Cells("stt").Value = (i + 1).ToString()
+            Next
+        End If
+    End Sub
+
+    Private Sub EmpByPos_Click(sender As Object, e As EventArgs) Handles MyBase.Click
+        LoadDgvEmps(cbSearch.SelectedItem.Key)
+        dgvEmpByPos.EndEdit()
+        'Remove selected cell
+        dgvEmpByPos.CurrentCell = Nothing
+
+        ' Hide sorted icon
+        For Each column As DataGridViewColumn In dgvEmpByPos.Columns
+            column.HeaderCell.SortGlyphDirection = Nothing
+        Next
+    End Sub
+
+    ' Save location of mouse when moving the form
+    Private mousePosX As Integer
+    Private mousePosY As Integer
+
+    ' MouseDown: begin moving Form
+    Private Sub EmpByPos_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
+        If e.Button = MouseButtons.Left Then
+            mousePosX = e.X
+            mousePosY = e.Y
+        End If
+    End Sub
+
+    ' MouseMove: moving Form
+    Private Sub EmpByPos_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
+        If e.Button = MouseButtons.Left Then
+            Me.Left += e.X - mousePosX
+            Me.Top += e.Y - mousePosY
+        End If
+    End Sub
+
     '------------- FUNCTIONS -------------
     Private Sub LoadDgvEmps(posId As Integer)
-        Dim sql As String
-
-        dgvEmpByPos.Rows.Clear()
-
-        If posId < 0 Then
-            sql = "GetAllEmployees"
-        Else
-            sql = "GetEmpsByPosId"
-        End If
-
         Try
             If con.State() <> 1 Then
                 con.Open()
             End If
 
+            Dim sql = "GetEmpsByPosId"
             'load datagridview by posId
             Using cmd As SqlCommand = New SqlCommand(sql, con)
                 cmd.CommandType = CommandType.StoredProcedure
-                'If not get All
-                If posId > -1 Then
-                    cmd.Parameters.AddWithValue("pos_id", posId)
-                End If
+                cmd.Parameters.AddWithValue("pos_id", posId)
 
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
+                dgvEmpByPos.Rows.Clear()
 
                 While reader.Read
-                    dgvEmpByPos.Rows.Add(New String() {reader("id"), reader("name"), reader("phone"), reader("email"), reader("birthday")})
+                    dgvEmpByPos.Rows.Add(New String() {
+                                         reader("stt"), reader("id"),
+                                         reader("name"), reader("phone"),
+                                         reader("email"), reader("birthday"),
+                                         reader("pos_name"), reader("pos_id")})
                 End While
+
+                'Remove selected cell
+                dgvEmpByPos.CurrentCell = Nothing
             End Using
         Catch ex As Exception
             MsgBox($"ERROR Load_DgvEmps: {ex.Message}")
@@ -245,13 +283,4 @@ Public Class EmpByPos
         End If
     End Sub
 
-    Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
-        Environment.Exit(0)
-    End Sub
-
-    Private Sub EmpByPos_Click(sender As Object, e As EventArgs) Handles MyBase.Click
-        dgvEmpByPos.EndEdit()
-        ' Bỏ chọn ô đang được chọn
-        dgvEmpByPos.CurrentCell = Nothing
-    End Sub
 End Class

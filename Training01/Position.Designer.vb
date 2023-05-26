@@ -24,8 +24,10 @@ Partial Class Position
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvPositions = New System.Windows.Forms.DataGridView()
+        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_num = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -35,8 +37,6 @@ Partial Class Position
         Me.appClose = New System.Windows.Forms.PictureBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btnEmpByPos = New System.Windows.Forms.Button()
-        Me.btnUpdateAll = New System.Windows.Forms.Button()
-        Me.btnReset = New System.Windows.Forms.Button()
         CType(Me.dgvPositions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.appClose, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -48,7 +48,7 @@ Partial Class Position
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(128, 37)
+        Me.Label1.Location = New System.Drawing.Point(166, 37)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(384, 31)
         Me.Label1.TabIndex = 0
@@ -57,33 +57,53 @@ Partial Class Position
         'dgvPositions
         '
         Me.dgvPositions.AllowUserToAddRows = False
+        Me.dgvPositions.BackgroundColor = System.Drawing.SystemColors.ButtonShadow
         Me.dgvPositions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvPositions.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.id, Me.pos_name})
+        Me.dgvPositions.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.stt, Me.id, Me.pos_name, Me.emp_num})
         Me.dgvPositions.Location = New System.Drawing.Point(21, 123)
+        Me.dgvPositions.MultiSelect = False
         Me.dgvPositions.Name = "dgvPositions"
-        Me.dgvPositions.Size = New System.Drawing.Size(348, 282)
-        Me.dgvPositions.TabIndex = 1
+        Me.dgvPositions.RowHeadersVisible = False
+        Me.dgvPositions.RowTemplate.Height = 30
+        Me.dgvPositions.Size = New System.Drawing.Size(414, 226)
+        Me.dgvPositions.TabIndex = 2
+        '
+        'stt
+        '
+        Me.stt.HeaderText = "STT"
+        Me.stt.Name = "stt"
+        Me.stt.ReadOnly = True
+        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.stt.Width = 60
         '
         'id
         '
         Me.id.HeaderText = "ID"
         Me.id.Name = "id"
         Me.id.ReadOnly = True
+        Me.id.Visible = False
         Me.id.Width = 80
         '
         'pos_name
         '
         Me.pos_name.HeaderText = "Name"
         Me.pos_name.Name = "pos_name"
-        Me.pos_name.Width = 120
+        Me.pos_name.Width = 140
+        '
+        'emp_num
+        '
+        Me.emp_num.HeaderText = "Number of People"
+        Me.emp_num.Name = "emp_num"
+        Me.emp_num.ReadOnly = True
+        Me.emp_num.Width = 110
         '
         'txtSearch
         '
-        Me.txtSearch.Font = New System.Drawing.Font("Leelawadee", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSearch.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSearch.Location = New System.Drawing.Point(87, 94)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(282, 23)
-        Me.txtSearch.TabIndex = 2
+        Me.txtSearch.Size = New System.Drawing.Size(348, 22)
+        Me.txtSearch.TabIndex = 1
         '
         'GroupBox1
         '
@@ -93,7 +113,7 @@ Partial Class Position
         Me.GroupBox1.Controls.Add(Me.btnAdd)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.ForeColor = System.Drawing.Color.White
-        Me.GroupBox1.Location = New System.Drawing.Point(375, 123)
+        Me.GroupBox1.Location = New System.Drawing.Point(441, 123)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.GroupBox1.Size = New System.Drawing.Size(267, 122)
@@ -113,11 +133,11 @@ Partial Class Position
         '
         'txtPosName
         '
-        Me.txtPosName.Font = New System.Drawing.Font("Leelawadee", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPosName.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPosName.Location = New System.Drawing.Point(9, 50)
         Me.txtPosName.Name = "txtPosName"
         Me.txtPosName.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtPosName.Size = New System.Drawing.Size(244, 23)
+        Me.txtPosName.Size = New System.Drawing.Size(244, 22)
         Me.txtPosName.TabIndex = 0
         '
         'btnAdd
@@ -137,9 +157,9 @@ Partial Class Position
         Me.btnExit.BackColor = System.Drawing.Color.Gray
         Me.btnExit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnExit.ForeColor = System.Drawing.Color.White
-        Me.btnExit.Location = New System.Drawing.Point(375, 372)
+        Me.btnExit.Location = New System.Drawing.Point(441, 310)
         Me.btnExit.Name = "btnExit"
-        Me.btnExit.Size = New System.Drawing.Size(267, 33)
+        Me.btnExit.Size = New System.Drawing.Size(267, 39)
         Me.btnExit.TabIndex = 3
         Me.btnExit.Text = "EXIT"
         Me.btnExit.UseVisualStyleBackColor = False
@@ -149,7 +169,7 @@ Partial Class Position
         Me.appClose.BackColor = System.Drawing.Color.Transparent
         Me.appClose.Cursor = System.Windows.Forms.Cursors.Hand
         Me.appClose.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
-        Me.appClose.Location = New System.Drawing.Point(620, -1)
+        Me.appClose.Location = New System.Drawing.Point(690, -1)
         Me.appClose.Name = "appClose"
         Me.appClose.Size = New System.Drawing.Size(35, 36)
         Me.appClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -173,36 +193,12 @@ Partial Class Position
         Me.btnEmpByPos.BackColor = System.Drawing.Color.Gray
         Me.btnEmpByPos.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnEmpByPos.ForeColor = System.Drawing.Color.White
-        Me.btnEmpByPos.Location = New System.Drawing.Point(375, 333)
+        Me.btnEmpByPos.Location = New System.Drawing.Point(441, 251)
         Me.btnEmpByPos.Name = "btnEmpByPos"
-        Me.btnEmpByPos.Size = New System.Drawing.Size(267, 33)
+        Me.btnEmpByPos.Size = New System.Drawing.Size(267, 53)
         Me.btnEmpByPos.TabIndex = 3
         Me.btnEmpByPos.Text = "EMPLOYEES LIST BY POSITION"
         Me.btnEmpByPos.UseVisualStyleBackColor = False
-        '
-        'btnUpdateAll
-        '
-        Me.btnUpdateAll.BackColor = System.Drawing.Color.Gray
-        Me.btnUpdateAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpdateAll.ForeColor = System.Drawing.Color.White
-        Me.btnUpdateAll.Location = New System.Drawing.Point(375, 293)
-        Me.btnUpdateAll.Name = "btnUpdateAll"
-        Me.btnUpdateAll.Size = New System.Drawing.Size(267, 33)
-        Me.btnUpdateAll.TabIndex = 3
-        Me.btnUpdateAll.Text = "UPDATE ALL ROWS"
-        Me.btnUpdateAll.UseVisualStyleBackColor = False
-        '
-        'btnReset
-        '
-        Me.btnReset.BackColor = System.Drawing.Color.Gray
-        Me.btnReset.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnReset.ForeColor = System.Drawing.Color.White
-        Me.btnReset.Location = New System.Drawing.Point(375, 251)
-        Me.btnReset.Name = "btnReset"
-        Me.btnReset.Size = New System.Drawing.Size(267, 33)
-        Me.btnReset.TabIndex = 3
-        Me.btnReset.Text = "RESET TABLE"
-        Me.btnReset.UseVisualStyleBackColor = False
         '
         'Position
         '
@@ -210,12 +206,10 @@ Partial Class Position
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(654, 425)
+        Me.ClientSize = New System.Drawing.Size(728, 391)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.appClose)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.btnReset)
-        Me.Controls.Add(Me.btnUpdateAll)
         Me.Controls.Add(Me.btnEmpByPos)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.txtSearch)
@@ -245,8 +239,8 @@ Partial Class Position
     Friend WithEvents appClose As PictureBox
     Friend WithEvents Label3 As Label
     Friend WithEvents btnEmpByPos As Button
+    Friend WithEvents stt As DataGridViewTextBoxColumn
     Friend WithEvents id As DataGridViewTextBoxColumn
     Friend WithEvents pos_name As DataGridViewTextBoxColumn
-    Friend WithEvents btnUpdateAll As Button
-    Friend WithEvents btnReset As Button
+    Friend WithEvents emp_num As DataGridViewTextBoxColumn
 End Class
