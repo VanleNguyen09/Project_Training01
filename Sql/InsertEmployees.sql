@@ -13,7 +13,8 @@ CREATE OR ALTER PROCEDURE [dbo].[InsertEmployees]
 	@gender BIT,
     @birthday DATETIME,
     @email VARCHAR(255),
-	@image VARBINARY(MAX)
+	@image VARBINARY(MAX), 
+	@status INT
 AS
 BEGIN
 	INSERT INTO Employees
@@ -24,9 +25,10 @@ BEGIN
 	    gender,
 	    birthday,
 	    email,
-		image
+		image,
+		status
 	)
-	VALUES(@name, @phone, @address, @gender, @birthday, @email, @image)
+	VALUES(@name, @phone, @address, @gender, @birthday, @email, @image, @status)
 	DECLARE @generated_id INT
 	SET @generated_id = SCOPE_IDENTITY()
 	INSERT INTO dbo.Dept_emp(emp_id, dept_id)

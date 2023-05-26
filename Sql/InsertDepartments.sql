@@ -7,9 +7,10 @@ GO
 CREATE OR ALTER PROCEDURE [dbo].[InsertDepartments]
 	-- Add the parameters for the stored procedure here
     @name NVARCHAR(255)
+	@status INT		
 AS
 BEGIN
 	INSERT INTO dbo.Department(name)
-    VALUES(@name)
+    VALUES(@name, @status)
 END
 GO

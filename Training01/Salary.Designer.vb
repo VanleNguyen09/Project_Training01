@@ -332,7 +332,7 @@ Partial Class frm_Salary
         '
         Me.ptb_Close.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.ptb_Close.BackgroundImage = Global.Training01.My.Resources.Resources.close_btn
-        Me.ptb_Close.Image = Global.Training01.My.Resources.Resources.close_btn
+        Me.ptb_Close.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
         Me.ptb_Close.Location = New System.Drawing.Point(1252, 3)
         Me.ptb_Close.Name = "ptb_Close"
         Me.ptb_Close.Size = New System.Drawing.Size(43, 40)

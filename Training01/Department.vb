@@ -2,7 +2,6 @@
 Imports System.IO
 Imports System.Net
 Imports System.Runtime.CompilerServices
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar
 
 Public Class frm_Department
 
@@ -16,25 +15,34 @@ Public Class frm_Department
 
     Private Sub frm_Department_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lbl_TitleDepartment.BackColor = Color.Transparent
+        lbl_DepartmentID.BackColor = Color.Transparent
         lbl_Name.BackColor = Color.Transparent
         lbl_Search.BackColor = Color.Transparent
         btn_Update.Enabled = False
         btn_Delete.Enabled = False
         txt_DepartmentID.Enabled = False
 
-        LoadData()
+        LoadAndSortData()
     End Sub
 
     Private selectedDepartment As Selected_Departments = New Selected_Departments()
 
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
 
+    Private Sub LoadAndSortData()
+        LoadData()
+        SortDataById()
+    End Sub
 
-    Public Sub ShowDepartment(ByVal reader As SqlDataReader)
+    Public Sub SortDataById()
+        dgrv_Department.Sort(dgrv_Department.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
+    End Sub
+
+    Public Sub ShowDepartment(ByVal No As Integer, ByVal reader As SqlDataReader)
         Dim id As Integer = Convert.ToInt32(reader("id"))
         Dim name As String = reader("name").ToString()
-
-        dgrv_Department.Rows.Add(id, name)
+        Dim status As Integer = Convert.ToInt32(reader("status"))
+        dgrv_Department.Rows.Add(No, id, name, status)
     End Sub
 
     Public Sub LoadData()
@@ -44,9 +52,10 @@ Public Class frm_Department
         dgrv_Department.Rows.Clear()
         Using cmd As SqlCommand = New SqlCommand("GetAllDepartments", con)
             Dim reader As SqlDataReader = cmd.ExecuteReader()
-
+            Dim No As Integer = 1
             While reader.Read()
-                ShowDepartment(reader)
+                ShowDepartment(No, reader)
+                No = No + 1
             End While
             con.Close()
         End Using
@@ -56,12 +65,15 @@ Public Class frm_Department
         btn_Add.Enabled = True
         btn_Update.Enabled = False
         btn_Delete.Enabled = False
+        MakeButtonBackgroundBlurry(btn_Update)
+        MakeButtonBackgroundBlurry(btn_Delete)
     End Sub
 
     Private Sub DisableAdd()
         btn_Add.Enabled = False
         btn_Update.Enabled = True
         btn_Delete.Enabled = True
+        MakeButtonBackgroundBlurry(btn_Add)
     End Sub
     Private Sub ClearForm()
         txt_Name.Text = String.Empty
@@ -75,6 +87,10 @@ Public Class frm_Department
 
 
     Public Sub Update_Department(name As String, id As Integer)
+        If CheckDepartmentExitForUpdate(name, id) = True Then
+            MessageBox.Show(Message.Message.departmentExited, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
         If con.State <> 1 Then
             con.Open()
         End If
@@ -85,16 +101,79 @@ Public Class frm_Department
                 cmd.Parameters.AddWithValue("@id", id)
 
                 cmd.ExecuteNonQuery()
-                'Load lại data lúc add xong
-                LoadData()
-
             End Using
+            MessageBox.Show("Department has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
         Catch ex As Exception
             MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+        LoadAndSortData()
+
     End Sub
 
+
+
+    Private Sub MakeButtonBackgroundBlurry(button As Button)
+        Dim originalColor As Color = button.BackColor
+        Dim blurredColor As Color = ControlPaint.Light(originalColor, 0.5)
+        button.BackColor = blurredColor
+    End Sub
+
+    Private Function CheckDepartmentExit(ByVal name As String) As Boolean
+        CheckDepartmentExit = False
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("CheckDepartmentExit", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@name", name)
+                cmd.ExecuteNonQuery()
+                Dim reader = cmd.ExecuteReader
+                If reader.Read() Then
+                    If reader("ReturnValue") = 1 Then CheckDepartmentExit = True
+                End If
+            End Using
+        Catch ex As Exception
+            CheckDepartmentExit = False
+            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
+        End Try
+        Return CheckDepartmentExit
+    End Function
+
+
+    Private Function CheckDepartmentExitForUpdate(ByVal name As String, ByVal id As Integer) As Boolean
+        CheckDepartmentExitForUpdate = False
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("CheckDepartmentExitForUpdate", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@name", name)
+                cmd.Parameters.AddWithValue("@id", id)
+                cmd.ExecuteNonQuery()
+                Dim reader = cmd.ExecuteReader
+                If reader.Read() Then
+                    If reader("ReturnValue") = 1 Then CheckDepartmentExitForUpdate = True
+                End If
+            End Using
+        Catch ex As Exception
+            CheckDepartmentExitForUpdate = False
+            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
+        End Try
+        Return CheckDepartmentExitForUpdate
+    End Function
+
     Public Sub Add_Department(name As String)
+        Dim status As Integer = 1
+        If CheckDepartmentExit(name) = True Then
+            MessageBox.Show(Message.Message.departmentExited, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
         If con.State <> 1 Then
             con.Open()
         End If
@@ -102,15 +181,15 @@ Public Class frm_Department
             Using cmd As SqlCommand = New SqlCommand("InsertDepartments", con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@name", name)
+                cmd.Parameters.AddWithValue("@status", status)
 
                 cmd.ExecuteNonQuery()
-                'Load lại data lúc add xong
-                LoadData()
-
             End Using
+            MessageBox.Show("Manager has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
         Catch ex As Exception
             MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+        LoadAndSortData()
     End Sub
 
     Private Sub SearchDepartmentsByKeyword(keyword As String)
@@ -120,20 +199,28 @@ Public Class frm_Department
         End If
 
         dgrv_Department.Rows.Clear()
+        Dim reload = False
         Using cmd As SqlCommand = New SqlCommand("GetDepartmentsByKeyWord", con)
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@keyword", keyword)
             Using reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
+                    Dim No As Integer = 1
                     While reader.Read()
-                        ShowDepartment(reader)
+                        ShowDepartment(No, reader)
+                        No = No + 1
                     End While
                 Else
                     MessageBox.Show(Message.Message.errorInvalidSearch, titleMsgBox, buttons, icons)
+                    reload = True
                 End If
             End Using
         End Using
         con.Close()
+        If reload Then
+            txt_Search.Text = Nothing
+            LoadAndSortData()
+        End If
     End Sub
 
     Public Sub Delete_Department(id As Integer)
@@ -146,12 +233,12 @@ Public Class frm_Department
                 cmd.Parameters.AddWithValue("@id", id)
 
                 cmd.ExecuteNonQuery()
-                LoadData()
-
             End Using
+            MessageBox.Show("Department has been deleted successfully!!!", "Success", buttons, MessageBoxIcon.Information)
         Catch ex As Exception
             MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+        LoadAndSortData()
     End Sub
 
     Private Sub btn_Add_Click(sender As Object, e As EventArgs) Handles btn_Add.Click
@@ -192,16 +279,14 @@ Public Class frm_Department
     End Sub
 
     Private Sub btn_Delete_Click(sender As Object, e As EventArgs) Handles btn_Delete.Click
-        Dim id As Integer = CInt(txt_DepartmentID.Text)
         Dim selectedRows As DataGridViewSelectedRowCollection = dgrv_Department.SelectedRows
 
         If selectedRows.Count >= 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected department? Employee involved will also be deleted", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            For Each selectedRow As DataGridViewRow In selectedRows
-                dgrv_Department.Rows.Remove(selectedRow)
+            For i As Integer = dgrv_Department.SelectedRows.Count - 1 To 0 Step -1
+                Dim selectedRow As DataGridViewRow = dgrv_Department.SelectedRows(i)
+                Dim id As Integer = CInt(selectedRow.Cells("department_id").Value)
+                Delete_Department(id)
             Next
-            Delete_Department(id)
-            ClearForm()
-            EnableAdd()
         Else
             MessageBox.Show("Deletion canceled.", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
@@ -209,7 +294,7 @@ Public Class frm_Department
     End Sub
 
     Private Sub btn_Close_Click(sender As Object, e As EventArgs) Handles btn_Close.Click
-        Me.Hide()
+        Me.Close()
         Dim dashboard As New Dashboard
         dashboard.Show()
     End Sub
@@ -234,8 +319,9 @@ Public Class frm_Department
     End Sub
 
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
-        Me.Hide()
+        Me.Close()
         Dim dashboard As New Dashboard
         dashboard.Show()
     End Sub
+
 End Class

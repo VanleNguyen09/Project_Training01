@@ -8,9 +8,14 @@ CREATE OR ALTER PROCEDURE [dbo].[DeleteEmployee]
 	@id INT
 AS
 BEGIN
-	DELETE FROM	dbo.Dept_emp
+	UPDATE 	dbo.Dept_emp
+	SET status = 0
 	WHERE emp_id = @id
-	DELETE FROM dbo.Employees
+	UPDATE Salaries
+	SET status = 0
+	WHERE emp_id = @id
+	UPDATE dbo.Employees
+	SET	 status = 0
 	WHERE id = @id
 END
 GO

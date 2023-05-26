@@ -9,7 +9,8 @@ CREATE OR ALTER PROCEDURE [dbo].[InsertDeptManager]
 	@emp_id INT,
     @dept_id INT,
 	@from_date DATETIME,
-	@to_date DATETIME
+	@to_date DATETIME,
+	@status INT
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -19,8 +20,9 @@ BEGIN
 	    emp_id,
 	    dept_id,
 	    from_date,
-	    to_date
+	    to_date,
+		status
 	)
-	VALUES(@emp_id, @dept_id, @from_date, @to_date)
+	VALUES(@emp_id, @dept_id, @from_date, @to_date, @status)
 END
 GO
