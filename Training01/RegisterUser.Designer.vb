@@ -35,7 +35,9 @@ Partial Class RegisterUser
         Me.btnConfirm = New System.Windows.Forms.Button()
         Me.btnExit = New System.Windows.Forms.Button()
         Me.btnReset = New System.Windows.Forms.Button()
+        Me.closeApp = New System.Windows.Forms.PictureBox()
         Me.Panel1.SuspendLayout()
+        CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -149,6 +151,7 @@ Partial Class RegisterUser
         'btnConfirm
         '
         Me.btnConfirm.BackColor = System.Drawing.Color.Transparent
+        Me.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnConfirm.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnConfirm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.btnConfirm.Location = New System.Drawing.Point(12, 330)
@@ -161,6 +164,7 @@ Partial Class RegisterUser
         'btnExit
         '
         Me.btnExit.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.btnExit.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnExit.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnExit.ForeColor = System.Drawing.Color.Black
         Me.btnExit.Location = New System.Drawing.Point(332, 330)
@@ -173,6 +177,7 @@ Partial Class RegisterUser
         'btnReset
         '
         Me.btnReset.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.btnReset.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnReset.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnReset.ForeColor = System.Drawing.Color.Black
         Me.btnReset.Location = New System.Drawing.Point(174, 330)
@@ -182,6 +187,19 @@ Partial Class RegisterUser
         Me.btnReset.Text = "RESET"
         Me.btnReset.UseVisualStyleBackColor = False
         '
+        'closeApp
+        '
+        Me.closeApp.BackColor = System.Drawing.Color.Transparent
+        Me.closeApp.BackgroundImage = Global.Training01.My.Resources.Resources.blue_exit_icon_16
+        Me.closeApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.closeApp.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
+        Me.closeApp.Location = New System.Drawing.Point(427, -1)
+        Me.closeApp.Name = "closeApp"
+        Me.closeApp.Size = New System.Drawing.Size(35, 34)
+        Me.closeApp.TabIndex = 7
+        Me.closeApp.TabStop = False
+        '
         'RegisterUser
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -189,6 +207,7 @@ Partial Class RegisterUser
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.ClientSize = New System.Drawing.Size(462, 372)
+        Me.Controls.Add(Me.closeApp)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.btnReset)
         Me.Controls.Add(Me.btnConfirm)
@@ -201,6 +220,7 @@ Partial Class RegisterUser
         Me.Text = "RegisterUser"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.closeApp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -219,4 +239,5 @@ Partial Class RegisterUser
     Friend WithEvents btnReset As Button
     Friend WithEvents txtConfirmPassword As TextBox
     Friend WithEvents lblCPassword As Label
+    Friend WithEvents closeApp As PictureBox
 End Class

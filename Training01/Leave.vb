@@ -2,7 +2,7 @@
 
 Public Class Leave
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
-    Private DateTimeformat = "yyyy-MM-dd HH:mm:ss"
+    Private DateTimeformat = DTFormat.Type.NormalDatetime
 
     Private Sub Leave_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Settings for Combobox
@@ -225,8 +225,20 @@ Public Class Leave
         End Try
     End Sub
 
-    Private Sub dgvLeave_DoubleClick(sender As Object, e As EventArgs) Handles dgvLeave.DoubleClick
-        Dim eLeaveForm As New EditLeaveForm
-        eLeaveForm.Show()
+    Private Sub dgvLeave_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLeave.CellDoubleClick
+        Dim row As DataGridViewRow = dgvLeave.Rows(e.RowIndex)
+        Dim editLeaveForm As New EditLeaveForm
+
+        Dim id As Integer = Convert.ToInt32(row.Cells("id").Value)
+        Dim empId As Integer = Convert.ToInt32(row.Cells("emp_id").Value)
+        Dim name As String = row.Cells("emp_name").Value.ToString()
+        Dim fromDate As Date = row.Cells("from_date").Value
+        Dim reason As String = row.Cells("reason").Value.ToString()
+        editLeaveForm.TempData = ValueTuple.Create(id, empId, name, fromDate, reason)
+        editLeaveForm.SetCallback(Sub()
+                                      MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
+                                      Load_DGVLeave()
+                                  End Sub)
+        editLeaveForm.Show()
     End Sub
 End Class

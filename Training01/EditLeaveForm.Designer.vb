@@ -29,22 +29,25 @@ Partial Class EditLeaveForm
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.txtId = New System.Windows.Forms.TextBox()
-        Me.txtEmpId = New System.Windows.Forms.TextBox()
         Me.cbEmpName = New System.Windows.Forms.ComboBox()
         Me.dtpFromDate = New System.Windows.Forms.DateTimePicker()
         Me.rtxtReason = New System.Windows.Forms.RichTextBox()
         Me.gbInformation = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnSave = New System.Windows.Forms.Button()
+        Me.lbIdValue = New System.Windows.Forms.Label()
+        Me.lbEmpIdValue = New System.Windows.Forms.Label()
+        Me.btnReset = New System.Windows.Forms.Button()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbInformation.SuspendLayout()
         Me.SuspendLayout()
         '
         'closeApp
         '
-        Me.closeApp.BackgroundImage = Global.Training01.My.Resources.Resources.close_btn
+        Me.closeApp.BackColor = System.Drawing.Color.Transparent
+        Me.closeApp.BackgroundImage = Global.Training01.My.Resources.Resources.blue_exit_icon_16
         Me.closeApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.closeApp.Location = New System.Drawing.Point(575, 3)
+        Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.closeApp.Location = New System.Drawing.Point(578, 0)
         Me.closeApp.Name = "closeApp"
         Me.closeApp.Size = New System.Drawing.Size(40, 39)
         Me.closeApp.TabIndex = 0
@@ -59,7 +62,7 @@ Partial Class EditLeaveForm
         Me.Label1.Location = New System.Drawing.Point(159, 20)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(300, 31)
-        Me.Label1.TabIndex = 6
+        Me.Label1.TabIndex = 0
         Me.Label1.Text = "LEAVE INFORMATION"
         '
         'Label2
@@ -122,26 +125,6 @@ Partial Class EditLeaveForm
         Me.Label6.TabIndex = 2
         Me.Label6.Text = "REASON"
         '
-        'txtId
-        '
-        Me.txtId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtId.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtId.Location = New System.Drawing.Point(182, 26)
-        Me.txtId.Name = "txtId"
-        Me.txtId.ReadOnly = True
-        Me.txtId.Size = New System.Drawing.Size(157, 23)
-        Me.txtId.TabIndex = 1
-        '
-        'txtEmpId
-        '
-        Me.txtEmpId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtEmpId.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtEmpId.Location = New System.Drawing.Point(182, 67)
-        Me.txtEmpId.Name = "txtEmpId"
-        Me.txtEmpId.ReadOnly = True
-        Me.txtEmpId.Size = New System.Drawing.Size(157, 23)
-        Me.txtEmpId.TabIndex = 2
-        '
         'cbEmpName
         '
         Me.cbEmpName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -149,7 +132,7 @@ Partial Class EditLeaveForm
         Me.cbEmpName.Location = New System.Drawing.Point(182, 113)
         Me.cbEmpName.Name = "cbEmpName"
         Me.cbEmpName.Size = New System.Drawing.Size(207, 24)
-        Me.cbEmpName.TabIndex = 3
+        Me.cbEmpName.TabIndex = 4
         '
         'dtpFromDate
         '
@@ -157,14 +140,14 @@ Partial Class EditLeaveForm
         Me.dtpFromDate.Location = New System.Drawing.Point(182, 163)
         Me.dtpFromDate.Name = "dtpFromDate"
         Me.dtpFromDate.Size = New System.Drawing.Size(207, 23)
-        Me.dtpFromDate.TabIndex = 4
+        Me.dtpFromDate.TabIndex = 5
         '
         'rtxtReason
         '
         Me.rtxtReason.Location = New System.Drawing.Point(182, 217)
         Me.rtxtReason.Name = "rtxtReason"
         Me.rtxtReason.Size = New System.Drawing.Size(342, 125)
-        Me.rtxtReason.TabIndex = 5
+        Me.rtxtReason.TabIndex = 6
         Me.rtxtReason.Text = ""
         '
         'gbInformation
@@ -173,35 +156,76 @@ Partial Class EditLeaveForm
         Me.gbInformation.Controls.Add(Me.rtxtReason)
         Me.gbInformation.Controls.Add(Me.dtpFromDate)
         Me.gbInformation.Controls.Add(Me.cbEmpName)
-        Me.gbInformation.Controls.Add(Me.txtEmpId)
-        Me.gbInformation.Controls.Add(Me.txtId)
         Me.gbInformation.Controls.Add(Me.Label6)
         Me.gbInformation.Controls.Add(Me.Label5)
         Me.gbInformation.Controls.Add(Me.Label4)
+        Me.gbInformation.Controls.Add(Me.lbEmpIdValue)
         Me.gbInformation.Controls.Add(Me.Label3)
+        Me.gbInformation.Controls.Add(Me.lbIdValue)
         Me.gbInformation.Controls.Add(Me.Label2)
         Me.gbInformation.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbInformation.ForeColor = System.Drawing.Color.White
         Me.gbInformation.Location = New System.Drawing.Point(34, 65)
         Me.gbInformation.Name = "gbInformation"
         Me.gbInformation.Size = New System.Drawing.Size(552, 364)
-        Me.gbInformation.TabIndex = 0
+        Me.gbInformation.TabIndex = 1
         Me.gbInformation.TabStop = False
         Me.gbInformation.Text = "INFORMATION"
         '
-        'Button1
+        'btnSave
         '
-        Me.Button1.BackColor = System.Drawing.Color.IndianRed
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(448, 447)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(138, 33)
-        Me.Button1.TabIndex = 8
-        Me.Button1.Text = "SAVE"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.btnSave.BackColor = System.Drawing.Color.IndianRed
+        Me.btnSave.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSave.Enabled = False
+        Me.btnSave.FlatAppearance.BorderSize = 0
+        Me.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSave.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSave.ForeColor = System.Drawing.Color.White
+        Me.btnSave.Location = New System.Drawing.Point(448, 447)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(138, 33)
+        Me.btnSave.TabIndex = 8
+        Me.btnSave.Text = "SAVE"
+        Me.btnSave.UseVisualStyleBackColor = False
+        '
+        'lbIdValue
+        '
+        Me.lbIdValue.AutoSize = True
+        Me.lbIdValue.BackColor = System.Drawing.Color.White
+        Me.lbIdValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbIdValue.ForeColor = System.Drawing.Color.Black
+        Me.lbIdValue.Location = New System.Drawing.Point(182, 29)
+        Me.lbIdValue.Name = "lbIdValue"
+        Me.lbIdValue.Size = New System.Drawing.Size(78, 17)
+        Me.lbIdValue.TabIndex = 2
+        Me.lbIdValue.Text = "ID VALUE"
+        '
+        'lbEmpIdValue
+        '
+        Me.lbEmpIdValue.AutoSize = True
+        Me.lbEmpIdValue.BackColor = System.Drawing.Color.White
+        Me.lbEmpIdValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbEmpIdValue.ForeColor = System.Drawing.Color.Black
+        Me.lbEmpIdValue.Location = New System.Drawing.Point(182, 70)
+        Me.lbEmpIdValue.Name = "lbEmpIdValue"
+        Me.lbEmpIdValue.Size = New System.Drawing.Size(166, 17)
+        Me.lbEmpIdValue.TabIndex = 3
+        Me.lbEmpIdValue.Text = "EMPLOYEE ID VALUE"
+        '
+        'btnReset
+        '
+        Me.btnReset.BackColor = System.Drawing.Color.Tomato
+        Me.btnReset.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnReset.FlatAppearance.BorderSize = 0
+        Me.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnReset.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReset.ForeColor = System.Drawing.Color.White
+        Me.btnReset.Location = New System.Drawing.Point(304, 447)
+        Me.btnReset.Name = "btnReset"
+        Me.btnReset.Size = New System.Drawing.Size(138, 33)
+        Me.btnReset.TabIndex = 8
+        Me.btnReset.Text = "RESET"
+        Me.btnReset.UseVisualStyleBackColor = False
         '
         'EditLeaveForm
         '
@@ -210,7 +234,8 @@ Partial Class EditLeaveForm
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(618, 492)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnReset)
+        Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.gbInformation)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.closeApp)
@@ -233,11 +258,12 @@ Partial Class EditLeaveForm
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents txtId As TextBox
-    Friend WithEvents txtEmpId As TextBox
     Friend WithEvents cbEmpName As ComboBox
     Friend WithEvents dtpFromDate As DateTimePicker
     Friend WithEvents rtxtReason As RichTextBox
     Friend WithEvents gbInformation As GroupBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnSave As Button
+    Friend WithEvents lbEmpIdValue As Label
+    Friend WithEvents lbIdValue As Label
+    Friend WithEvents btnReset As Button
 End Class

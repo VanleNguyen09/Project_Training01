@@ -14,7 +14,16 @@ Public Class RegisterUser
     End Sub
 
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
-        Me.Hide()
+        Me.Close()
+        'If Login form is hidden
+        For Each frm As Form In Application.OpenForms
+            If Not frm.Visible And frm.Name = "Login" Then
+                frm.Show()
+                Exit Sub
+            End If
+        Next
+
+        'If Login is not created
         Dim login As New Login
         login.Show()
     End Sub
@@ -26,32 +35,55 @@ Public Class RegisterUser
         Dim cPassword As String = txtConfirmPassword.Text.Trim()
         Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
         Dim titleMsgBox As String = Message.Title.error
+        Dim icon = MessageBoxIcon.Warning
 
-        'Validations
-        If email = String.Empty OrElse fullName = String.Empty OrElse password = String.Empty OrElse cPassword = String.Empty Then
-            MessageBox.Show(Message.Message.emptyErrorMessage, titleMsgBox, buttons)
-            Exit Sub
-        End If
-
-        If Not FuntionCommon.Validation.IsEmail(email) Then
-            MessageBox.Show(Message.Message.emailErrorMessage, titleMsgBox, buttons)
+        'Empty Validations
+        If email = String.Empty Then
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleMsgBox, buttons, icon)
             txtEmail.Select()
             Exit Sub
         End If
 
-        If Not FuntionCommon.Validation.CheckPassword(password) Then
-            MessageBox.Show(Message.Message.passwordErrorMessage, titleMsgBox, buttons)
+        If fullName = String.Empty Then
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleMsgBox, buttons, icon)
+            txtFullName.Select()
+            Exit Sub
+        End If
+
+        If password = String.Empty Then
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleMsgBox, buttons, icon)
             txtPassword.Select()
             Exit Sub
         End If
 
-        If Not FuntionCommon.Validation.CheckConfirmPassword(password, cPassword) Then
-            MessageBox.Show(Message.Message.cPasswordErrorMessage, titleMsgBox, buttons)
+        If cPassword = String.Empty Then
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleMsgBox, buttons, icon)
             txtConfirmPassword.Select()
             Exit Sub
         End If
 
-        'Check connection
+        'Email Validations
+        If Not FuntionCommon.Validation.IsEmail(email) Then
+            MessageBox.Show(Message.Message.emailErrorMessage, titleMsgBox, buttons, icon)
+            txtEmail.Select()
+            Exit Sub
+        End If
+
+        'Password Validations
+        If Not FuntionCommon.Validation.CheckPassword(password) Then
+            MessageBox.Show(Message.Message.passwordErrorMessage, titleMsgBox, buttons, icon)
+            txtPassword.Select()
+            Exit Sub
+        End If
+
+        'Confirmed Password Validations
+        If Not FuntionCommon.Validation.CheckConfirmPassword(password, cPassword) Then
+            MessageBox.Show(Message.Message.cPasswordErrorMessage, titleMsgBox, buttons, icon)
+            txtConfirmPassword.Select()
+            Exit Sub
+        End If
+
+        'Check Connection
         If con.State() <> 1 Then
             con.Open()
         End If
@@ -81,7 +113,7 @@ Public Class RegisterUser
                     Dim subReader As SqlDataReader = subCommand.ExecuteReader()
                 End Using
 
-                Dim result As DialogResult = MessageBox.Show(Message.Message.successfulregisterMsg, Message.Title.success, MessageBoxButtons.OK)
+                Dim result As DialogResult = MessageBox.Show(Message.Message.successfulregisterMsg, Message.Title.success, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 If result = DialogResult.OK Then
                     'Switch to Login Form and fill email to email textbox
                     Dim login As New Login
@@ -94,4 +126,14 @@ Public Class RegisterUser
         End Using
     End Sub
 
+    Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
+        Environment.Exit(0)
+    End Sub
+
+    Private Sub RegisterUser_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
+        If e.KeyChar = Convert.ToChar(Keys.Enter) Then
+            SendKeys.Send("{TAB}")
+            e.Handled = True
+        End If
+    End Sub
 End Class

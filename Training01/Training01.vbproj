@@ -79,6 +79,7 @@
     <Compile Include="Dashboard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="DTFormat.vb" />
     <Compile Include="Department.Designer.vb">
       <DependentUpon>Department.vb</DependentUpon>
     </Compile>
