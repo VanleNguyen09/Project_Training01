@@ -15,12 +15,12 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Dat
--- Create date: 22/5/2023
--- Update date: 29/5/2023
--- Description:	Add position
+-- Create date: 29/5/2023
+-- Description:	Insert one salary by name and salary
 -- =============================================
-CREATE OR ALTER PROCEDURE InsertPosition
-@name nvarchar(255)
+CREATE OR ALTER PROCEDURE InsertSalary
+@name nvarchar(255),
+@salary decimal(10,2)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -28,26 +28,22 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	IF EXISTS (SELECT * FROM Position WHERE name = @name AND status = 1)
+	IF EXISTS (SELECT 1 FROM SalaryEmp WHERE status = 1 AND salary_name = @name)
 	BEGIN
-		THROW 50005, N'Exist This Name', 1;
+		THROW 50001, 'This Salary name is existed!', 1
 	END
-
-	IF NOT EXISTS (SELECT * FROM Position WHERE name = @name AND status = 0)
+	
+	-- If name is existed but it is deleted (status = 0)
+	IF EXISTS (SELECT 1 FROM SalaryEmp WHERE status = 0 AND salary_name = @name)
 	BEGIN
-		INSERT INTO Position(name, status) VALUES (@name, 1)
-		RETURN 0
+		UPDATE SalaryEmp
+		SET salary = @salary, status = 1
+		WHERE salary_name = @name
 	END
 	ELSE
 	BEGIN
-	DECLARE @pos_id INT = (SELECT TOP 1 id FROM Position WHERE name = @name AND status = 0 ORDER BY id)
-		UPDATE Position
-		SET status = 1
-		WHERE id = @pos_id
-
-		UPDATE Emp_Pos
-		SET status = 1
-		WHERE pos_id = @pos_id
+		INSERT INTO SalaryEmp(salary_name, salary, status)
+		VALUES(@name, @salary, 1)
 	END
 END
 GO

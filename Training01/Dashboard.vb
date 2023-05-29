@@ -49,9 +49,9 @@ Public Class Dashboard
     End Sub
 
     Private Sub btn_Salary_Click(sender As Object, e As EventArgs) Handles btn_Salary.Click
+        Dim salary As New SalaryEmp
         Me.Hide()
-        Dim Department As New frm_Salary
-        Department.Show()
+        salary.Show()
     End Sub
 
     Private Sub btnLeave_Click(sender As Object, e As EventArgs) Handles btnLeave.Click

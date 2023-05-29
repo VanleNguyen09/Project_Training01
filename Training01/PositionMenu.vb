@@ -42,13 +42,13 @@
     End Sub
 
     Private Sub btnEmployee_Click(sender As Object, e As EventArgs) Handles btnEmployee.Click
-        Me.Close()
+        Me.Hide()
         Dim empByPos As New EmpByPos
         empByPos.Show()
     End Sub
 
     Private Sub btnPosition_Click(sender As Object, e As EventArgs) Handles btnPosition.Click
-        Me.Close()
+        Me.Hide()
         Dim position As New Position
         position.Show()
     End Sub

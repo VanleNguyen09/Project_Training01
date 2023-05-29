@@ -15,27 +15,20 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Dat
--- Create date: 23/5/2023
--- Update date: 29/5/2023
--- Description:	Update Position By Id
+-- Create date: 29/5/2023
+-- Description:	Get all salaries list by words
 -- =============================================
-CREATE OR ALTER PROCEDURE UpdatePositionById
-@pos_id INT,
-@name NVARCHAR(255)
+CREATE OR ALTER PROCEDURE GetAllSalariesByWords
+@words nvarchar(255)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    -- Insert statements for procedure here
-	IF EXISTS (SELECT * FROM Position WHERE name = @name AND status = 1)
-	BEGIN
-		THROW 50000, 'Exist this name!', 1;
-	END
-
-	UPDATE Position
-	SET name = @name
-	WHERE id = @pos_id
+	SELECT ROW_NUMBER() OVER (ORDER BY id) as stt, id as salary_id, salary_name, salary FROM SalaryEmp
+	WHERE status = 1 
+	AND salary_name LIKE '%' + @words + '%'
+	OR salary LIKE '%' + @words + '%'
 END
 GO
