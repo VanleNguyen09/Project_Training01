@@ -12,6 +12,5 @@ BEGIN
 	JOIN dbo.Dept_emp AS b
 	ON a.id = b.emp_id
 	WHERE b.emp_id = @id
-
 END
 GO

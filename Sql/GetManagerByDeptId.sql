@@ -16,6 +16,6 @@ BEGIN
 	ON a.id = b.emp_id
 	INNER JOIN dbo.Department c
 	ON c.id = b.dept_id
-	WHERE b.dept_id = @dept_id AND a.status = 1
+	WHERE b.dept_id = @dept_id AND b.status = 1
 END
 GO

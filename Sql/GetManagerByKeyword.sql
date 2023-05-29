@@ -27,7 +27,7 @@ BEGIN
 	OR a.email LIKE '%' + @keyword + '%'
 	OR c.name  LIKE '%' + @keyword + '%')
 	OR from_date LIKE '%' + @keyword + '%' OR to_date 
-	LIKE '%' + @keyword + '%'  AND (a.status = 1)
+	LIKE '%' + @keyword + '%'  AND (b.status = 1)
 	AND (b.dept_id = @department_id)
 	ORDER BY c.name, a.name
 	END
@@ -47,7 +47,7 @@ BEGIN
 	OR a.email LIKE '%' + @keyword + '%'
 	OR c.name  LIKE '%' + @keyword + '%'
 	OR from_date LIKE '%' + @keyword + '%' OR to_date 
-	LIKE '%' + @keyword + '%') AND a.status = 1
+	LIKE '%' + @keyword + '%') AND b.status = 1
 	ORDER BY c.name, a.name  
 	END
 END
