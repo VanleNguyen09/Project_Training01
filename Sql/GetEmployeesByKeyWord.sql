@@ -23,12 +23,12 @@ BEGIN
 	phone LIKE '%' + @keyword + '%' OR
 	a.address  LIKE '%' + @keyword + '%'
 	OR a.email LIKE '%' + @keyword + '%'
-	OR c.name  LIKE '%' + @keyword + '%') AND (b.dept_id = @department_id)
+	OR c.name  LIKE '%' + @keyword + '%') AND (a.status = 1) AND (b.dept_id = @department_id) 
 	ORDER BY c.name, a.name
 	END
 	ELSE 
-		BEGIN 
-		SELECT a.*, c.name AS department_name FROM dbo.Employees a
+	BEGIN 
+	SELECT a.*, c.name AS department_name FROM dbo.Employees a
 	JOIN dbo.Dept_emp b
 	ON a.id = b.emp_id
 	JOIN dbo.Department c
@@ -38,9 +38,8 @@ BEGIN
 	phone LIKE '%' + @keyword + '%' OR
 	a.address  LIKE '%' + @keyword + '%'
 	OR a.email LIKE '%' + @keyword + '%'
-	OR c.name  LIKE '%' + @keyword + '%')
+	OR c.name  LIKE '%' + @keyword + '%') AND (a.status = 1)
 	ORDER BY c.name, a.name  
 	END
 END
 GO
-

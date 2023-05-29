@@ -4,14 +4,14 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE OR ALTER PROCEDURE [dbo].[CheckManagerExit]
+CREATE OR ALTER PROCEDURE [dbo].[CheckEmployeeExitForUpdate]
 	-- Add the parameters for the stored procedure here
-	@emp_id INT, 
-	@dept_id INT 
+	@phone VARCHAR(20),
+	@id INT
 AS
 BEGIN
 	DECLARE @employee_exit INT
-	IF EXISTS (SELECT 1 FROM dbo.Dept_manager WHERE emp_id = @emp_id AND dept_id = @dept_id)
+	IF EXISTS (SELECT 1 FROM dbo.Employees WHERE phone = @phone AND id <> @id)
 		SET @employee_exit = 1
 	ELSE
 		SET @employee_exit = 0

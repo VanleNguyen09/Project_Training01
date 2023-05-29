@@ -5,9 +5,18 @@ Imports System.Security.Cryptography
 
 Public Class frm_Manager
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
-        Me.Hide()
+        Me.Close()
         Dim dashboard As New Dashboard
         dashboard.Show()
+    End Sub
+
+    Private Sub LoadAndSortData()
+        LoadData()
+        SortDataById()
+    End Sub
+
+    Public Sub SortDataById()
+        dgv_DeptManager.Sort(dgv_DeptManager.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
     End Sub
 
     Private Sub frm_Manager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -16,16 +25,13 @@ Public Class frm_Manager
         cb_Department.Items.Add(initialDepartment)
         cb_DepCreate.Items.Add(initialDepartment)
         cb_EmpCreate.Items.Add(initialEmployee)
-        cb_DeptRemove.Items.Add(initialDepartment)
         cb_Department.SelectedIndex = 0
         cb_DepCreate.SelectedIndex = 0
         cb_EmpCreate.SelectedIndex = 0
-        cb_DeptRemove.SelectedIndex = 0
-        cb_DeptRemove.Enabled = False
 
         Select_Departments()
         Select_Employees()
-        LoadData()
+        LoadAndSortData()
     End Sub
 
     Private Sub ClearForm()
@@ -35,7 +41,6 @@ Public Class frm_Manager
         dtp_ToDate.Value = Date.Now()
         dgv_DeptManager.ClearSelection() 'Xóa bỏ việc chọn hàng trong DataGridView             
         grb_create.Enabled = True
-        cb_DeptRemove.Enabled = False
     End Sub
 
     Private Class ComboBoxItem
@@ -66,7 +71,6 @@ Public Class frm_Manager
                     Dim currentItem As ComboBoxItem = New ComboBoxItem(reader("name"), reader("id"))
                     cb_Department.Items.Add(currentItem)
                     cb_DepCreate.Items.Add(currentItem)
-                    cb_DeptRemove.Items.Add(currentItem)
                 End While
             End Using
         End Using
@@ -88,18 +92,27 @@ Public Class frm_Manager
         End Using
     End Sub
 
-    Public Sub ShowEmployeeManager(ByVal reader As SqlDataReader)
+    Private Sub MakeButtonBackgroundBlurry(button As Button)
+        Dim originalColor As Color = button.BackColor
+        Dim blurredColor As Color = ControlPaint.Light(originalColor, 0.5)
+        button.BackColor = blurredColor
+    End Sub
+
+    Public Sub ShowEmployeeManager(ByVal No As Integer, ByVal reader As SqlDataReader)
         Dim id As Integer = Convert.ToInt32(reader("id"))
         Dim name As String = reader("name").ToString()
         Dim phone As String = reader("phone").ToString()
         Dim address As String = reader("address").ToString()
         Dim birthday As String = reader("birthday").ToString()
         Dim email As String = reader("email").ToString()
-        Dim department_name As String = If(reader.IsDBNull(reader.GetOrdinal("department_name")), String.Empty, reader("department_name").ToString())
+        Dim department_name As String = reader("department_name").ToString()
+        'Dim department_name As String = If(reader.IsDBNull(reader.GetOrdinal("department_name")), String.Empty, reader("department_name").ToString())
         Dim from_date As String = reader("from_date").ToString()
         Dim to_date As String = reader("to_date").ToString()
+        Dim dept_id As Integer = Convert.ToInt32(reader("dept_id"))
+        Dim status As Integer = Convert.ToInt32(reader("status"))
 
-        dgv_DeptManager.Rows.Add(id, name, phone, address, birthday, email, department_name, from_date, to_date)
+        dgv_DeptManager.Rows.Add(No, id, name, phone, address, birthday, email, department_name, from_date, to_date, dept_id, status)
     End Sub
 
 
@@ -110,9 +123,11 @@ Public Class frm_Manager
         dgv_DeptManager.Rows.Clear()
         Using cmd As SqlCommand = New SqlCommand("GetAllEmployeesManager", con)
             Dim reader As SqlDataReader = cmd.ExecuteReader()
+            Dim No As Integer = 1
 
             While reader.Read()
-                ShowEmployeeManager(reader)
+                ShowEmployeeManager(No, reader)
+                No = No + 1
             End While
             con.Close()
         End Using
@@ -145,6 +160,7 @@ Public Class frm_Manager
     End Function
 
     Private Sub Add_Manager(emp_id As Integer, dept_id As Integer, from_date As Date, to_date As Date)
+        Dim status As Integer = 1
         If check_exit(emp_id, dept_id) = True Then
             MessageBox.Show(Message.Message.managerExitedForDepartment, titleMsgBox, buttons, icons)
             Exit Sub
@@ -160,8 +176,8 @@ Public Class frm_Manager
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
                 cmd.Parameters.AddWithValue("@from_date", from_date)
                 cmd.Parameters.AddWithValue("@to_date", to_date)
+                cmd.Parameters.AddWithValue("@status", status)
                 cmd.ExecuteNonQuery()
-                LoadData()
             End Using
             MessageBox.Show("Manager has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
         Catch ex As Exception
@@ -169,22 +185,11 @@ Public Class frm_Manager
         Finally
             con.Close()
         End Try
+        LoadAndSortData()
     End Sub
 
     Private Sub Delete_Manager(emp_id As Integer, dept_id As Integer)
-        'Dim dept_id As Integer = CInt(cb_Department.SelectedItem.hiddenvalue)
-        If cb_DeptRemove.SelectedItem.hiddenvalue = -1 Then
-            MessageBox.Show("Please select a department.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
-        End If
-
-        Dim checkExit As Boolean = check_exit(emp_id, dept_id)
-        If Not checkExit Then
-            MessageBox.Show("The manager is not in the selected department.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
-        End If
-
-        If con.State <> ConnectionState.Open Then
+        If con.State <> 1 Then
             con.Open()
         End If
 
@@ -201,7 +206,7 @@ Public Class frm_Manager
         Finally
             con.Close()
         End Try
-        LoadData()
+        LoadAndSortData()
     End Sub
 
     Private Sub SearchManagersByKeyword(keyword As String, department_id As Integer)
@@ -211,26 +216,34 @@ Public Class frm_Manager
         End If
 
         dgv_DeptManager.Rows.Clear()
-
+        Dim reload = False
         Using cmd As SqlCommand = New SqlCommand("GetManagersByKeyWord", con)
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@keyword", keyword)
             cmd.Parameters.AddWithValue("@department_id", department_id)
+            Dim No As Integer = 1
+
             Using reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     While reader.Read()
-                        ShowEmployeeManager(reader)
+                        ShowEmployeeManager(No, reader)
+                        No = No + 1
                     End While
                 Else
                     MessageBox.Show(Message.Message.errorInvalidSearch, titleMsgBox, buttons, icons)
+                    reload = True
                 End If
             End Using
         End Using
         con.Close()
+        If reload Then
+            txt_Search.Text = Nothing
+            LoadAndSortData()
+        End If
     End Sub
 
     Private Sub cb_Department_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cb_Department.SelectedIndexChanged
-        Dim dept_id = CInt(cb_Department.SelectedItem.hiddenvalue)
+        Dim dept_id As Integer = cb_Department.SelectedItem.hiddenvalue
         dgv_DeptManager.RowCount = 0
         If con.State <> 1 Then
             con.Open()
@@ -240,8 +253,10 @@ Public Class frm_Manager
             Using cmd As SqlCommand = New SqlCommand("GetAllEmployeesManager", con)
                 cmd.CommandType = CommandType.StoredProcedure
                 reader = cmd.ExecuteReader()
+                Dim No As Integer = 1
                 While reader.Read()
-                    ShowEmployeeManager(reader)
+                    ShowEmployeeManager(No, reader)
+                    No = No + 1
                 End While
                 con.Close()
             End Using
@@ -250,8 +265,10 @@ Public Class frm_Manager
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
                 reader = cmd.ExecuteReader()
+                Dim No As Integer = 1
                 While reader.Read()
-                    ShowEmployeeManager(reader)
+                    ShowEmployeeManager(No, reader)
+                    No = No + 1
                 End While
                 con.Close()
             End Using
@@ -264,7 +281,7 @@ Public Class frm_Manager
     Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
     Dim errorIcons As MessageBoxIcon = MessageBoxIcon.Error
 
-    Private Sub btn_Add_Click(sender As Object, e As EventArgs) Handles btn_Add.Click
+    Private Sub btn_Add_Click(sender As Object, e As EventArgs)
         Dim emp_id As Integer = cb_EmpCreate.SelectedItem.hiddenvalue
         Dim dept_id As Integer = cb_DepCreate.SelectedItem.hiddenvalue
         Dim from_date As Date = dtp_FromDate.Value
@@ -289,15 +306,17 @@ Public Class frm_Manager
         ClearForm()
     End Sub
 
-    Private Sub btn_Delete_Click(sender As Object, e As EventArgs) Handles btn_Delete.Click
-        If dgv_DeptManager.SelectedRows.Count > 0 Then
+    Private Sub btn_Delete_Click(sender As Object, e As EventArgs)
+        If dgv_DeptManager.SelectedRows.Count >= 0 Then
             Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected manager(s)?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
             If result = DialogResult.Yes Then
-                'Duyệt qua các hàng được chọn và thực hiện xóa
-                For Each selectedRow As DataGridViewRow In dgv_DeptManager.SelectedRows
-                    Dim emp_id As Integer = CInt(selectedRow.Cells("id").Value)
-                    Dim dept_id As Integer = CInt(cb_DeptRemove.SelectedItem.hiddenvalue)
+                'Tạo danh sách tạm thời chứa các hàng được chọn
+                Dim selectedRows As New List(Of DataGridViewRow)
+                For i As Integer = dgv_DeptManager.SelectedRows.Count - 1 To 0 Step -1
+                    Dim selectedRow As DataGridViewRow = dgv_DeptManager.SelectedRows(i)
+                    Dim emp_id As Integer = CInt(selectedRow.Cells("emp_id").Value)
+                    Dim dept_id As Integer = CInt(selectedRow.Cells("dept_id").Value)
                     Delete_Manager(emp_id, dept_id)
                 Next
                 ClearForm()
@@ -307,14 +326,14 @@ Public Class frm_Manager
         End If
     End Sub
 
-    Private Sub btn_Manage_Click(sender As Object, e As EventArgs) Handles btn_Manage.Click
-        Me.Hide()
+    Private Sub btn_Manage_Click(sender As Object, e As EventArgs)
+        Me.Close()
         Dim department As New frm_Department
         department.Show()
     End Sub
 
-    Private Sub btn_Exit_Click(sender As Object, e As EventArgs) Handles btn_Exit.Click
-        Me.Hide()
+    Private Sub btn_Exit_Click(sender As Object, e As EventArgs)
+        Me.Close()
         Dim dashboard As New Dashboard
         dashboard.Show()
     End Sub
@@ -322,13 +341,14 @@ Public Class frm_Manager
     Private Sub dgv_DeptManager_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgv_DeptManager.CellClick
         If e.RowIndex >= 0 Then
             grb_create.Enabled = False
-            cb_DeptRemove.Enabled = True
+            MakeButtonBackgroundBlurry(btn_Add)
         End If
     End Sub
 
-    Private Sub btn_Clear_Click(sender As Object, e As EventArgs) Handles btn_Clear.Click
+    Private Sub btn_Clear_Click(sender As Object, e As EventArgs)
         ClearForm()
-
+        btn_Delete.Enabled = False
+        MakeButtonBackgroundBlurry(btn_Delete)
     End Sub
 
     Private Sub btn_Search_Click(sender As Object, e As EventArgs) Handles btn_Search.Click
@@ -338,6 +358,33 @@ Public Class frm_Manager
             SearchManagersByKeyword(keyword, department_id)
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
+        End If
+    End Sub
+
+    Private Sub cb_DepCreate_KeyDown(sender As Object, e As KeyEventArgs) Handles cb_DepCreate.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True
+            cb_EmpCreate.Focus()
+        End If
+    End Sub
+
+    Private Sub cb_EmpCreate_KeyDown(sender As Object, e As KeyEventArgs) Handles cb_EmpCreate.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True
+            dtp_FromDate.Focus()
+        End If
+    End Sub
+
+    Private Sub dtp_FromDate_KeyDown(sender As Object, e As KeyEventArgs) Handles dtp_FromDate.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True
+            dtp_ToDate.Focus()
+        End If
+    End Sub
+
+    Private Sub dtp_ToDate_KeyDown(sender As Object, e As KeyEventArgs) Handles dtp_ToDate.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True
         End If
     End Sub
 End Class

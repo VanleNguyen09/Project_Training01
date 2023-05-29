@@ -27,15 +27,13 @@ Partial Class frm_Manager
         Me.ptb_Icon = New System.Windows.Forms.PictureBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dgv_DeptManager = New System.Windows.Forms.DataGridView()
-        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.from_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.to_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.txt_Search = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.btn_Search = New System.Windows.Forms.Button()
+        Me.btn_Clear = New System.Windows.Forms.Button()
+        Me.btn_Exit = New System.Windows.Forms.Button()
+        Me.btn_Manage = New System.Windows.Forms.Button()
+        Me.btn_Delete = New System.Windows.Forms.Button()
         Me.grb_create = New System.Windows.Forms.GroupBox()
         Me.dtp_ToDate = New System.Windows.Forms.DateTimePicker()
         Me.dtp_FromDate = New System.Windows.Forms.DateTimePicker()
@@ -46,14 +44,19 @@ Partial Class frm_Manager
         Me.Label4 = New System.Windows.Forms.Label()
         Me.cb_DepCreate = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.btn_Delete = New System.Windows.Forms.Button()
-        Me.btn_Manage = New System.Windows.Forms.Button()
-        Me.btn_Exit = New System.Windows.Forms.Button()
-        Me.cb_DeptRemove = New System.Windows.Forms.ComboBox()
-        Me.btn_Clear = New System.Windows.Forms.Button()
-        Me.txt_Search = New System.Windows.Forms.TextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.btn_Search = New System.Windows.Forms.Button()
+        Me.btn_Update = New System.Windows.Forms.Button()
+        Me.NO = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.from_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.to_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.dept_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgv_DeptManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_create.SuspendLayout()
@@ -67,7 +70,7 @@ Partial Class frm_Manager
         Me.cb_Department.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cb_Department.FormattingEnabled = True
         Me.cb_Department.IntegralHeight = False
-        Me.cb_Department.Location = New System.Drawing.Point(137, 138)
+        Me.cb_Department.Location = New System.Drawing.Point(137, 109)
         Me.cb_Department.Name = "cb_Department"
         Me.cb_Department.Size = New System.Drawing.Size(229, 30)
         Me.cb_Department.TabIndex = 54
@@ -90,8 +93,8 @@ Partial Class frm_Manager
         Me.ptb_Icon.BackColor = System.Drawing.SystemColors.Control
         Me.ptb_Icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ptb_Icon.ErrorImage = Nothing
-        Me.ptb_Icon.Image = Global.Training01.My.Resources.Resources.icon_close
-        Me.ptb_Icon.Location = New System.Drawing.Point(1042, 0)
+        Me.ptb_Icon.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
+        Me.ptb_Icon.Location = New System.Drawing.Point(1484, 0)
         Me.ptb_Icon.Name = "ptb_Icon"
         Me.ptb_Icon.Size = New System.Drawing.Size(43, 37)
         Me.ptb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -104,7 +107,7 @@ Partial Class frm_Manager
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Linen
-        Me.Label2.Location = New System.Drawing.Point(13, 142)
+        Me.Label2.Location = New System.Drawing.Point(13, 113)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(107, 20)
@@ -115,76 +118,101 @@ Partial Class frm_Manager
         '
         Me.dgv_DeptManager.AllowUserToAddRows = False
         Me.dgv_DeptManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_DeptManager.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.id, Me.emp_name, Me.phone, Me.birthday, Me.address, Me.email, Me.department_name, Me.from_date, Me.to_date})
-        Me.dgv_DeptManager.Location = New System.Drawing.Point(13, 186)
+        Me.dgv_DeptManager.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NO, Me.emp_id, Me.emp_name, Me.phone, Me.birthday, Me.address, Me.email, Me.department_name, Me.from_date, Me.to_date, Me.dept_id, Me.status})
+        Me.dgv_DeptManager.Location = New System.Drawing.Point(2, 482)
         Me.dgv_DeptManager.Margin = New System.Windows.Forms.Padding(4)
         Me.dgv_DeptManager.Name = "dgv_DeptManager"
+        Me.dgv_DeptManager.RowHeadersVisible = False
         Me.dgv_DeptManager.RowHeadersWidth = 51
-        Me.dgv_DeptManager.Size = New System.Drawing.Size(644, 350)
+        Me.dgv_DeptManager.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgv_DeptManager.Size = New System.Drawing.Size(1525, 397)
         Me.dgv_DeptManager.TabIndex = 70
         '
-        'id
+        'txt_Search
         '
-        Me.id.HeaderText = "ID"
-        Me.id.MinimumWidth = 6
-        Me.id.Name = "id"
-        Me.id.Width = 125
+        Me.txt_Search.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_Search.Location = New System.Drawing.Point(136, 56)
+        Me.txt_Search.Name = "txt_Search"
+        Me.txt_Search.Size = New System.Drawing.Size(230, 30)
+        Me.txt_Search.TabIndex = 77
         '
-        'emp_name
+        'Label6
         '
-        Me.emp_name.HeaderText = "NAME"
-        Me.emp_name.MinimumWidth = 6
-        Me.emp_name.Name = "emp_name"
-        Me.emp_name.Width = 125
+        Me.Label6.AutoSize = True
+        Me.Label6.BackColor = System.Drawing.Color.Transparent
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.Linen
+        Me.Label6.Location = New System.Drawing.Point(13, 56)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(68, 20)
+        Me.Label6.TabIndex = 78
+        Me.Label6.Text = "Search"
         '
-        'phone
+        'btn_Search
         '
-        Me.phone.HeaderText = "PHONE"
-        Me.phone.MinimumWidth = 6
-        Me.phone.Name = "phone"
-        Me.phone.Width = 125
+        Me.btn_Search.BackColor = System.Drawing.Color.Linen
+        Me.btn_Search.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_Search.ForeColor = System.Drawing.Color.Black
+        Me.btn_Search.Location = New System.Drawing.Point(386, 85)
+        Me.btn_Search.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_Search.Name = "btn_Search"
+        Me.btn_Search.Size = New System.Drawing.Size(271, 35)
+        Me.btn_Search.TabIndex = 79
+        Me.btn_Search.Text = "SEARCH"
+        Me.btn_Search.UseVisualStyleBackColor = False
         '
-        'birthday
+        'btn_Clear
         '
-        Me.birthday.HeaderText = "BIRTHDAY"
-        Me.birthday.MinimumWidth = 6
-        Me.birthday.Name = "birthday"
-        Me.birthday.Width = 125
+        Me.btn_Clear.BackColor = System.Drawing.Color.Linen
+        Me.btn_Clear.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_Clear.ForeColor = System.Drawing.Color.Black
+        Me.btn_Clear.Location = New System.Drawing.Point(482, 237)
+        Me.btn_Clear.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_Clear.Name = "btn_Clear"
+        Me.btn_Clear.Size = New System.Drawing.Size(203, 39)
+        Me.btn_Clear.TabIndex = 84
+        Me.btn_Clear.Text = "CLEAR"
+        Me.btn_Clear.UseVisualStyleBackColor = False
         '
-        'address
+        'btn_Exit
         '
-        Me.address.HeaderText = "ADDRESS"
-        Me.address.MinimumWidth = 6
-        Me.address.Name = "address"
-        Me.address.Width = 125
+        Me.btn_Exit.BackColor = System.Drawing.Color.Linen
+        Me.btn_Exit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_Exit.ForeColor = System.Drawing.Color.Black
+        Me.btn_Exit.Location = New System.Drawing.Point(482, 295)
+        Me.btn_Exit.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_Exit.Name = "btn_Exit"
+        Me.btn_Exit.Size = New System.Drawing.Size(203, 39)
+        Me.btn_Exit.TabIndex = 83
+        Me.btn_Exit.Text = "EXIT"
+        Me.btn_Exit.UseVisualStyleBackColor = False
         '
-        'email
+        'btn_Manage
         '
-        Me.email.HeaderText = "EMAIL"
-        Me.email.MinimumWidth = 6
-        Me.email.Name = "email"
-        Me.email.Width = 125
+        Me.btn_Manage.BackColor = System.Drawing.Color.Linen
+        Me.btn_Manage.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_Manage.ForeColor = System.Drawing.Color.Black
+        Me.btn_Manage.Location = New System.Drawing.Point(482, 171)
+        Me.btn_Manage.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_Manage.Name = "btn_Manage"
+        Me.btn_Manage.Size = New System.Drawing.Size(429, 39)
+        Me.btn_Manage.TabIndex = 80
+        Me.btn_Manage.Text = "MANAGE DEPARTMENT"
+        Me.btn_Manage.UseVisualStyleBackColor = False
         '
-        'department_name
+        'btn_Delete
         '
-        Me.department_name.HeaderText = "Department"
-        Me.department_name.MinimumWidth = 6
-        Me.department_name.Name = "department_name"
-        Me.department_name.Width = 125
-        '
-        'from_date
-        '
-        Me.from_date.HeaderText = "From Date"
-        Me.from_date.MinimumWidth = 6
-        Me.from_date.Name = "from_date"
-        Me.from_date.Width = 125
-        '
-        'to_date
-        '
-        Me.to_date.HeaderText = "To Date"
-        Me.to_date.MinimumWidth = 6
-        Me.to_date.Name = "to_date"
-        Me.to_date.Width = 125
+        Me.btn_Delete.BackColor = System.Drawing.Color.Linen
+        Me.btn_Delete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_Delete.ForeColor = System.Drawing.Color.Black
+        Me.btn_Delete.Location = New System.Drawing.Point(708, 239)
+        Me.btn_Delete.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_Delete.Name = "btn_Delete"
+        Me.btn_Delete.Size = New System.Drawing.Size(203, 35)
+        Me.btn_Delete.TabIndex = 81
+        Me.btn_Delete.Text = "REMOVE"
+        Me.btn_Delete.UseVisualStyleBackColor = False
         '
         'grb_create
         '
@@ -200,12 +228,12 @@ Partial Class frm_Manager
         Me.grb_create.Controls.Add(Me.Label3)
         Me.grb_create.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grb_create.ForeColor = System.Drawing.Color.Linen
-        Me.grb_create.Location = New System.Drawing.Point(680, 126)
+        Me.grb_create.Location = New System.Drawing.Point(13, 157)
         Me.grb_create.Margin = New System.Windows.Forms.Padding(4)
         Me.grb_create.Name = "grb_create"
         Me.grb_create.Padding = New System.Windows.Forms.Padding(4)
-        Me.grb_create.Size = New System.Drawing.Size(405, 297)
-        Me.grb_create.TabIndex = 71
+        Me.grb_create.Size = New System.Drawing.Size(436, 297)
+        Me.grb_create.TabIndex = 82
         Me.grb_create.TabStop = False
         Me.grb_create.Text = "CREATE"
         '
@@ -329,105 +357,106 @@ Partial Class frm_Manager
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Department"
         '
-        'btn_Delete
+        'btn_Update
         '
-        Me.btn_Delete.BackColor = System.Drawing.Color.Linen
-        Me.btn_Delete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Delete.ForeColor = System.Drawing.Color.Black
-        Me.btn_Delete.Location = New System.Drawing.Point(785, 72)
-        Me.btn_Delete.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Delete.Name = "btn_Delete"
-        Me.btn_Delete.Size = New System.Drawing.Size(286, 35)
-        Me.btn_Delete.TabIndex = 4
-        Me.btn_Delete.Text = "REMOVE"
-        Me.btn_Delete.UseVisualStyleBackColor = False
+        Me.btn_Update.BackColor = System.Drawing.Color.Linen
+        Me.btn_Update.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_Update.ForeColor = System.Drawing.Color.Black
+        Me.btn_Update.Location = New System.Drawing.Point(708, 295)
+        Me.btn_Update.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_Update.Name = "btn_Update"
+        Me.btn_Update.Size = New System.Drawing.Size(203, 39)
+        Me.btn_Update.TabIndex = 85
+        Me.btn_Update.Text = "UPDATE"
+        Me.btn_Update.UseVisualStyleBackColor = False
         '
-        'btn_Manage
+        'NO
         '
-        Me.btn_Manage.BackColor = System.Drawing.Color.Linen
-        Me.btn_Manage.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Manage.ForeColor = System.Drawing.Color.Black
-        Me.btn_Manage.Location = New System.Drawing.Point(666, 450)
-        Me.btn_Manage.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Manage.Name = "btn_Manage"
-        Me.btn_Manage.Size = New System.Drawing.Size(203, 39)
-        Me.btn_Manage.TabIndex = 4
-        Me.btn_Manage.Text = "MANAGE DEPARTMENT"
-        Me.btn_Manage.UseVisualStyleBackColor = False
+        Me.NO.HeaderText = "NO"
+        Me.NO.MinimumWidth = 6
+        Me.NO.Name = "NO"
+        Me.NO.ReadOnly = True
+        Me.NO.Width = 80
         '
-        'btn_Exit
+        'emp_id
         '
-        Me.btn_Exit.BackColor = System.Drawing.Color.Linen
-        Me.btn_Exit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Exit.ForeColor = System.Drawing.Color.Black
-        Me.btn_Exit.Location = New System.Drawing.Point(877, 450)
-        Me.btn_Exit.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Exit.Name = "btn_Exit"
-        Me.btn_Exit.Size = New System.Drawing.Size(194, 39)
-        Me.btn_Exit.TabIndex = 72
-        Me.btn_Exit.Text = "EXIT"
-        Me.btn_Exit.UseVisualStyleBackColor = False
+        Me.emp_id.HeaderText = "Emp ID"
+        Me.emp_id.MinimumWidth = 6
+        Me.emp_id.Name = "emp_id"
+        Me.emp_id.Visible = False
+        Me.emp_id.Width = 50
         '
-        'cb_DeptRemove
+        'emp_name
         '
-        Me.cb_DeptRemove.DropDownHeight = 200
-        Me.cb_DeptRemove.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cb_DeptRemove.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cb_DeptRemove.FormattingEnabled = True
-        Me.cb_DeptRemove.IntegralHeight = False
-        Me.cb_DeptRemove.ItemHeight = 22
-        Me.cb_DeptRemove.Location = New System.Drawing.Point(512, 75)
-        Me.cb_DeptRemove.Margin = New System.Windows.Forms.Padding(4)
-        Me.cb_DeptRemove.Name = "cb_DeptRemove"
-        Me.cb_DeptRemove.Size = New System.Drawing.Size(265, 30)
-        Me.cb_DeptRemove.TabIndex = 75
+        Me.emp_name.HeaderText = "NAME"
+        Me.emp_name.MinimumWidth = 6
+        Me.emp_name.Name = "emp_name"
+        Me.emp_name.Width = 125
         '
-        'btn_Clear
+        'phone
         '
-        Me.btn_Clear.BackColor = System.Drawing.Color.Linen
-        Me.btn_Clear.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Clear.ForeColor = System.Drawing.Color.Black
-        Me.btn_Clear.Location = New System.Drawing.Point(666, 497)
-        Me.btn_Clear.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Clear.Name = "btn_Clear"
-        Me.btn_Clear.Size = New System.Drawing.Size(203, 39)
-        Me.btn_Clear.TabIndex = 76
-        Me.btn_Clear.Text = "CLEAR"
-        Me.btn_Clear.UseVisualStyleBackColor = False
+        Me.phone.HeaderText = "PHONE"
+        Me.phone.MinimumWidth = 6
+        Me.phone.Name = "phone"
+        Me.phone.Width = 125
         '
-        'txt_Search
+        'birthday
         '
-        Me.txt_Search.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Search.Location = New System.Drawing.Point(136, 85)
-        Me.txt_Search.Name = "txt_Search"
-        Me.txt_Search.Size = New System.Drawing.Size(230, 30)
-        Me.txt_Search.TabIndex = 77
+        Me.birthday.HeaderText = "BIRTHDAY"
+        Me.birthday.MinimumWidth = 6
+        Me.birthday.Name = "birthday"
+        Me.birthday.Width = 125
         '
-        'Label6
+        'address
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.ForeColor = System.Drawing.Color.Linen
-        Me.Label6.Location = New System.Drawing.Point(13, 85)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(68, 20)
-        Me.Label6.TabIndex = 78
-        Me.Label6.Text = "Search"
+        Me.address.HeaderText = "ADDRESS"
+        Me.address.MinimumWidth = 6
+        Me.address.Name = "address"
+        Me.address.Width = 125
         '
-        'btn_Search
+        'email
         '
-        Me.btn_Search.BackColor = System.Drawing.Color.Linen
-        Me.btn_Search.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Search.ForeColor = System.Drawing.Color.Black
-        Me.btn_Search.Location = New System.Drawing.Point(386, 138)
-        Me.btn_Search.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Search.Name = "btn_Search"
-        Me.btn_Search.Size = New System.Drawing.Size(271, 35)
-        Me.btn_Search.TabIndex = 79
-        Me.btn_Search.Text = "SEARCH"
-        Me.btn_Search.UseVisualStyleBackColor = False
+        Me.email.HeaderText = "EMAIL"
+        Me.email.MinimumWidth = 6
+        Me.email.Name = "email"
+        Me.email.Width = 150
+        '
+        'department_name
+        '
+        Me.department_name.HeaderText = "Department"
+        Me.department_name.MinimumWidth = 6
+        Me.department_name.Name = "department_name"
+        Me.department_name.Width = 125
+        '
+        'from_date
+        '
+        Me.from_date.HeaderText = "From Date"
+        Me.from_date.MinimumWidth = 6
+        Me.from_date.Name = "from_date"
+        Me.from_date.Width = 125
+        '
+        'to_date
+        '
+        Me.to_date.HeaderText = "To Date"
+        Me.to_date.MinimumWidth = 6
+        Me.to_date.Name = "to_date"
+        Me.to_date.Width = 125
+        '
+        'dept_id
+        '
+        Me.dept_id.HeaderText = "Department ID"
+        Me.dept_id.MinimumWidth = 6
+        Me.dept_id.Name = "dept_id"
+        Me.dept_id.Visible = False
+        Me.dept_id.Width = 125
+        '
+        'status
+        '
+        Me.status.HeaderText = "Status"
+        Me.status.MinimumWidth = 6
+        Me.status.Name = "status"
+        Me.status.Visible = False
+        Me.status.Width = 125
         '
         'frm_Manager
         '
@@ -435,16 +464,16 @@ Partial Class frm_Manager
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1084, 540)
-        Me.Controls.Add(Me.btn_Search)
-        Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.txt_Search)
+        Me.ClientSize = New System.Drawing.Size(1586, 966)
+        Me.Controls.Add(Me.btn_Update)
         Me.Controls.Add(Me.btn_Clear)
-        Me.Controls.Add(Me.cb_DeptRemove)
         Me.Controls.Add(Me.btn_Exit)
         Me.Controls.Add(Me.btn_Manage)
         Me.Controls.Add(Me.btn_Delete)
         Me.Controls.Add(Me.grb_create)
+        Me.Controls.Add(Me.btn_Search)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.txt_Search)
         Me.Controls.Add(Me.dgv_DeptManager)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.ptb_Icon)
@@ -467,20 +496,26 @@ Partial Class frm_Manager
     Friend WithEvents ptb_Icon As PictureBox
     Friend WithEvents Label2 As Label
     Friend WithEvents dgv_DeptManager As DataGridView
+    Friend WithEvents txt_Search As TextBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents btn_Search As Button
+    Friend WithEvents btn_Clear As Button
+    Friend WithEvents btn_Exit As Button
+    Friend WithEvents btn_Manage As Button
+    Friend WithEvents btn_Delete As Button
     Friend WithEvents grb_create As GroupBox
+    Private WithEvents dtp_ToDate As DateTimePicker
+    Private WithEvents dtp_FromDate As DateTimePicker
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label1 As Label
     Friend WithEvents btn_Add As Button
     Friend WithEvents cb_EmpCreate As ComboBox
     Friend WithEvents Label4 As Label
     Friend WithEvents cb_DepCreate As ComboBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents btn_Delete As Button
-    Friend WithEvents btn_Manage As Button
-    Friend WithEvents btn_Exit As Button
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label1 As Label
-    Private WithEvents dtp_ToDate As DateTimePicker
-    Private WithEvents dtp_FromDate As DateTimePicker
-    Friend WithEvents id As DataGridViewTextBoxColumn
+    Friend WithEvents btn_Update As Button
+    Friend WithEvents NO As DataGridViewTextBoxColumn
+    Friend WithEvents emp_id As DataGridViewTextBoxColumn
     Friend WithEvents emp_name As DataGridViewTextBoxColumn
     Friend WithEvents phone As DataGridViewTextBoxColumn
     Friend WithEvents birthday As DataGridViewTextBoxColumn
@@ -489,9 +524,6 @@ Partial Class frm_Manager
     Friend WithEvents department_name As DataGridViewTextBoxColumn
     Friend WithEvents from_date As DataGridViewTextBoxColumn
     Friend WithEvents to_date As DataGridViewTextBoxColumn
-    Friend WithEvents cb_DeptRemove As ComboBox
-    Friend WithEvents btn_Clear As Button
-    Friend WithEvents txt_Search As TextBox
-    Friend WithEvents Label6 As Label
-    Friend WithEvents btn_Search As Button
+    Friend WithEvents dept_id As DataGridViewTextBoxColumn
+    Friend WithEvents status As DataGridViewTextBoxColumn
 End Class

@@ -15,6 +15,7 @@ CREATE OR ALTER PROCEDURE UpdateEmployees
     @birthday DATETIME,
     @email VARCHAR(255),
 	@image VARBINARY(MAX)
+	@status INT
 AS
 BEGIN
 	UPDATE Employees
@@ -24,7 +25,7 @@ BEGIN
 		gender = @gender,
 		birthday = @birthday,
 		email = @email,
-		image = @image
+		image = @image,
 	WHERE id = @id
 	UPDATE dbo.Dept_emp
 	SET dept_id = @department_id

@@ -32,7 +32,7 @@ Public Class frm_Salary
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
 
     Private Sub ptb_Close_Click(sender As Object, e As EventArgs) Handles ptb_Close.Click
-        Me.Hide()
+        Me.Close()
         Dim dashboard As New Dashboard
         dashboard.Show()
     End Sub
@@ -333,7 +333,7 @@ Public Class frm_Salary
     End Sub
 
     Private Sub btn_Close_Click(sender As Object, e As EventArgs) Handles btn_Close.Click
-        Me.Hide()
+        Me.Close()
         Dim dashboard As New Dashboard
         dashboard.Show()
     End Sub

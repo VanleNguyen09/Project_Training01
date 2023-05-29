@@ -12,6 +12,6 @@ BEGIN
 	WHERE id LIKE '%' + @keyword + '%' OR 
 	emp_id LIKE '%' + @keyword + '%' OR salary LIKE '%' + @keyword + '%'
 	OR from_date LIKE '%' + @keyword + '%' OR to_date 
-	LIKE '%' + @keyword + '%'
+	LIKE '%' + @keyword + '%' AND status = 1
 END
 GO

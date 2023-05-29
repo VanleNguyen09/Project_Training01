@@ -10,7 +10,8 @@ CREATE OR ALTER PROCEDURE DeleteSalaries
 	@id INT
 AS
 BEGIN
-	DELETE FROM dbo.Salaries
+	UPDATE dbo.Salaries
+	SET status = 0
 	WHERE id = @id
 END
 GO

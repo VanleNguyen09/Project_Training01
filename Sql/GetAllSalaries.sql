@@ -8,5 +8,6 @@ CREATE OR ALTER	PROCEDURE [dbo].[GetAllSalaries]
 AS
 BEGIN
 	SELECT * FROM dbo.Salaries
+	WHERE status = 1
 END
 GO

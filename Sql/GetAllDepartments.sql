@@ -11,5 +11,11 @@ CREATE OR ALTER PROCEDURE [dbo].[GetAllDepartments]
 AS
 BEGIN
 	SELECT * FROM dbo.Department
+	WHERE status = 1
 END
 GO
+
+SELECT * FROM dbo.Department
+
+
+EXEC [GetAllDepartments]
