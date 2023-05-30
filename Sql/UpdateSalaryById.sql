@@ -15,31 +15,31 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Dat
--- Create date: 29/5/2023
--- Description:	Get all salaries list by words
+-- Create date: 30/5/2023
+-- Description:	Update Salary By Id
 -- =============================================
-CREATE OR ALTER PROCEDURE GetAllSalariesByWords
-@words nvarchar(255)
+CREATE OR ALTER PROCEDURE UpdateSalaryById
+@salary_id INT,
+@salary_name NVARCHAR(255),
+@salary DECIMAL(12,2)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	IF NOT EXISTS (SELECT * FROM SalaryEmp WHERE id = -1)
+    IF EXISTS (SELECT 1 FROM SalaryEmp WHERE status = 1 AND salary_name = @salary_name AND id <> @salary_id)
 	BEGIN
-		SET IDENTITY_INSERT SalaryEmp ON
-
-		INSERT INTO SalaryEmp(id, salary_name, salary)
-		VALUES (-1, 'Unknown', 1)
-
-		-- Turn off IDENTITY_INSERT cho SalaryEmp
-		SET IDENTITY_INSERT SalaryEmp OFF
+		THROW 50001, 'This Salary name is existed!', 1
 	END
 
-	SELECT ROW_NUMBER() OVER (ORDER BY id) as stt, id as salary_id, salary_name, salary, status FROM SalaryEmp
-	WHERE status = 1 
-	AND (salary_name LIKE '%' + @words + '%'
-	OR salary LIKE '%' + @words + '%')
+	IF EXISTS (SELECT 1 FROM SalaryEmp WHERE status = 0 AND salary_name = @salary_name)
+	BEGIN
+		DELETE FROM SalaryEmp WHERE id in (SELECT id FROM SalaryEmp WHERE status = 0 AND salary_name = @salary_name)
+	END
+
+	UPDATE SalaryEmp
+	SET salary_name = @salary_name, salary = @salary
+	WHERE id = @salary_id
 END
 GO

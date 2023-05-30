@@ -15,31 +15,35 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Dat
--- Create date: 29/5/2023
--- Description:	Get all salaries list by words
+-- Create date: 30/5/2023
+-- Description:	Delete Salary By Id
 -- =============================================
-CREATE OR ALTER PROCEDURE GetAllSalariesByWords
-@words nvarchar(255)
+CREATE OR ALTER PROCEDURE DeleteSalaryById
+@salary_id INT
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	IF NOT EXISTS (SELECT * FROM SalaryEmp WHERE id = -1)
+	IF (@salary_id = -1)
 	BEGIN
-		SET IDENTITY_INSERT SalaryEmp ON
-
-		INSERT INTO SalaryEmp(id, salary_name, salary)
-		VALUES (-1, 'Unknown', 1)
-
-		-- Turn off IDENTITY_INSERT cho SalaryEmp
-		SET IDENTITY_INSERT SalaryEmp OFF
+		THROW 50001, 'Can not delete default salary!!', 1
+		RETURN
 	END
 
-	SELECT ROW_NUMBER() OVER (ORDER BY id) as stt, id as salary_id, salary_name, salary, status FROM SalaryEmp
-	WHERE status = 1 
-	AND (salary_name LIKE '%' + @words + '%'
-	OR salary LIKE '%' + @words + '%')
+	-- Set auto -1 for these employees
+    UPDATE Employees
+	SET salary_emp_id = -1
+	FROM Employees
+	INNER JOIN SalaryEmp ON SalaryEmp.id = Employees.salary_emp_id
+	WHERE salary_emp_id = @salary_id
+
+	UPDATE SalaryEmp
+	SET status = 0
+	WHERE id = @salary_id
 END
 GO
+
+use EmployeeManagement
+select * from Employees

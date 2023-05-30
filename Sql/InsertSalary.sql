@@ -20,12 +20,23 @@ GO
 -- =============================================
 CREATE OR ALTER PROCEDURE InsertSalary
 @name nvarchar(255),
-@salary decimal(10,2)
+@salary decimal(12,2)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
+
+	IF NOT EXISTS (SELECT * FROM SalaryEmp WHERE id = -1)
+	BEGIN
+		SET IDENTITY_INSERT SalaryEmp ON
+
+		INSERT INTO SalaryEmp(id, salary_name, salary)
+		VALUES (-1, 'Unknown', 1)
+
+		-- Turn off IDENTITY_INSERT cho SalaryEmp
+		SET IDENTITY_INSERT SalaryEmp OFF
+	END
 
     -- Insert statements for procedure here
 	IF EXISTS (SELECT 1 FROM SalaryEmp WHERE status = 1 AND salary_name = @name)

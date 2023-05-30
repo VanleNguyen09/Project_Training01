@@ -28,6 +28,8 @@
         Shared managerExitedForDepartment As String = "Employee Manager is exited for this department. Please try again!!!"
         Shared departmentExited As String = "Department is exited. Please try again!!!"
         Shared employeeExited As String = "Employee is exited. Please try again!!!"
+        Shared chooseOneRow As String = "Please only choose one salary that you want to set salary!"
+        Shared confirmCreate As String = "Are you sure to confirm create?"
     End Structure
 
     Public Structure Title

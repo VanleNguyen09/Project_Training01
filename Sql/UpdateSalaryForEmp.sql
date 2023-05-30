@@ -1,4 +1,4 @@
--- ================================================
+﻿-- ================================================
 -- Template generated from Template Explorer using:
 -- Create Procedure (New Menu).SQL
 --
@@ -15,11 +15,12 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Dat
--- Create date: 29/5/2023
--- Description:	Get all salaries list by words
+-- Create date: 30/5/2023
+-- Description:	Update Salary For Emp
 -- =============================================
-CREATE OR ALTER PROCEDURE GetAllSalariesByWords
-@words nvarchar(255)
+CREATE OR ALTER PROCEDURE UpdateSalaryForEmp
+@emp_id INT,
+@salary_id INT
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -37,9 +38,9 @@ BEGIN
 		SET IDENTITY_INSERT SalaryEmp OFF
 	END
 
-	SELECT ROW_NUMBER() OVER (ORDER BY id) as stt, id as salary_id, salary_name, salary, status FROM SalaryEmp
-	WHERE status = 1 
-	AND (salary_name LIKE '%' + @words + '%'
-	OR salary LIKE '%' + @words + '%')
+	UPDATE Employees
+	SET Employees.salary_emp_id = @salary_id
+	FROM Employees
+	WHERE Employees.id = @emp_id
 END
 GO

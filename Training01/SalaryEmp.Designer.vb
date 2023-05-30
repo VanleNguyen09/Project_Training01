@@ -22,10 +22,22 @@ Partial Class SalaryEmp
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvEmps = New System.Windows.Forms.DataGridView()
+        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.salary_emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgvSalaries = New System.Windows.Forms.DataGridView()
+        Me.salary_stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.salary_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.salary_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.salary = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnUpdate = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtSalaryName = New System.Windows.Forms.TextBox()
@@ -42,18 +54,6 @@ Partial Class SalaryEmp
         Me.txtSearchSalary = New System.Windows.Forms.TextBox()
         Me.gbEmps = New System.Windows.Forms.GroupBox()
         Me.closeApp = New System.Windows.Forms.PictureBox()
-        Me.salary_stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.salary_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.salary_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.salary = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.salary_emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvEmps, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvSalaries, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -68,11 +68,11 @@ Partial Class SalaryEmp
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(466, 32)
+        Me.Label1.Location = New System.Drawing.Point(461, 31)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(316, 31)
+        Me.Label1.Size = New System.Drawing.Size(394, 39)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "EMPLOYEE'S SALARY"
         '
@@ -83,236 +83,13 @@ Partial Class SalaryEmp
         Me.dgvEmps.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.stt, Me.id, Me.emp_name, Me.phone, Me.address, Me.birthday, Me.email, Me.salary_emp_id})
         Me.dgvEmps.GridColor = System.Drawing.SystemColors.AppWorkspace
         Me.dgvEmps.Location = New System.Drawing.Point(14, 55)
+        Me.dgvEmps.MultiSelect = False
         Me.dgvEmps.Name = "dgvEmps"
         Me.dgvEmps.RowHeadersVisible = False
-        Me.dgvEmps.RowTemplate.Height = 30
+        Me.dgvEmps.RowTemplate.Height = 40
         Me.dgvEmps.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvEmps.Size = New System.Drawing.Size(579, 318)
-        Me.dgvEmps.TabIndex = 1
-        '
-        'dgvSalaries
-        '
-        Me.dgvSalaries.AllowUserToAddRows = False
-        Me.dgvSalaries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSalaries.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.salary_stt, Me.salary_id, Me.salary_name, Me.salary})
-        Me.dgvSalaries.Location = New System.Drawing.Point(10, 55)
-        Me.dgvSalaries.Name = "dgvSalaries"
-        Me.dgvSalaries.RowHeadersVisible = False
-        Me.dgvSalaries.RowTemplate.Height = 30
-        Me.dgvSalaries.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSalaries.Size = New System.Drawing.Size(355, 318)
-        Me.dgvSalaries.TabIndex = 2
-        '
-        'btnUpdate
-        '
-        Me.btnUpdate.BackColor = System.Drawing.Color.OrangeRed
-        Me.btnUpdate.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnUpdate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpdate.ForeColor = System.Drawing.Color.White
-        Me.btnUpdate.Location = New System.Drawing.Point(625, 293)
-        Me.btnUpdate.Name = "btnUpdate"
-        Me.btnUpdate.Size = New System.Drawing.Size(85, 33)
-        Me.btnUpdate.TabIndex = 3
-        Me.btnUpdate.Text = "UPDATE"
-        Me.btnUpdate.UseVisualStyleBackColor = False
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(7, 25)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(121, 13)
-        Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Name's salary board"
-        '
-        'txtSalaryName
-        '
-        Me.txtSalaryName.Location = New System.Drawing.Point(9, 41)
-        Me.txtSalaryName.Name = "txtSalaryName"
-        Me.txtSalaryName.Size = New System.Drawing.Size(209, 20)
-        Me.txtSalaryName.TabIndex = 5
-        '
-        'txtSalary
-        '
-        Me.txtSalary.Location = New System.Drawing.Point(10, 91)
-        Me.txtSalary.Name = "txtSalary"
-        Me.txtSalary.Size = New System.Drawing.Size(209, 20)
-        Me.txtSalary.TabIndex = 5
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(7, 75)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(42, 13)
-        Me.Label3.TabIndex = 4
-        Me.Label3.Text = "Salary"
-        '
-        'btnAdd
-        '
-        Me.btnAdd.BackColor = System.Drawing.Color.SteelBlue
-        Me.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnAdd.Location = New System.Drawing.Point(9, 132)
-        Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(212, 31)
-        Me.btnAdd.TabIndex = 6
-        Me.btnAdd.Text = "ADD"
-        Me.btnAdd.UseVisualStyleBackColor = False
-        '
-        'btnDelete
-        '
-        Me.btnDelete.BackColor = System.Drawing.Color.IndianRed
-        Me.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnDelete.Location = New System.Drawing.Point(371, 301)
-        Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(227, 33)
-        Me.btnDelete.TabIndex = 7
-        Me.btnDelete.Text = "DELETE"
-        Me.btnDelete.UseVisualStyleBackColor = False
-        '
-        'btnExit
-        '
-        Me.btnExit.BackColor = System.Drawing.Color.IndianRed
-        Me.btnExit.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnExit.Location = New System.Drawing.Point(371, 340)
-        Me.btnExit.Name = "btnExit"
-        Me.btnExit.Size = New System.Drawing.Size(227, 33)
-        Me.btnExit.TabIndex = 7
-        Me.btnExit.Text = "EXIT"
-        Me.btnExit.UseVisualStyleBackColor = False
-        '
-        'txtSearch
-        '
-        Me.txtSearch.Location = New System.Drawing.Point(14, 28)
-        Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(551, 20)
-        Me.txtSearch.TabIndex = 8
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox1.BackgroundImage = Global.Training01.My.Resources.Resources.search_icon
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox1.Image = Global.Training01.My.Resources.Resources.search_icon
-        Me.PictureBox1.Location = New System.Drawing.Point(571, 27)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(22, 22)
-        Me.PictureBox1.TabIndex = 9
-        Me.PictureBox1.TabStop = False
-        '
-        'gbSalary
-        '
-        Me.gbSalary.BackColor = System.Drawing.Color.Transparent
-        Me.gbSalary.Controls.Add(Me.GroupBox3)
-        Me.gbSalary.Controls.Add(Me.btnExit)
-        Me.gbSalary.Controls.Add(Me.PictureBox2)
-        Me.gbSalary.Controls.Add(Me.btnDelete)
-        Me.gbSalary.Controls.Add(Me.txtSearchSalary)
-        Me.gbSalary.Controls.Add(Me.dgvSalaries)
-        Me.gbSalary.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gbSalary.ForeColor = System.Drawing.Color.White
-        Me.gbSalary.Location = New System.Drawing.Point(716, 108)
-        Me.gbSalary.Name = "gbSalary"
-        Me.gbSalary.Size = New System.Drawing.Size(607, 387)
-        Me.gbSalary.TabIndex = 10
-        Me.gbSalary.TabStop = False
-        Me.gbSalary.Text = "SALARY'S MANAGEMENT"
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.BackColor = System.Drawing.Color.Transparent
-        Me.GroupBox3.Controls.Add(Me.btnAdd)
-        Me.GroupBox3.Controls.Add(Me.txtSalary)
-        Me.GroupBox3.Controls.Add(Me.txtSalaryName)
-        Me.GroupBox3.Controls.Add(Me.Label3)
-        Me.GroupBox3.Controls.Add(Me.Label2)
-        Me.GroupBox3.ForeColor = System.Drawing.Color.White
-        Me.GroupBox3.Location = New System.Drawing.Point(371, 55)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(227, 179)
-        Me.GroupBox3.TabIndex = 10
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "CREATE SALARY"
-        '
-        'PictureBox2
-        '
-        Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox2.BackgroundImage = Global.Training01.My.Resources.Resources.search_icon
-        Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox2.Image = Global.Training01.My.Resources.Resources.search_icon
-        Me.PictureBox2.Location = New System.Drawing.Point(343, 28)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(22, 22)
-        Me.PictureBox2.TabIndex = 9
-        Me.PictureBox2.TabStop = False
-        '
-        'txtSearchSalary
-        '
-        Me.txtSearchSalary.Location = New System.Drawing.Point(10, 28)
-        Me.txtSearchSalary.Name = "txtSearchSalary"
-        Me.txtSearchSalary.Size = New System.Drawing.Size(327, 20)
-        Me.txtSearchSalary.TabIndex = 8
-        '
-        'gbEmps
-        '
-        Me.gbEmps.BackColor = System.Drawing.Color.Transparent
-        Me.gbEmps.Controls.Add(Me.PictureBox1)
-        Me.gbEmps.Controls.Add(Me.txtSearch)
-        Me.gbEmps.Controls.Add(Me.dgvEmps)
-        Me.gbEmps.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gbEmps.ForeColor = System.Drawing.Color.White
-        Me.gbEmps.Location = New System.Drawing.Point(12, 108)
-        Me.gbEmps.Name = "gbEmps"
-        Me.gbEmps.Size = New System.Drawing.Size(607, 387)
-        Me.gbEmps.TabIndex = 11
-        Me.gbEmps.TabStop = False
-        Me.gbEmps.Text = "EMPLOYEE'S LIST"
-        '
-        'closeApp
-        '
-        Me.closeApp.BackColor = System.Drawing.Color.Transparent
-        Me.closeApp.BackgroundImage = Global.Training01.My.Resources.Resources.blue_exit_icon_16
-        Me.closeApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.closeApp.Location = New System.Drawing.Point(1297, 0)
-        Me.closeApp.Name = "closeApp"
-        Me.closeApp.Size = New System.Drawing.Size(37, 36)
-        Me.closeApp.TabIndex = 12
-        Me.closeApp.TabStop = False
-        '
-        'salary_stt
-        '
-        Me.salary_stt.HeaderText = "STT"
-        Me.salary_stt.Name = "salary_stt"
-        Me.salary_stt.ReadOnly = True
-        Me.salary_stt.Width = 70
-        '
-        'salary_id
-        '
-        Me.salary_id.HeaderText = "ID"
-        Me.salary_id.Name = "salary_id"
-        Me.salary_id.ReadOnly = True
-        Me.salary_id.Visible = False
-        '
-        'salary_name
-        '
-        Me.salary_name.HeaderText = "NAME"
-        Me.salary_name.Name = "salary_name"
-        Me.salary_name.ReadOnly = True
-        Me.salary_name.Width = 120
-        '
-        'salary
-        '
-        DataGridViewCellStyle5.NullValue = "0.00"
-        Me.salary.DefaultCellStyle = DataGridViewCellStyle5
-        Me.salary.HeaderText = "SALARY"
-        Me.salary.Name = "salary"
-        Me.salary.ReadOnly = True
-        Me.salary.Width = 155
+        Me.dgvEmps.TabIndex = 3
         '
         'stt
         '
@@ -367,6 +144,233 @@ Partial Class SalaryEmp
         Me.salary_emp_id.ReadOnly = True
         Me.salary_emp_id.Visible = False
         '
+        'dgvSalaries
+        '
+        Me.dgvSalaries.AllowUserToAddRows = False
+        Me.dgvSalaries.AllowUserToDeleteRows = False
+        Me.dgvSalaries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvSalaries.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.salary_stt, Me.salary_id, Me.salary_name, Me.salary})
+        Me.dgvSalaries.Location = New System.Drawing.Point(10, 55)
+        Me.dgvSalaries.Name = "dgvSalaries"
+        Me.dgvSalaries.RowHeadersVisible = False
+        Me.dgvSalaries.RowTemplate.Height = 30
+        Me.dgvSalaries.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvSalaries.Size = New System.Drawing.Size(355, 318)
+        Me.dgvSalaries.TabIndex = 7
+        '
+        'salary_stt
+        '
+        Me.salary_stt.HeaderText = "STT"
+        Me.salary_stt.Name = "salary_stt"
+        Me.salary_stt.ReadOnly = True
+        Me.salary_stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.salary_stt.Width = 70
+        '
+        'salary_id
+        '
+        Me.salary_id.HeaderText = "ID"
+        Me.salary_id.Name = "salary_id"
+        Me.salary_id.ReadOnly = True
+        Me.salary_id.Visible = False
+        '
+        'salary_name
+        '
+        Me.salary_name.HeaderText = "NAME"
+        Me.salary_name.Name = "salary_name"
+        Me.salary_name.ReadOnly = True
+        Me.salary_name.Width = 120
+        '
+        'salary
+        '
+        DataGridViewCellStyle1.NullValue = "0.00"
+        Me.salary.DefaultCellStyle = DataGridViewCellStyle1
+        Me.salary.HeaderText = "SALARY"
+        Me.salary.Name = "salary"
+        Me.salary.ReadOnly = True
+        Me.salary.Width = 160
+        '
+        'btnUpdate
+        '
+        Me.btnUpdate.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnUpdate.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnUpdate.Enabled = False
+        Me.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnUpdate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnUpdate.ForeColor = System.Drawing.Color.White
+        Me.btnUpdate.Location = New System.Drawing.Point(625, 293)
+        Me.btnUpdate.Name = "btnUpdate"
+        Me.btnUpdate.Size = New System.Drawing.Size(85, 33)
+        Me.btnUpdate.TabIndex = 4
+        Me.btnUpdate.Text = "UPDATE"
+        Me.btnUpdate.UseVisualStyleBackColor = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(7, 25)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(121, 13)
+        Me.Label2.TabIndex = 4
+        Me.Label2.Text = "Name's salary board"
+        '
+        'txtSalaryName
+        '
+        Me.txtSalaryName.Location = New System.Drawing.Point(9, 41)
+        Me.txtSalaryName.Name = "txtSalaryName"
+        Me.txtSalaryName.Size = New System.Drawing.Size(209, 20)
+        Me.txtSalaryName.TabIndex = 9
+        '
+        'txtSalary
+        '
+        Me.txtSalary.Location = New System.Drawing.Point(10, 91)
+        Me.txtSalary.Name = "txtSalary"
+        Me.txtSalary.Size = New System.Drawing.Size(209, 20)
+        Me.txtSalary.TabIndex = 10
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(7, 75)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(42, 13)
+        Me.Label3.TabIndex = 4
+        Me.Label3.Text = "Salary"
+        '
+        'btnAdd
+        '
+        Me.btnAdd.BackColor = System.Drawing.Color.SteelBlue
+        Me.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnAdd.Location = New System.Drawing.Point(9, 132)
+        Me.btnAdd.Name = "btnAdd"
+        Me.btnAdd.Size = New System.Drawing.Size(212, 31)
+        Me.btnAdd.TabIndex = 11
+        Me.btnAdd.Text = "ADD"
+        Me.btnAdd.UseVisualStyleBackColor = False
+        '
+        'btnDelete
+        '
+        Me.btnDelete.BackColor = System.Drawing.Color.IndianRed
+        Me.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDelete.Location = New System.Drawing.Point(371, 301)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(227, 33)
+        Me.btnDelete.TabIndex = 12
+        Me.btnDelete.Text = "DELETE"
+        Me.btnDelete.UseVisualStyleBackColor = False
+        '
+        'btnExit
+        '
+        Me.btnExit.BackColor = System.Drawing.Color.IndianRed
+        Me.btnExit.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnExit.Location = New System.Drawing.Point(371, 340)
+        Me.btnExit.Name = "btnExit"
+        Me.btnExit.Size = New System.Drawing.Size(227, 33)
+        Me.btnExit.TabIndex = 13
+        Me.btnExit.Text = "EXIT"
+        Me.btnExit.UseVisualStyleBackColor = False
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Location = New System.Drawing.Point(14, 28)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(551, 20)
+        Me.txtSearch.TabIndex = 2
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox1.BackgroundImage = Global.Training01.My.Resources.Resources.search_icon
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox1.Image = Global.Training01.My.Resources.Resources.search_icon
+        Me.PictureBox1.Location = New System.Drawing.Point(571, 27)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(22, 22)
+        Me.PictureBox1.TabIndex = 9
+        Me.PictureBox1.TabStop = False
+        '
+        'gbSalary
+        '
+        Me.gbSalary.BackColor = System.Drawing.Color.Transparent
+        Me.gbSalary.Controls.Add(Me.GroupBox3)
+        Me.gbSalary.Controls.Add(Me.btnExit)
+        Me.gbSalary.Controls.Add(Me.PictureBox2)
+        Me.gbSalary.Controls.Add(Me.btnDelete)
+        Me.gbSalary.Controls.Add(Me.txtSearchSalary)
+        Me.gbSalary.Controls.Add(Me.dgvSalaries)
+        Me.gbSalary.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbSalary.ForeColor = System.Drawing.Color.White
+        Me.gbSalary.Location = New System.Drawing.Point(716, 108)
+        Me.gbSalary.Name = "gbSalary"
+        Me.gbSalary.Size = New System.Drawing.Size(607, 387)
+        Me.gbSalary.TabIndex = 5
+        Me.gbSalary.TabStop = False
+        Me.gbSalary.Text = "SALARY'S MANAGEMENT"
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox3.Controls.Add(Me.btnAdd)
+        Me.GroupBox3.Controls.Add(Me.txtSalary)
+        Me.GroupBox3.Controls.Add(Me.txtSalaryName)
+        Me.GroupBox3.Controls.Add(Me.Label3)
+        Me.GroupBox3.Controls.Add(Me.Label2)
+        Me.GroupBox3.ForeColor = System.Drawing.Color.White
+        Me.GroupBox3.Location = New System.Drawing.Point(371, 55)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(227, 179)
+        Me.GroupBox3.TabIndex = 8
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "CREATE SALARY"
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox2.BackgroundImage = Global.Training01.My.Resources.Resources.search_icon
+        Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox2.Image = Global.Training01.My.Resources.Resources.search_icon
+        Me.PictureBox2.Location = New System.Drawing.Point(343, 28)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(22, 22)
+        Me.PictureBox2.TabIndex = 9
+        Me.PictureBox2.TabStop = False
+        '
+        'txtSearchSalary
+        '
+        Me.txtSearchSalary.Location = New System.Drawing.Point(10, 28)
+        Me.txtSearchSalary.Name = "txtSearchSalary"
+        Me.txtSearchSalary.Size = New System.Drawing.Size(327, 20)
+        Me.txtSearchSalary.TabIndex = 6
+        '
+        'gbEmps
+        '
+        Me.gbEmps.BackColor = System.Drawing.Color.Transparent
+        Me.gbEmps.Controls.Add(Me.PictureBox1)
+        Me.gbEmps.Controls.Add(Me.txtSearch)
+        Me.gbEmps.Controls.Add(Me.dgvEmps)
+        Me.gbEmps.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbEmps.ForeColor = System.Drawing.Color.White
+        Me.gbEmps.Location = New System.Drawing.Point(12, 108)
+        Me.gbEmps.Name = "gbEmps"
+        Me.gbEmps.Size = New System.Drawing.Size(607, 387)
+        Me.gbEmps.TabIndex = 1
+        Me.gbEmps.TabStop = False
+        Me.gbEmps.Text = "EMPLOYEE'S LIST"
+        '
+        'closeApp
+        '
+        Me.closeApp.BackColor = System.Drawing.Color.Transparent
+        Me.closeApp.BackgroundImage = Global.Training01.My.Resources.Resources.blue_exit_icon_16
+        Me.closeApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.closeApp.Location = New System.Drawing.Point(1297, 0)
+        Me.closeApp.Name = "closeApp"
+        Me.closeApp.Size = New System.Drawing.Size(37, 36)
+        Me.closeApp.TabIndex = 12
+        Me.closeApp.TabStop = False
+        '
         'SalaryEmp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -418,10 +422,6 @@ Partial Class SalaryEmp
     Friend WithEvents txtSearchSalary As TextBox
     Friend WithEvents gbEmps As GroupBox
     Friend WithEvents closeApp As PictureBox
-    Friend WithEvents salary_stt As DataGridViewTextBoxColumn
-    Friend WithEvents salary_id As DataGridViewTextBoxColumn
-    Friend WithEvents salary_name As DataGridViewTextBoxColumn
-    Friend WithEvents salary As DataGridViewTextBoxColumn
     Friend WithEvents stt As DataGridViewTextBoxColumn
     Friend WithEvents id As DataGridViewTextBoxColumn
     Friend WithEvents emp_name As DataGridViewTextBoxColumn
@@ -430,4 +430,8 @@ Partial Class SalaryEmp
     Friend WithEvents birthday As DataGridViewTextBoxColumn
     Friend WithEvents email As DataGridViewTextBoxColumn
     Friend WithEvents salary_emp_id As DataGridViewTextBoxColumn
+    Friend WithEvents salary_stt As DataGridViewTextBoxColumn
+    Friend WithEvents salary_id As DataGridViewTextBoxColumn
+    Friend WithEvents salary_name As DataGridViewTextBoxColumn
+    Friend WithEvents salary As DataGridViewTextBoxColumn
 End Class
