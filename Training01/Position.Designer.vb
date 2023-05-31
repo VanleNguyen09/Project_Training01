@@ -24,10 +24,6 @@ Partial Class Position
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvPositions = New System.Windows.Forms.DataGridView()
-        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_num = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -37,6 +33,10 @@ Partial Class Position
         Me.appClose = New System.Windows.Forms.PictureBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btnEmpByPos = New System.Windows.Forms.Button()
+        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_num = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvPositions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.appClose, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -67,35 +67,6 @@ Partial Class Position
         Me.dgvPositions.RowTemplate.Height = 30
         Me.dgvPositions.Size = New System.Drawing.Size(414, 226)
         Me.dgvPositions.TabIndex = 2
-        '
-        'stt
-        '
-        Me.stt.HeaderText = "STT"
-        Me.stt.Name = "stt"
-        Me.stt.ReadOnly = True
-        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        Me.stt.Width = 60
-        '
-        'id
-        '
-        Me.id.HeaderText = "ID"
-        Me.id.Name = "id"
-        Me.id.ReadOnly = True
-        Me.id.Visible = False
-        Me.id.Width = 80
-        '
-        'pos_name
-        '
-        Me.pos_name.HeaderText = "Name"
-        Me.pos_name.Name = "pos_name"
-        Me.pos_name.Width = 140
-        '
-        'emp_num
-        '
-        Me.emp_num.HeaderText = "Number of People"
-        Me.emp_num.Name = "emp_num"
-        Me.emp_num.ReadOnly = True
-        Me.emp_num.Width = 110
         '
         'txtSearch
         '
@@ -199,6 +170,35 @@ Partial Class Position
         Me.btnEmpByPos.TabIndex = 3
         Me.btnEmpByPos.Text = "EMPLOYEES LIST BY POSITION"
         Me.btnEmpByPos.UseVisualStyleBackColor = False
+        '
+        'stt
+        '
+        Me.stt.HeaderText = "STT"
+        Me.stt.Name = "stt"
+        Me.stt.ReadOnly = True
+        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.stt.Width = 60
+        '
+        'id
+        '
+        Me.id.HeaderText = "ID"
+        Me.id.Name = "id"
+        Me.id.ReadOnly = True
+        Me.id.Visible = False
+        Me.id.Width = 80
+        '
+        'pos_name
+        '
+        Me.pos_name.HeaderText = "Name"
+        Me.pos_name.Name = "pos_name"
+        Me.pos_name.Width = 140
+        '
+        'emp_num
+        '
+        Me.emp_num.HeaderText = "Number of People"
+        Me.emp_num.Name = "emp_num"
+        Me.emp_num.ReadOnly = True
+        Me.emp_num.Width = 110
         '
         'Position
         '

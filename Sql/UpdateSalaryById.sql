@@ -15,39 +15,31 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Dat
--- Create date: 22/5/2023
--- Update date: 29/5/2023
--- Description:	Add position
+-- Create date: 30/5/2023
+-- Description:	Update Salary By Id
 -- =============================================
-CREATE OR ALTER PROCEDURE InsertPosition
-@name nvarchar(255)
+CREATE OR ALTER PROCEDURE UpdateSalaryById
+@salary_id INT,
+@salary_name NVARCHAR(255),
+@salary DECIMAL(12,2)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    -- Insert statements for procedure here
-	IF EXISTS (SELECT * FROM Position WHERE name = @name AND status = 1)
+    IF EXISTS (SELECT 1 FROM SalaryEmp WHERE status = 1 AND salary_name = @salary_name AND id <> @salary_id)
 	BEGIN
-		THROW 50005, N'Exist This Name', 1;
+		THROW 50001, 'This Salary name is existed!', 1
 	END
 
-	IF NOT EXISTS (SELECT * FROM Position WHERE name = @name AND status = 0)
+	IF EXISTS (SELECT 1 FROM SalaryEmp WHERE status = 0 AND salary_name = @salary_name)
 	BEGIN
-		INSERT INTO Position(name, status) VALUES (@name, 1)
-		RETURN 0
+		DELETE FROM SalaryEmp WHERE id in (SELECT id FROM SalaryEmp WHERE status = 0 AND salary_name = @salary_name)
 	END
-	ELSE
-	BEGIN
-	DECLARE @pos_id INT = (SELECT TOP 1 id FROM Position WHERE name = @name AND status = 0 ORDER BY id)
-		UPDATE Position
-		SET status = 1
-		WHERE id = @pos_id
 
-		UPDATE Emp_Pos
-		SET status = 1
-		WHERE pos_id = @pos_id
-	END
+	UPDATE SalaryEmp
+	SET salary_name = @salary_name, salary = @salary
+	WHERE id = @salary_id
 END
 GO

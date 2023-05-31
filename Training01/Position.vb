@@ -2,7 +2,7 @@
 
 Public Class Position
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
-    Private DGVhasChanged As Boolean
+    Private beforeEdit As ValueTuple(Of Integer, String)
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles appClose.Click
         Environment.Exit(0)
@@ -40,8 +40,6 @@ Public Class Position
                 While reader.Read
                     dgvPositions.Rows.Add({reader("stt"), reader("id"), reader("name"), reader("emp_num")})
                 End While
-
-                DGVhasChanged = False
 
                 'Remove selected cell
                 dgvPositions.CurrentCell = Nothing
@@ -116,20 +114,21 @@ Public Class Position
     End Sub
 
     Private Sub btnEmpByPos_Click(sender As Object, e As EventArgs) Handles btnEmpByPos.Click
-        Me.Hide()
         Dim empByPos As New EmpByPos
         empByPos.Show()
+        Me.Hide()
     End Sub
 
-    Private Sub dgvPositions_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPositions.CellValueChanged
-        DGVhasChanged = True
-    End Sub
+    Private Sub dgvPositions_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPositions.CellEndEdit
+        ' Lấy row đang được chỉnh sửa
+        Dim editedRow As DataGridViewRow = dgvPositions.Rows(e.RowIndex)
+        Dim posId As Integer = editedRow.Cells("id").Value
+        Dim editedName As String = editedRow.Cells("pos_name").Value
 
-    Private Sub Position_Click(sender As Object, e As EventArgs) Handles MyBase.Click
-        If DGVhasChanged Then
-            Dim posId As Integer
-            Dim editedName As String
-
+        If (beforeEdit.Item2 = editedName) Then
+            Load_DGVPosition()
+            Exit Sub
+        Else
             'Confirm Update All
             Dim result As DialogResult = MessageBox.Show(Message.Message.confirmedUpdate + " The employees involved will be updated!", Message.Title.notif, MessageBoxButtons.YesNo)
 
@@ -140,39 +139,42 @@ Public Class Position
                 Case DialogResult.Yes
                     Dim sql = "UpdatePositionById"
 
-                    For i = 0 To dgvPositions.Rows.Count - 1
-                        posId = dgvPositions.Rows(i).Cells("id").Value
-                        editedName = dgvPositions.Rows(i).Cells("pos_name").Value
+                    'Update Position By Id
+                    Try
+                        If con.State() <> 1 Then
+                            con.Open()
+                        End If
 
-                        'Update Position By Id
-                        Try
-                            If con.State() <> 1 Then
-                                con.Open()
-                            End If
-                            Using cmd As SqlCommand = New SqlCommand(sql, con)
-                                cmd.CommandType = CommandType.StoredProcedure
-                                cmd.Parameters.AddWithValue("pos_id", posId)
-                                cmd.Parameters.AddWithValue("name", editedName)
-                                cmd.ExecuteNonQuery()
-                            End Using
-                        Catch ex As Exception
-                            MsgBox($"{ex.Message}")
-                            Exit Sub
-                        Finally
-                            con.Close()
-                            Load_DGVPosition()
-                        End Try
-                    Next
+                        Using cmd As SqlCommand = New SqlCommand(sql, con)
+                            cmd.CommandType = CommandType.StoredProcedure
+                            cmd.Parameters.AddWithValue("pos_id", posId)
+                            cmd.Parameters.AddWithValue("name", editedName)
+                            cmd.ExecuteNonQuery()
+                        End Using
+                    Catch ex As Exception
+                        MsgBox($"{ex.Message}")
+                        Exit Sub
+                    Finally
+                        con.Close()
+                        Load_DGVPosition()
+                    End Try
+
                     MessageBox.Show(Message.Message.successfully, Message.Title.notif, MessageBoxButtons.OK)
-                    'Load_DGVPosition()
             End Select
         End If
     End Sub
 
-    Private Sub dgvPositions_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvPositions.KeyDown
-        ' Check Enter key
-        If e.KeyCode = Keys.Enter Then
-            Me.Position_Click(sender, e)
+    Private Sub dgvPositions_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles dgvPositions.CellBeginEdit
+        beforeEdit.Item1 = dgvPositions.Rows(e.RowIndex).Cells("id").Value
+        beforeEdit.Item2 = dgvPositions.Rows(e.RowIndex).Cells("pos_name").Value.Trim()
+    End Sub
+
+    Private Sub dgvPositions_Sorted(sender As Object, e As EventArgs) Handles dgvPositions.Sorted
+        'If it is stt column, sorted normal, and stt is not sorted
+        If dgvPositions.SortedColumn.Name <> "stt" Then
+            For i As Integer = 0 To dgvPositions.Rows.Count - 1
+                dgvPositions.Rows(i).Cells("stt").Value = (i + 1).ToString()
+            Next
         End If
     End Sub
 End Class

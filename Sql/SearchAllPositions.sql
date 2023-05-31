@@ -16,7 +16,7 @@ GO
 -- =============================================
 -- Author:		Dat
 -- Create date: 22/5/2023
--- Update date: 26/5/2023
+-- Update date: 29/5/2023
 -- Description:	Search all Positions
 -- =============================================
 CREATE OR ALTER PROCEDURE SearchAllPositions
@@ -28,10 +28,20 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT ROW_NUMBER() OVER (ORDER BY p.id) as stt, COUNT(p.id) as emp_num, p.id, p.name FROM Position p
-	RIGHT JOIN Emp_Pos ep ON p.id = ep.pos_id
-	WHERE p.status = 1 AND ep.status = 1
+	SELECT ROW_NUMBER() OVER (ORDER BY p.id) as stt, p.id, p.name, COUNT(e.id) as emp_num FROM Position p
+	LEFT JOIN Emp_Pos ep ON p.id = ep.pos_id AND ep.status = 1
+	LEFT JOIN Employees e ON e.id = ep.emp_id
+	WHERE p.status = 1
 	GROUP BY p.id, p.name
 	HAVING CAST(COUNT(p.id) AS nvarchar(255)) = @text OR p.name LIKE '%'+ @text +'%'
+
+	--SELECT ROW_NUMBER() OVER (ORDER BY p.id) as stt, COUNT(p.id) as emp_num, p.id, p.name FROM Position p
+	--RIGHT JOIN Emp_Pos ep ON p.id = ep.pos_id
+	--WHERE p.status = 1 AND ep.status = 1
+	--GROUP BY p.id, p.name
+	--HAVING CAST(COUNT(p.id) AS nvarchar(255)) = @text OR p.name LIKE '%'+ @text +'%'
 END
 GO
+
+-- exec SearchAllPositions ''
+-- select * from Position

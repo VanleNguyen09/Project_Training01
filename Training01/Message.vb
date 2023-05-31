@@ -23,11 +23,13 @@
         Shared confirmedUpdate As String = "Do you confirm update?"
         Shared nothingChange As String = "Nothing changed in DataTable!"
         Shared errorInvalidId As String = "Invalid ID. Please enter a numeric value!!!"
-        Shared errorInvalidSalary As String = "Invalid Salary. Please enter a numeric value!!!"
+        Shared errorInvalidSalary As String = "Please enter numeric type and have a maximum of 10 numbers and 2 decimal places if possible!"
         Shared errorInvalidDate As String = "Invalid date range. The 'From Date' cannot be greater than the 'To Date'!!!"
         Shared managerExitedForDepartment As String = "Employee Manager is exited for this department. Please try again!!!"
         Shared departmentExited As String = "Department is exited. Please try again!!!"
         Shared employeeExited As String = "Employee is exited. Please try again!!!"
+        Shared chooseOneRow As String = "Please only choose one salary that you want to set salary!"
+        Shared confirmCreate As String = "Are you sure to confirm create?"
         Shared departmentDuplicate As String = "Duplicate department entry!!!"
     End Structure
 
@@ -36,7 +38,7 @@
         Shared success As String = "SUCCESS"
         Shared notif As String = "NOTIFICATION"
         Shared errorInvalidId As String = "Invalid ID. Please enter a numeric value!!!"
-        Shared errorInvalidSalary As String = "Invalid Salary. Please enter a numeric value!!!"
+        Shared errorInvalidSalary As String = "Invalid Salary. Please enter a numeric value!"
         Shared errorInvalidDate As String = "Invalid date range. The 'From Date' cannot be greater than the 'To Date'!!!"
     End Structure
 End Class

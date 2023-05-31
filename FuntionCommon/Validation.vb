@@ -41,7 +41,11 @@ Public Class Validation
             Return result >= 0
         End If
         Return False
+    End Function
 
+    Shared Function IsSalary(ByVal salary As String) As Boolean
+        Dim pattern As String = "^\d{1,10}(\.\d{1,2})?$"
+        Return Regex.IsMatch(salary, pattern)
     End Function
 
     Shared Function ValidateDate(ByVal fromDate As Date, ByVal toDate As Date)
