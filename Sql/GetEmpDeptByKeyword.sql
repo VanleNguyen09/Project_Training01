@@ -51,3 +51,6 @@ BEGIN
 	END
 END
 GO
+
+EXEC dbo.GetEmpDeptByKeyWord @keyword = N'Phong',    -- nvarchar(255)
+                             @department_id = 2 -- int

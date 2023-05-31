@@ -13,13 +13,14 @@ BEGIN
 	DECLARE @exist INT
 	SET @exist = 0
 
-	IF EXISTS (SELECT 1 FROM dbo.Department WHERE name = @name)
+	IF EXISTS (SELECT 1 FROM dbo.Department WHERE name = @name AND status = 1)
 	BEGIN
 		SET @exist = 1
 	END
 	ELSE	
 	BEGIN
-		DECLARE @dept_id INT
+		
+		DECLARE @dept_id INT 
 		UPDATE dbo.Department
 		SET status = 0
 		WHERE id = @dept_id
@@ -36,6 +37,6 @@ BEGIN
 			VALUES(@name, @status)
 		END 
 	END
-	SELECT @exist AS IsDuplicate	
+	SELECT @exist AS IsDuplicate
 END
 

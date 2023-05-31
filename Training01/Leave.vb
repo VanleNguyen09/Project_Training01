@@ -4,7 +4,7 @@ Public Class Leave
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private DateTimeformat = DTFormat.Type.NormalDatetime
 
-    Private Sub Leave_Load(sender As Object, e As EventArgs)
+    Private Sub Leave_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Settings for Combobox
         cbEmpAdd.DisplayMember = "Value"
         cbEmpAdd.ValueMember = "Key"
@@ -47,7 +47,7 @@ Public Class Leave
             End If
 
             'load datagridview by posId
-            Using cmd As SqlCommand = New SqlCommand(sql, con)
+            Using cmd As SqlCommand = New SqlCommand(Sql, con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("word", searchWord)
 
@@ -240,9 +240,5 @@ Public Class Leave
                                       Load_DGVLeave()
                                   End Sub)
         editLeaveForm.Show()
-    End Sub
-
-    Private Sub x(sender As Object, e As EventArgs) Handles MyBase.Load
-
     End Sub
 End Class

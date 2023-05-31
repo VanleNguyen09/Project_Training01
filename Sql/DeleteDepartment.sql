@@ -21,3 +21,4 @@ BEGIN
 END
 GO
 
+EXEC dbo.DeleteDepartment @id = 68 -- int

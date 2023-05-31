@@ -22,5 +22,3 @@ BEGIN
 	WHERE id = @id
 END
 GO
-
---EXEC dbo.DeleteDepartment @id = 85 -- int

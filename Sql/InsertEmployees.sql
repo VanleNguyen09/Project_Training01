@@ -26,7 +26,7 @@ BEGIN
 	END
 	ELSE	
 	BEGIN
-		DECLARE @emp_id INT 
+		DECLARE @emp_id INT
 		UPDATE dbo.Employees
 		SET status = 0
 		WHERE id = @emp_id
@@ -56,3 +56,4 @@ BEGIN
 	SELECT @exist AS IsDuplicate
 END
 GO
+

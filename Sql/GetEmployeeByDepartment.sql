@@ -21,3 +21,6 @@ BEGIN
 	WHERE b.dept_id = @dept_id AND b.status = 1
 END
 GO
+
+EXEC dbo.GetAllEmployeesByDepartment
+

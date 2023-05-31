@@ -18,4 +18,4 @@ GO
 EXEC dbo.GetAllEmployees
 
 SELECT * FROM dbo.Employees
-WHERE phone = 0291241342 AND status = 1
+WHERE status = 0 
