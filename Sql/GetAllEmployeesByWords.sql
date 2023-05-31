@@ -15,12 +15,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Dat
--- Create date: 22/5/2023
--- Update date: 29/5/2023
--- Description:	Add position
+-- Create date: 29/5/2023
+-- Description:	Get all employees by words
 -- =============================================
-CREATE OR ALTER PROCEDURE InsertPosition
-@name nvarchar(255)
+CREATE OR ALTER PROCEDURE GetAllEmployeesByWords
+@words nvarchar(255)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -28,26 +27,11 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	IF EXISTS (SELECT * FROM Position WHERE name = @name AND status = 1)
-	BEGIN
-		THROW 50005, N'Exist This Name', 1;
-	END
-
-	IF NOT EXISTS (SELECT * FROM Position WHERE name = @name AND status = 0)
-	BEGIN
-		INSERT INTO Position(name, status) VALUES (@name, 1)
-		RETURN 0
-	END
-	ELSE
-	BEGIN
-	DECLARE @pos_id INT = (SELECT TOP 1 id FROM Position WHERE name = @name AND status = 0 ORDER BY id)
-		UPDATE Position
-		SET status = 1
-		WHERE id = @pos_id
-
-		UPDATE Emp_Pos
-		SET status = 1
-		WHERE pos_id = @pos_id
-	END
+	SELECT ROW_NUMBER() OVER (ORDER BY id) as stt, * FROM Employees
+	WHERE status = 1 
+	AND name LIKE '%' + @words + '%' 
+	OR id LIKE '%' + @words + '%' 
+	OR phone LIKE '%' + @words + '%'
+	OR address LIKE '%' + @words + '%'
 END
 GO

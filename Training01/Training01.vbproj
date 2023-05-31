@@ -92,6 +92,12 @@
     <Compile Include="EditLeaveForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="EditSalaryForm.Designer.vb">
+      <DependentUpon>EditSalaryForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EditSalaryForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EmpByPos.Designer.vb">
       <DependentUpon>EmpByPos.vb</DependentUpon>
     </Compile>
@@ -181,6 +187,12 @@
     <Compile Include="Salary.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="SalaryEmp.Designer.vb">
+      <DependentUpon>SalaryEmp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SalaryEmp.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dashboard.resx">
@@ -191,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditLeaveForm.resx">
       <DependentUpon>EditLeaveForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditSalaryForm.resx">
+      <DependentUpon>EditSalaryForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmpByPos.resx">
       <DependentUpon>EmpByPos.vb</DependentUpon>
@@ -234,6 +249,9 @@
     <EmbeddedResource Include="Salary.resx">
       <DependentUpon>Salary.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SalaryEmp.resx">
+      <DependentUpon>SalaryEmp.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
@@ -264,6 +282,7 @@
     <Content Include="Resources\blue-exit-icon-16.jpg" />
     <Content Include="Resources\icon_close.jpg" />
     <Content Include="Resources\loginBack.jpg" />
+    <None Include="Resources\search-icon.png" />
     <None Include="Resources\close-btn.jpg" />
     <None Include="Resources\BackgroundLogin.jpg" />
   </ItemGroup>
