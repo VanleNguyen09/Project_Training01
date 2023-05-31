@@ -11,5 +11,11 @@ AS
 BEGIN
 	SELECT * FROM dbo.Employees
 	WHERE status = 1
+	ORDER BY id
 END
 GO
+
+EXEC dbo.GetAllEmployees
+
+SELECT * FROM dbo.Employees
+WHERE status = 0 

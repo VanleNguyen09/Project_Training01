@@ -1,40 +1,46 @@
-﻿SET ANSI_NULLS ON
+﻿USE [EmployeeManagement]
+GO
+SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-USE EmployeeManagement
-GO	
-CREATE OR ALTER PROCEDURE UpdateDepartments
+CREATE OR ALTER PROCEDURE [dbo].[UpdateDepartments]
 	-- Add the parameters for the stored procedure here
 	@id INT,
-    @name NVARCHAR(255)
+    @name NVARCHAR(255),
+	@status INT
 AS
 BEGIN
-	DECLARE @isDuplicate INT
- 	-- Kiểm tra trùng lặp dữ liệu
-	IF EXISTS (SELECT 1 FROM dbo.Department WHERE name = @name AND id <> @id)
+	DECLARE @exist INT
+	SET @exist = 0
+
+	IF EXISTS (SELECT 1 FROM dbo.Department WHERE name = @name AND id <> @id AND status = 1)
 	BEGIN
-		IF EXISTS (SELECT 1 FROM dbo.Department WHERE name = @name AND id <> @id AND status = 1)
-		BEGIN
-			SET @isDuplicate = 1; -- Đánh dấu là đã tồn tại
-		END
-		ELSE
-		BEGIN
-			-- Cập nhật status của bản ghi hiện có từ 0 thành 1
-			UPDATE dbo.Department SET status = 1 WHERE name = @name AND id <> @id AND status = 0
-			SET @isDuplicate = 0; -- Đánh dấu là cập nhật thành công
-		END
+		SET @exist = 1
 	END
-	ELSE
+	ELSE	
 	BEGIN
-	   -- Update the department
+		
 		UPDATE dbo.Department
-		SET name = @name
+		SET status = 0
 		WHERE id = @id
-		SET @isDuplicate = 0; -- Đánh dấu là thêm mới thành công
+
+		UPDATE dbo.Department
+		SET status = 1, name = @name
+		WHERE id = @id AND status = 0
+		--UPDATE dbo.Dept_emp SET status = 1 WHERE dept_id = @id AND status = 0 
+		--UPDATE dbo.Dept_manager SET status = 1 WHERE dept_id = @id AND status = 0 		
+
+		IF @@ROWCOUNT = 0
+		BEGIN	
+			INSERT INTO dbo.Department(name, status)
+			VALUES(@name, @status)
+		END 
 	END
-
-	SELECT @isDuplicate AS IsDuplicate;
-
+	SELECT @exist AS IsDuplicate
 END
 GO
+
+--EXEC dbo.GetAllDepartments
+
+--SELECT * FROM dbo.Department WHERE status = 1 AND name = 'EC'

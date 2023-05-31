@@ -28,7 +28,9 @@
         Shared managerExitedForDepartment As String = "Employee Manager is exited for this department. Please try again!!!"
         Shared departmentExited As String = "Department is exited. Please try again!!!"
         Shared employeeExited As String = "Employee is exited. Please try again!!!"
+        Shared employeeDuplicate As String = "Duplicate employee entry!!!"
         Shared departmentDuplicate As String = "Duplicate department entry!!!"
+        Shared managerDuplicate As String = "Duplicate manager entry!!!"
     End Structure
 
     Public Structure Title

@@ -7,7 +7,7 @@ GO
 CREATE OR ALTER PROCEDURE [dbo].[GetAllEmployeesManager]
 AS
 BEGIN
-	SELECT a.*, c.name AS department_name, b.dept_id AS dept_id,
+	SELECT a.*,c.name AS department_name, b.id AS deptmanager_id, b.dept_id AS dept_id,
 	b.from_date AS from_date, b.to_date AS to_date 
 	FROM dbo.Employees a
 	JOIN dbo.Dept_manager b
@@ -19,7 +19,10 @@ BEGIN
 END
 GO
 
---EXEC dbo.GetAllEmployeesManager
+EXEC dbo.GetAllEmployeesManager
 
---SELECT * FROM dbo.Dept_manager 
---ORDER BY dept_id
+GO	
+
+SELECT * FROM dbo.Dept_manager 
+WHERE STATUS = 0
+ORDER BY emp_id ASC, dept_id ASC

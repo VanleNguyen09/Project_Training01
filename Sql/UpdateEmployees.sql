@@ -7,7 +7,7 @@ GO
 CREATE OR ALTER PROCEDURE UpdateEmployees
 	-- Add the parameters for the stored procedure here
 	@id INT,
-	@department_id INT,
+	--@department_id INT,
     @name NVARCHAR(255),
     @phone VARCHAR(20),
     @address NVARCHAR(255),
@@ -18,37 +18,43 @@ CREATE OR ALTER PROCEDURE UpdateEmployees
 	@status INT
 AS
 BEGIN
-	DECLARE @isDuplicate INT
- 	-- Kiểm tra trùng lặp dữ liệu
-	IF EXISTS (SELECT 1 FROM dbo.Employees WHERE phone = @phone AND id <> @id)
-	BEGIN
-		IF EXISTS (SELECT 1 FROM dbo.Employees WHERE phone = @phone AND id <> @id AND status = 1)
-		BEGIN
-			SET @isDuplicate = 1; -- Đánh dấu là đã tồn tại
-		END
-		ELSE
-		BEGIN
-			-- Cập nhật status của bản ghi hiện có từ 0 thành 1
-			UPDATE dbo.Employees SET status = 1 WHERE phone = @phone AND id <> @id AND status = 0
-			SET @isDuplicate = 0; -- Đánh dấu là cập nhật thành công
-		END
-	END
-	ELSE
-	BEGIN
-		UPDATE Employees
-		SET name = @name,
-			phone = @phone,
-			address = @address,
-			gender = @gender,
-			birthday = @birthday,
-			email = @email,
-			image = @image
-		WHERE id = @id
-		UPDATE dbo.Dept_emp
-		SET dept_id = @department_id
-		WHERE emp_id = @id
-	END
+	DECLARE @exist INT
+	SET @exist = 0
 
-	SELECT @isDuplicate AS IsDuplicate;
+	IF EXISTS (SELECT 1 FROM dbo.Employees WHERE phone = @phone AND id <> @id AND status = 1)
+	BEGIN
+		SET @exist = 1
+	END
+	ELSE	
+	BEGIN
+		
+		UPDATE dbo.Employees
+		SET status = 0
+		WHERE id = @id
+
+		UPDATE dbo.Employees
+		SET status = 1, name = @name, phone = @phone, address = @address, 
+		gender = @gender, birthday = @birthday, email = @email, image = @image
+		WHERE id = @id AND status = 0
+
+		IF @@ROWCOUNT = 0
+		BEGIN	
+			INSERT INTO dbo.Employees
+			(	name,
+			    phone,
+			    address,
+			    gender,
+			    birthday,
+			    email,
+			    image,
+			    status
+			)
+			VALUES(@name, @phone, @address, @gender, @birthday, @email, 
+			@image, @status)
+		END 
+	END
+	SELECT @exist AS IsDuplicate
+
+    SELECT @exist AS IsDuplicate;
 END
 GO

@@ -9,7 +9,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
-	SELECT a.*, c.name AS department_name, b.dept_id AS dept_id,
+	SELECT a.*, c.name AS department_name, b.id AS deptmanager_id, b.dept_id AS dept_id,
 	b.from_date AS from_date, b.to_date AS to_date  
 	FROM Employees a
 	INNER JOIN dbo.Dept_manager b
@@ -19,3 +19,6 @@ BEGIN
 	WHERE b.dept_id = @dept_id AND b.status = 1
 END
 GO
+
+
+EXEC dbo.GetManagerByDeptId @dept_id = 1 -- int

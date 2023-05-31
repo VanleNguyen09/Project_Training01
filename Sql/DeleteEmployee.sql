@@ -14,8 +14,11 @@ BEGIN
 	UPDATE Salaries
 	SET status = 0
 	WHERE emp_id = @id
+	UPDATE dbo.Dept_manager
+	SET status = 0
+	WHERE emp_id = @id
 	UPDATE dbo.Employees
-	SET	 status = 0
+	SET	status = 0
 	WHERE id = @id
 END
 GO
