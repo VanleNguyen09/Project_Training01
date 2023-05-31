@@ -26,6 +26,9 @@
         Shared errorInvalidSalary As String = "Invalid Salary. Please enter a numeric value!!!"
         Shared errorInvalidDate As String = "Invalid date range. The 'From Date' cannot be greater than the 'To Date'!!!"
         Shared managerExitedForDepartment As String = "Employee Manager is exited for this department. Please try again!!!"
+        Shared departmentExited As String = "Department is exited. Please try again!!!"
+        Shared employeeExited As String = "Employee is exited. Please try again!!!"
+        Shared departmentDuplicate As String = "Duplicate department entry!!!"
     End Structure
 
     Public Structure Title

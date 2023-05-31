@@ -15,7 +15,7 @@ BEGIN
 	ON e.id = b.emp_id 
 	JOIN dbo.Department AS c
 	ON c.id = b.dept_id
-	WHERE b.dept_id = @department_id
+	WHERE b.dept_id = @department_id AND e.status = 1
 	ORDER BY e.name
 END
 GO
