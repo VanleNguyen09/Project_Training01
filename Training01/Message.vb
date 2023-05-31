@@ -30,6 +30,7 @@
         Shared employeeExited As String = "Employee is exited. Please try again!!!"
         Shared chooseOneRow As String = "Please only choose one salary that you want to set salary!"
         Shared confirmCreate As String = "Are you sure to confirm create?"
+        Shared departmentDuplicate As String = "Duplicate department entry!!!"
     End Structure
 
     Public Structure Title

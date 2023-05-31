@@ -13,7 +13,6 @@ BEGIN
 	SET status = 0
 	WHERE emp_id = @emp_id AND dept_id = @dept_id
 	 
-
 	DECLARE @managerCount INT, @employeeCount INT
 	SELECT @managerCount = COUNT(*) 
 	FROM dbo.Dept_manager

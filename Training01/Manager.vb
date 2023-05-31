@@ -38,6 +38,7 @@ Public Class frm_Manager
         cb_DepCreate.SelectedIndex = 0
         cb_EmpCreate.SelectedIndex = 0
         dtp_FromDate.Value = Date.Now()
+        cb_EmpCreate.Enabled = True
         dtp_ToDate.Value = Date.Now()
         dgv_DeptManager.ClearSelection() 'Xóa bỏ việc chọn hàng trong DataGridView             
         grb_create.Enabled = True
@@ -112,7 +113,7 @@ Public Class frm_Manager
         Dim dept_id As Integer = Convert.ToInt32(reader("dept_id"))
         Dim status As Integer = Convert.ToInt32(reader("status"))
 
-        dgv_DeptManager.Rows.Add(No, id, name, phone, address, birthday, email, department_name, from_date, to_date, dept_id, status)
+        dgv_DeptManager.Rows.Add(No, id, name, phone, birthday, address, email, department_name, from_date, to_date, dept_id, status)
     End Sub
 
 
@@ -134,8 +135,8 @@ Public Class frm_Manager
 
     End Sub
 
-    Private Function check_exit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
-        check_exit = False
+    Private Function CheckManagerExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
+        CheckManagerExit = False
         If con.State <> 1 Then
             con.Open()
         End If
@@ -144,27 +145,61 @@ Public Class frm_Manager
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@emp_id", emp_id)
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
+
+                Dim returnValueParam As SqlParameter = New SqlParameter("@employee_exit", SqlDbType.Int)
+                returnValueParam.Direction = ParameterDirection.Output
+                cmd.Parameters.Add(returnValueParam)
+
                 cmd.ExecuteNonQuery()
-                Dim reader = cmd.ExecuteReader
-                If reader.Read() Then
-                    If reader("ReturnValue") = 1 Then check_exit = True
+
+                If CInt(returnValueParam.Value) = 1 Then
+                    CheckManagerExit = True
                 End If
             End Using
         Catch ex As Exception
-            check_exit = False
+            CheckManagerExit = False
             MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             con.Close()
         End Try
-        Return check_exit
+        Return CheckManagerExit
+    End Function
+
+
+    Private Function CheckManagerExitForUpdate(ByVal dept_id As Integer) As Boolean
+        CheckManagerExitForUpdate = False
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("CheckManagerExitForUpdate", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@dept_id", dept_id)
+
+                Dim returnValueParam As SqlParameter = New SqlParameter("@employee_exit", SqlDbType.Int)
+                returnValueParam.Direction = ParameterDirection.Output
+                cmd.Parameters.Add(returnValueParam)
+
+                cmd.ExecuteNonQuery()
+
+                If CInt(returnValueParam.Value) = 1 Then
+                    CheckManagerExitForUpdate = True
+                End If
+            End Using
+        Catch ex As Exception
+            CheckManagerExitForUpdate = False
+            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
+        End Try
+        Return CheckManagerExitForUpdate
     End Function
 
     Private Sub Add_Manager(emp_id As Integer, dept_id As Integer, from_date As Date, to_date As Date)
         Dim status As Integer = 1
-        If check_exit(emp_id, dept_id) = True Then
+        If CheckManagerExit(emp_id, dept_id) = True Then
             MessageBox.Show(Message.Message.managerExitedForDepartment, titleMsgBox, buttons, icons)
             Exit Sub
-        Else
         End If
         If con.State <> 1 Then
             con.Open()
@@ -187,6 +222,36 @@ Public Class frm_Manager
         End Try
         LoadAndSortData()
     End Sub
+
+
+    Private Sub Update_Manager(emp_id As Integer, dept_id As Integer, from_date As Date, to_date As Date)
+        Dim status As Integer = 1
+        If CheckManagerExitForUpdate(dept_id) = True Then
+            MessageBox.Show(Message.Message.managerExitedForDepartment, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("UpdateManager", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@emp_id", emp_id)
+                cmd.Parameters.AddWithValue("@dept_id", dept_id)
+                cmd.Parameters.AddWithValue("@from_date", from_date)
+                cmd.Parameters.AddWithValue("@to_date", to_date)
+                cmd.Parameters.AddWithValue("@status", status)
+                cmd.ExecuteNonQuery()
+            End Using
+            MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+        Catch ex As Exception
+            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
+        End Try
+        LoadAndSortData()
+    End Sub
+
 
     Private Sub Delete_Manager(emp_id As Integer, dept_id As Integer)
         If con.State <> 1 Then
@@ -281,76 +346,39 @@ Public Class frm_Manager
     Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
     Dim errorIcons As MessageBoxIcon = MessageBoxIcon.Error
 
-    Private Sub btn_Add_Click(sender As Object, e As EventArgs)
-        Dim emp_id As Integer = cb_EmpCreate.SelectedItem.hiddenvalue
-        Dim dept_id As Integer = cb_DepCreate.SelectedItem.hiddenvalue
-        Dim from_date As Date = dtp_FromDate.Value
-        Dim to_date As Date = dtp_ToDate.Value
-
-        'Validations for Add comboboxes
-        If emp_id < 0 OrElse dept_id < 0 Then
-            MessageBox.Show(Message.Message.emptyErrorMessage, titleErrorBox, buttons, errorIcons)
-            Exit Sub
-        End If
-
-        ' Validate Date inputs
-        Dim fromDate As Date = dtp_FromDate.Value
-        Dim toDate As Date = dtp_ToDate.Value
-        Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(fromDate, toDate)
-
-        If Not datesValid Then
-            MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
-            Exit Sub
-        End If
-        Add_Manager(emp_id, dept_id, from_date, to_date)
-        ClearForm()
-    End Sub
-
-    Private Sub btn_Delete_Click(sender As Object, e As EventArgs)
-        If dgv_DeptManager.SelectedRows.Count >= 0 Then
-            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected manager(s)?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
-            If result = DialogResult.Yes Then
-                'Tạo danh sách tạm thời chứa các hàng được chọn
-                Dim selectedRows As New List(Of DataGridViewRow)
-                For i As Integer = dgv_DeptManager.SelectedRows.Count - 1 To 0 Step -1
-                    Dim selectedRow As DataGridViewRow = dgv_DeptManager.SelectedRows(i)
-                    Dim emp_id As Integer = CInt(selectedRow.Cells("emp_id").Value)
-                    Dim dept_id As Integer = CInt(selectedRow.Cells("dept_id").Value)
-                    Delete_Manager(emp_id, dept_id)
-                Next
-                ClearForm()
-            End If
-        Else
-            MessageBox.Show("Please select at least one manager to delete.", "Warning", buttons, icons)
-        End If
-    End Sub
-
-    Private Sub btn_Manage_Click(sender As Object, e As EventArgs)
-        Me.Close()
-        Dim department As New frm_Department
-        department.Show()
-    End Sub
-
-    Private Sub btn_Exit_Click(sender As Object, e As EventArgs)
-        Me.Close()
-        Dim dashboard As New Dashboard
-        dashboard.Show()
-    End Sub
+    Private selectedEmpId As Integer
 
     Private Sub dgv_DeptManager_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgv_DeptManager.CellClick
+
         If e.RowIndex >= 0 Then
-            grb_create.Enabled = False
+            Dim selectedrow = dgv_DeptManager.Rows(e.RowIndex)
+            selectedEmpId = CInt(selectedrow.Cells("emp_id").Value)
+            For Each item As ComboBoxItem In cb_DepCreate.Items
+                If item.displayvalue = selectedrow.Cells("department_name").Value.ToString() Then
+                    cb_DepCreate.SelectedItem = item
+                    Exit For
+                End If
+            Next
+
+            Dim empId As Integer
+            If Integer.TryParse(selectedrow.Cells("emp_id").Value.ToString(), empId) Then
+                For Each item As ComboBoxItem In cb_EmpCreate.Items
+                    If CInt(item.hiddenvalue) = empId Then
+                        cb_EmpCreate.SelectedItem = item
+                        Exit For
+                    End If
+                Next
+            End If
+
+            dtp_FromDate.Value = Convert.ToDateTime(selectedrow.Cells("from_date").Value)
+            dtp_ToDate.Value = Convert.ToDateTime(selectedrow.Cells("to_date").Value)
+
+            btn_Add.Enabled = False
+            btn_Delete.Enabled = True
+            cb_EmpCreate.Enabled = False
             MakeButtonBackgroundBlurry(btn_Add)
         End If
     End Sub
-
-    Private Sub btn_Clear_Click(sender As Object, e As EventArgs)
-        ClearForm()
-        btn_Delete.Enabled = False
-        MakeButtonBackgroundBlurry(btn_Delete)
-    End Sub
-
     Private Sub btn_Search_Click(sender As Object, e As EventArgs) Handles btn_Search.Click
         Dim keyword As String = txt_Search.Text.Trim()
         Dim department_id As Integer = cb_Department.SelectedItem.hiddenvalue
@@ -386,5 +414,99 @@ Public Class frm_Manager
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
         End If
+    End Sub
+
+    Private Sub btn_Add_Click(sender As Object, e As EventArgs) Handles btn_Add.Click
+        Dim emp_id As Integer = cb_EmpCreate.SelectedItem.hiddenvalue
+        Dim dept_id As Integer = cb_DepCreate.SelectedItem.hiddenvalue
+        Dim from_date As Date = dtp_FromDate.Value
+        Dim to_date As Date = dtp_ToDate.Value
+
+        'Validations for Add comboboxes
+        If emp_id < 0 OrElse dept_id < 0 Then
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleErrorBox, buttons, errorIcons)
+            Exit Sub
+        End If
+
+        ' Validate Date inputs
+        Dim fromDate As Date = dtp_FromDate.Value
+        Dim toDate As Date = dtp_ToDate.Value
+        Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(fromDate, toDate)
+
+        If Not datesValid Then
+            MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
+            Exit Sub
+        End If
+        Add_Manager(emp_id, dept_id, from_date, to_date)
+        ClearForm()
+    End Sub
+
+    Private Sub btn_Clear_Click(sender As Object, e As EventArgs) Handles btn_Clear.Click
+        ClearForm()
+        btn_Delete.Enabled = False
+        btn_Add.Enabled = True
+        MakeButtonBackgroundBlurry(btn_Delete)
+    End Sub
+
+    Private Sub btn_Manage_Click(sender As Object, e As EventArgs) Handles btn_Manage.Click
+        Me.Close()
+        Dim department As New frm_Department
+        department.Show()
+    End Sub
+
+    Private Sub btn_Delete_Click(sender As Object, e As EventArgs) Handles btn_Delete.Click
+        Dim selectedRows As DataGridViewSelectedRowCollection = dgv_DeptManager.SelectedRows
+
+        If selectedRows.Count > 0 Then
+            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected manager(s)?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+            If result = DialogResult.Yes Then
+                Dim empIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("emp_id") ' Replace "name" with the actual column name for department ID
+                Dim deptIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("dept_id") ' Replace "name" with the actual column name for department ID
+
+                If empIdColumn IsNot Nothing And deptIdColumn IsNot Nothing Then
+                    For i As Integer = selectedRows.Count - 1 To 0 Step -1
+                        Dim selectedRow As DataGridViewRow = selectedRows(i)
+                        Dim emp_id As Integer = CInt(selectedRow.Cells(empIdColumn.Index).Value)
+                        Dim dept_id As Integer = CInt(selectedRow.Cells(deptIdColumn.Index).Value)
+                        Delete_Manager(emp_id, dept_id)
+                    Next
+                    ClearForm()
+                    btn_Add.Enabled = True
+                End If
+            Else
+                MessageBox.Show("Please select at least one manager to delete.", "Warning", buttons, icons)
+            End If
+        End If
+    End Sub
+
+    Private Sub btn_Exit_Click(sender As Object, e As EventArgs) Handles btn_Exit.Click
+        Me.Close()
+        Dim dashboard As New Dashboard
+        dashboard.Show()
+    End Sub
+
+    Private Sub btn_Update_Click(sender As Object, e As EventArgs) Handles btn_Update.Click
+        Dim dept_id As Integer = CInt(cb_DepCreate.SelectedItem.hiddenvalue)
+        Dim emp_id As Integer = CInt(cb_EmpCreate.SelectedItem.hiddenvalue)
+        Dim from_date As Date = dtp_FromDate.Value
+        Dim to_date As Date = dtp_ToDate.Value
+
+        ' Validations for Add comboboxes
+        If emp_id < 0 OrElse dept_id < 0 Then
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleErrorBox, buttons, errorIcons)
+            Exit Sub
+        End If
+
+        ' Validate Date inputs
+        Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(from_date, to_date)
+
+        If Not datesValid Then
+            MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
+            Exit Sub
+        End If
+
+        Update_Manager(emp_id, dept_id, from_date, to_date)
+        ClearForm()
     End Sub
 End Class
