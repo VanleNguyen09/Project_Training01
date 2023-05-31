@@ -18,14 +18,8 @@ BEGIN
 END
 GO
 
-EXEC dbo.GetAllEmployeesByDepartment
+--EXEC dbo.GetAllEmployeesByDepartment
 
-SELECT * FROM dbo.Dept_manager 
-WHERE STATUS = 0
-ORDER BY emp_id ASC, dept_id ASC
-
-
-
---UPDATE dbo.Dept_emp
---SET from_date = GETDATE(), to_date = GETDATE()
---WHERE from_date IS NULL AND to_date IS NULL
+--SELECT * FROM dbo.Dept_emp 
+--WHERE STATUS = 0
+--ORDER BY emp_id ASC, dept_id ASC

@@ -54,7 +54,5 @@ BEGIN
 		END 
 	END
 	SELECT @exist AS IsDuplicate
-
-    SELECT @exist AS IsDuplicate;
 END
 GO

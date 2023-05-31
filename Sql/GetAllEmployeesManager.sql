@@ -18,11 +18,9 @@ BEGIN
 	ORDER BY c.name, a.name
 END
 GO
+--EXEC dbo.GetAllEmployeesManager
+--GO	
 
-EXEC dbo.GetAllEmployeesManager
-
-GO	
-
-SELECT * FROM dbo.Dept_manager 
-WHERE STATUS = 0
-ORDER BY emp_id ASC, dept_id ASC
+--SELECT * FROM dbo.Dept_manager 
+--WHERE STATUS = 0
+--ORDER BY emp_id ASC, dept_id ASC

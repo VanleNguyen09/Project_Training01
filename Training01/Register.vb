@@ -34,4 +34,8 @@ Public Class Register
     Private Sub cbb_province_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbb_province.SelectedIndexChanged
 
     End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
 End Class
