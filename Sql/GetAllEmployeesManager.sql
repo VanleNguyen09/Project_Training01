@@ -15,7 +15,7 @@ BEGIN
 	JOIN dbo.Department c
 	ON c.id = b.dept_id
 	WHERE b.status = 1
-	ORDER BY c.name, a.name
+	ORDER BY b.id DESC
 END
 GO
 

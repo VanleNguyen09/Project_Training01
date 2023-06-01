@@ -32,10 +32,6 @@ Partial Class frm_Department
         Me.btn_Add = New System.Windows.Forms.Button()
         Me.btn_Update = New System.Windows.Forms.Button()
         Me.dgrv_Department = New System.Windows.Forms.DataGridView()
-        Me.No = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.department_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btn_Clear = New System.Windows.Forms.Button()
         Me.btn_Reset = New System.Windows.Forms.Button()
         Me.btn_Search = New System.Windows.Forms.Button()
@@ -44,6 +40,10 @@ Partial Class frm_Department
         Me.lbl_DepartmentID = New System.Windows.Forms.Label()
         Me.txt_DepartmentID = New System.Windows.Forms.TextBox()
         Me.ptb_Icon = New System.Windows.Forms.PictureBox()
+        Me.No = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.department_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgrv_Department, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -51,9 +51,9 @@ Partial Class frm_Department
         'lbl_TitleDepartment
         '
         Me.lbl_TitleDepartment.AutoSize = True
-        Me.lbl_TitleDepartment.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.lbl_TitleDepartment.BackColor = System.Drawing.Color.Transparent
         Me.lbl_TitleDepartment.Font = New System.Drawing.Font("Times New Roman", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_TitleDepartment.ForeColor = System.Drawing.Color.Red
+        Me.lbl_TitleDepartment.ForeColor = System.Drawing.Color.Linen
         Me.lbl_TitleDepartment.Location = New System.Drawing.Point(287, 18)
         Me.lbl_TitleDepartment.Name = "lbl_TitleDepartment"
         Me.lbl_TitleDepartment.Size = New System.Drawing.Size(404, 45)
@@ -72,9 +72,9 @@ Partial Class frm_Department
         'lbl_Name
         '
         Me.lbl_Name.AutoSize = True
-        Me.lbl_Name.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.lbl_Name.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Name.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_Name.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.lbl_Name.ForeColor = System.Drawing.Color.Linen
         Me.lbl_Name.Location = New System.Drawing.Point(64, 137)
         Me.lbl_Name.Name = "lbl_Name"
         Me.lbl_Name.Size = New System.Drawing.Size(66, 23)
@@ -137,44 +137,8 @@ Partial Class frm_Department
         Me.dgrv_Department.RowHeadersWidth = 51
         Me.dgrv_Department.RowTemplate.Height = 24
         Me.dgrv_Department.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgrv_Department.Size = New System.Drawing.Size(328, 356)
+        Me.dgrv_Department.Size = New System.Drawing.Size(371, 356)
         Me.dgrv_Department.TabIndex = 52
-        '
-        'No
-        '
-        Me.No.HeaderText = "NO"
-        Me.No.MinimumWidth = 6
-        Me.No.Name = "No"
-        Me.No.ReadOnly = True
-        Me.No.Width = 70
-        '
-        'department_id
-        '
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.department_id.DefaultCellStyle = DataGridViewCellStyle1
-        Me.department_id.HeaderText = "DepartmentID"
-        Me.department_id.MinimumWidth = 6
-        Me.department_id.Name = "department_id"
-        Me.department_id.ReadOnly = True
-        Me.department_id.Visible = False
-        Me.department_id.Width = 125
-        '
-        'department_name
-        '
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.department_name.DefaultCellStyle = DataGridViewCellStyle2
-        Me.department_name.HeaderText = "Department Name"
-        Me.department_name.MinimumWidth = 6
-        Me.department_name.Name = "department_name"
-        Me.department_name.Width = 150
-        '
-        'status
-        '
-        Me.status.HeaderText = "Status"
-        Me.status.MinimumWidth = 6
-        Me.status.Name = "status"
-        Me.status.Visible = False
-        Me.status.Width = 125
         '
         'btn_Clear
         '
@@ -212,9 +176,9 @@ Partial Class frm_Department
         'lbl_Search
         '
         Me.lbl_Search.AutoSize = True
-        Me.lbl_Search.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.lbl_Search.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Search.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_Search.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.lbl_Search.ForeColor = System.Drawing.Color.Linen
         Me.lbl_Search.Location = New System.Drawing.Point(64, 322)
         Me.lbl_Search.Name = "lbl_Search"
         Me.lbl_Search.Size = New System.Drawing.Size(75, 23)
@@ -232,9 +196,9 @@ Partial Class frm_Department
         'lbl_DepartmentID
         '
         Me.lbl_DepartmentID.AutoSize = True
-        Me.lbl_DepartmentID.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.lbl_DepartmentID.BackColor = System.Drawing.Color.Transparent
         Me.lbl_DepartmentID.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_DepartmentID.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.lbl_DepartmentID.ForeColor = System.Drawing.Color.Linen
         Me.lbl_DepartmentID.Location = New System.Drawing.Point(64, 88)
         Me.lbl_DepartmentID.Name = "lbl_DepartmentID"
         Me.lbl_DepartmentID.Size = New System.Drawing.Size(144, 23)
@@ -259,6 +223,42 @@ Partial Class frm_Department
         Me.ptb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.ptb_Icon.TabIndex = 74
         Me.ptb_Icon.TabStop = False
+        '
+        'No
+        '
+        Me.No.HeaderText = "NO"
+        Me.No.MinimumWidth = 6
+        Me.No.Name = "No"
+        Me.No.ReadOnly = True
+        Me.No.Width = 70
+        '
+        'department_id
+        '
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.department_id.DefaultCellStyle = DataGridViewCellStyle1
+        Me.department_id.HeaderText = "DepartmentID"
+        Me.department_id.MinimumWidth = 6
+        Me.department_id.Name = "department_id"
+        Me.department_id.ReadOnly = True
+        Me.department_id.Visible = False
+        Me.department_id.Width = 125
+        '
+        'department_name
+        '
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.department_name.DefaultCellStyle = DataGridViewCellStyle2
+        Me.department_name.HeaderText = "Department Name"
+        Me.department_name.MinimumWidth = 6
+        Me.department_name.Name = "department_name"
+        Me.department_name.Width = 180
+        '
+        'status
+        '
+        Me.status.HeaderText = "Status"
+        Me.status.MinimumWidth = 6
+        Me.status.Name = "status"
+        Me.status.Visible = False
+        Me.status.Width = 125
         '
         'frm_Department
         '

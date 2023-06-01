@@ -48,11 +48,11 @@ Partial Class Dashboard
         Me.Button9 = New System.Windows.Forms.Button()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Panel12 = New System.Windows.Forms.Panel()
+        Me.Panel14 = New System.Windows.Forms.Panel()
+        Me.btn_Leave = New System.Windows.Forms.Button()
+        Me.Panel15 = New System.Windows.Forms.Panel()
         Me.btnLeave = New System.Windows.Forms.Button()
         Me.Panel13 = New System.Windows.Forms.Panel()
-        Me.Panel14 = New System.Windows.Forms.Panel()
-        Me.Button6 = New System.Windows.Forms.Button()
-        Me.Panel15 = New System.Windows.Forms.Panel()
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.btn_Manager = New System.Windows.Forms.Button()
         Me.Panel17 = New System.Windows.Forms.Panel()
@@ -70,6 +70,7 @@ Partial Class Dashboard
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Times New Roman", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Beige
         Me.Label1.Location = New System.Drawing.Point(532, 9)
@@ -360,6 +361,43 @@ Partial Class Dashboard
         Me.Panel12.Size = New System.Drawing.Size(149, 175)
         Me.Panel12.TabIndex = 13
         '
+        'Panel14
+        '
+        Me.Panel14.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Panel14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel14.Controls.Add(Me.btn_Leave)
+        Me.Panel14.Controls.Add(Me.Panel15)
+        Me.Panel14.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel14.Location = New System.Drawing.Point(-2, -2)
+        Me.Panel14.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Panel14.Name = "Panel14"
+        Me.Panel14.Size = New System.Drawing.Size(149, 175)
+        Me.Panel14.TabIndex = 14
+        '
+        'btn_Leave
+        '
+        Me.btn_Leave.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.btn_Leave.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btn_Leave.Location = New System.Drawing.Point(-3, 137)
+        Me.btn_Leave.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.btn_Leave.Name = "btn_Leave"
+        Me.btn_Leave.Size = New System.Drawing.Size(149, 37)
+        Me.btn_Leave.TabIndex = 2
+        Me.btn_Leave.Text = "Leave"
+        Me.btn_Leave.UseVisualStyleBackColor = False
+        '
+        'Panel15
+        '
+        Me.Panel15.BackgroundImage = Global.Training01.My.Resources.Resources.avatar3
+        Me.Panel15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.Panel15.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel15.Location = New System.Drawing.Point(27, 18)
+        Me.Panel15.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Panel15.Name = "Panel15"
+        Me.Panel15.Size = New System.Drawing.Size(97, 98)
+        Me.Panel15.TabIndex = 1
+        Me.Panel15.UseWaitCursor = True
+        '
         'btnLeave
         '
         Me.btnLeave.BackColor = System.Drawing.SystemColors.HotTrack
@@ -383,43 +421,6 @@ Partial Class Dashboard
         Me.Panel13.Size = New System.Drawing.Size(97, 98)
         Me.Panel13.TabIndex = 1
         Me.Panel13.UseWaitCursor = True
-        '
-        'Panel14
-        '
-        Me.Panel14.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.Panel14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel14.Controls.Add(Me.Button6)
-        Me.Panel14.Controls.Add(Me.Panel15)
-        Me.Panel14.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Panel14.Location = New System.Drawing.Point(-2, -2)
-        Me.Panel14.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Panel14.Name = "Panel14"
-        Me.Panel14.Size = New System.Drawing.Size(149, 175)
-        Me.Panel14.TabIndex = 14
-        '
-        'Button6
-        '
-        Me.Button6.BackColor = System.Drawing.SystemColors.HotTrack
-        Me.Button6.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Button6.Location = New System.Drawing.Point(-3, 137)
-        Me.Button6.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(149, 37)
-        Me.Button6.TabIndex = 2
-        Me.Button6.Text = "Leave"
-        Me.Button6.UseVisualStyleBackColor = False
-        '
-        'Panel15
-        '
-        Me.Panel15.BackgroundImage = Global.Training01.My.Resources.Resources.avatar3
-        Me.Panel15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.Panel15.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel15.Location = New System.Drawing.Point(27, 18)
-        Me.Panel15.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(97, 98)
-        Me.Panel15.TabIndex = 1
-        Me.Panel15.UseWaitCursor = True
         '
         'Panel16
         '
@@ -525,7 +526,7 @@ Partial Class Dashboard
     Friend WithEvents btnLeave As Button
     Friend WithEvents Panel13 As Panel
     Friend WithEvents Panel14 As Panel
-    Friend WithEvents Button6 As Button
+    Friend WithEvents btn_Leave As Button
     Friend WithEvents Panel15 As Panel
     Friend WithEvents Panel16 As Panel
     Friend WithEvents btn_Manager As Button

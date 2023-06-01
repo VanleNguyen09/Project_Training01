@@ -218,6 +218,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Leave.resx">
       <DependentUpon>Leave.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Loading.resx">
       <DependentUpon>Loading.vb</DependentUpon>

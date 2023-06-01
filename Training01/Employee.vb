@@ -39,11 +39,10 @@ Public Class frm_Employee
         rdo_Female.Text = "Female"
         rdo_Male.Text = "Male"
         rdo_Male.Checked = True
-        btn_Update.Enabled = False
-        btn_Delete.Enabled = False
+        EnableAdd()
         txt_EmployeeID.Enabled = False
         btn_Reset.Enabled = False
-
+        dgrv_Employee.ClearSelection()
         LoadAndSortData()
     End Sub
 
@@ -383,7 +382,21 @@ Public Class frm_Employee
             Exit Sub
         End If
 
+        Dim inputYear As Integer = birthday.Year
+        Dim currentYear As Integer = DateTime.Now.Year
+
+        Dim isValid As Boolean = FuntionCommon.Validation.ValidateYear(inputYear, currentYear)
+
+        If Not isValid Then
+            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
+
         Dim img As Byte() = ImageToByte(ptb_Employee.Image)
+        If imageSelected = False Then
+            MessageBox.Show(Message.Message.imageEmptyError, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
 
         Add_Employees(name, phone, address, gender, birthday, email, img)
         ClearForm()
@@ -426,7 +439,22 @@ Public Class frm_Employee
             Exit Sub
         End If
 
+        Dim inputYear As Integer = birthday.Year
+        Dim currentYear As Integer = DateTime.Now.Year
+
+        Dim isValid As Boolean = FuntionCommon.Validation.ValidateYear(inputYear, currentYear)
+
+        If Not isValid Then
+            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
+
         Dim img As Byte() = ImageToByte(ptb_Employee.Image)
+
+        If imageSelected = False Then
+            MessageBox.Show(Message.Message.imageEmptyError, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
 
         Update_Employee(id, name, phone, address, gender, birthday, email, img)
         EnableAdd()
@@ -447,6 +475,7 @@ Public Class frm_Employee
             selectedEmployees.phone = txt_Phone.Text
             txt_Email.Text = selectedrow.Cells("email").Value.ToString()
             selectedEmployees.email = txt_Email.Text
+            dgrv_Employee.ReadOnly = True
 
             Dim cellValue As Object = selectedrow.Cells("images").Value
             selectedEmployees.img = cellValue
@@ -491,7 +520,7 @@ Public Class frm_Employee
     Private Sub txt_Phone_TextChanged(sender As Object, e As EventArgs) Handles txt_Phone.TextChanged
         Dim phone As String = txt_Phone.Text
         If FuntionCommon.Validation.ValidatePhone(phone) Then
-            txt_Name.Focus()
+            txt_Address.Focus()
         End If
     End Sub
 
@@ -501,6 +530,7 @@ Public Class frm_Employee
         dashboard.Show()
     End Sub
 
+    Private imageSelected As Boolean = False
 
     Private Sub btn_Upload_Click(sender As Object, e As EventArgs) Handles btn_Upload.Click
         Dim open As New OpenFileDialog()
@@ -509,6 +539,7 @@ Public Class frm_Employee
         If open.ShowDialog() = DialogResult.OK Then
             Dim selectedImage As String = open.FileName
             ptb_Employee.Image = Image.FromFile(selectedImage)
+            imageSelected = True
         End If
 
     End Sub
@@ -608,6 +639,11 @@ Public Class frm_Employee
     Private Sub txt_Email_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_Email.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
+            If btn_Add.Enabled = True Then
+                btn_Add.Focus()
+            Else
+                btn_Update.Focus()
+            End If
         End If
     End Sub
 
@@ -615,5 +651,9 @@ Public Class frm_Employee
         Me.Close()
         Dim empDept As New frm_EmpInDept
         empDept.Show()
+    End Sub
+
+    Private Sub frm_Employee_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        dgrv_Employee.ClearSelection()
     End Sub
 End Class

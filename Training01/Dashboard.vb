@@ -54,15 +54,15 @@ Public Class Dashboard
         salary.Show()
     End Sub
 
-    Private Sub btnLeave_Click(sender As Object, e As EventArgs) Handles btnLeave.Click
-        Dim leave As New Leave
-        Me.Hide()
-        leave.Show()
-    End Sub
-
     Private Sub btn_Manager_Click(sender As Object, e As EventArgs) Handles btn_Manager.Click
         Dim manager As New frm_Manager
         Me.Hide()
         manager.Show()
+    End Sub
+
+    Private Sub btn_Leave_Click(sender As Object, e As EventArgs) Handles btn_Leave.Click
+        Dim leave As New Leave
+        Me.Hide()
+        leave.Show()
     End Sub
 End Class

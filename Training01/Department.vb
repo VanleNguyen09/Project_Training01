@@ -21,7 +21,7 @@ Public Class frm_Department
         btn_Update.Enabled = False
         btn_Delete.Enabled = False
         txt_DepartmentID.Enabled = False
-        btn_Reset.Enabled = False
+        EnableAdd()
         LoadAndSortData()
     End Sub
 
@@ -308,6 +308,7 @@ Public Class frm_Department
             selectedDepartment.id = txt_DepartmentID.Text
             txt_Name.Text = selectedRow.Cells("department_name").Value.ToString()
             selectedDepartment.name = txt_Name.Text
+            dgrv_Department.ReadOnly = True
         End If
     End Sub
 
@@ -363,5 +364,9 @@ Public Class frm_Department
         Me.Close()
         Dim dashboard As New Dashboard
         dashboard.Show()
+    End Sub
+
+    Private Sub frm_Department_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        dgrv_Department.ClearSelection()
     End Sub
 End Class

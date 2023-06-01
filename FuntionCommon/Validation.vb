@@ -51,4 +51,12 @@ Public Class Validation
     Shared Function ValidateDate(ByVal fromDate As Date, ByVal toDate As Date)
         Return fromDate <= toDate
     End Function
+
+    Shared Function ValidateYear(ByVal year As Integer, ByVal currentYear As Integer)
+        If year >= 1900 AndAlso year <= currentYear Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 End Class

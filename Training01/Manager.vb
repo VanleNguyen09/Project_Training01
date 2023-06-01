@@ -42,8 +42,7 @@ Public Class frm_Manager
         cb_Department.SelectedIndex = 0
         cb_DepCreate.SelectedIndex = 0
         cb_EmpCreate.SelectedIndex = 0
-        btn_Reset.Enabled = False
-
+        EnableAdd()
         Select_Departments()
         Select_Employees()
         LoadAndSortData()
@@ -147,7 +146,6 @@ Public Class frm_Manager
         Dim dept_id As Integer = Convert.ToInt32(reader("dept_id"))
         Dim deptmanager_id As Integer = Convert.ToInt32(reader("deptmanager_id"))
         Dim status As Integer = Convert.ToInt32(reader("status"))
-
         dgv_DeptManager.Rows.Add(No, id, name, phone, birthday, address, email, department_name, from_date, to_date, dept_id, status, deptmanager_id)
     End Sub
 
@@ -167,7 +165,6 @@ Public Class frm_Manager
             End While
             con.Close()
         End Using
-
     End Sub
 
     Private Function CheckManagerExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
@@ -331,6 +328,7 @@ Public Class frm_Manager
         con.Close()
         If reload Then
             txt_Search.Text = Nothing
+            cb_Department.SelectedIndex = 0
             LoadAndSortData()
         End If
     End Sub
@@ -406,6 +404,7 @@ Public Class frm_Manager
             selectedManagers.to_date = dtp_ToDate.Value
             DeptmangerId = CInt(selectedrow.Cells("deptmanager_id").Value)
             selectedManagers.deptmanager_id = DeptmangerId
+            dgv_DeptManager.ReadOnly = True
             btn_Add.Enabled = False
             btn_Delete.Enabled = True
             cb_EmpCreate.Enabled = False
@@ -420,6 +419,7 @@ Public Class frm_Manager
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
             LoadAndSortData()
+            cb_Department.SelectedIndex = 0
         End If
     End Sub
 
@@ -447,6 +447,11 @@ Public Class frm_Manager
     Private Sub dtp_ToDate_KeyDown(sender As Object, e As KeyEventArgs) Handles dtp_ToDate.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
+            If btn_Add.Enabled = True Then
+                btn_Add.Focus()
+            Else
+                btn_Update.Focus()
+            End If
         End If
     End Sub
 
@@ -471,6 +476,20 @@ Public Class frm_Manager
             MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
             Exit Sub
         End If
+
+        Dim fromInputYear As Integer = from_date.Year
+        Dim toInputYear As Integer = to_date.Year
+        Dim currentYear As Integer = DateTime.Now.Year
+
+        Dim fromIsValid As Boolean = FuntionCommon.Validation.ValidateYear(fromInputYear, currentYear)
+        Dim toIsValid As Boolean = FuntionCommon.Validation.ValidateYear(toInputYear, currentYear)
+
+
+        If Not fromIsValid OrElse Not toIsValid Then
+            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
+
         Add_Manager(emp_id, dept_id, from_date, to_date)
         ClearForm()
     End Sub
@@ -538,6 +557,19 @@ Public Class frm_Manager
             Exit Sub
         End If
 
+        Dim fromInputYear As Integer = from_date.Year
+        Dim toInputYear As Integer = to_date.Year
+        Dim currentYear As Integer = DateTime.Now.Year
+
+        Dim fromIsValid As Boolean = FuntionCommon.Validation.ValidateYear(fromInputYear, currentYear)
+        Dim toIsValid As Boolean = FuntionCommon.Validation.ValidateYear(toInputYear, currentYear)
+
+
+        If Not fromIsValid OrElse Not toIsValid Then
+            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
+
         Update_Manager(emp_id, dept_id, from_date, to_date, DeptmangerId)
         ClearForm()
         EnableAdd()
@@ -553,5 +585,15 @@ Public Class frm_Manager
         dtp_FromDate.Value = selectedManagers.from_date
         dtp_ToDate.Value = selectedManagers.to_date
         DeptmangerId = selectedManagers.deptmanager_id
+    End Sub
+
+    Private Sub dgv_DeptManager_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles dgv_DeptManager.DataBindingComplete
+        If dgv_DeptManager.Rows.Count > 0 Then
+            dgv_DeptManager.Rows(0).Selected = False
+        End If
+    End Sub
+
+    Private Sub frm_Manager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        dgv_DeptManager.ClearSelection()
     End Sub
 End Class

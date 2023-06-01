@@ -25,6 +25,7 @@ Public Class frm_EmpInDept
         cb_Department.SelectedIndex = 0
         cb_DepCreate.SelectedIndex = 0
         cb_EmpCreate.SelectedIndex = 0
+        EnableAdd()
 
         Select_Departments()
         Select_Employees()
@@ -189,10 +190,6 @@ Public Class frm_EmpInDept
     End Function
     Private Sub Add_EmpDept(emp_id As Integer, dept_id As Integer, from_date As Date, to_date As Date)
         Dim status As Integer = 1
-        'If CheckEmpDeptExit(emp_id, dept_id) = True Then
-        '    MessageBox.Show(Message.Message.employeeExited, titleMsgBox, buttons, icons)
-        '    Exit Sub
-        'End If
         If con.State <> 1 Then
             con.Open()
         End If
@@ -254,7 +251,7 @@ Public Class frm_EmpInDept
                 End Using
 
                 If isDuplicate = 1 Then
-                    MessageBox.Show(Message.Message.managerDuplicate, titleMsgBox, buttons, icons)
+                    MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
                 Else
                     MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                     LoadAndSortData()
@@ -295,6 +292,7 @@ Public Class frm_EmpInDept
         con.Close()
         If reload Then
             txt_Search.Text = Nothing
+            cb_Department.SelectedIndex = 0
             LoadAndSortData()
         End If
     End Sub
@@ -385,6 +383,19 @@ Public Class frm_EmpInDept
             MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
             Exit Sub
         End If
+
+        Dim fromInputYear As Integer = from_date.Year
+        Dim toInputYear As Integer = to_date.Year
+        Dim currentYear As Integer = DateTime.Now.Year
+
+        Dim fromIsValid As Boolean = FuntionCommon.Validation.ValidateYear(fromInputYear, currentYear)
+        Dim toIsValid As Boolean = FuntionCommon.Validation.ValidateYear(toInputYear, currentYear)
+
+
+        If Not fromIsValid OrElse Not toIsValid Then
+            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
         Add_EmpDept(emp_id, dept_id, from_date, to_date)
         ClearForm()
     End Sub
@@ -402,6 +413,7 @@ Public Class frm_EmpInDept
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
             LoadAndSortData()
+            cb_Department.SelectedIndex = 0
         End If
     End Sub
 
@@ -456,6 +468,19 @@ Public Class frm_EmpInDept
             Exit Sub
         End If
 
+        Dim fromInputYear As Integer = from_date.Year
+        Dim toInputYear As Integer = to_date.Year
+        Dim currentYear As Integer = DateTime.Now.Year
+
+        Dim fromIsValid As Boolean = FuntionCommon.Validation.ValidateYear(fromInputYear, currentYear)
+        Dim toIsValid As Boolean = FuntionCommon.Validation.ValidateYear(toInputYear, currentYear)
+
+
+        If Not fromIsValid OrElse Not toIsValid Then
+            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
+
         Update_EmpDept(emp_id, dept_id, from_date, to_date, DeptEmpId)
         EnableAdd()
         ClearForm()
@@ -493,6 +518,7 @@ Public Class frm_EmpInDept
             selectedEmpDept.from_date = dtp_FromDate.Value
             dtp_ToDate.Value = Convert.ToDateTime(selectedrow.Cells("to_date").Value)
             selectedEmpDept.to_date = dtp_ToDate.Value
+            dgv_DeptEmp.ReadOnly = True
 
             btn_Add.Enabled = False
             btn_Delete.Enabled = True
@@ -537,6 +563,15 @@ Public Class frm_EmpInDept
     Private Sub dtp_ToDate_KeyDown(sender As Object, e As KeyEventArgs) Handles dtp_ToDate.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
+            If btn_Add.Enabled = True Then
+                btn_Add.Focus()
+            Else
+                btn_Update.Focus()
+            End If
         End If
+    End Sub
+
+    Private Sub frm_EmpInDept_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        dgv_DeptEmp.ClearSelection()
     End Sub
 End Class

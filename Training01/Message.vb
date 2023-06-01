@@ -33,6 +33,8 @@
         Shared departmentDuplicate As String = "Duplicate department entry!!!"
         Shared managerDuplicate As String = "Duplicate manager entry!!!"
         Shared employeeDuplicate As String = "Duplicate employee entry!!!"
+        Shared yearInvalidError As String = "Year is invalid. Please try again!!!"
+        Shared imageEmptyError As String = "Please select an image. Let's try again!!!"
     End Structure
 
     Public Structure Title

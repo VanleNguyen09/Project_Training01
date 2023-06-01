@@ -14,18 +14,8 @@ BEGIN
 	JOIN dbo.Department c
 	ON c.id = b.dept_id
 	WHERE b.status = 1 AND b.from_date IS NOT NULL AND b.to_date IS NOT NULL
-	ORDER BY c.name, a.name
+	ORDER BY b.id ASC
 END
 GO
 
 EXEC dbo.GetAllEmployeesByDepartment
-
-SELECT * FROM dbo.Dept_manager 
-WHERE STATUS = 0
-ORDER BY emp_id ASC, dept_id ASC
-
-
-
---UPDATE dbo.Dept_emp
---SET from_date = GETDATE(), to_date = GETDATE()
---WHERE from_date IS NULL AND to_date IS NULL

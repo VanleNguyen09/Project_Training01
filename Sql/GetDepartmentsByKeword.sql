@@ -10,5 +10,6 @@ AS
 BEGIN
 	SELECT * FROM dbo.Department
 	WHERE id LIKE @keyword OR name  LIKE '%' + @keyword  + '%' AND status = 1
+	ORDER BY id
 END
 GO

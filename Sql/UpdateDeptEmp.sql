@@ -20,7 +20,8 @@ BEGIN
 	DECLARE @exist INT
 	SET @exist = 0
 
-	IF EXISTS (SELECT 1 FROM dbo.Dept_emp WHERE emp_id = @emp_id AND dept_id = @dept_id AND	status = 1)
+	IF EXISTS (SELECT 1 FROM dbo.Dept_emp WHERE emp_id = @emp_id AND dept_id = @dept_id 
+	AND from_date = @from_date AND to_date = @to_date AND status = 1)
 	BEGIN
 		SET @exist = 1
 	END
@@ -32,7 +33,7 @@ BEGIN
 
 		UPDATE dbo.Dept_emp
 		SET status = 1, emp_id = @emp_id, dept_id = @dept_id, from_date = @from_date, to_date = @to_date
-		WHERE emp_id = @emp_id AND dept_id = @dept_id
+		WHERE emp_id = @emp_id AND dept_id = @dept_id AND status = 0
 
 		IF @@ROWCOUNT = 0
 		BEGIN	

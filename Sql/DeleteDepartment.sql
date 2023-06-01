@@ -9,15 +9,16 @@ CREATE OR ALTER PROCEDURE DeleteDepartment
 	@id INT
 AS
 BEGIN	
-	UPDATE dbo.Dept_emp
+
+	UPDATE dbo.Department
+	SET status = 0
+	WHERE id = @id
+		UPDATE dbo.Dept_emp
 	SET status = 0
 	WHERE dept_id = @id
 	UPDATE dbo.Dept_manager
 	SET status = 0
 	WHERE dept_id = @id
-	UPDATE dbo.Department
-	SET status = 0
-	WHERE id = @id
 END
 GO
 
