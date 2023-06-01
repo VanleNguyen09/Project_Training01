@@ -5,9 +5,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE OR ALTER PROCEDURE [dbo].[CheckManagerExitForUpdate]
+CREATE OR ALTER PROCEDURE [dbo].[CheckEmpDeptExit]
+    @emp_id INT,
     @dept_id INT,
-	@emp_id INT,
     @employee_exit INT OUTPUT
 AS
 BEGIN

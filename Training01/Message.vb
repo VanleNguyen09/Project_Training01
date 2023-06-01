@@ -31,6 +31,7 @@
         Shared chooseOneRow As String = "Please only choose one salary that you want to set salary!"
         Shared confirmCreate As String = "Are you sure to confirm create?"
         Shared departmentDuplicate As String = "Duplicate department entry!!!"
+        Shared managerDuplicate As String = "Duplicate manager entry!!!"
     End Structure
 
     Public Structure Title

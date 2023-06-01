@@ -22,13 +22,13 @@ Partial Class frm_Employee
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btn_Close = New System.Windows.Forms.Button()
         Me.btn_Delete = New System.Windows.Forms.Button()
         Me.btn_Update = New System.Windows.Forms.Button()
@@ -49,13 +49,10 @@ Partial Class frm_Employee
         Me.txt_EmployeeID = New System.Windows.Forms.TextBox()
         Me.lbl_EmployeeID = New System.Windows.Forms.Label()
         Me.btn_Upload = New System.Windows.Forms.Button()
-        Me.lbl_Department = New System.Windows.Forms.Label()
-        Me.cb_Department = New System.Windows.Forms.ComboBox()
         Me.ptb_Employee = New System.Windows.Forms.PictureBox()
         Me.dgrv_Employee = New System.Windows.Forms.DataGridView()
         Me.No = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EmployeeID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EmployeeName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.images = New System.Windows.Forms.DataGridViewImageColumn()
         Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -65,8 +62,6 @@ Partial Class frm_Employee
         Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lbl_TitleEmployee = New System.Windows.Forms.Label()
-        Me.cb_Department_Change = New System.Windows.Forms.ComboBox()
-        Me.lbl_Department_Change = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.txt_Search = New System.Windows.Forms.TextBox()
@@ -77,6 +72,7 @@ Partial Class frm_Employee
         Me.btn_Reset = New System.Windows.Forms.Button()
         Me.btn_Clear = New System.Windows.Forms.Button()
         Me.ptb_Icon = New System.Windows.Forms.PictureBox()
+        Me.BtnEmpDept = New System.Windows.Forms.Button()
         CType(Me.ptb_Employee, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgrv_Employee, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -86,7 +82,7 @@ Partial Class frm_Employee
         '
         Me.btn_Close.BackColor = System.Drawing.Color.Linen
         Me.btn_Close.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Close.Location = New System.Drawing.Point(507, 489)
+        Me.btn_Close.Location = New System.Drawing.Point(507, 426)
         Me.btn_Close.Name = "btn_Close"
         Me.btn_Close.Size = New System.Drawing.Size(141, 47)
         Me.btn_Close.TabIndex = 47
@@ -98,7 +94,7 @@ Partial Class frm_Employee
         Me.btn_Delete.AllowDrop = True
         Me.btn_Delete.BackColor = System.Drawing.Color.Linen
         Me.btn_Delete.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Delete.Location = New System.Drawing.Point(345, 489)
+        Me.btn_Delete.Location = New System.Drawing.Point(345, 426)
         Me.btn_Delete.Name = "btn_Delete"
         Me.btn_Delete.Size = New System.Drawing.Size(136, 47)
         Me.btn_Delete.TabIndex = 46
@@ -109,7 +105,7 @@ Partial Class frm_Employee
         '
         Me.btn_Update.BackColor = System.Drawing.Color.Linen
         Me.btn_Update.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Update.Location = New System.Drawing.Point(190, 489)
+        Me.btn_Update.Location = New System.Drawing.Point(190, 426)
         Me.btn_Update.Name = "btn_Update"
         Me.btn_Update.Size = New System.Drawing.Size(128, 47)
         Me.btn_Update.TabIndex = 45
@@ -120,7 +116,7 @@ Partial Class frm_Employee
         '
         Me.btn_Add.BackColor = System.Drawing.Color.Linen
         Me.btn_Add.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Add.Location = New System.Drawing.Point(35, 489)
+        Me.btn_Add.Location = New System.Drawing.Point(35, 426)
         Me.btn_Add.Name = "btn_Add"
         Me.btn_Add.Size = New System.Drawing.Size(124, 47)
         Me.btn_Add.TabIndex = 44
@@ -130,7 +126,7 @@ Partial Class frm_Employee
         'txt_Email
         '
         Me.txt_Email.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Email.Location = New System.Drawing.Point(159, 399)
+        Me.txt_Email.Location = New System.Drawing.Point(158, 362)
         Me.txt_Email.Name = "txt_Email"
         Me.txt_Email.Size = New System.Drawing.Size(192, 30)
         Me.txt_Email.TabIndex = 40
@@ -140,7 +136,7 @@ Partial Class frm_Employee
         Me.lbl_Email.AutoSize = True
         Me.lbl_Email.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Email.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.lbl_Email.Location = New System.Drawing.Point(17, 399)
+        Me.lbl_Email.Location = New System.Drawing.Point(17, 352)
         Me.lbl_Email.Name = "lbl_Email"
         Me.lbl_Email.Size = New System.Drawing.Size(65, 23)
         Me.lbl_Email.TabIndex = 39
@@ -303,28 +299,6 @@ Partial Class frm_Employee
         Me.btn_Upload.Text = "Choose FIle"
         Me.btn_Upload.UseVisualStyleBackColor = False
         '
-        'lbl_Department
-        '
-        Me.lbl_Department.AutoSize = True
-        Me.lbl_Department.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_Department.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.lbl_Department.Location = New System.Drawing.Point(17, 352)
-        Me.lbl_Department.Name = "lbl_Department"
-        Me.lbl_Department.Size = New System.Drawing.Size(118, 23)
-        Me.lbl_Department.TabIndex = 52
-        Me.lbl_Department.Text = "Department:"
-        '
-        'cb_Department
-        '
-        Me.cb_Department.AllowDrop = True
-        Me.cb_Department.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cb_Department.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cb_Department.FormattingEnabled = True
-        Me.cb_Department.Location = New System.Drawing.Point(158, 351)
-        Me.cb_Department.Name = "cb_Department"
-        Me.cb_Department.Size = New System.Drawing.Size(193, 30)
-        Me.cb_Department.TabIndex = 53
-        '
         'ptb_Employee
         '
         Me.ptb_Employee.BackgroundImage = Global.Training01.My.Resources.Resources.avatar2
@@ -342,14 +316,14 @@ Partial Class frm_Employee
         Me.dgrv_Employee.AllowUserToAddRows = False
         Me.dgrv_Employee.BackgroundColor = System.Drawing.Color.DarkGray
         Me.dgrv_Employee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgrv_Employee.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.No, Me.EmployeeID, Me.department_name, Me.EmployeeName, Me.images, Me.phone, Me.address, Me.gender, Me.birthday, Me.email, Me.status})
-        Me.dgrv_Employee.Location = New System.Drawing.Point(12, 560)
+        Me.dgrv_Employee.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.No, Me.EmployeeID, Me.EmployeeName, Me.images, Me.phone, Me.address, Me.gender, Me.birthday, Me.email, Me.status})
+        Me.dgrv_Employee.Location = New System.Drawing.Point(12, 509)
         Me.dgrv_Employee.Name = "dgrv_Employee"
         Me.dgrv_Employee.RowHeadersVisible = False
         Me.dgrv_Employee.RowHeadersWidth = 51
         Me.dgrv_Employee.RowTemplate.Height = 24
         Me.dgrv_Employee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgrv_Employee.Size = New System.Drawing.Size(1374, 290)
+        Me.dgrv_Employee.Size = New System.Drawing.Size(1280, 290)
         Me.dgrv_Employee.TabIndex = 54
         '
         'No
@@ -362,8 +336,8 @@ Partial Class frm_Employee
         '
         'EmployeeID
         '
-        DataGridViewCellStyle29.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmployeeID.DefaultCellStyle = DataGridViewCellStyle29
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeID.DefaultCellStyle = DataGridViewCellStyle8
         Me.EmployeeID.HeaderText = "EmployeeID"
         Me.EmployeeID.MinimumWidth = 6
         Me.EmployeeID.Name = "EmployeeID"
@@ -371,17 +345,10 @@ Partial Class frm_Employee
         Me.EmployeeID.Visible = False
         Me.EmployeeID.Width = 125
         '
-        'department_name
-        '
-        Me.department_name.HeaderText = "Department Name"
-        Me.department_name.MinimumWidth = 6
-        Me.department_name.Name = "department_name"
-        Me.department_name.Width = 125
-        '
         'EmployeeName
         '
-        DataGridViewCellStyle30.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmployeeName.DefaultCellStyle = DataGridViewCellStyle30
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeName.DefaultCellStyle = DataGridViewCellStyle9
         Me.EmployeeName.HeaderText = "Name"
         Me.EmployeeName.MinimumWidth = 6
         Me.EmployeeName.Name = "EmployeeName"
@@ -400,8 +367,8 @@ Partial Class frm_Employee
         '
         'phone
         '
-        DataGridViewCellStyle31.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.phone.DefaultCellStyle = DataGridViewCellStyle31
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.phone.DefaultCellStyle = DataGridViewCellStyle10
         Me.phone.HeaderText = "Phone"
         Me.phone.MinimumWidth = 6
         Me.phone.Name = "phone"
@@ -409,8 +376,8 @@ Partial Class frm_Employee
         '
         'address
         '
-        DataGridViewCellStyle32.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.address.DefaultCellStyle = DataGridViewCellStyle32
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.address.DefaultCellStyle = DataGridViewCellStyle11
         Me.address.HeaderText = "Address"
         Me.address.MinimumWidth = 6
         Me.address.Name = "address"
@@ -418,8 +385,8 @@ Partial Class frm_Employee
         '
         'gender
         '
-        DataGridViewCellStyle33.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gender.DefaultCellStyle = DataGridViewCellStyle33
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gender.DefaultCellStyle = DataGridViewCellStyle12
         Me.gender.HeaderText = "Gender"
         Me.gender.MinimumWidth = 6
         Me.gender.Name = "gender"
@@ -427,8 +394,8 @@ Partial Class frm_Employee
         '
         'birthday
         '
-        DataGridViewCellStyle34.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.birthday.DefaultCellStyle = DataGridViewCellStyle34
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.birthday.DefaultCellStyle = DataGridViewCellStyle13
         Me.birthday.HeaderText = "Birthday"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
@@ -436,8 +403,8 @@ Partial Class frm_Employee
         '
         'email
         '
-        DataGridViewCellStyle35.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.email.DefaultCellStyle = DataGridViewCellStyle35
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.email.DefaultCellStyle = DataGridViewCellStyle14
         Me.email.HeaderText = "Email"
         Me.email.MinimumWidth = 6
         Me.email.Name = "email"
@@ -461,29 +428,6 @@ Partial Class frm_Employee
         Me.lbl_TitleEmployee.Size = New System.Drawing.Size(353, 45)
         Me.lbl_TitleEmployee.TabIndex = 25
         Me.lbl_TitleEmployee.Text = "EMPLOYEE LIST"
-        '
-        'cb_Department_Change
-        '
-        Me.cb_Department_Change.AllowDrop = True
-        Me.cb_Department_Change.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cb_Department_Change.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cb_Department_Change.FormattingEnabled = True
-        Me.cb_Department_Change.Location = New System.Drawing.Point(538, 425)
-        Me.cb_Department_Change.Name = "cb_Department_Change"
-        Me.cb_Department_Change.Size = New System.Drawing.Size(193, 30)
-        Me.cb_Department_Change.TabIndex = 56
-        '
-        'lbl_Department_Change
-        '
-        Me.lbl_Department_Change.AllowDrop = True
-        Me.lbl_Department_Change.AutoSize = True
-        Me.lbl_Department_Change.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_Department_Change.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.lbl_Department_Change.Location = New System.Drawing.Point(390, 425)
-        Me.lbl_Department_Change.Name = "lbl_Department_Change"
-        Me.lbl_Department_Change.Size = New System.Drawing.Size(118, 23)
-        Me.lbl_Department_Change.TabIndex = 55
-        Me.lbl_Department_Change.Text = "Department:"
         '
         'TextBox1
         '
@@ -551,7 +495,7 @@ Partial Class frm_Employee
         '
         Me.btn_Reset.BackColor = System.Drawing.Color.Linen
         Me.btn_Reset.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Reset.Location = New System.Drawing.Point(671, 489)
+        Me.btn_Reset.Location = New System.Drawing.Point(671, 426)
         Me.btn_Reset.Name = "btn_Reset"
         Me.btn_Reset.Size = New System.Drawing.Size(141, 47)
         Me.btn_Reset.TabIndex = 65
@@ -562,7 +506,7 @@ Partial Class frm_Employee
         '
         Me.btn_Clear.BackColor = System.Drawing.Color.Linen
         Me.btn_Clear.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Clear.Location = New System.Drawing.Point(834, 489)
+        Me.btn_Clear.Location = New System.Drawing.Point(834, 426)
         Me.btn_Clear.Name = "btn_Clear"
         Me.btn_Clear.Size = New System.Drawing.Size(141, 47)
         Me.btn_Clear.TabIndex = 66
@@ -582,6 +526,17 @@ Partial Class frm_Employee
         Me.ptb_Icon.TabIndex = 67
         Me.ptb_Icon.TabStop = False
         '
+        'BtnEmpDept
+        '
+        Me.BtnEmpDept.BackColor = System.Drawing.Color.Linen
+        Me.BtnEmpDept.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnEmpDept.Location = New System.Drawing.Point(799, 352)
+        Me.BtnEmpDept.Name = "BtnEmpDept"
+        Me.BtnEmpDept.Size = New System.Drawing.Size(230, 47)
+        Me.BtnEmpDept.TabIndex = 68
+        Me.BtnEmpDept.Text = "Empt In Dept"
+        Me.BtnEmpDept.UseVisualStyleBackColor = False
+        '
         'frm_Employee
         '
         Me.AllowDrop = True
@@ -591,6 +546,7 @@ Partial Class frm_Employee
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1491, 881)
+        Me.Controls.Add(Me.BtnEmpDept)
         Me.Controls.Add(Me.ptb_Icon)
         Me.Controls.Add(Me.btn_Clear)
         Me.Controls.Add(Me.btn_Reset)
@@ -601,11 +557,7 @@ Partial Class frm_Employee
         Me.Controls.Add(Me.txt_Search)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)
-        Me.Controls.Add(Me.cb_Department_Change)
-        Me.Controls.Add(Me.lbl_Department_Change)
         Me.Controls.Add(Me.dgrv_Employee)
-        Me.Controls.Add(Me.cb_Department)
-        Me.Controls.Add(Me.lbl_Department)
         Me.Controls.Add(Me.btn_Upload)
         Me.Controls.Add(Me.ptb_Employee)
         Me.Controls.Add(Me.btn_Close)
@@ -662,13 +614,9 @@ Partial Class frm_Employee
     Friend WithEvents lbl_EmployeeID As Label
     Friend WithEvents ptb_Employee As PictureBox
     Friend WithEvents btn_Upload As Button
-    Friend WithEvents lbl_Department As Label
-    Friend WithEvents cb_Department As ComboBox
     Friend WithEvents dgrv_Employee As DataGridView
     Friend WithEvents name1 As DataGridViewTextBoxColumn
     Friend WithEvents lbl_TitleEmployee As Label
-    Friend WithEvents cb_Department_Change As ComboBox
-    Friend WithEvents lbl_Department_Change As Label
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents txt_Search As TextBox
@@ -679,9 +627,9 @@ Partial Class frm_Employee
     Friend WithEvents btn_Reset As Button
     Friend WithEvents btn_Clear As Button
     Friend WithEvents ptb_Icon As PictureBox
+    Friend WithEvents BtnEmpDept As Button
     Friend WithEvents No As DataGridViewTextBoxColumn
     Friend WithEvents EmployeeID As DataGridViewTextBoxColumn
-    Friend WithEvents department_name As DataGridViewTextBoxColumn
     Friend WithEvents EmployeeName As DataGridViewTextBoxColumn
     Friend WithEvents images As DataGridViewImageColumn
     Friend WithEvents phone As DataGridViewTextBoxColumn

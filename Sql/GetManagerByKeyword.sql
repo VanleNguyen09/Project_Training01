@@ -1,7 +1,5 @@
-
-USE [EmployeeManagement]
+﻿USE [EmployeeManagement]
 GO
-/****** Object:  StoredProcedure [dbo].[GetEmployeesByName]    Script Date: 17/05/2023 17:19:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13,42 +11,47 @@ AS
 BEGIN
 	IF @department_id != -1 
 	BEGIN
-	SELECT a.*, c.name AS department_name, 
-	b.from_date AS from_date, b.to_date AS to_date 
-	FROM dbo.Employees a
-	JOIN dbo.Dept_manager b
-	ON a.id = b.emp_id
+	SELECT b.*, c.name AS department_name, a.dept_id AS dept_id,
+	b.id AS deptmanager_id, a.from_date AS from_date, a.to_date AS to_date 
+	FROM dbo.Dept_manager a
+	JOIN dbo.Employees b
+	ON b.id = a.emp_id
 	JOIN dbo.Department c
-	ON c.id = b.dept_id
-	WHERE (a.id LIKE @keyword OR 
-	a.name LIKE '%' + @keyword  + '%' OR 
-	phone LIKE '%' + @keyword + '%' OR
-	a.address  LIKE '%' + @keyword + '%'
-	OR a.email LIKE '%' + @keyword + '%'
-	OR c.name  LIKE '%' + @keyword + '%')
-	OR from_date LIKE '%' + @keyword + '%' OR to_date 
-	LIKE '%' + @keyword + '%'  AND (b.status = 1)
-	AND (b.dept_id = @department_id)
-	ORDER BY c.name, a.name
+	ON c.id = a.dept_id
+	WHERE (b.id LIKE @keyword OR 
+	b.name LIKE '%' + @keyword  + '%' OR 
+	b.phone LIKE '%' + @keyword + '%' OR
+	b.address  LIKE '%' + @keyword + '%'
+	OR b.email LIKE '%' + @keyword + '%'
+	OR c.name  LIKE '%' + @keyword + '%'
+	OR a.from_date LIKE '%' + @keyword + '%' OR a.to_date 
+	LIKE '%' + @keyword + '%')  AND (a.status = 1  AND b.status = 1) 
+	AND (a.dept_id = @department_id)
+	ORDER BY c.name, b.name
 	END
 	ELSE 
 		BEGIN 
-	SELECT a.*, c.name AS department_name, 
-	b.from_date AS from_date, b.to_date AS to_date 
-	FROM dbo.Employees a
-	JOIN dbo.Dept_manager b
-	ON a.id = b.emp_id
+	SELECT b.*, c.name AS department_name, a.dept_id AS dept_id,
+	b.id AS deptmanager_id, a.from_date AS from_date, a.to_date AS to_date 
+	FROM dbo.Dept_manager a
+	JOIN dbo.Employees b
+	ON b.id = a.emp_id
 	JOIN dbo.Department c
-	ON c.id = b.dept_id
-	WHERE (a.id LIKE @keyword OR 
-	a.name LIKE '%' + @keyword  + '%' OR 
-	phone LIKE '%' + @keyword + '%' OR
-	a.address  LIKE '%' + @keyword + '%'
-	OR a.email LIKE '%' + @keyword + '%'
+	ON c.id = a.dept_id
+	WHERE (b.id LIKE @keyword OR 
+	b.name LIKE '%' + @keyword  + '%' OR 
+	b.phone LIKE '%' + @keyword + '%' OR
+	b.address  LIKE '%' + @keyword + '%'
+	OR b.email LIKE '%' + @keyword + '%'
 	OR c.name  LIKE '%' + @keyword + '%'
-	OR from_date LIKE '%' + @keyword + '%' OR to_date 
-	LIKE '%' + @keyword + '%') AND b.status = 1
-	ORDER BY c.name, a.name  
+	OR a.from_date LIKE '%' + @keyword + '%' OR a.to_date 
+	LIKE '%' + @keyword + '%') AND (a.status = 1 AND b.status = 1)
+	ORDER BY c.name, b.name  
 	END
 END
 GO
+
+EXEC dbo.GetManagersByKeyWord @keyword = N'Thoảng',    -- nvarchar(255)
+                              @department_id = 1 -- int
+
+EXEC dbo.GetAllEmployeesManager 

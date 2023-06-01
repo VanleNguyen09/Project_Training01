@@ -1,21 +1,26 @@
 USE [EmployeeManagement]
 GO
-/****** Object:  StoredProcedure [dbo].[GetEmployeeByDepartment]    Script Date: 19/05/23 04:04:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE OR ALTER PROCEDURE [dbo].[GetEmployeeByDepartment]
-	@department_id INT
+	@dept_id INT
 AS
 
 BEGIN
-	SELECT e.*, c.name AS department_name FROM dbo.Employees AS e
-	JOIN dbo.Dept_emp AS b 
-	ON e.id = b.emp_id 
-	JOIN dbo.Department AS c
+	SET NOCOUNT ON;
+    -- Insert statements for procedure here
+	SELECT a.*, c.name AS department_name, b.id AS deptemp_id, b.dept_id AS dept_id,
+	b.from_date AS from_date, b.to_date AS to_date  
+	FROM Employees a
+	INNER JOIN dbo.Dept_emp b
+	ON a.id = b.emp_id
+	INNER JOIN dbo.Department c
 	ON c.id = b.dept_id
-	WHERE b.dept_id = @department_id AND e.status = 1
-	ORDER BY e.name
+	WHERE b.dept_id = @dept_id AND b.status = 1
 END
 GO
+
+EXEC dbo.GetAllEmployeesByDepartment
+

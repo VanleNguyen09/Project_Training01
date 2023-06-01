@@ -21,7 +21,7 @@ Public Class frm_Department
         btn_Update.Enabled = False
         btn_Delete.Enabled = False
         txt_DepartmentID.Enabled = False
-
+        btn_Reset.Enabled = False
         LoadAndSortData()
     End Sub
 
@@ -65,6 +65,7 @@ Public Class frm_Department
         btn_Add.Enabled = True
         btn_Update.Enabled = False
         btn_Delete.Enabled = False
+        btn_Reset.Enabled = False
         MakeButtonBackgroundBlurry(btn_Update)
         MakeButtonBackgroundBlurry(btn_Delete)
     End Sub
@@ -73,6 +74,7 @@ Public Class frm_Department
         btn_Add.Enabled = False
         btn_Update.Enabled = True
         btn_Delete.Enabled = True
+        btn_Reset.Enabled = True
         MakeButtonBackgroundBlurry(btn_Add)
     End Sub
     Private Sub ClearForm()
@@ -85,44 +87,20 @@ Public Class frm_Department
     Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
     Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
 
-    Private Function CheckDepartmentExitForUpdate(ByVal name As String, ByVal id As Integer) As Boolean
-        CheckDepartmentExitForUpdate = False
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Try
-            Using cmd As SqlCommand = New SqlCommand("CheckDepartmentExitForUpdate", con)
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("@name", name)
-                cmd.Parameters.AddWithValue("@id", id)
-                cmd.ExecuteNonQuery()
-                Dim reader = cmd.ExecuteReader
-                If reader.Read() Then
-                    If reader("ReturnValue") = 1 Then CheckDepartmentExitForUpdate = True
-                End If
-            End Using
-        Catch ex As Exception
-            CheckDepartmentExitForUpdate = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            con.Close()
-        End Try
-        Return CheckDepartmentExitForUpdate
-    End Function
-
     Public Sub Update_Department(name As String, id As Integer)
-        If CheckDepartmentExitForUpdate(name, id) = True Then
-            MessageBox.Show(Message.Message.departmentExited, titleMsgBox, buttons, icons)
-            Exit Sub
-        End If
+        Dim status As Integer = 1
+
         If con.State <> 1 Then
             con.Open()
         End If
+
         Try
             Using cmd As SqlCommand = New SqlCommand("UpdateDepartments", con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@name", name)
                 cmd.Parameters.AddWithValue("@id", id)
+                cmd.Parameters.AddWithValue("@status", status)
+                cmd.ExecuteNonQuery()
 
                 Dim isDuplicate As Integer = 0
 
@@ -134,21 +112,15 @@ Public Class frm_Department
 
                 If isDuplicate = 1 Then
                     MessageBox.Show(Message.Message.departmentDuplicate, titleMsgBox, buttons, icons)
-                    Exit Sub
                 Else
                     MessageBox.Show("Department has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                     LoadAndSortData()
                     Exit Sub
                 End If
-
-                cmd.ExecuteNonQuery()
             End Using
-            MessageBox.Show("Department has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
         Catch ex As Exception
             MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
-        LoadAndSortData()
-
     End Sub
 
     Private Sub MakeButtonBackgroundBlurry(button As Button)
@@ -203,7 +175,6 @@ Public Class frm_Department
         Return status
     End Function
     Private Sub UpdateDepartmentStatus(name As String)
-        Dim status As Integer = 1
         If con.State <> 1 Then
             con.Open()
         End If
@@ -222,18 +193,6 @@ Public Class frm_Department
 
     Public Sub Add_Department(name As String)
         Dim status As Integer = 1
-        If CheckDepartmentExit(name) = True Then
-            ' Check if the duplicate department has status = 0
-            'If CheckDepartmentStatus(name) = 0 Then
-            '    ' Update the status of the duplicate department to 1
-            '    UpdateDepartmentStatus(name)
-            '    MessageBox.Show(Message.Message.departmentExited, titleMsgBox, buttons, icons)
-            '    Exit Sub
-            'Else
-            ' The duplicate department has status = 1, display duplicate message
-            MessageBox.Show(Message.Message.departmentDuplicate, titleMsgBox, buttons, icons)
-            Exit Sub
-        End If
 
         If con.State <> 1 Then
             con.Open()
@@ -251,7 +210,7 @@ Public Class frm_Department
                         isDuplicate = CInt(reader("IsDuplicate"))
                     End If
                 End Using
-
+                cmd.ExecuteNonQuery()
                 If isDuplicate = 1 Then
                     MessageBox.Show(Message.Message.departmentDuplicate, titleMsgBox, buttons, icons)
                     Exit Sub
@@ -396,6 +355,7 @@ Public Class frm_Department
             SearchDepartmentsByKeyword(keyword)
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
+            LoadAndSortData()
         End If
     End Sub
 
@@ -404,5 +364,4 @@ Public Class frm_Department
         Dim dashboard As New Dashboard
         dashboard.Show()
     End Sub
-
 End Class

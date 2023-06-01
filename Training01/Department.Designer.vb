@@ -22,8 +22,8 @@ Partial Class frm_Department
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.lbl_TitleDepartment = New System.Windows.Forms.Label()
         Me.txt_Name = New System.Windows.Forms.TextBox()
         Me.lbl_Name = New System.Windows.Forms.Label()
@@ -32,6 +32,10 @@ Partial Class frm_Department
         Me.btn_Add = New System.Windows.Forms.Button()
         Me.btn_Update = New System.Windows.Forms.Button()
         Me.dgrv_Department = New System.Windows.Forms.DataGridView()
+        Me.No = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.department_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btn_Clear = New System.Windows.Forms.Button()
         Me.btn_Reset = New System.Windows.Forms.Button()
         Me.btn_Search = New System.Windows.Forms.Button()
@@ -40,10 +44,6 @@ Partial Class frm_Department
         Me.lbl_DepartmentID = New System.Windows.Forms.Label()
         Me.txt_DepartmentID = New System.Windows.Forms.TextBox()
         Me.ptb_Icon = New System.Windows.Forms.PictureBox()
-        Me.No = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.department_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgrv_Department, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -140,6 +140,42 @@ Partial Class frm_Department
         Me.dgrv_Department.Size = New System.Drawing.Size(328, 356)
         Me.dgrv_Department.TabIndex = 52
         '
+        'No
+        '
+        Me.No.HeaderText = "NO"
+        Me.No.MinimumWidth = 6
+        Me.No.Name = "No"
+        Me.No.ReadOnly = True
+        Me.No.Width = 70
+        '
+        'department_id
+        '
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.department_id.DefaultCellStyle = DataGridViewCellStyle1
+        Me.department_id.HeaderText = "DepartmentID"
+        Me.department_id.MinimumWidth = 6
+        Me.department_id.Name = "department_id"
+        Me.department_id.ReadOnly = True
+        Me.department_id.Visible = False
+        Me.department_id.Width = 125
+        '
+        'department_name
+        '
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.department_name.DefaultCellStyle = DataGridViewCellStyle2
+        Me.department_name.HeaderText = "Department Name"
+        Me.department_name.MinimumWidth = 6
+        Me.department_name.Name = "department_name"
+        Me.department_name.Width = 150
+        '
+        'status
+        '
+        Me.status.HeaderText = "Status"
+        Me.status.MinimumWidth = 6
+        Me.status.Name = "status"
+        Me.status.Visible = False
+        Me.status.Width = 125
+        '
         'btn_Clear
         '
         Me.btn_Clear.BackColor = System.Drawing.Color.Linen
@@ -223,42 +259,6 @@ Partial Class frm_Department
         Me.ptb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.ptb_Icon.TabIndex = 74
         Me.ptb_Icon.TabStop = False
-        '
-        'No
-        '
-        Me.No.HeaderText = "NO"
-        Me.No.MinimumWidth = 6
-        Me.No.Name = "No"
-        Me.No.ReadOnly = True
-        Me.No.Width = 70
-        '
-        'department_id
-        '
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.department_id.DefaultCellStyle = DataGridViewCellStyle3
-        Me.department_id.HeaderText = "DepartmentID"
-        Me.department_id.MinimumWidth = 6
-        Me.department_id.Name = "department_id"
-        Me.department_id.ReadOnly = True
-        Me.department_id.Visible = False
-        Me.department_id.Width = 125
-        '
-        'department_name
-        '
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.department_name.DefaultCellStyle = DataGridViewCellStyle4
-        Me.department_name.HeaderText = "Department Name"
-        Me.department_name.MinimumWidth = 6
-        Me.department_name.Name = "department_name"
-        Me.department_name.Width = 150
-        '
-        'status
-        '
-        Me.status.HeaderText = "Status"
-        Me.status.MinimumWidth = 6
-        Me.status.Name = "status"
-        Me.status.Visible = False
-        Me.status.Width = 125
         '
         'frm_Department
         '

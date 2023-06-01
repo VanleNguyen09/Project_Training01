@@ -39,6 +39,7 @@ Partial Class frm_Manager
         Me.to_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dept_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.deptmanager_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txt_Search = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btn_Search = New System.Windows.Forms.Button()
@@ -57,6 +58,7 @@ Partial Class frm_Manager
         Me.cb_DepCreate = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btn_Update = New System.Windows.Forms.Button()
+        Me.btn_Reset = New System.Windows.Forms.Button()
         CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgv_DeptManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_create.SuspendLayout()
@@ -118,7 +120,7 @@ Partial Class frm_Manager
         '
         Me.dgv_DeptManager.AllowUserToAddRows = False
         Me.dgv_DeptManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_DeptManager.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NO, Me.emp_id, Me.emp_name, Me.phone, Me.birthday, Me.address, Me.email, Me.department_name, Me.from_date, Me.to_date, Me.dept_id, Me.status})
+        Me.dgv_DeptManager.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NO, Me.emp_id, Me.emp_name, Me.phone, Me.birthday, Me.address, Me.email, Me.department_name, Me.from_date, Me.to_date, Me.dept_id, Me.status, Me.deptmanager_id})
         Me.dgv_DeptManager.Location = New System.Drawing.Point(2, 482)
         Me.dgv_DeptManager.Margin = New System.Windows.Forms.Padding(4)
         Me.dgv_DeptManager.Name = "dgv_DeptManager"
@@ -215,6 +217,14 @@ Partial Class frm_Manager
         Me.status.Name = "status"
         Me.status.Visible = False
         Me.status.Width = 125
+        '
+        'deptmanager_id
+        '
+        Me.deptmanager_id.HeaderText = "DeptManager ID"
+        Me.deptmanager_id.MinimumWidth = 6
+        Me.deptmanager_id.Name = "deptmanager_id"
+        Me.deptmanager_id.Visible = False
+        Me.deptmanager_id.Width = 125
         '
         'txt_Search
         '
@@ -458,6 +468,19 @@ Partial Class frm_Manager
         Me.btn_Update.Text = "UPDATE"
         Me.btn_Update.UseVisualStyleBackColor = False
         '
+        'btn_Reset
+        '
+        Me.btn_Reset.BackColor = System.Drawing.Color.Linen
+        Me.btn_Reset.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_Reset.ForeColor = System.Drawing.Color.Black
+        Me.btn_Reset.Location = New System.Drawing.Point(483, 366)
+        Me.btn_Reset.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_Reset.Name = "btn_Reset"
+        Me.btn_Reset.Size = New System.Drawing.Size(429, 39)
+        Me.btn_Reset.TabIndex = 85
+        Me.btn_Reset.Text = "RESET"
+        Me.btn_Reset.UseVisualStyleBackColor = False
+        '
         'frm_Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -465,6 +488,7 @@ Partial Class frm_Manager
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1586, 966)
+        Me.Controls.Add(Me.btn_Reset)
         Me.Controls.Add(Me.btn_Update)
         Me.Controls.Add(Me.btn_Clear)
         Me.Controls.Add(Me.btn_Exit)
@@ -513,6 +537,7 @@ Partial Class frm_Manager
     Friend WithEvents Label4 As Label
     Friend WithEvents cb_DepCreate As ComboBox
     Friend WithEvents Label3 As Label
+    Friend WithEvents btn_Update As Button
     Friend WithEvents NO As DataGridViewTextBoxColumn
     Friend WithEvents emp_id As DataGridViewTextBoxColumn
     Friend WithEvents emp_name As DataGridViewTextBoxColumn
@@ -525,5 +550,6 @@ Partial Class frm_Manager
     Friend WithEvents to_date As DataGridViewTextBoxColumn
     Friend WithEvents dept_id As DataGridViewTextBoxColumn
     Friend WithEvents status As DataGridViewTextBoxColumn
-    Friend WithEvents btn_Update As Button
+    Friend WithEvents deptmanager_id As DataGridViewTextBoxColumn
+    Friend WithEvents btn_Reset As Button
 End Class

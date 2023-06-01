@@ -16,6 +16,7 @@ END
 GO
 
 SELECT * FROM dbo.Department
+WHERE status = 0
 
-
+GO	
 EXEC [GetAllDepartments]
