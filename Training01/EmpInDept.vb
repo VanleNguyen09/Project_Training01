@@ -158,14 +158,13 @@ Public Class frm_EmpInDept
     Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
     Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
     Dim errorIcons As MessageBoxIcon = MessageBoxIcon.Error
-
-    Private Function CheckEmpDeptExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
-        CheckEmpDeptExit = False
+    Private Function CheckManagerExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
+        CheckManagerExit = False
         If con.State <> 1 Then
             con.Open()
         End If
         Try
-            Using cmd As SqlCommand = New SqlCommand("CheckEmpDeptExit", con)
+            Using cmd As SqlCommand = New SqlCommand("CheckManagerExit", con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@emp_id", emp_id)
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
@@ -177,19 +176,24 @@ Public Class frm_EmpInDept
                 cmd.ExecuteNonQuery()
 
                 If CInt(returnValueParam.Value) = 1 Then
-                    CheckEmpDeptExit = True
+                    CheckManagerExit = True
                 End If
             End Using
         Catch ex As Exception
-            CheckEmpDeptExit = False
+            CheckManagerExit = False
             MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             con.Close()
         End Try
-        Return CheckEmpDeptExit
+        Return CheckManagerExit
     End Function
+
     Private Sub Add_EmpDept(emp_id As Integer, dept_id As Integer, from_date As Date, to_date As Date)
         Dim status As Integer = 1
+        If CheckManagerExit(emp_id, dept_id) = True Then
+            MessageBox.Show(Message.Message.managerExitedForDepartment, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
         If con.State <> 1 Then
             con.Open()
         End If
@@ -211,6 +215,7 @@ Public Class frm_EmpInDept
                 If isDuplicate = 1 Then
                     MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
                     Exit Sub
+
                 Else
                     MessageBox.Show("Employee has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                     LoadAndSortData()
@@ -227,7 +232,10 @@ Public Class frm_EmpInDept
 
     Private Sub Update_EmpDept(emp_id As Integer, dept_id As Integer, from_date As Date, to_date As Date, deptemp_id As Integer)
         Dim status As Integer = 1
-
+        If CheckManagerExit(emp_id, dept_id) = True Then
+            MessageBox.Show(Message.Message.managerExitedForDepartment, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
         If con.State <> 1 Then
             con.Open()
         End If
@@ -427,11 +435,11 @@ Public Class frm_EmpInDept
         Dim selectedRows As DataGridViewSelectedRowCollection = dgv_DeptEmp.SelectedRows
 
         If selectedRows.Count > 0 Then
-            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected manager(s)?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected employee(s)?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
             If result = DialogResult.Yes Then
-                Dim empIdColumn As DataGridViewColumn = dgv_DeptEmp.Columns("emp_id") ' Replace "name" with the actual column name for department ID
-                Dim deptIdColumn As DataGridViewColumn = dgv_DeptEmp.Columns("dept_id") ' Replace "name" with the actual column name for department ID
+                Dim empIdColumn As DataGridViewColumn = dgv_DeptEmp.Columns("emp_id")
+                Dim deptIdColumn As DataGridViewColumn = dgv_DeptEmp.Columns("dept_id")
 
                 If empIdColumn IsNot Nothing And deptIdColumn IsNot Nothing Then
                     For i As Integer = selectedRows.Count - 1 To 0 Step -1
@@ -444,7 +452,7 @@ Public Class frm_EmpInDept
                     EnableAdd()
                 End If
             Else
-                MessageBox.Show("Please select at least one manager to delete.", "Warning", buttons, icons)
+                MessageBox.Show("Delete canceled.", "Information", buttons, MessageBoxIcon.Information)
             End If
         End If
     End Sub

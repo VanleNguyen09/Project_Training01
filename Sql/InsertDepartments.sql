@@ -20,16 +20,12 @@ BEGIN
 	ELSE	
 	BEGIN
 		
-		DECLARE @dept_id INT 
-		UPDATE dbo.Department
-		SET status = 0
-		WHERE id = @dept_id
-
-		UPDATE dbo.Department
-		SET status = 1
-		WHERE id = @dept_id AND status = 0
-		UPDATE dbo.Dept_emp SET status = 1 WHERE dept_id = @dept_id AND status = 0 
-		UPDATE dbo.Dept_manager SET status = 1 WHERE dept_id = @dept_id AND status = 0 		
+		IF EXISTS (SELECT 1 FROM dbo.Dept_emp WHERE emp_id = @emp_id AND dept_id = @dept_id AND status = 0)
+		BEGIN
+			-- Cập nhật status của bản ghi hiện có từ 0 thành 1
+			UPDATE dbo.Dept_emp SET status = 1 WHERE emp_id = @emp_id AND dept_id = @dept_id AND status = 0;
+			SET @isDuplicate = 0; -- Đánh dấu là cập nhật thành công
+		END
 
 		IF @@ROWCOUNT = 0
 		BEGIN	

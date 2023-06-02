@@ -106,4 +106,5 @@ Public Class EditLeaveForm
             con.Close()
         End Try
     End Sub
+
 End Class

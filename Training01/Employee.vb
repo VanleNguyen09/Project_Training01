@@ -39,6 +39,7 @@ Public Class frm_Employee
         rdo_Female.Text = "Female"
         rdo_Male.Text = "Male"
         rdo_Male.Checked = True
+        rdo_Female.Checked = False
         EnableAdd()
         txt_EmployeeID.Enabled = False
         btn_Reset.Enabled = False
@@ -353,9 +354,9 @@ Public Class frm_Employee
 
 
         If rdo_Male.Checked = True Then
-            gender = "male"
+            gender = "Male"
         Else
-            gender = "female"
+            gender = "Female"
             MsgBox("your gender is" & gender)
         End If
         Dim birthday As Date = dtp_Birthday.Value
@@ -411,9 +412,9 @@ Public Class frm_Employee
         Dim gender As String
 
         If rdo_Male.Checked = True Then
-            gender = "male"
+            gender = "Male"
         Else
-            gender = "female"
+            gender = "Female"
             MsgBox("your gender is" & gender)
         End If
         Dim birthday As Date = dtp_Birthday.Value
@@ -488,10 +489,15 @@ Public Class frm_Employee
             txt_Address.Text = selectedrow.Cells("address").Value.ToString()
             selectedEmployees.address = txt_Address.Text
             Dim gender = selectedrow.Cells("gender")
+            If CBool(gender.Value) = True Then
+                rdo_Male.Checked = True
+            Else
+                rdo_Female.Checked = True
+            End If
             selectedEmployees.gender = CBool(gender.Value)
             dtp_Birthday.Value = Convert.ToDateTime(selectedrow.Cells("birthday").Value)
             selectedEmployees.birthday = dtp_Birthday.Value
-        End If
+            End If
     End Sub
 
     Private Sub btn_Delete_Click(sender As Object, e As EventArgs) Handles btn_Delete.Click

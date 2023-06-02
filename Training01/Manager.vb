@@ -167,13 +167,13 @@ Public Class frm_Manager
         End Using
     End Sub
 
-    Private Function CheckManagerExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
-        CheckManagerExit = False
+    Private Function CheckEmpDeptExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
+        CheckEmpDeptExit = False
         If con.State <> 1 Then
             con.Open()
         End If
         Try
-            Using cmd As SqlCommand = New SqlCommand("CheckManagerExit", con)
+            Using cmd As SqlCommand = New SqlCommand("CheckEmpDeptExit", con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@emp_id", emp_id)
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
@@ -185,24 +185,25 @@ Public Class frm_Manager
                 cmd.ExecuteNonQuery()
 
                 If CInt(returnValueParam.Value) = 1 Then
-                    CheckManagerExit = True
+                    CheckEmpDeptExit = True
                 End If
             End Using
         Catch ex As Exception
-            CheckManagerExit = False
+            CheckEmpDeptExit = False
             MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             con.Close()
         End Try
-        Return CheckManagerExit
+        Return CheckEmpDeptExit
     End Function
 
     Private Sub Add_Manager(emp_id As Integer, dept_id As Integer, from_date As Date, to_date As Date)
         Dim status As Integer = 1
-        If CheckManagerExit(emp_id, dept_id) = True Then
-            MessageBox.Show(Message.Message.managerExitedForDepartment, titleMsgBox, buttons, icons)
+        If CheckEmpDeptExit(emp_id, dept_id) = True Then
+            MessageBox.Show(Message.Message.employeeExitedForDepartment, titleMsgBox, buttons, icons)
             Exit Sub
         End If
+
         If con.State <> 1 Then
             con.Open()
         End If
@@ -221,6 +222,8 @@ Public Class frm_Manager
                         isDuplicate = CInt(reader("IsDuplicate"))
                     End If
                 End Using
+
+
                 If isDuplicate = 1 Then
                     MessageBox.Show(Message.Message.managerDuplicate, titleMsgBox, buttons, icons)
                     Exit Sub
@@ -241,7 +244,10 @@ Public Class frm_Manager
 
     Private Sub Update_Manager(emp_id As Integer, dept_id As Integer, from_date As Date, to_date As Date, deptmanager_id As Integer)
         Dim status As Integer = 1
-
+        If CheckEmpDeptExit(emp_id, dept_id) = True Then
+            MessageBox.Show(Message.Message.employeeExitedForDepartment, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
         If con.State <> 1 Then
             con.Open()
         End If
@@ -512,8 +518,8 @@ Public Class frm_Manager
             Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected manager(s)?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
             If result = DialogResult.Yes Then
-                Dim empIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("emp_id") ' Replace "name" with the actual column name for department ID
-                Dim deptIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("dept_id") ' Replace "name" with the actual column name for department ID
+                Dim empIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("emp_id")
+                Dim deptIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("dept_id")
 
                 If empIdColumn IsNot Nothing And deptIdColumn IsNot Nothing Then
                     For i As Integer = selectedRows.Count - 1 To 0 Step -1
@@ -526,7 +532,7 @@ Public Class frm_Manager
                     EnableAdd()
                 End If
             Else
-                MessageBox.Show("Please select at least one manager to delete.", "Warning", buttons, icons)
+                MessageBox.Show("Delete canceled.", "Information", buttons, MessageBoxIcon.Information)
             End If
         End If
     End Sub

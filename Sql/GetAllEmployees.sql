@@ -14,8 +14,3 @@ BEGIN
 	ORDER BY id
 END
 GO
-
-EXEC dbo.GetAllEmployees
-
-SELECT * FROM dbo.Employees
-WHERE phone = 0912324134

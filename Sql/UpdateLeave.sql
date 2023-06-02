@@ -1,39 +1,37 @@
-USE EmployeeManagement
+USE [EmployeeManagement]
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE OR ALTER PROCEDURE InsertLeave 
+CREATE OR ALTER PROCEDURE [dbo].[UpdateLeave]
 	-- Add the parameters for the stored procedure here
+	@id INT,
 	@emp_id INT,
-	@from_date DATETIME,
+  	@from_date DATETIME,
 	@reason NVARCHAR(255),
 	@status INT
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-
 	DECLARE @exist INT
 	DECLARE @emp_name NVARCHAR(255) = (SELECT TOP(1) e.name FROM Employees e WHERE e.id = @emp_id)
 
 	SET @exist = 0
 
-	IF EXISTS (SELECT 1 FROM dbo.leave WHERE emp_id = @emp_id and from_date = @from_date AND status = 1)
+	IF EXISTS (SELECT 1 FROM dbo.leave WHERE emp_id = @emp_id and from_date = @from_date AND id <> @id AND status = 1)
 	BEGIN
 		SET @exist = 1
 	END
-	ELSE 
+	ELSE	
 	BEGIN
-		DECLARE @leave_id INT 
+		
 		UPDATE dbo.leave
 		SET status = 0
-		WHERE id = @leave_id
+		WHERE id = @id
 
-		UPDATE dbo.Department
-		SET status = 1
-		WHERE id = @leave_id AND status = 0
+		UPDATE dbo.leave
+		SET status = 1, emp_id = @emp_id, emp_name = @emp_name, from_date = @from_date, reason = @reason
+		WHERE id = @id AND status = 0		
 
 		IF @@ROWCOUNT = 0
 		BEGIN	
@@ -51,3 +49,7 @@ BEGIN
 	SELECT @exist AS IsDuplicate
 END
 GO
+
+--EXEC dbo.GetAllDepartments
+
+--SELECT * FROM dbo.Department WHERE status = 1 AND name = 'Comtor'

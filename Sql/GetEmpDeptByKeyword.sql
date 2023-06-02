@@ -28,7 +28,7 @@ BEGIN
 	OR from_date LIKE '%' + @keyword + '%' OR to_date 
 	LIKE '%' + @keyword + '%') AND (b.status = 1 AND a.status = 1)
 	AND (b.dept_id = @department_id)
-	ORDER BY b,id
+	ORDER BY b.id
 	END
 	ELSE 
 		BEGIN 
@@ -47,7 +47,7 @@ BEGIN
 	OR c.name  LIKE '%' + @keyword + '%'
 	OR from_date LIKE '%' + @keyword + '%' OR to_date 
 	LIKE '%' + @keyword + '%') AND (b.status = 1 AND a.status = 1)
-	ORDER BY b,id	
+	ORDER BY b.id	
 END
 END
 GO

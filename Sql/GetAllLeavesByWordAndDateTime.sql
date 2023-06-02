@@ -1,14 +1,4 @@
--- ================================================
--- Template generated from Template Explorer using:
--- Create Procedure (New Menu).SQL
---
--- Use the Specify Values for Template Parameters 
--- command (Ctrl-Shift-M) to fill in the parameter 
--- values below.
---
--- This block of comments will not be included in
--- the definition of the procedure.
--- ================================================
+USE EmployeeManagement
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31,7 +21,7 @@ BEGIN
     -- Insert statements for procedure here
 	SELECT * FROM leave l
 	WHERE (l.emp_name like '%' + @word + '%' OR l.emp_id like '%' + @word + '%' OR l.id like '%' + @word + '%')
-	AND l.from_date >= CONVERT(datetime, @s_datetime) AND l.from_date <= CONVERT(datetime, @e_datetime)
+	AND l.from_date >= CONVERT(datetime, @s_datetime) AND l.from_date <= CONVERT(datetime, @e_datetime) AND l.status = 1
 END
 GO
 

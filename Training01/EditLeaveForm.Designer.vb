@@ -33,9 +33,9 @@ Partial Class EditLeaveForm
         Me.dtpFromDate = New System.Windows.Forms.DateTimePicker()
         Me.rtxtReason = New System.Windows.Forms.RichTextBox()
         Me.gbInformation = New System.Windows.Forms.GroupBox()
-        Me.btnSave = New System.Windows.Forms.Button()
-        Me.lbIdValue = New System.Windows.Forms.Label()
         Me.lbEmpIdValue = New System.Windows.Forms.Label()
+        Me.lbIdValue = New System.Windows.Forms.Label()
+        Me.btnSave = New System.Windows.Forms.Button()
         Me.btnReset = New System.Windows.Forms.Button()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbInformation.SuspendLayout()
@@ -47,9 +47,10 @@ Partial Class EditLeaveForm
         Me.closeApp.BackgroundImage = Global.Training01.My.Resources.Resources.blue_exit_icon_16
         Me.closeApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.closeApp.Location = New System.Drawing.Point(578, 0)
+        Me.closeApp.Location = New System.Drawing.Point(771, 0)
+        Me.closeApp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.closeApp.Name = "closeApp"
-        Me.closeApp.Size = New System.Drawing.Size(40, 39)
+        Me.closeApp.Size = New System.Drawing.Size(53, 48)
         Me.closeApp.TabIndex = 0
         Me.closeApp.TabStop = False
         '
@@ -59,9 +60,10 @@ Partial Class EditLeaveForm
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(159, 20)
+        Me.Label1.Location = New System.Drawing.Point(212, 25)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(300, 31)
+        Me.Label1.Size = New System.Drawing.Size(377, 39)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "LEAVE INFORMATION"
         '
@@ -71,9 +73,10 @@ Partial Class EditLeaveForm
         Me.Label2.BackColor = System.Drawing.Color.White
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(25, 29)
+        Me.Label2.Location = New System.Drawing.Point(33, 36)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(23, 17)
+        Me.Label2.Size = New System.Drawing.Size(28, 20)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "ID"
         '
@@ -83,9 +86,10 @@ Partial Class EditLeaveForm
         Me.Label3.BackColor = System.Drawing.Color.White
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(25, 70)
+        Me.Label3.Location = New System.Drawing.Point(33, 86)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(111, 17)
+        Me.Label3.Size = New System.Drawing.Size(133, 20)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "EMPLOYEE ID"
         '
@@ -95,9 +99,10 @@ Partial Class EditLeaveForm
         Me.Label4.BackColor = System.Drawing.Color.White
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(25, 116)
+        Me.Label4.Location = New System.Drawing.Point(33, 143)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(139, 17)
+        Me.Label4.Size = New System.Drawing.Size(166, 20)
         Me.Label4.TabIndex = 2
         Me.Label4.Text = "EMPLOYEE NAME"
         '
@@ -107,9 +112,10 @@ Partial Class EditLeaveForm
         Me.Label5.BackColor = System.Drawing.Color.White
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(25, 166)
+        Me.Label5.Location = New System.Drawing.Point(33, 204)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(98, 17)
+        Me.Label5.Size = New System.Drawing.Size(117, 20)
         Me.Label5.TabIndex = 2
         Me.Label5.Text = "FROM DATE"
         '
@@ -119,9 +125,10 @@ Partial Class EditLeaveForm
         Me.Label6.BackColor = System.Drawing.Color.White
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(25, 217)
+        Me.Label6.Location = New System.Drawing.Point(33, 267)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(72, 17)
+        Me.Label6.Size = New System.Drawing.Size(85, 20)
         Me.Label6.TabIndex = 2
         Me.Label6.Text = "REASON"
         '
@@ -129,24 +136,27 @@ Partial Class EditLeaveForm
         '
         Me.cbEmpName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbEmpName.FormattingEnabled = True
-        Me.cbEmpName.Location = New System.Drawing.Point(182, 113)
+        Me.cbEmpName.Location = New System.Drawing.Point(243, 139)
+        Me.cbEmpName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cbEmpName.Name = "cbEmpName"
-        Me.cbEmpName.Size = New System.Drawing.Size(207, 24)
+        Me.cbEmpName.Size = New System.Drawing.Size(275, 28)
         Me.cbEmpName.TabIndex = 4
         '
         'dtpFromDate
         '
         Me.dtpFromDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpFromDate.Location = New System.Drawing.Point(182, 163)
+        Me.dtpFromDate.Location = New System.Drawing.Point(243, 201)
+        Me.dtpFromDate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dtpFromDate.Name = "dtpFromDate"
-        Me.dtpFromDate.Size = New System.Drawing.Size(207, 23)
+        Me.dtpFromDate.Size = New System.Drawing.Size(275, 26)
         Me.dtpFromDate.TabIndex = 5
         '
         'rtxtReason
         '
-        Me.rtxtReason.Location = New System.Drawing.Point(182, 217)
+        Me.rtxtReason.Location = New System.Drawing.Point(243, 267)
+        Me.rtxtReason.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rtxtReason.Name = "rtxtReason"
-        Me.rtxtReason.Size = New System.Drawing.Size(342, 125)
+        Me.rtxtReason.Size = New System.Drawing.Size(455, 153)
         Me.rtxtReason.TabIndex = 6
         Me.rtxtReason.Text = ""
         '
@@ -165,12 +175,40 @@ Partial Class EditLeaveForm
         Me.gbInformation.Controls.Add(Me.Label2)
         Me.gbInformation.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbInformation.ForeColor = System.Drawing.Color.White
-        Me.gbInformation.Location = New System.Drawing.Point(34, 65)
+        Me.gbInformation.Location = New System.Drawing.Point(45, 80)
+        Me.gbInformation.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbInformation.Name = "gbInformation"
-        Me.gbInformation.Size = New System.Drawing.Size(552, 364)
+        Me.gbInformation.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbInformation.Size = New System.Drawing.Size(736, 448)
         Me.gbInformation.TabIndex = 1
         Me.gbInformation.TabStop = False
         Me.gbInformation.Text = "INFORMATION"
+        '
+        'lbEmpIdValue
+        '
+        Me.lbEmpIdValue.AutoSize = True
+        Me.lbEmpIdValue.BackColor = System.Drawing.Color.White
+        Me.lbEmpIdValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbEmpIdValue.ForeColor = System.Drawing.Color.Black
+        Me.lbEmpIdValue.Location = New System.Drawing.Point(243, 86)
+        Me.lbEmpIdValue.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbEmpIdValue.Name = "lbEmpIdValue"
+        Me.lbEmpIdValue.Size = New System.Drawing.Size(199, 20)
+        Me.lbEmpIdValue.TabIndex = 3
+        Me.lbEmpIdValue.Text = "EMPLOYEE ID VALUE"
+        '
+        'lbIdValue
+        '
+        Me.lbIdValue.AutoSize = True
+        Me.lbIdValue.BackColor = System.Drawing.Color.White
+        Me.lbIdValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbIdValue.ForeColor = System.Drawing.Color.Black
+        Me.lbIdValue.Location = New System.Drawing.Point(243, 36)
+        Me.lbIdValue.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbIdValue.Name = "lbIdValue"
+        Me.lbIdValue.Size = New System.Drawing.Size(94, 20)
+        Me.lbIdValue.TabIndex = 2
+        Me.lbIdValue.Text = "ID VALUE"
         '
         'btnSave
         '
@@ -181,36 +219,13 @@ Partial Class EditLeaveForm
         Me.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSave.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSave.ForeColor = System.Drawing.Color.White
-        Me.btnSave.Location = New System.Drawing.Point(448, 447)
+        Me.btnSave.Location = New System.Drawing.Point(597, 550)
+        Me.btnSave.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(138, 33)
+        Me.btnSave.Size = New System.Drawing.Size(184, 41)
         Me.btnSave.TabIndex = 8
         Me.btnSave.Text = "SAVE"
         Me.btnSave.UseVisualStyleBackColor = False
-        '
-        'lbIdValue
-        '
-        Me.lbIdValue.AutoSize = True
-        Me.lbIdValue.BackColor = System.Drawing.Color.White
-        Me.lbIdValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbIdValue.ForeColor = System.Drawing.Color.Black
-        Me.lbIdValue.Location = New System.Drawing.Point(182, 29)
-        Me.lbIdValue.Name = "lbIdValue"
-        Me.lbIdValue.Size = New System.Drawing.Size(78, 17)
-        Me.lbIdValue.TabIndex = 2
-        Me.lbIdValue.Text = "ID VALUE"
-        '
-        'lbEmpIdValue
-        '
-        Me.lbEmpIdValue.AutoSize = True
-        Me.lbEmpIdValue.BackColor = System.Drawing.Color.White
-        Me.lbEmpIdValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbEmpIdValue.ForeColor = System.Drawing.Color.Black
-        Me.lbEmpIdValue.Location = New System.Drawing.Point(182, 70)
-        Me.lbEmpIdValue.Name = "lbEmpIdValue"
-        Me.lbEmpIdValue.Size = New System.Drawing.Size(166, 17)
-        Me.lbEmpIdValue.TabIndex = 3
-        Me.lbEmpIdValue.Text = "EMPLOYEE ID VALUE"
         '
         'btnReset
         '
@@ -220,26 +235,28 @@ Partial Class EditLeaveForm
         Me.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnReset.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnReset.ForeColor = System.Drawing.Color.White
-        Me.btnReset.Location = New System.Drawing.Point(304, 447)
+        Me.btnReset.Location = New System.Drawing.Point(405, 550)
+        Me.btnReset.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnReset.Name = "btnReset"
-        Me.btnReset.Size = New System.Drawing.Size(138, 33)
+        Me.btnReset.Size = New System.Drawing.Size(184, 41)
         Me.btnReset.TabIndex = 8
         Me.btnReset.Text = "RESET"
         Me.btnReset.UseVisualStyleBackColor = False
         '
         'EditLeaveForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(618, 492)
+        Me.ClientSize = New System.Drawing.Size(824, 606)
         Me.Controls.Add(Me.btnReset)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.gbInformation)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.closeApp)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "EditLeaveForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "EditLeaveForm"

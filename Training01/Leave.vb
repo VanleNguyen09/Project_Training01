@@ -47,15 +47,15 @@ Public Class Leave
             End If
 
             'load datagridview by posId
-            Using cmd As SqlCommand = New SqlCommand(Sql, con)
+            Using cmd As SqlCommand = New SqlCommand(sql, con)
                 cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("word", searchWord)
+                cmd.Parameters.AddWithValue("@word", searchWord)
 
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
 
                 dgvLeave.Rows.Clear()
                 While reader.Read
-                    dgvLeave.Rows.Add(New String() {reader("id"), reader("emp_id"), reader("emp_name"), reader("from_date"), reader("reason")})
+                    dgvLeave.Rows.Add(New String() {reader("id"), reader("emp_id"), reader("emp_name"), reader("from_date"), reader("reason"), reader("status")})
                 End While
             End Using
         Catch ex As Exception
@@ -92,6 +92,7 @@ Public Class Leave
         Dim empId As Integer = cbEmpAdd.SelectedItem.Key
         Dim fromDate As Date = dtpFromDate.Value
         Dim reason As String = rtxtReason.Text.Trim()
+        Dim status As Integer = 1
 
         'Validations for Add comboboxes
         If empId < 0 OrElse reason = String.Empty OrElse fromDate = Nothing Then
@@ -107,12 +108,12 @@ Public Class Leave
             Dim sql = "InsertLeave"
             Using cmd As SqlCommand = New SqlCommand(sql, con)
                 cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("emp_id", empId)
-                cmd.Parameters.AddWithValue("from_date", fromDate)
-                cmd.Parameters.AddWithValue("reason", reason)
-
+                cmd.Parameters.AddWithValue("@emp_id", empId)
+                cmd.Parameters.AddWithValue("@from_date", fromDate)
+                cmd.Parameters.AddWithValue("@reason", reason)
+                cmd.Parameters.AddWithValue("@status", status)
                 Try
-                    cmd.ExecuteNonQuery()
+                cmd.ExecuteNonQuery()
                     MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
 
                     'Reload Data
@@ -168,7 +169,7 @@ Public Class Leave
                         Dim sql = "DeleteLeaveById"
                         Using cmd As SqlCommand = New SqlCommand(sql, con)
                             cmd.CommandType = CommandType.StoredProcedure
-                            cmd.Parameters.AddWithValue("leave_id", leaveId)
+                            cmd.Parameters.AddWithValue("@leave_id", leaveId)
                             cmd.ExecuteNonQuery()
 
                             MessageBox.Show(Message.Message.successfully, Message.Title.notif, MessageBoxButtons.OK)
@@ -207,15 +208,15 @@ Public Class Leave
             Dim Sql = "GetAllLeavesByWordAndDateTime"
             Using cmd As SqlCommand = New SqlCommand(Sql, con)
                 cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("word", searchWord)
-                cmd.Parameters.AddWithValue("s_datetime", sDate)
-                cmd.Parameters.AddWithValue("e_datetime", eDate)
+                cmd.Parameters.AddWithValue("@word", searchWord)
+                cmd.Parameters.AddWithValue("@s_datetime", sDate)
+                cmd.Parameters.AddWithValue("@e_datetime", eDate)
 
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
 
                 dgvLeave.Rows.Clear()
                 While reader.Read
-                    dgvLeave.Rows.Add(New String() {reader("id"), reader("emp_id"), reader("emp_name"), reader("from_date"), reader("reason")})
+                    dgvLeave.Rows.Add(New String() {reader("id"), reader("emp_id"), reader("emp_name"), reader("from_date"), reader("reason"), reader("status")})
                 End While
             End Using
         Catch ex As Exception

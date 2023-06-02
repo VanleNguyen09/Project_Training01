@@ -19,3 +19,20 @@ END
 GO
 
 EXEC dbo.GetAllEmployeesByDepartment
+
+SELECT a.*,  b.name AS Dept_name, c.name AS Emp_name   
+FROM dbo.Dept_emp a
+JOIN dbo.Department b
+ON a.dept_id = b.id
+JOIN dbo.Employees c
+ON a.emp_id = c.id
+WHERE a.emp_id = 4 AND a.dept_id = 22
+
+
+SELECT a.*,  b.name AS Dept_name, c.name AS Emp_name   
+FROM dbo.Dept_manager a
+JOIN dbo.Department b
+ON a.dept_id = b.id
+JOIN dbo.Employees c
+ON a.emp_id = c.id
+WHERE a.emp_id = 4 AND a.dept_id = 22
