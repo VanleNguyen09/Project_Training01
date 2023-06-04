@@ -532,7 +532,8 @@ Public Class frm_Employee
 
     Private Sub btn_Close_Click(sender As Object, e As EventArgs) Handles btn_Close.Click
         Me.Close()
-        Dim dashboard As New Dashboard
+        'Dim dashboard As New Dashboard
+        Dim dashboard As New NewDashboard
         dashboard.Show()
     End Sub
 
@@ -596,7 +597,8 @@ Public Class frm_Employee
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
         Me.Close()
-        Dim dashboard As New Dashboard
+        'Dim dashboard As New Dashboard
+        Dim dashboard As New NewDashboard
         dashboard.Show()
     End Sub
 

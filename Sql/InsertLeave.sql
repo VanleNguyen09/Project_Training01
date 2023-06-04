@@ -17,10 +17,10 @@ BEGIN
 
 	DECLARE @exist INT
 	DECLARE @emp_name NVARCHAR(255) = (SELECT TOP(1) e.name FROM Employees e WHERE e.id = @emp_id)
-
+    
 	SET @exist = 0
 
-	IF EXISTS (SELECT 1 FROM dbo.leave WHERE emp_id = @emp_id and from_date = @from_date AND status = 1)
+	IF EXISTS (SELECT 1 FROM dbo.leave WHERE emp_id = @emp_id AND from_date = @from_date AND status = 1)
 	BEGIN
 		SET @exist = 1
 	END

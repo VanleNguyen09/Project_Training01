@@ -3,19 +3,13 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
--- =============================================
--- Author:		Dat
--- Create date: 24/5/2023
--- Description:	Get Leaves By Word And Date Time
--- =============================================
+
 CREATE OR ALTER PROCEDURE GetAllLeavesByWordAndDateTime
 @word NVARCHAR(255),
 @s_datetime DATETIME,
 @e_datetime DATETIME
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here

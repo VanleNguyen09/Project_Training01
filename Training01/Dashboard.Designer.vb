@@ -54,6 +54,7 @@ Partial Class Dashboard
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.btn_Manager = New System.Windows.Forms.Button()
         Me.Panel17 = New System.Windows.Forms.Panel()
+        Me.ptb_Icon = New System.Windows.Forms.PictureBox()
         Me.pn_nhanvien.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -63,6 +64,7 @@ Partial Class Dashboard
         Me.Panel12.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.Panel16.SuspendLayout()
+        CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -457,6 +459,19 @@ Partial Class Dashboard
         Me.Panel17.TabIndex = 1
         Me.Panel17.UseWaitCursor = True
         '
+        'ptb_Icon
+        '
+        Me.ptb_Icon.BackColor = System.Drawing.SystemColors.Control
+        Me.ptb_Icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Icon.ErrorImage = Nothing
+        Me.ptb_Icon.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
+        Me.ptb_Icon.Location = New System.Drawing.Point(1310, 0)
+        Me.ptb_Icon.Name = "ptb_Icon"
+        Me.ptb_Icon.Size = New System.Drawing.Size(43, 37)
+        Me.ptb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ptb_Icon.TabIndex = 68
+        Me.ptb_Icon.TabStop = False
+        '
         'Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -465,6 +480,7 @@ Partial Class Dashboard
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1353, 695)
+        Me.Controls.Add(Me.ptb_Icon)
         Me.Controls.Add(Me.Panel16)
         Me.Controls.Add(Me.Panel9)
         Me.Controls.Add(Me.Panel12)
@@ -490,6 +506,7 @@ Partial Class Dashboard
         Me.Panel12.ResumeLayout(False)
         Me.Panel14.ResumeLayout(False)
         Me.Panel16.ResumeLayout(False)
+        CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -527,4 +544,5 @@ Partial Class Dashboard
     Friend WithEvents Panel16 As Panel
     Friend WithEvents btn_Manager As Button
     Friend WithEvents Panel17 As Panel
+    Friend WithEvents ptb_Icon As PictureBox
 End Class

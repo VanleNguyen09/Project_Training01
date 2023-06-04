@@ -12,6 +12,7 @@ CREATE OR ALTER PROCEDURE [dbo].[UpdateDepartments]
 AS
 BEGIN
 	DECLARE @exist INT
+
 	SET @exist = 0
 
 	IF EXISTS (SELECT 1 FROM dbo.Department WHERE name = @name AND id <> @id AND status = 1)
@@ -43,4 +44,4 @@ GO
 
 --EXEC dbo.GetAllDepartments
 
---SELECT * FROM dbo.Department WHERE status = 1 AND name = 'EC'
+--SELECT * FROM dbo.Department WHERE status = 1 AND name = 'Comtor'

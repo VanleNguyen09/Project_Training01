@@ -51,6 +51,16 @@ Partial Class frm_Employee
         Me.btn_Upload = New System.Windows.Forms.Button()
         Me.ptb_Employee = New System.Windows.Forms.PictureBox()
         Me.dgrv_Employee = New System.Windows.Forms.DataGridView()
+        Me.No = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EmployeeID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EmployeeName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.images = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.gender = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lbl_TitleEmployee = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
@@ -63,16 +73,6 @@ Partial Class frm_Employee
         Me.btn_Clear = New System.Windows.Forms.Button()
         Me.ptb_Icon = New System.Windows.Forms.PictureBox()
         Me.BtnEmpDept = New System.Windows.Forms.Button()
-        Me.No = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.EmployeeID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.EmployeeName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.images = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.gender = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.ptb_Employee, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgrv_Employee, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -335,6 +335,98 @@ Partial Class frm_Employee
         Me.dgrv_Employee.Size = New System.Drawing.Size(1396, 290)
         Me.dgrv_Employee.TabIndex = 54
         '
+        'No
+        '
+        Me.No.HeaderText = "NO"
+        Me.No.MinimumWidth = 6
+        Me.No.Name = "No"
+        Me.No.ReadOnly = True
+        Me.No.Width = 50
+        '
+        'EmployeeID
+        '
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeID.DefaultCellStyle = DataGridViewCellStyle1
+        Me.EmployeeID.HeaderText = "EmployeeID"
+        Me.EmployeeID.MinimumWidth = 6
+        Me.EmployeeID.Name = "EmployeeID"
+        Me.EmployeeID.ReadOnly = True
+        Me.EmployeeID.Visible = False
+        Me.EmployeeID.Width = 125
+        '
+        'EmployeeName
+        '
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeName.DefaultCellStyle = DataGridViewCellStyle2
+        Me.EmployeeName.HeaderText = "Name"
+        Me.EmployeeName.MinimumWidth = 6
+        Me.EmployeeName.Name = "EmployeeName"
+        Me.EmployeeName.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.EmployeeName.Width = 125
+        '
+        'images
+        '
+        Me.images.HeaderText = "Image"
+        Me.images.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch
+        Me.images.MinimumWidth = 6
+        Me.images.Name = "images"
+        Me.images.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.images.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.images.Width = 80
+        '
+        'phone
+        '
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.phone.DefaultCellStyle = DataGridViewCellStyle3
+        Me.phone.HeaderText = "Phone"
+        Me.phone.MinimumWidth = 6
+        Me.phone.Name = "phone"
+        Me.phone.Width = 125
+        '
+        'address
+        '
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.address.DefaultCellStyle = DataGridViewCellStyle4
+        Me.address.HeaderText = "Address"
+        Me.address.MinimumWidth = 6
+        Me.address.Name = "address"
+        Me.address.Width = 200
+        '
+        'gender
+        '
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gender.DefaultCellStyle = DataGridViewCellStyle5
+        Me.gender.HeaderText = "Gender"
+        Me.gender.MinimumWidth = 6
+        Me.gender.Name = "gender"
+        Me.gender.Width = 80
+        '
+        'birthday
+        '
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.birthday.DefaultCellStyle = DataGridViewCellStyle6
+        Me.birthday.HeaderText = "Birthday"
+        Me.birthday.MinimumWidth = 6
+        Me.birthday.Name = "birthday"
+        Me.birthday.Width = 150
+        '
+        'email
+        '
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.email.DefaultCellStyle = DataGridViewCellStyle7
+        Me.email.HeaderText = "Email"
+        Me.email.MinimumWidth = 6
+        Me.email.Name = "email"
+        Me.email.Width = 180
+        '
+        'status
+        '
+        Me.status.HeaderText = "Status"
+        Me.status.MinimumWidth = 6
+        Me.status.Name = "status"
+        Me.status.Visible = False
+        Me.status.Width = 125
+        '
         'lbl_TitleEmployee
         '
         Me.lbl_TitleEmployee.AutoSize = True
@@ -455,98 +547,6 @@ Partial Class frm_Employee
         Me.BtnEmpDept.TabIndex = 68
         Me.BtnEmpDept.Text = "Empt In Dept"
         Me.BtnEmpDept.UseVisualStyleBackColor = False
-        '
-        'No
-        '
-        Me.No.HeaderText = "NO"
-        Me.No.MinimumWidth = 6
-        Me.No.Name = "No"
-        Me.No.ReadOnly = True
-        Me.No.Width = 50
-        '
-        'EmployeeID
-        '
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmployeeID.DefaultCellStyle = DataGridViewCellStyle1
-        Me.EmployeeID.HeaderText = "EmployeeID"
-        Me.EmployeeID.MinimumWidth = 6
-        Me.EmployeeID.Name = "EmployeeID"
-        Me.EmployeeID.ReadOnly = True
-        Me.EmployeeID.Visible = False
-        Me.EmployeeID.Width = 125
-        '
-        'EmployeeName
-        '
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmployeeName.DefaultCellStyle = DataGridViewCellStyle2
-        Me.EmployeeName.HeaderText = "Name"
-        Me.EmployeeName.MinimumWidth = 6
-        Me.EmployeeName.Name = "EmployeeName"
-        Me.EmployeeName.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.EmployeeName.Width = 125
-        '
-        'images
-        '
-        Me.images.HeaderText = "Image"
-        Me.images.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch
-        Me.images.MinimumWidth = 6
-        Me.images.Name = "images"
-        Me.images.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.images.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.images.Width = 80
-        '
-        'phone
-        '
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.phone.DefaultCellStyle = DataGridViewCellStyle3
-        Me.phone.HeaderText = "Phone"
-        Me.phone.MinimumWidth = 6
-        Me.phone.Name = "phone"
-        Me.phone.Width = 125
-        '
-        'address
-        '
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.address.DefaultCellStyle = DataGridViewCellStyle4
-        Me.address.HeaderText = "Address"
-        Me.address.MinimumWidth = 6
-        Me.address.Name = "address"
-        Me.address.Width = 200
-        '
-        'gender
-        '
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gender.DefaultCellStyle = DataGridViewCellStyle5
-        Me.gender.HeaderText = "Gender"
-        Me.gender.MinimumWidth = 6
-        Me.gender.Name = "gender"
-        Me.gender.Width = 80
-        '
-        'birthday
-        '
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.birthday.DefaultCellStyle = DataGridViewCellStyle6
-        Me.birthday.HeaderText = "Birthday"
-        Me.birthday.MinimumWidth = 6
-        Me.birthday.Name = "birthday"
-        Me.birthday.Width = 150
-        '
-        'email
-        '
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.email.DefaultCellStyle = DataGridViewCellStyle7
-        Me.email.HeaderText = "Email"
-        Me.email.MinimumWidth = 6
-        Me.email.Name = "email"
-        Me.email.Width = 180
-        '
-        'status
-        '
-        Me.status.HeaderText = "Status"
-        Me.status.MinimumWidth = 6
-        Me.status.Name = "status"
-        Me.status.Visible = False
-        Me.status.Width = 125
         '
         'frm_Employee
         '

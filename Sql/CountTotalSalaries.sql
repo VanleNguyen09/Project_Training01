@@ -1,0 +1,15 @@
+USE [EmployeeManagement]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE OR ALTER PROCEDURE [dbo].[CountTotalSalaries]
+AS
+BEGIN
+	SELECT SUM(salary) AS TOTAL_SALARIES FROM dbo.SalaryEmp
+	WHERE status = 1
+END
+GO
+
+EXEC dbo.CountTotalSalaries
