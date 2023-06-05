@@ -334,13 +334,6 @@ Public Class frm_Department
 
     End Sub
 
-    Private Sub btn_Close_Click(sender As Object, e As EventArgs) Handles btn_Close.Click
-        Me.Close()
-        ' Dim dashboard As New Dashboard
-        Dim dashboard As New NewDashboard
-        dashboard.Show()
-    End Sub
-
     Private Sub btn_Reset_Click(sender As Object, e As EventArgs) Handles btn_Reset.Click
         txt_DepartmentID.Text = selectedDepartment.id
         txt_Name.Text = selectedDepartment.name
@@ -364,11 +357,18 @@ Public Class frm_Department
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
         Me.Close()
         ' Dim dashboard As New Dashboard
-        Dim dashboard As New NewDashboard
+        Dim dashboard As New Dashboard
         dashboard.Show()
     End Sub
 
     Private Sub frm_Department_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         dgrv_Department.ClearSelection()
+    End Sub
+
+    Private Sub btn_Close_Click(sender As Object, e As EventArgs) Handles btn_Close.Click
+        Me.Close()
+        ' Dim dashboard As New Dashboard
+        Dim dashboard As New NewDashboard()
+        dashboard.Show()
     End Sub
 End Class

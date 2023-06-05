@@ -260,9 +260,11 @@ Public Class frm_EmpInDept
 
                 If isDuplicate = 1 Then
                     MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
+                    Exit Sub
                 Else
                     MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                     LoadAndSortData()
+                    Exit Sub
                 End If
             End Using
         Catch ex As Exception

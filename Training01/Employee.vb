@@ -452,11 +452,6 @@ Public Class frm_Employee
 
         Dim img As Byte() = ImageToByte(ptb_Employee.Image)
 
-        If imageSelected = False Then
-            MessageBox.Show(Message.Message.imageEmptyError, titleMsgBox, buttons, icons)
-            Exit Sub
-        End If
-
         Update_Employee(id, name, phone, address, gender, birthday, email, img)
         EnableAdd()
         ClearForm()
@@ -533,7 +528,7 @@ Public Class frm_Employee
     Private Sub btn_Close_Click(sender As Object, e As EventArgs) Handles btn_Close.Click
         Me.Close()
         'Dim dashboard As New Dashboard
-        Dim dashboard As New NewDashboard
+        Dim dashboard As New Dashboard
         dashboard.Show()
     End Sub
 
@@ -598,7 +593,7 @@ Public Class frm_Employee
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
         Me.Close()
         'Dim dashboard As New Dashboard
-        Dim dashboard As New NewDashboard
+        Dim dashboard As New Dashboard
         dashboard.Show()
     End Sub
 

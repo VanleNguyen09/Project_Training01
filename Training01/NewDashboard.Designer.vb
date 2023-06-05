@@ -23,6 +23,7 @@ Partial Class NewDashboard
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.pn_Header = New System.Windows.Forms.Panel()
+        Me.lbl_UserName = New System.Windows.Forms.Label()
         Me.PictureBox16 = New System.Windows.Forms.PictureBox()
         Me.ptb_Icon = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -109,20 +110,32 @@ Partial Class NewDashboard
         'pn_Header
         '
         Me.pn_Header.BackColor = System.Drawing.Color.PapayaWhip
+        Me.pn_Header.Controls.Add(Me.lbl_UserName)
         Me.pn_Header.Controls.Add(Me.PictureBox16)
         Me.pn_Header.Controls.Add(Me.ptb_Icon)
         Me.pn_Header.Controls.Add(Me.Label1)
         Me.pn_Header.Dock = System.Windows.Forms.DockStyle.Top
         Me.pn_Header.Location = New System.Drawing.Point(259, 0)
         Me.pn_Header.Name = "pn_Header"
-        Me.pn_Header.Size = New System.Drawing.Size(1277, 97)
+        Me.pn_Header.Size = New System.Drawing.Size(1342, 87)
         Me.pn_Header.TabIndex = 18
+        '
+        'lbl_UserName
+        '
+        Me.lbl_UserName.AutoSize = True
+        Me.lbl_UserName.Font = New System.Drawing.Font("Yu Gothic", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_UserName.ForeColor = System.Drawing.Color.MediumTurquoise
+        Me.lbl_UserName.Location = New System.Drawing.Point(948, 43)
+        Me.lbl_UserName.Name = "lbl_UserName"
+        Me.lbl_UserName.Size = New System.Drawing.Size(139, 30)
+        Me.lbl_UserName.TabIndex = 70
+        Me.lbl_UserName.Text = "User Name"
         '
         'PictureBox16
         '
         Me.PictureBox16.BackgroundImage = Global.Training01.My.Resources.Resources._2199861
         Me.PictureBox16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox16.Location = New System.Drawing.Point(1071, 28)
+        Me.PictureBox16.Location = New System.Drawing.Point(863, 34)
         Me.PictureBox16.Name = "PictureBox16"
         Me.PictureBox16.Size = New System.Drawing.Size(66, 53)
         Me.PictureBox16.TabIndex = 69
@@ -134,7 +147,7 @@ Partial Class NewDashboard
         Me.ptb_Icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ptb_Icon.ErrorImage = Nothing
         Me.ptb_Icon.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
-        Me.ptb_Icon.Location = New System.Drawing.Point(1203, 0)
+        Me.ptb_Icon.Location = New System.Drawing.Point(1234, 0)
         Me.ptb_Icon.Name = "ptb_Icon"
         Me.ptb_Icon.Size = New System.Drawing.Size(43, 40)
         Me.ptb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -414,7 +427,7 @@ Partial Class NewDashboard
         Me.pn_Sidebar.ForeColor = System.Drawing.Color.Linen
         Me.pn_Sidebar.Location = New System.Drawing.Point(0, 0)
         Me.pn_Sidebar.Name = "pn_Sidebar"
-        Me.pn_Sidebar.Size = New System.Drawing.Size(259, 966)
+        Me.pn_Sidebar.Size = New System.Drawing.Size(259, 790)
         Me.pn_Sidebar.TabIndex = 17
         '
         'pn_Main
@@ -422,9 +435,10 @@ Partial Class NewDashboard
         Me.pn_Main.BackColor = System.Drawing.Color.LightCyan
         Me.pn_Main.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pn_Main.Controls.Add(Me.pn_Content)
-        Me.pn_Main.Location = New System.Drawing.Point(256, 95)
+        Me.pn_Main.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pn_Main.Location = New System.Drawing.Point(259, 87)
         Me.pn_Main.Name = "pn_Main"
-        Me.pn_Main.Size = New System.Drawing.Size(1586, 966)
+        Me.pn_Main.Size = New System.Drawing.Size(1342, 703)
         Me.pn_Main.TabIndex = 21
         '
         'pn_Content
@@ -439,9 +453,9 @@ Partial Class NewDashboard
         Me.pn_Content.Controls.Add(Me.pn_Employee)
         Me.pn_Content.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pn_Content.ForeColor = System.Drawing.Color.DarkGray
-        Me.pn_Content.Location = New System.Drawing.Point(56, 37)
+        Me.pn_Content.Location = New System.Drawing.Point(83, 45)
         Me.pn_Content.Name = "pn_Content"
-        Me.pn_Content.Size = New System.Drawing.Size(1169, 585)
+        Me.pn_Content.Size = New System.Drawing.Size(1169, 588)
         Me.pn_Content.TabIndex = 7
         '
         'pn_Salary
@@ -770,7 +784,7 @@ Partial Class NewDashboard
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1536, 966)
+        Me.ClientSize = New System.Drawing.Size(1601, 790)
         Me.Controls.Add(Me.pn_Main)
         Me.Controls.Add(Me.pn_Header)
         Me.Controls.Add(Me.pn_Sidebar)
@@ -869,4 +883,5 @@ Partial Class NewDashboard
     Friend WithEvents lb_EmployeeTotal As Label
     Friend WithEvents lbl_EmptDeptMax As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents lbl_UserName As Label
 End Class

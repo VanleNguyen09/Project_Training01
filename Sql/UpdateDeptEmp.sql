@@ -33,7 +33,7 @@ BEGIN
 
 		UPDATE dbo.Dept_emp
 		SET status = 1, emp_id = @emp_id, dept_id = @dept_id, from_date = @from_date, to_date = @to_date
-		WHERE emp_id = @emp_id AND dept_id = @dept_id AND status = 0
+		WHERE emp_id = @emp_id AND dept_id = @dept_id
 
 		IF @@ROWCOUNT = 0
 		BEGIN	
@@ -68,4 +68,4 @@ GO
 --ON a.dept_id = b.id
 --JOIN dbo.Employees c
 --ON a.emp_id = c.id
---WHERE c.name = N'Thoảng Rikai' AND b.name = 'bb'
+--WHERE a.status = 0

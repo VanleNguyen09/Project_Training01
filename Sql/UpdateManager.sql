@@ -33,7 +33,7 @@ BEGIN
 
 		UPDATE dbo.Dept_manager
 		SET status = 1, emp_id = @emp_id, dept_id = @dept_id, from_date = @from_date, to_date = @to_date
-		WHERE emp_id = @emp_id AND dept_id = @dept_id AND status = 0
+		WHERE emp_id = @emp_id AND dept_id = @dept_id 
 
 		IF @@ROWCOUNT = 0
 		BEGIN	
@@ -61,10 +61,10 @@ END
 --                       @status = 1,                        -- int
 --					   @deptmanager_id = 1
 
-SELECT a.*,  b.name AS Dept_name, c.name AS Emp_name   
-FROM dbo.Dept_manager a
-JOIN dbo.Department b
-ON a.dept_id = b.id
-JOIN dbo.Employees c
-ON a.emp_id = c.id
-WHERE c.id = 29 AND b.name = 'Manager'
+--SELECT a.*,  b.name AS Dept_name, c.name AS Emp_name   
+--FROM dbo.Dept_manager a
+--JOIN dbo.Department b
+--ON a.dept_id = b.id
+--JOIN dbo.Employees c
+--ON a.emp_id = c.id
+--WHERE c.id = 29 AND b.name = 'Manager'
