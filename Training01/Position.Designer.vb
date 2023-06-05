@@ -24,6 +24,10 @@ Partial Class Position
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvPositions = New System.Windows.Forms.DataGridView()
+        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_num = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -33,10 +37,6 @@ Partial Class Position
         Me.appClose = New System.Windows.Forms.PictureBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btnEmpByPos = New System.Windows.Forms.Button()
-        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_num = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvPositions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.appClose, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -67,6 +67,35 @@ Partial Class Position
         Me.dgvPositions.RowTemplate.Height = 30
         Me.dgvPositions.Size = New System.Drawing.Size(414, 226)
         Me.dgvPositions.TabIndex = 2
+        '
+        'stt
+        '
+        Me.stt.HeaderText = "STT"
+        Me.stt.Name = "stt"
+        Me.stt.ReadOnly = True
+        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.stt.Width = 60
+        '
+        'id
+        '
+        Me.id.HeaderText = "ID"
+        Me.id.Name = "id"
+        Me.id.ReadOnly = True
+        Me.id.Visible = False
+        Me.id.Width = 80
+        '
+        'pos_name
+        '
+        Me.pos_name.HeaderText = "Name"
+        Me.pos_name.Name = "pos_name"
+        Me.pos_name.Width = 140
+        '
+        'emp_num
+        '
+        Me.emp_num.HeaderText = "Number of People"
+        Me.emp_num.Name = "emp_num"
+        Me.emp_num.ReadOnly = True
+        Me.emp_num.Width = 110
         '
         'txtSearch
         '
@@ -114,6 +143,7 @@ Partial Class Position
         'btnAdd
         '
         Me.btnAdd.BackColor = System.Drawing.Color.Gray
+        Me.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdd.ForeColor = System.Drawing.Color.Transparent
         Me.btnAdd.Location = New System.Drawing.Point(161, 79)
@@ -126,6 +156,7 @@ Partial Class Position
         'btnExit
         '
         Me.btnExit.BackColor = System.Drawing.Color.Gray
+        Me.btnExit.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnExit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnExit.ForeColor = System.Drawing.Color.White
         Me.btnExit.Location = New System.Drawing.Point(441, 310)
@@ -162,6 +193,7 @@ Partial Class Position
         'btnEmpByPos
         '
         Me.btnEmpByPos.BackColor = System.Drawing.Color.Gray
+        Me.btnEmpByPos.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnEmpByPos.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnEmpByPos.ForeColor = System.Drawing.Color.White
         Me.btnEmpByPos.Location = New System.Drawing.Point(441, 251)
@@ -171,40 +203,11 @@ Partial Class Position
         Me.btnEmpByPos.Text = "EMPLOYEES LIST BY POSITION"
         Me.btnEmpByPos.UseVisualStyleBackColor = False
         '
-        'stt
-        '
-        Me.stt.HeaderText = "STT"
-        Me.stt.Name = "stt"
-        Me.stt.ReadOnly = True
-        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.stt.Width = 60
-        '
-        'id
-        '
-        Me.id.HeaderText = "ID"
-        Me.id.Name = "id"
-        Me.id.ReadOnly = True
-        Me.id.Visible = False
-        Me.id.Width = 80
-        '
-        'pos_name
-        '
-        Me.pos_name.HeaderText = "Name"
-        Me.pos_name.Name = "pos_name"
-        Me.pos_name.Width = 140
-        '
-        'emp_num
-        '
-        Me.emp_num.HeaderText = "Number of People"
-        Me.emp_num.Name = "emp_num"
-        Me.emp_num.ReadOnly = True
-        Me.emp_num.Width = 110
-        '
         'Position
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
+        Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(728, 391)
         Me.Controls.Add(Me.Label3)

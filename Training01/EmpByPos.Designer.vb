@@ -63,6 +63,7 @@ Partial Class EmpByPos
         '
         'cbSearch
         '
+        Me.cbSearch.Cursor = System.Windows.Forms.Cursors.Hand
         Me.cbSearch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbSearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbSearch.FormattingEnabled = True
@@ -171,6 +172,7 @@ Partial Class EmpByPos
         'btnAdd
         '
         Me.btnAdd.BackColor = System.Drawing.Color.White
+        Me.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdd.ForeColor = System.Drawing.Color.Black
         Me.btnAdd.Location = New System.Drawing.Point(91, 108)
@@ -182,6 +184,7 @@ Partial Class EmpByPos
         '
         'cbEmpCreate
         '
+        Me.cbEmpCreate.Cursor = System.Windows.Forms.Cursors.Hand
         Me.cbEmpCreate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbEmpCreate.FormattingEnabled = True
         Me.cbEmpCreate.Location = New System.Drawing.Point(91, 72)
@@ -203,6 +206,7 @@ Partial Class EmpByPos
         '
         'cbPosCreate
         '
+        Me.cbPosCreate.Cursor = System.Windows.Forms.Cursors.Hand
         Me.cbPosCreate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbPosCreate.FormattingEnabled = True
         Me.cbPosCreate.Location = New System.Drawing.Point(91, 35)
@@ -225,6 +229,7 @@ Partial Class EmpByPos
         'btnRemove
         '
         Me.btnRemove.BackColor = System.Drawing.Color.White
+        Me.btnRemove.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnRemove.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnRemove.ForeColor = System.Drawing.Color.Black
         Me.btnRemove.Location = New System.Drawing.Point(673, 126)
@@ -237,6 +242,7 @@ Partial Class EmpByPos
         'btnExit
         '
         Me.btnExit.BackColor = System.Drawing.Color.White
+        Me.btnExit.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnExit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnExit.ForeColor = System.Drawing.Color.Black
         Me.btnExit.Location = New System.Drawing.Point(863, 340)
@@ -262,6 +268,7 @@ Partial Class EmpByPos
         'btnManagePos
         '
         Me.btnManagePos.BackColor = System.Drawing.Color.White
+        Me.btnManagePos.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnManagePos.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnManagePos.ForeColor = System.Drawing.Color.Black
         Me.btnManagePos.Location = New System.Drawing.Point(673, 340)
@@ -275,7 +282,7 @@ Partial Class EmpByPos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
+        Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1010, 395)
         Me.Controls.Add(Me.closeApp)

@@ -4,49 +4,37 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
+-- =============================================
+-- Author:		Dat
+-- Create date: 24/5/2023
+-- Update date: 5/6/2023
+-- Description:	Update Leave
+-- =============================================
+
 CREATE OR ALTER PROCEDURE [dbo].[UpdateLeave]
 	-- Add the parameters for the stored procedure here
 	@id INT,
 	@emp_id INT,
+	@emp_name NVARCHAR(255),
   	@from_date DATETIME,
-	@reason NVARCHAR(255),
-	@status INT
+	@reason NVARCHAR(255)
 AS
 BEGIN
-	DECLARE @exist INT
-	DECLARE @emp_name NVARCHAR(255) = (SELECT TOP(1) e.name FROM Employees e WHERE e.id = @emp_id)
-
-	SET @exist = 0
-
-	IF EXISTS (SELECT 1 FROM dbo.leave WHERE emp_id = @emp_id and from_date = @from_date AND id <> @id AND status = 1)
+	IF EXISTS (SELECT 1 FROM dbo.leave WHERE emp_id = @emp_id AND from_date = @from_date AND reason = @reason AND status = 1)
 	BEGIN
-		SET @exist = 1
+		THROW 50001, 'This leave data is existed!', 1
 	END
-	ELSE	
+	
+	IF EXISTS (SELECT 1 FROM dbo.leave WHERE emp_id = @emp_id AND from_date = @from_date AND status = 0)
 	BEGIN
-		
-		UPDATE dbo.leave
-		SET status = 0
-		WHERE id = @id
-
-		UPDATE dbo.leave
-		SET status = 1, emp_id = @emp_id, emp_name = @emp_name, from_date = @from_date, reason = @reason
-		WHERE id = @id AND status = 0		
-
-		IF @@ROWCOUNT = 0
-		BEGIN	
-			INSERT INTO dbo.leave
-			(
-			    emp_id,
-			    emp_name,
-			    from_date,
-			    reason,
-				status
-			)
-			VALUES (@emp_id, @emp_name, @from_date, @reason, @status)
-		END 
+		DELETE FROM leave
+		WHERE id = (SELECT id FROM dbo.leave WHERE emp_id = @emp_id AND from_date = @from_date AND status = 0)
 	END
-	SELECT @exist AS IsDuplicate
+
+	UPDATE leave
+	SET status = 1, reason = @reason, emp_id = @emp_id, from_date = @from_date, emp_name = @emp_name
+	WHERE id = @id
 END
 GO
 

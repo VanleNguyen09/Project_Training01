@@ -3,11 +3,20 @@
 Public Class SalaryEmp
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private salariesList As New List(Of Decimal)
+
+    ''' <summary>
+    ''' LOAD THIS FORM
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub SalaryEmp_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Load_DGV_Emp()
         Load_DGV_SalaryEmp()
     End Sub
 
+    ''' <summary>
+    ''' LOAD DATA INTO DATAGRIDVIEW EMP
+    ''' </summary>
     Private Sub Load_DGV_Emp()
         Dim searchText As String = txtSearch.Text
         Try
@@ -42,6 +51,9 @@ Public Class SalaryEmp
         End Try
     End Sub
 
+    ''' <summary>
+    ''' LOAD DATA INTO DATAGRIDVIEW SALARY EMP
+    ''' </summary>
     Private Sub Load_DGV_SalaryEmp()
         Dim searchText As String = txtSearchSalary.Text
         Try
@@ -76,6 +88,11 @@ Public Class SalaryEmp
         End Try
     End Sub
 
+    ''' <summary>
+    ''' ROW PREPARE PAINT 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub dgvEmps_RowPrePaint(sender As Object, e As DataGridViewRowPrePaintEventArgs) Handles dgvEmps.RowPrePaint
         ' Set color for all rows of Datagridview (Because they has white color of groupbox)
         For Each cell As DataGridViewCell In dgvEmps.Rows(e.RowIndex).Cells
@@ -83,10 +100,21 @@ Public Class SalaryEmp
         Next
     End Sub
 
+    ''' <summary>
+    ''' CHANGED SEARCH TEXTBOX EVENT
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         Load_DGV_Emp()
     End Sub
 
+    ''' <summary>
+    ''' SORTED DGV EMPS EVENT
+    ''' - Prevent sort stt column
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub dgvEmps_Sorted(sender As Object, e As EventArgs) Handles dgvEmps.Sorted
         'If it is stt column, sorted normal 
         If dgvEmps.SortedColumn.Name <> "stt" Then
@@ -96,6 +124,11 @@ Public Class SalaryEmp
         End If
     End Sub
 
+    ''' <summary>
+    ''' CLOSE APP
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
         Environment.Exit(0)
     End Sub
@@ -160,6 +193,12 @@ Public Class SalaryEmp
         dgvEmps_SelectionChanged(sender, e)
     End Sub
 
+    ''' <summary>
+    ''' ROW PRE PAINT
+    ''' SET AGAIN COLOR FOR CELL Because they has white color of groupbox
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub dgvSalaries_RowPrePaint(sender As Object, e As DataGridViewRowPrePaintEventArgs) Handles dgvSalaries.RowPrePaint
         ' Set color for all rows of Datagridview (Because they has white color of groupbox)
         For Each cell As DataGridViewCell In dgvSalaries.Rows(e.RowIndex).Cells
@@ -167,6 +206,11 @@ Public Class SalaryEmp
         Next
     End Sub
 
+    ''' <summary>
+    ''' FORMATTING FOR SALARY COLUMN
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub dgvSalaries_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvSalaries.CellFormatting
         ' Salary is fourth column
         If e.ColumnIndex = 3 Then
@@ -180,6 +224,11 @@ Public Class SalaryEmp
         End If
     End Sub
 
+    ''' <summary>
+    ''' SET COLOR DEFAULT AND COLOR CHANGED WHEN SELECT OTHER SALARY
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub dgvSalaries_SelectionChanged(sender As Object, e As EventArgs) Handles dgvSalaries.SelectionChanged
         If dgvEmps.SelectedRows.Count > 0 AndAlso dgvSalaries.SelectedRows.Count > 0 Then
             Dim selectedRowDGVEmps As DataGridViewRow = dgvEmps.SelectedRows(0)
@@ -253,6 +302,11 @@ Public Class SalaryEmp
         End Select
     End Sub
 
+    ''' <summary>
+    ''' AFTER FORM IS SHOWN 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub SalaryEmp_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         dgvEmps.CurrentCell = Nothing
         dgvSalaries.CurrentCell = Nothing
@@ -376,6 +430,18 @@ Public Class SalaryEmp
         If e.KeyCode = Keys.Enter Then
             e.Handled = True 'Prevent default action
             btnUpdate.PerformClick()
+        End If
+
+        If e.KeyCode = Keys.Left Then
+            ' Press Key Left -> Focus DGV Emps
+            dgvEmps.Focus()
+        End If
+    End Sub
+
+    Private Sub dgvEmps_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvEmps.KeyDown
+        If e.KeyCode = Keys.Right Then
+            ' Press Key Right -> Focus DGV Salaries
+            dgvSalaries.Focus()
         End If
     End Sub
 End Class
