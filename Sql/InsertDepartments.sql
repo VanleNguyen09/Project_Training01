@@ -28,7 +28,7 @@ BEGIN
 		UPDATE dbo.Department
 		SET status = 1
 		WHERE id = @dept_id AND status = 0
-		UPDATE dbo.Dept_emp SET status = 1 WHERE dept_id = @dept_id AND status = 0 
+		UPDATE dbo.Dept_emp SET STATUS = 1 WHERE dept_id = @dept_id AND STATUS = 0 
 		UPDATE dbo.Dept_manager SET status = 1 WHERE dept_id = @dept_id AND status = 0 		
 
 		IF @@ROWCOUNT = 0

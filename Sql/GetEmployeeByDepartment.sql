@@ -19,8 +19,7 @@ BEGIN
 	INNER JOIN dbo.Department c
 	ON c.id = b.dept_id
 	WHERE b.dept_id = @dept_id AND b.status = 1
+	ORDER BY b.id
 END
 GO
-
-EXEC dbo.GetAllEmployeesByDepartment
 

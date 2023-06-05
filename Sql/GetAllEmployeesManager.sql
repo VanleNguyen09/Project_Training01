@@ -15,7 +15,7 @@ BEGIN
 	JOIN dbo.Department c
 	ON c.id = b.dept_id
 	WHERE b.status = 1
-	ORDER BY c.name, a.name
+	ORDER BY b.id ASC
 END
 GO
 
@@ -23,6 +23,6 @@ EXEC dbo.GetAllEmployeesManager
 
 GO	
 
-SELECT * FROM dbo.Dept_manager 
-WHERE STATUS = 0
-ORDER BY emp_id ASC, dept_id ASC
+--SELECT * FROM dbo.Dept_manager 
+--WHERE STATUS = 0
+--ORDER BY emp_id ASC, dept_id ASC

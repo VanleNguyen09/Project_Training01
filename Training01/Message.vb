@@ -25,14 +25,16 @@
         Shared errorInvalidId As String = "Invalid ID. Please enter a numeric value!!!"
         Shared errorInvalidSalary As String = "Please enter numeric type and have a maximum of 10 numbers and 2 decimal places if possible!"
         Shared errorInvalidDate As String = "Invalid date range. The 'From Date' cannot be greater than the 'To Date'!!!"
-        Shared managerExitedForDepartment As String = "Employee Manager is exited for this department. Please try again!!!"
+        Shared managerExitedForDepartment As String = "Manager has name and id is exited for this department. Can not add employee. Please try again!!!"
         Shared departmentExited As String = "Department is exited. Please try again!!!"
-        Shared employeeExited As String = "Employee is exited. Please try again!!!"
+        Shared employeeExitedForDepartment As String = "Employee has name and id is exited for this department. Can not add manager. Please try again!!!"
         Shared chooseOneRow As String = "Please only choose one salary that you want to set salary!"
         Shared confirmCreate As String = "Are you sure to confirm create?"
         Shared departmentDuplicate As String = "Duplicate department entry!!!"
         Shared managerDuplicate As String = "Duplicate manager entry!!!"
         Shared employeeDuplicate As String = "Duplicate employee entry!!!"
+        Shared yearInvalidError As String = "Year is invalid. Please try again!!!"
+        Shared imageEmptyError As String = "Please select an image. Let's try again!!!"
     End Structure
 
     Public Structure Title

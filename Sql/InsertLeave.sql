@@ -1,38 +1,53 @@
--- ================================================
--- Template generated from Template Explorer using:
--- Create Procedure (New Menu).SQL
---
--- Use the Specify Values for Template Parameters 
--- command (Ctrl-Shift-M) to fill in the parameter 
--- values below.
---
--- This block of comments will not be included in
--- the definition of the procedure.
--- ================================================
+USE EmployeeManagement
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
--- =============================================
--- Author:		Dat
--- Create date: 24/5/2023
--- Description:	Insert Leave
--- =============================================
 CREATE OR ALTER PROCEDURE InsertLeave 
 	-- Add the parameters for the stored procedure here
-@emp_id INT,
-@from_date DATETIME,
-@reason NVARCHAR(255)
+	@emp_id INT,
+	@from_date DATETIME,
+	@reason NVARCHAR(255),
+	@status INT
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
+	DECLARE @exist INT
 	DECLARE @emp_name NVARCHAR(255) = (SELECT TOP(1) e.name FROM Employees e WHERE e.id = @emp_id)
+    
+	SET @exist = 0
 
-    -- Insert statements for procedure here
-	INSERT INTO leave(emp_id, emp_name, from_date, reason)
-	VALUES (@emp_id, @emp_name, @from_date, @reason)
+	IF EXISTS (SELECT 1 FROM dbo.leave WHERE emp_id = @emp_id AND from_date = @from_date AND status = 1)
+	BEGIN
+		SET @exist = 1
+	END
+	ELSE 
+	BEGIN
+		DECLARE @leave_id INT 
+		UPDATE dbo.leave
+		SET status = 0
+		WHERE id = @leave_id
+
+		UPDATE dbo.Department
+		SET status = 1
+		WHERE id = @leave_id AND status = 0
+
+		IF @@ROWCOUNT = 0
+		BEGIN	
+			INSERT INTO dbo.leave
+			(
+			    emp_id,
+			    emp_name,
+			    from_date,
+			    reason,
+				status
+			)
+			VALUES (@emp_id, @emp_name, @from_date, @reason, @status)
+		END 
+	END
+	SELECT @exist AS IsDuplicate
 END
 GO

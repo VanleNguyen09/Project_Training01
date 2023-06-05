@@ -9,6 +9,7 @@
 -- This block of comments will not be included in
 -- the definition of the procedure.
 -- ================================================
+USE EmployeeManagement
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

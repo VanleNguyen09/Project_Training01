@@ -25,6 +25,7 @@ Public Class frm_EmpInDept
         cb_Department.SelectedIndex = 0
         cb_DepCreate.SelectedIndex = 0
         cb_EmpCreate.SelectedIndex = 0
+        EnableAdd()
 
         Select_Departments()
         Select_Employees()
@@ -157,14 +158,13 @@ Public Class frm_EmpInDept
     Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
     Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
     Dim errorIcons As MessageBoxIcon = MessageBoxIcon.Error
-
-    Private Function CheckEmpDeptExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
-        CheckEmpDeptExit = False
+    Private Function CheckManagerExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
+        CheckManagerExit = False
         If con.State <> 1 Then
             con.Open()
         End If
         Try
-            Using cmd As SqlCommand = New SqlCommand("CheckEmpDeptExit", con)
+            Using cmd As SqlCommand = New SqlCommand("CheckManagerExit", con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@emp_id", emp_id)
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
@@ -176,23 +176,24 @@ Public Class frm_EmpInDept
                 cmd.ExecuteNonQuery()
 
                 If CInt(returnValueParam.Value) = 1 Then
-                    CheckEmpDeptExit = True
+                    CheckManagerExit = True
                 End If
             End Using
         Catch ex As Exception
-            CheckEmpDeptExit = False
+            CheckManagerExit = False
             MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             con.Close()
         End Try
-        Return CheckEmpDeptExit
+        Return CheckManagerExit
     End Function
+
     Private Sub Add_EmpDept(emp_id As Integer, dept_id As Integer, from_date As Date, to_date As Date)
         Dim status As Integer = 1
-        'If CheckEmpDeptExit(emp_id, dept_id) = True Then
-        '    MessageBox.Show(Message.Message.employeeExited, titleMsgBox, buttons, icons)
-        '    Exit Sub
-        'End If
+        If CheckManagerExit(emp_id, dept_id) = True Then
+            MessageBox.Show(Message.Message.managerExitedForDepartment, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
         If con.State <> 1 Then
             con.Open()
         End If
@@ -214,6 +215,7 @@ Public Class frm_EmpInDept
                 If isDuplicate = 1 Then
                     MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
                     Exit Sub
+
                 Else
                     MessageBox.Show("Employee has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                     LoadAndSortData()
@@ -230,7 +232,10 @@ Public Class frm_EmpInDept
 
     Private Sub Update_EmpDept(emp_id As Integer, dept_id As Integer, from_date As Date, to_date As Date, deptemp_id As Integer)
         Dim status As Integer = 1
-
+        If CheckManagerExit(emp_id, dept_id) = True Then
+            MessageBox.Show(Message.Message.managerExitedForDepartment, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
         If con.State <> 1 Then
             con.Open()
         End If
@@ -254,7 +259,7 @@ Public Class frm_EmpInDept
                 End Using
 
                 If isDuplicate = 1 Then
-                    MessageBox.Show(Message.Message.managerDuplicate, titleMsgBox, buttons, icons)
+                    MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
                 Else
                     MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                     LoadAndSortData()
@@ -295,6 +300,7 @@ Public Class frm_EmpInDept
         con.Close()
         If reload Then
             txt_Search.Text = Nothing
+            cb_Department.SelectedIndex = 0
             LoadAndSortData()
         End If
     End Sub
@@ -385,6 +391,19 @@ Public Class frm_EmpInDept
             MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
             Exit Sub
         End If
+
+        Dim fromInputYear As Integer = from_date.Year
+        Dim toInputYear As Integer = to_date.Year
+        Dim currentYear As Integer = DateTime.Now.Year
+
+        Dim fromIsValid As Boolean = FuntionCommon.Validation.ValidateYear(fromInputYear, currentYear)
+        Dim toIsValid As Boolean = FuntionCommon.Validation.ValidateYear(toInputYear, currentYear)
+
+
+        If Not fromIsValid OrElse Not toIsValid Then
+            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            Exit Sub
+        End If
         Add_EmpDept(emp_id, dept_id, from_date, to_date)
         ClearForm()
     End Sub
@@ -402,6 +421,7 @@ Public Class frm_EmpInDept
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
             LoadAndSortData()
+            cb_Department.SelectedIndex = 0
         End If
     End Sub
 
@@ -415,11 +435,11 @@ Public Class frm_EmpInDept
         Dim selectedRows As DataGridViewSelectedRowCollection = dgv_DeptEmp.SelectedRows
 
         If selectedRows.Count > 0 Then
-            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected manager(s)?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected employee(s)?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
             If result = DialogResult.Yes Then
-                Dim empIdColumn As DataGridViewColumn = dgv_DeptEmp.Columns("emp_id") ' Replace "name" with the actual column name for department ID
-                Dim deptIdColumn As DataGridViewColumn = dgv_DeptEmp.Columns("dept_id") ' Replace "name" with the actual column name for department ID
+                Dim empIdColumn As DataGridViewColumn = dgv_DeptEmp.Columns("emp_id")
+                Dim deptIdColumn As DataGridViewColumn = dgv_DeptEmp.Columns("dept_id")
 
                 If empIdColumn IsNot Nothing And deptIdColumn IsNot Nothing Then
                     For i As Integer = selectedRows.Count - 1 To 0 Step -1
@@ -432,7 +452,7 @@ Public Class frm_EmpInDept
                     EnableAdd()
                 End If
             Else
-                MessageBox.Show("Please select at least one manager to delete.", "Warning", buttons, icons)
+                MessageBox.Show("Delete canceled.", "Information", buttons, MessageBoxIcon.Information)
             End If
         End If
     End Sub
@@ -453,6 +473,19 @@ Public Class frm_EmpInDept
 
         If Not datesValid Then
             MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
+            Exit Sub
+        End If
+
+        Dim fromInputYear As Integer = from_date.Year
+        Dim toInputYear As Integer = to_date.Year
+        Dim currentYear As Integer = DateTime.Now.Year
+
+        Dim fromIsValid As Boolean = FuntionCommon.Validation.ValidateYear(fromInputYear, currentYear)
+        Dim toIsValid As Boolean = FuntionCommon.Validation.ValidateYear(toInputYear, currentYear)
+
+
+        If Not fromIsValid OrElse Not toIsValid Then
+            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
             Exit Sub
         End If
 
@@ -493,6 +526,7 @@ Public Class frm_EmpInDept
             selectedEmpDept.from_date = dtp_FromDate.Value
             dtp_ToDate.Value = Convert.ToDateTime(selectedrow.Cells("to_date").Value)
             selectedEmpDept.to_date = dtp_ToDate.Value
+            dgv_DeptEmp.ReadOnly = True
 
             btn_Add.Enabled = False
             btn_Delete.Enabled = True
@@ -537,6 +571,15 @@ Public Class frm_EmpInDept
     Private Sub dtp_ToDate_KeyDown(sender As Object, e As KeyEventArgs) Handles dtp_ToDate.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
+            If btn_Add.Enabled = True Then
+                btn_Add.Focus()
+            Else
+                btn_Update.Focus()
+            End If
         End If
+    End Sub
+
+    Private Sub frm_EmpInDept_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        dgv_DeptEmp.ClearSelection()
     End Sub
 End Class

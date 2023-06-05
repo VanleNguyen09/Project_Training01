@@ -1,12 +1,6 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class Dashboard
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
-    End Sub
-
-    Private Sub pn_nhanvien_Paint_Click(sender As Object, e As PaintEventArgs) Handles pn_nhanvien.Paint
-    End Sub
 
     Private Sub btn_Employee_Click(sender As Object, e As EventArgs) Handles btn_Employee.Click
         Dim con As SqlConnection
@@ -54,15 +48,19 @@ Public Class Dashboard
         salary.Show()
     End Sub
 
-    Private Sub btnLeave_Click(sender As Object, e As EventArgs) Handles btnLeave.Click
+    Private Sub btn_Manager_Click(sender As Object, e As EventArgs) Handles btn_Manager.Click
+        Dim manager As New frm_Manager
+        Me.Hide()
+        manager.Show()
+    End Sub
+
+    Private Sub btn_Leave_Click(sender As Object, e As EventArgs) Handles btn_Leave.Click
         Dim leave As New Leave
         Me.Hide()
         leave.Show()
     End Sub
 
-    Private Sub btn_Manager_Click(sender As Object, e As EventArgs) Handles btn_Manager.Click
-        Dim manager As New frm_Manager
-        Me.Hide()
-        manager.Show()
+    Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
+        Me.Close()
     End Sub
 End Class

@@ -27,7 +27,7 @@ BEGIN
 	OR a.from_date LIKE '%' + @keyword + '%' OR a.to_date 
 	LIKE '%' + @keyword + '%')  AND (a.status = 1  AND b.status = 1) 
 	AND (a.dept_id = @department_id)
-	ORDER BY c.name, b.name
+	ORDER BY a.id
 	END
 	ELSE 
 		BEGIN 
@@ -46,12 +46,7 @@ BEGIN
 	OR c.name  LIKE '%' + @keyword + '%'
 	OR a.from_date LIKE '%' + @keyword + '%' OR a.to_date 
 	LIKE '%' + @keyword + '%') AND (a.status = 1 AND b.status = 1)
-	ORDER BY c.name, b.name  
+	ORDER BY a.id
 	END
 END
 GO
-
-EXEC dbo.GetManagersByKeyWord @keyword = N'Thoảng',    -- nvarchar(255)
-                              @department_id = 1 -- int
-
-EXEC dbo.GetAllEmployeesManager 
