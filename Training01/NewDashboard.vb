@@ -1,18 +1,19 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Globalization
+Imports System.Text.RegularExpressions
 Imports System.Windows
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Status
 
 Public Class NewDashboard
 
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
 
     Dim btnEmployeeClicked As Boolean = False
+    Private initialUserName As String = "UserName"
 
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
-        Me.Hide()
-        Dim dashboard As New Dashboard
-        dashboard.Show()
+        Me.Close()
     End Sub
+
 
     Private Sub CountTotalEmployees()
         If con.State <> 1 Then
@@ -182,6 +183,9 @@ Public Class NewDashboard
 
     Private initialContentPanel As Panel = Nothing
 
+    Dim isLoggedIn = GlobalVariables.IsLoggedIn
+    Dim loggedInUserEmail = GlobalVariables.LoggedInUserEmail
+
     Private Sub pn_Main_Paint(sender As Object, e As PaintEventArgs) Handles pn_Main.Paint
         initialContentPanel = pn_Content
     End Sub
@@ -195,7 +199,47 @@ Public Class NewDashboard
         ResetButtonColors(clickedButton)
     End Sub
 
+    Private Function GetFullNameByEmail(email As String) As String
+        Try
+            If con.State <> 1 Then
+                con.Open()
+            End If
+
+            Using cmd As SqlCommand = New SqlCommand("GetFullNameByEmail", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@email", email)
+
+                Dim reader As SqlDataReader = cmd.ExecuteReader
+                If reader.Read Then
+                    ' Lấy giá trị từ cột FullName trong kết quả trả về
+                    Return reader.GetString(reader.GetOrdinal("full_name"))
+                End If
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            con.Close()
+        End Try
+        Return String.Empty
+    End Function
     Private Sub NewDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        lbl_UserName.Text = initialUserName
+
+        Dim login As New Login
+
+        Dim email As String = loggedInUserEmail
+        Console.WriteLine(email)
+        If Not String.IsNullOrEmpty(loggedInUserEmail) OrElse isLoggedIn Then
+
+            ' Lấy giá trị FullName dựa trên Email đã lưu trong biến toàn cục LoggedInUserEmail
+            Dim fullName As String = GetFullNameByEmail(email)
+
+            ' Hiển thị FullName lên Label lbl_UserName
+            lbl_UserName.Text = fullName
+        Else
+            ' Thiết lập giá trị mặc định cho Label
+            lbl_UserName.Text = initialUserName
+        End If
         CountTotalEmployees()
         CountTotalDepartments()
         CountTotalManagers()
@@ -235,6 +279,7 @@ Public Class NewDashboard
             formToShow.TopMost = True
             formToShow.FormBorderStyle = FormBorderStyle.None
             formToShow.Dock = DockStyle.Fill
+            formToShow.AutoScroll = True
             pn_Main.Controls.Clear()
             pn_Main.Controls.Add(formToShow)
             formToShow.Show()
@@ -256,6 +301,10 @@ Public Class NewDashboard
                 btn.ForeColor = SystemColors.ControlText
             End If
         Next
+    End Sub
+
+    Private Sub ResetFormState()
+        lbl_UserName.Text = initialUserName
     End Sub
 
     Private Sub btn_Employee_Click(sender As Object, e As EventArgs) Handles btn_Employee.Click
@@ -316,6 +365,30 @@ Public Class NewDashboard
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
 
         ResetButtonColors(clickedButton)
+    End Sub
+
+
+    Private Sub btn_Signout_Click(sender As Object, e As EventArgs) Handles btn_Signout.Click
+        Dim clickedButton As Button = CType(sender, Button)
+        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        ResetButtonColors(clickedButton)
+        If isLoggedIn Then
+            Dim result As DialogResult = MessageBox.Show("Are you sure to log out user!!!", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+            If result = DialogResult.Yes Then
+                ' Gọi phương thức ResetFormState trên form Dashboard
+                isLoggedIn = False
+                ResetFormState()
+                MessageBox.Show("You logout success!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Else
+            MessageBox.Show("Please login. User is empty!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Dim login As New Login
+            login.Show()
+            Me.Hide()
+        End If
+
+
     End Sub
 
 End Class

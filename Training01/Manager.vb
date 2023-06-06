@@ -21,7 +21,7 @@ Public Class frm_Manager
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
         Me.Close()
         'Dim dashboard As New Dashboard
-        Dim dashboard As New NewDashboard
+        Dim dashboard As New Dashboard
         dashboard.Show()
     End Sub
 
@@ -273,9 +273,11 @@ Public Class frm_Manager
 
                 If isDuplicate = 1 Then
                     MessageBox.Show(Message.Message.managerDuplicate, titleMsgBox, buttons, icons)
+                    Exit Sub
                 Else
                     MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                     LoadAndSortData() ' Cập nhật dữ liệu trên DataGridView
+                    Exit Sub
                 End If
             End Using
         Catch ex As Exception
@@ -541,7 +543,7 @@ Public Class frm_Manager
     Private Sub btn_Exit_Click(sender As Object, e As EventArgs) Handles btn_Exit.Click
         Me.Close()
         'Dim dashboard As New Dashboard
-        Dim dashboard As New NewDashboard
+        Dim dashboard As New Dashboard
         dashboard.Show()
     End Sub
 

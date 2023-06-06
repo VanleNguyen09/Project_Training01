@@ -134,6 +134,7 @@
     <Compile Include="Employee.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GlobalVariables.vb" />
     <Compile Include="Leave.Designer.vb">
       <DependentUpon>Leave.vb</DependentUpon>
     </Compile>
