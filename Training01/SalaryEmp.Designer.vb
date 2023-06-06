@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class SalaryEmp
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class SalaryEmp
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -181,7 +181,7 @@ Partial Class SalaryEmp
         Me.salary_stt.Name = "salary_stt"
         Me.salary_stt.ReadOnly = True
         Me.salary_stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.salary_stt.Width = 70
+        Me.salary_stt.Width = 50
         '
         'salary_id
         '
@@ -208,13 +208,15 @@ Partial Class SalaryEmp
         Me.salary.MinimumWidth = 6
         Me.salary.Name = "salary"
         Me.salary.ReadOnly = True
-        Me.salary.Width = 160
+        Me.salary.Width = 200
         '
         'btnUpdate
         '
         Me.btnUpdate.BackColor = System.Drawing.Color.OrangeRed
         Me.btnUpdate.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnUpdate.Enabled = False
+        Me.btnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.White
+        Me.btnUpdate.FlatAppearance.BorderSize = 2
         Me.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnUpdate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUpdate.ForeColor = System.Drawing.Color.White
@@ -261,6 +263,7 @@ Partial Class SalaryEmp
         '
         Me.btnAdd.BackColor = System.Drawing.Color.SteelBlue
         Me.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnAdd.FlatAppearance.BorderSize = 2
         Me.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnAdd.Location = New System.Drawing.Point(9, 132)
         Me.btnAdd.Name = "btnAdd"
@@ -273,6 +276,7 @@ Partial Class SalaryEmp
         '
         Me.btnDelete.BackColor = System.Drawing.Color.IndianRed
         Me.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnDelete.FlatAppearance.BorderSize = 2
         Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDelete.Location = New System.Drawing.Point(371, 301)
         Me.btnDelete.Name = "btnDelete"
@@ -285,6 +289,7 @@ Partial Class SalaryEmp
         '
         Me.btnExit.BackColor = System.Drawing.Color.IndianRed
         Me.btnExit.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnExit.FlatAppearance.BorderSize = 2
         Me.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnExit.Location = New System.Drawing.Point(371, 340)
         Me.btnExit.Name = "btnExit"
@@ -295,6 +300,8 @@ Partial Class SalaryEmp
         '
         'txtSearch
         '
+        Me.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtSearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSearch.Location = New System.Drawing.Point(14, 28)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(551, 20)

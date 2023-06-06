@@ -34,6 +34,12 @@ BEGIN
 		THROW 50000, 'Exist this name!', 1;
 	END
 
+	IF EXISTS (SELECT * FROM Position WHERE name = @name AND status = 0)
+	BEGIN
+		DELETE FROM Position
+		WHERE name = @name AND status = 0
+	END
+
 	UPDATE Position
 	SET name = @name
 	WHERE id = @pos_id

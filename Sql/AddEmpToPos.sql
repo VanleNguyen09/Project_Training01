@@ -1,14 +1,5 @@
--- ================================================
--- Template generated from Template Explorer using:
--- Create Procedure (New Menu).SQL
---
--- Use the Specify Values for Template Parameters 
--- command (Ctrl-Shift-M) to fill in the parameter 
--- values below.
---
--- This block of comments will not be included in
--- the definition of the procedure.
--- ================================================
+USE EmployeeManagement
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32,7 +23,12 @@ BEGIN
 	SET @currDate = GETDATE();
 
     -- Insert statements for procedure here
-	IF EXISTS (SELECT * FROM Emp_Pos WHERE emp_id = @emp_id AND pos_id = @pos_id)
+	IF EXISTS (SELECT * FROM Emp_Pos WHERE emp_id = @emp_id AND pos_id = @pos_id AND status = 1)
+	BEGIN
+		THROW 50001, 'This Position for this Employee is Existed!', 1
+	END
+
+	IF EXISTS (SELECT * FROM Emp_Pos WHERE emp_id = @emp_id AND pos_id = @pos_id AND status = 0)
 	BEGIN
 		UPDATE Emp_Pos
 		SET status = 1

@@ -91,6 +91,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomElements.vb" />
     <Compile Include="Dashboard.Designer.vb">
       <DependentUpon>Dashboard.vb</DependentUpon>
     </Compile>
@@ -305,6 +306,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\x-icon.png" />
     <None Include="Resources\tech-background.jpg" />
     <None Include="Resources\user-icon-vector.jpg" />
     <None Include="Resources\sign-out-65.png" />
