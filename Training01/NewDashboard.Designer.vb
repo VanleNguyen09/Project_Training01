@@ -475,7 +475,7 @@ Partial Class NewDashboard
         '
         Me.PictureBox13.BackgroundImage = Global.Training01.My.Resources.Resources._36901071
         Me.PictureBox13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox13.Location = New System.Drawing.Point(164, 22)
+        Me.PictureBox13.Location = New System.Drawing.Point(164, 28)
         Me.PictureBox13.Name = "PictureBox13"
         Me.PictureBox13.Size = New System.Drawing.Size(105, 75)
         Me.PictureBox13.TabIndex = 3

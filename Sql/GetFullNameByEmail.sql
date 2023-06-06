@@ -11,11 +11,10 @@ AS
 BEGIN
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
-	SELECT full_name
+	SELECT full_name AS fullName
 	FROM dbo.users
 	WHERE email = @email
 END
 GO
 
-EXEC dbo.GetFullNameByEmail @email = 'thoangtran@gmail.com' -- nvarchar(255)
-
+EXEC dbo.GetFullNameByEmail @email = 'thoangrikai@gmail.com'

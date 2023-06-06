@@ -18,7 +18,7 @@ GO
 -- Create date: 19/5/2023
 -- Description:	Get all positions by Employee Id
 -- =============================================
-CREATE PROCEDURE GetAllPosByEmpId
+CREATE OR ALTER PROCEDURE GetAllPosByEmpId
 @emp_id INT
 AS
 BEGIN

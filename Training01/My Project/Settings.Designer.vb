@@ -53,6 +53,30 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property IsLoggedIn() As Boolean
+            Get
+                Return CType(Me("IsLoggedIn"),Boolean)
+            End Get
+            Set
+                Me("IsLoggedIn") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("""""")>  _
+        Public Property LoggedInUserEmail() As String
+            Get
+                Return CType(Me("LoggedInUserEmail"),String)
+            End Get
+            Set
+                Me("LoggedInUserEmail") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

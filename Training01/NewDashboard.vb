@@ -10,10 +10,53 @@ Public Class NewDashboard
     Dim btnEmployeeClicked As Boolean = False
     Private initialUserName As String = "UserName"
 
-    Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
-        Me.Close()
+    Private currentForm As Form = Nothing
+
+    Private initialContentPanel As Panel = Nothing
+
+    Dim isLoggedIn = GlobalVariables.IsLoggedIn
+    Dim loggedInUserEmail = GlobalVariables.LoggedInUserEmail
+    Dim loggedInUserFullName = GlobalVariables.loggedInUserFullName
+
+    Private Sub NewDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        lbl_UserName.Text = initialUserName
+        LoadUserData()
+        MessageBox.Show("User is logged in: " + My.Settings.LoggedInUserEmail, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        CountTotalEmployees()
+        CountTotalDepartments()
+        CountTotalManagers()
+        CountTotalPositions()
+        CountTotalLeaves()
+        CountTotalSalaries()
+        MaxEmpDept()
+        MaxDeptEmp()
+        MaxDeptManager()
+        MaxPosEmp()
     End Sub
 
+    Private Function FormatFullName(loggedInUserFullName As String) As String
+        Dim textInfo As TextInfo = CultureInfo.CurrentCulture.TextInfo
+        Dim formattedName As String = textInfo.ToTitleCase(loggedInUserFullName.ToLower())
+        Return formattedName
+    End Function
+
+    Private Sub LoadUserData()
+        isLoggedIn = My.Settings.IsLoggedIn
+        loggedInUserEmail = My.Settings.LoggedInUserEmail
+        If isLoggedIn Then
+            Dim email As String = loggedInUserEmail
+            Dim fullName As String = GetFullNameByEmail(email)
+
+            If Not String.IsNullOrEmpty(fullName) Then
+                loggedInUserFullName = fullName
+                SaveFullNameToDatabase(email, loggedInUserFullName)
+
+                lbl_UserName.Text = FormatFullName(loggedInUserFullName)
+            End If
+        Else
+            lbl_UserName.Text = initialUserName
+        End If
+    End Sub
 
     Private Sub CountTotalEmployees()
         If con.State <> 1 Then
@@ -179,13 +222,6 @@ Public Class NewDashboard
         End Using
     End Sub
 
-    Private currentForm As Form = Nothing
-
-    Private initialContentPanel As Panel = Nothing
-
-    Dim isLoggedIn = GlobalVariables.IsLoggedIn
-    Dim loggedInUserEmail = GlobalVariables.LoggedInUserEmail
-
     Private Sub pn_Main_Paint(sender As Object, e As PaintEventArgs) Handles pn_Main.Paint
         initialContentPanel = pn_Content
     End Sub
@@ -200,6 +236,7 @@ Public Class NewDashboard
     End Sub
 
     Private Function GetFullNameByEmail(email As String) As String
+        Dim fullName As String = ""
         Try
             If con.State <> 1 Then
                 con.Open()
@@ -211,8 +248,7 @@ Public Class NewDashboard
 
                 Dim reader As SqlDataReader = cmd.ExecuteReader
                 If reader.Read Then
-                    ' Lấy giá trị từ cột FullName trong kết quả trả về
-                    Return reader.GetString(reader.GetOrdinal("full_name"))
+                    fullName = reader.GetString(reader.GetOrdinal("fullName"))
                 End If
             End Using
         Catch ex As Exception
@@ -220,36 +256,44 @@ Public Class NewDashboard
         Finally
             con.Close()
         End Try
-        Return String.Empty
+        Return fullName
     End Function
-    Private Sub NewDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lbl_UserName.Text = initialUserName
 
-        Dim login As New Login
+    Private Sub SaveFullNameToDatabase(email As String, fullName As String)
+        Try
+            If con.State <> 1 Then
+                con.Open()
+            End If
+            Using cmd As SqlCommand = New SqlCommand("SaveFullNameToDatabase", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@email", email)
+                cmd.Parameters.AddWithValue("@fullName", fullName)
+                cmd.ExecuteNonQuery()
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            con.Close()
+        End Try
+    End Sub
 
-        Dim email As String = loggedInUserEmail
-        Console.WriteLine(email)
-        If Not String.IsNullOrEmpty(loggedInUserEmail) OrElse isLoggedIn Then
+    Private Sub SaveIsLoggedInToDatabase(email As String, isLoggedIn As Boolean)
+        Try
+            If con.State <> 1 Then
+                con.Open()
+            End If
 
-            ' Lấy giá trị FullName dựa trên Email đã lưu trong biến toàn cục LoggedInUserEmail
-            Dim fullName As String = GetFullNameByEmail(email)
-
-            ' Hiển thị FullName lên Label lbl_UserName
-            lbl_UserName.Text = fullName
-        Else
-            ' Thiết lập giá trị mặc định cho Label
-            lbl_UserName.Text = initialUserName
-        End If
-        CountTotalEmployees()
-        CountTotalDepartments()
-        CountTotalManagers()
-        CountTotalPositions()
-        CountTotalLeaves()
-        CountTotalSalaries()
-        MaxEmpDept()
-        MaxDeptEmp()
-        MaxDeptManager()
-        MaxPosEmp()
+            Using cmd As SqlCommand = New SqlCommand("UpdateUserIsLoggedIn", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@email", email)
+                cmd.Parameters.AddWithValue("@isLoggedIn", If((isLoggedIn), True, False))
+                cmd.ExecuteNonQuery()
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            con.Close()
+        End Try
     End Sub
 
     Private Sub ResetMainPanel()
@@ -264,7 +308,6 @@ Public Class NewDashboard
         ' Hiển thị lại nội dung ban đầu (initialContentPanel) trong mainPanel
         pn_Main.Controls.Add(initialContentPanel)
     End Sub
-
 
     Private Sub ShowFormInMainPanel(formToShow As Form)
         ' Kiểm tra nếu form hiện tại không phải là formToShow
@@ -376,7 +419,6 @@ Public Class NewDashboard
             Dim result As DialogResult = MessageBox.Show("Are you sure to log out user!!!", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
             If result = DialogResult.Yes Then
-                ' Gọi phương thức ResetFormState trên form Dashboard
                 isLoggedIn = False
                 ResetFormState()
                 MessageBox.Show("You logout success!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -387,8 +429,24 @@ Public Class NewDashboard
             login.Show()
             Me.Hide()
         End If
+    End Sub
 
+    Private Sub SaveUserDataAndCloseForm()
+        My.Settings.IsLoggedIn = isLoggedIn
+        My.Settings.LoggedInUserEmail = loggedInUserEmail
+        My.Settings.Save()
+        If isLoggedIn Then
+            Dim email As String = loggedInUserEmail
 
+            SaveFullNameToDatabase(email, loggedInUserFullName)
+            SaveIsLoggedInToDatabase(email, isLoggedIn)
+        End If
+
+        Application.Exit()
+    End Sub
+
+    Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
+        SaveUserDataAndCloseForm()
     End Sub
 
 End Class

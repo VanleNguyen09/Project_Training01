@@ -53,18 +53,3 @@ BEGIN
 	END
 	SELECT @exist AS IsDuplicate
 END
-
---EXEC dbo.UpdateManager @emp_id = 3,                        -- int
---                       @dept_id = 5,                       -- int
---                       @from_date = '2023-05-30 12:49:50', -- datetime
---                       @to_date = '2023-05-30 12:49:50',   -- datetime
---                       @status = 1,                        -- int
---					   @deptmanager_id = 1
-
---SELECT a.*,  b.name AS Dept_name, c.name AS Emp_name   
---FROM dbo.Dept_manager a
---JOIN dbo.Department b
---ON a.dept_id = b.id
---JOIN dbo.Employees c
---ON a.emp_id = c.id
---WHERE c.id = 29 AND b.name = 'Manager'

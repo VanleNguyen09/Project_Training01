@@ -42,13 +42,15 @@ Public Class Login
             Exit Sub
         End If
 
-        GlobalVariables.LoggedInUserEmail = email
 
         'Switch to Dashboard if CheckLogin is successful
         If CheckLogin(email, pass) Then
+            GlobalVariables.LoggedInUserEmail = email
+            GlobalVariables.IsLoggedIn = True
+            My.Settings.IsLoggedIn = GlobalVariables.IsLoggedIn
+            My.Settings.LoggedInUserEmail = GlobalVariables.LoggedInUserEmail
             Me.Hide()
             Dim dashboard As New NewDashboard()
-            GlobalVariables.IsLoggedIn = True
             dashboard.Show()
         Else
             MessageBox.Show(Message.Message.failedLoginMsg, Message.Title.notif, buttons, MessageBoxIcon.Information)
