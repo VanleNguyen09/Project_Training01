@@ -305,6 +305,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\tech-background.jpg" />
     <None Include="Resources\user-icon-vector.jpg" />
     <None Include="Resources\sign-out-65.png" />
     <None Include="Resources\white-home-icon-transparent-png-6.png" />

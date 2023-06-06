@@ -114,4 +114,21 @@ Public Class EditSalaryForm
             btnSave.PerformClick()
         End If
     End Sub
+    ' Save location of mouse when moving the form
+    Private mousePosX As Integer
+    Private mousePosY As Integer
+
+    Private Sub EditSalaryForm_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
+        If e.Button = MouseButtons.Left Then
+            mousePosX = e.X
+            mousePosY = e.Y
+        End If
+    End Sub
+
+    Private Sub EditSalaryForm_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
+        If e.Button = MouseButtons.Left Then
+            Me.Left += e.X - mousePosX
+            Me.Top += e.Y - mousePosY
+        End If
+    End Sub
 End Class

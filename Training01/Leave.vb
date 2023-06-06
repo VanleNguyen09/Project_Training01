@@ -2,7 +2,8 @@
 
 Public Class Leave
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
-    Private DateTimeformat = DTFormat.Type.NormalDatetime
+    Private DateTimeformat = DTFormat.Type.NormalDateAndHourMinusTime
+    Private isClickedFindBtn = False
 
     Private Sub Leave_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Settings for Combobox
@@ -18,6 +19,12 @@ Public Class Leave
         btn.HeaderText = ""
         btn.Text = "DELETE"
         btn.Name = "btnDelete"
+        btn.FlatStyle = FlatStyle.Flat
+        btn.CellTemplate.Style.ForeColor = Color.White
+        btn.CellTemplate.Style.BackColor = Color.Red
+        btn.CellTemplate.Style.SelectionForeColor = Color.White
+        btn.CellTemplate.Style.SelectionBackColor = Color.Red
+
         btn.UseColumnTextForButtonValue = True
         dgvLeave.Columns.Insert(dgvLeave.Columns.Count, btn)
 
@@ -55,8 +62,10 @@ Public Class Leave
 
                 dgvLeave.Rows.Clear()
                 While reader.Read
-                    dgvLeave.Rows.Add(New String() {reader("id"), reader("emp_id"), reader("emp_name"), reader("from_date"), reader("reason"), reader("status")})
+                    dgvLeave.Rows.Add(New String() {reader("stt"), reader("id"), reader("emp_id"), reader("emp_name"), reader("from_date"), reader("reason"), reader("is_confirmed")})
                 End While
+
+                dgvLeave.CurrentCell = Nothing
             End Using
         Catch ex As Exception
             MessageBox.Show(Message.Message.errorSQLQuery & $": {ex.Message}", Message.Title.error, MessageBoxButtons.OK)
@@ -72,9 +81,9 @@ Public Class Leave
             End If
 
             'Load Employees Data To Combobox
-            Dim Sql = "GetAllEmployees"
+            Dim Sql = "Select * from Employees"
             Using cmd As SqlCommand = New SqlCommand(Sql, con)
-                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandType = CommandType.Text
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
 
                 While reader.Read
@@ -90,9 +99,11 @@ Public Class Leave
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim empId As Integer = cbEmpAdd.SelectedItem.Key
+        Dim separators() As Char = {"-"c}
+        Dim empName As String = cbEmpAdd.SelectedItem.Value.ToString().Split(separators, 2, StringSplitOptions.RemoveEmptyEntries)(1).Trim()
+
         Dim fromDate As Date = dtpFromDate.Value
         Dim reason As String = rtxtReason.Text.Trim()
-        Dim status As Integer = 1
 
         'Validations for Add comboboxes
         If empId < 0 OrElse reason = String.Empty OrElse fromDate = Nothing Then
@@ -109,13 +120,13 @@ Public Class Leave
             Using cmd As SqlCommand = New SqlCommand(sql, con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@emp_id", empId)
-                cmd.Parameters.AddWithValue("@from_date", fromDate)
+                cmd.Parameters.AddWithValue("@emp_name", empName)
+                cmd.Parameters.AddWithValue("@from_date", fromDate.AddSeconds(-fromDate.Second))
                 cmd.Parameters.AddWithValue("@reason", reason)
-                cmd.Parameters.AddWithValue("@status", status)
-                Try
-                cmd.ExecuteNonQuery()
-                    MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
 
+                Try
+                    cmd.ExecuteNonQuery()
+                    MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
                     'Reload Data
                     Load_DGVLeave()
 
@@ -141,46 +152,101 @@ Public Class Leave
         dtpFromDate.ResetText()
         dtpStartDate.ResetText()
         dtpEndDate.ResetText()
+        isClickedFindBtn = False
         Load_DGVLeave()
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        Load_DGVLeave()
+        If isClickedFindBtn Then
+            btnFindFromDate.PerformClick()
+        Else
+            Load_DGVLeave()
+        End If
     End Sub
 
     Private Sub dgvLeave_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLeave.CellContentClick
         Dim senderGrid = DirectCast(sender, DataGridView)
         If TypeOf senderGrid.Columns(e.ColumnIndex) Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
-            'Confirm Delete
-            Dim result As DialogResult = MessageBox.Show(Message.Message.confirmedDelete, Message.Title.notif, MessageBoxButtons.YesNo)
+            Select Case senderGrid.Columns(e.ColumnIndex).Name
+                Case "btnDelete"
+                    'Confirm Delete
+                    Dim result As DialogResult = MessageBox.Show(Message.Message.confirmedDelete, Message.Title.notif, MessageBoxButtons.YesNo)
 
-            Select Case result
-                Case DialogResult.No
-                    Exit Sub
-                Case DialogResult.Yes
-                    Dim leaveId = CInt(dgvLeave.Rows(e.RowIndex).Cells(0).Value)
+                    Select Case result
+                        Case DialogResult.No
+                            Exit Sub
+                        Case DialogResult.Yes
+                            Dim leaveId = CInt(dgvLeave.Rows(e.RowIndex).Cells("id").Value)
 
-                    'Delete Position By Id
-                    Try
-                        If con.State() <> 1 Then
-                            con.Open()
-                        End If
+                            'Delete Leave By Id
+                            Try
+                                If con.State() <> 1 Then
+                                    con.Open()
+                                End If
 
-                        Dim sql = "DeleteLeaveById"
-                        Using cmd As SqlCommand = New SqlCommand(sql, con)
-                            cmd.CommandType = CommandType.StoredProcedure
-                            cmd.Parameters.AddWithValue("@leave_id", leaveId)
-                            cmd.ExecuteNonQuery()
+                                Dim sql = "DeleteLeaveById"
+                                Using cmd As SqlCommand = New SqlCommand(sql, con)
+                                    cmd.CommandType = CommandType.StoredProcedure
+                                    cmd.Parameters.AddWithValue("leave_id", leaveId)
+                                    cmd.ExecuteNonQuery()
 
-                            MessageBox.Show(Message.Message.successfully, Message.Title.notif, MessageBoxButtons.OK)
-                            Load_DGVLeave()
-                        End Using
-                    Catch ex As Exception
-                        MsgBox($"{ex.Message}")
-                    Finally
-                        con.Close()
-                    End Try
+                                    MessageBox.Show(Message.Message.successfully, Message.Title.notif, MessageBoxButtons.OK)
+
+                                    If isClickedFindBtn Then
+                                        btnFindFromDate.PerformClick()
+                                    Else
+                                        Load_DGVLeave()
+                                    End If
+                                End Using
+                            Catch ex As Exception
+                                MsgBox($"{ex.Message}")
+                            Finally
+                                con.Close()
+                            End Try
+                    End Select
+
+                Case "is_confirmed"
+                    If dgvLeave.Rows(e.RowIndex).Cells(e.ColumnIndex).Value = "1" Then
+                        Exit Sub
+                    End If
+
+                    'Confirm Leave
+                    Dim result As DialogResult = MessageBox.Show(Message.Message.confirmedUpdate, Message.Title.notif, MessageBoxButtons.YesNo)
+
+                    Select Case result
+                        Case DialogResult.No
+                            Exit Sub
+                        Case DialogResult.Yes
+                            Dim leaveId = CInt(dgvLeave.Rows(e.RowIndex).Cells("id").Value)
+
+                            'Confirm Leave By Id
+                            Try
+                                If con.State() <> 1 Then
+                                    con.Open()
+                                End If
+
+                                Dim sql = "UPDATE leave SET is_confirmed = 1 WHERE id = @id"
+                                Using cmd As SqlCommand = New SqlCommand(sql, con)
+                                    cmd.CommandType = CommandType.Text
+                                    cmd.Parameters.AddWithValue("@id", leaveId)
+                                    cmd.ExecuteNonQuery()
+
+                                    MessageBox.Show(Message.Message.successfully, Message.Title.notif, MessageBoxButtons.OK)
+
+                                    If isClickedFindBtn Then
+                                        btnFindFromDate.PerformClick()
+                                    Else
+                                        Load_DGVLeave()
+                                    End If
+                                End Using
+                            Catch ex As Exception
+                                MsgBox($"{ex.Message}")
+                            Finally
+                                con.Close()
+                            End Try
+                    End Select
             End Select
+
         End If
     End Sub
 
@@ -216,8 +282,10 @@ Public Class Leave
 
                 dgvLeave.Rows.Clear()
                 While reader.Read
-                    dgvLeave.Rows.Add(New String() {reader("id"), reader("emp_id"), reader("emp_name"), reader("from_date"), reader("reason"), reader("status")})
+                    dgvLeave.Rows.Add(New String() {reader("stt"), reader("id"), reader("emp_id"), reader("emp_name"), reader("from_date"), reader("reason"), reader("is_confirmed")})
                 End While
+
+                isClickedFindBtn = True
             End Using
         Catch ex As Exception
             MessageBox.Show(Message.Message.errorSQLQuery & $": {ex.Message}", Message.Title.error, MessageBoxButtons.OK)
@@ -227,19 +295,73 @@ Public Class Leave
     End Sub
 
     Private Sub dgvLeave_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLeave.CellDoubleClick
-        Dim row As DataGridViewRow = dgvLeave.Rows(e.RowIndex)
-        Dim editLeaveForm As New EditLeaveForm
+        If (e.RowIndex > -1) Then
+            Dim row As DataGridViewRow = dgvLeave.Rows(e.RowIndex)
+            Dim editLeaveForm As New EditLeaveForm
 
-        Dim id As Integer = Convert.ToInt32(row.Cells("id").Value)
-        Dim empId As Integer = Convert.ToInt32(row.Cells("emp_id").Value)
-        Dim name As String = row.Cells("emp_name").Value.ToString()
-        Dim fromDate As Date = row.Cells("from_date").Value
-        Dim reason As String = row.Cells("reason").Value.ToString()
-        editLeaveForm.TempData = ValueTuple.Create(id, empId, name, fromDate, reason)
-        editLeaveForm.SetCallback(Sub()
-                                      MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
-                                      Load_DGVLeave()
-                                  End Sub)
-        editLeaveForm.Show()
+            Dim id As Integer = Convert.ToInt32(row.Cells("id").Value)
+            Dim empId As Integer = Convert.ToInt32(row.Cells("emp_id").Value)
+            Dim name As String = row.Cells("emp_name").Value.ToString()
+            Dim fromDate As Date = row.Cells("from_date").Value
+            Dim reason As String = row.Cells("reason").Value.ToString()
+            Dim isConfirmed As Integer = row.Cells("is_confirmed").Value
+
+            editLeaveForm.TempData = ValueTuple.Create(id, empId, name, fromDate, reason, isConfirmed)
+            editLeaveForm.SetCallback(Sub()
+                                          MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
+                                          Load_DGVLeave()
+                                      End Sub)
+            editLeaveForm.Show()
+        End If
+    End Sub
+
+    Private Sub dgvLeave_Sorted(sender As Object, e As EventArgs) Handles dgvLeave.Sorted
+        'If it is stt column, sorted normal 
+        If dgvLeave.SortedColumn.Name <> "stt" Then
+            For i As Integer = 0 To dgvLeave.Rows.Count - 1
+                dgvLeave.Rows(i).Cells("stt").Value = (i + 1).ToString()
+            Next
+        End If
+    End Sub
+
+    Private Sub dgvLeave_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvLeave.CellFormatting
+        If e.ColumnIndex = 6 AndAlso e.Value IsNot Nothing Then
+            If e.Value.ToString() = "0" Then
+                e.CellStyle.BackColor = Color.DarkOrange
+                e.CellStyle.ForeColor = Color.White
+
+                e.CellStyle.SelectionBackColor = Color.DarkOrange
+                e.CellStyle.SelectionForeColor = Color.White
+
+                e.Value = "Confirm"
+                e.FormattingApplied = True
+            ElseIf e.Value.ToString() = "1" Then
+                e.CellStyle.BackColor = Color.Green
+                e.CellStyle.ForeColor = Color.White
+
+                e.CellStyle.SelectionBackColor = Color.Green
+                e.CellStyle.SelectionForeColor = Color.White
+
+                e.Value = "Confirmed"
+                e.FormattingApplied = True
+            End If
+        End If
+    End Sub
+
+    Private Sub dgvLeave_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLeave.CellMouseEnter
+        If (e.ColumnIndex = 6 OrElse e.ColumnIndex = 7) AndAlso e.RowIndex >= 0 Then
+            ' Thiết lập kiểu con trỏ thành tay trỏ (hand) khi di chuột vào ô
+            If dgvLeave.Rows(e.RowIndex).Cells(e.ColumnIndex).Value <> "1" Then
+                dgvLeave.Cursor = Cursors.Hand
+            Else
+                dgvLeave.Cursor = Cursors.Default
+            End If
+        End If
+    End Sub
+
+    Private Sub dgvLeave_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLeave.CellMouseLeave
+        If e.ColumnIndex >= 0 AndAlso e.RowIndex >= 0 Then
+            dgvLeave.Cursor = Cursors.Default
+        End If
     End Sub
 End Class

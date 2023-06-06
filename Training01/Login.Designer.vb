@@ -135,7 +135,7 @@ Partial Class Login
         Me.closeApp.BackgroundImage = Global.Training01.My.Resources.Resources.blue_exit_icon_16
         Me.closeApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.closeApp.Location = New System.Drawing.Point(258, 2)
+        Me.closeApp.Location = New System.Drawing.Point(267, 2)
         Me.closeApp.Name = "closeApp"
         Me.closeApp.Size = New System.Drawing.Size(31, 31)
         Me.closeApp.TabIndex = 8
@@ -146,7 +146,7 @@ Partial Class Login
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
-        Me.ClientSize = New System.Drawing.Size(290, 280)
+        Me.ClientSize = New System.Drawing.Size(301, 280)
         Me.Controls.Add(Me.closeApp)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Panel1)

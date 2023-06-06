@@ -3,6 +3,14 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
+-- =============================================
+-- Author:		Dat
+-- Create date: 24/5/2023
+-- Update date: 5/6/2023
+-- Description:	Soft Delete Leave by Id 
+-- =============================================
+
 CREATE OR ALTER PROCEDURE DeleteLeaveById
 	@leave_id INT
 AS
@@ -17,5 +25,3 @@ BEGIN
 	WHERE id = @leave_id
 END
 GO
-
-SELECT * FROM dbo.leave WHERE status = 0
