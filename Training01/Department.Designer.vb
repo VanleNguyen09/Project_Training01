@@ -22,8 +22,8 @@ Partial Class frm_Department
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.lbl_TitleDepartment = New System.Windows.Forms.Label()
         Me.txt_Name = New System.Windows.Forms.TextBox()
         Me.lbl_Name = New System.Windows.Forms.Label()
@@ -36,6 +36,8 @@ Partial Class frm_Department
         Me.department_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Number_Emp = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Number_Manager = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btn_Clear = New System.Windows.Forms.Button()
         Me.btn_Reset = New System.Windows.Forms.Button()
         Me.btn_Search = New System.Windows.Forms.Button()
@@ -130,14 +132,14 @@ Partial Class frm_Department
         '
         Me.dgrv_Department.AllowUserToAddRows = False
         Me.dgrv_Department.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgrv_Department.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.No, Me.department_id, Me.department_name, Me.status})
+        Me.dgrv_Department.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.No, Me.department_id, Me.department_name, Me.status, Me.Number_Emp, Me.Number_Manager})
         Me.dgrv_Department.Location = New System.Drawing.Point(465, 88)
         Me.dgrv_Department.Name = "dgrv_Department"
         Me.dgrv_Department.RowHeadersVisible = False
         Me.dgrv_Department.RowHeadersWidth = 51
         Me.dgrv_Department.RowTemplate.Height = 24
         Me.dgrv_Department.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgrv_Department.Size = New System.Drawing.Size(371, 356)
+        Me.dgrv_Department.Size = New System.Drawing.Size(708, 356)
         Me.dgrv_Department.TabIndex = 52
         '
         'No
@@ -150,8 +152,8 @@ Partial Class frm_Department
         '
         'department_id
         '
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.department_id.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.department_id.DefaultCellStyle = DataGridViewCellStyle7
         Me.department_id.HeaderText = "DepartmentID"
         Me.department_id.MinimumWidth = 6
         Me.department_id.Name = "department_id"
@@ -161,8 +163,8 @@ Partial Class frm_Department
         '
         'department_name
         '
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.department_name.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.department_name.DefaultCellStyle = DataGridViewCellStyle8
         Me.department_name.HeaderText = "Department Name"
         Me.department_name.MinimumWidth = 6
         Me.department_name.Name = "department_name"
@@ -175,6 +177,20 @@ Partial Class frm_Department
         Me.status.Name = "status"
         Me.status.Visible = False
         Me.status.Width = 125
+        '
+        'Number_Emp
+        '
+        Me.Number_Emp.HeaderText = "Number Emp"
+        Me.Number_Emp.MinimumWidth = 6
+        Me.Number_Emp.Name = "Number_Emp"
+        Me.Number_Emp.Width = 125
+        '
+        'Number_Manager
+        '
+        Me.Number_Manager.HeaderText = "Number Manager"
+        Me.Number_Manager.MinimumWidth = 6
+        Me.Number_Manager.Name = "Number_Manager"
+        Me.Number_Manager.Width = 125
         '
         'btn_Clear
         '
@@ -253,7 +269,7 @@ Partial Class frm_Department
         'ptb_Icon
         '
         Me.ptb_Icon.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
-        Me.ptb_Icon.Location = New System.Drawing.Point(977, 0)
+        Me.ptb_Icon.Location = New System.Drawing.Point(1177, 0)
         Me.ptb_Icon.Name = "ptb_Icon"
         Me.ptb_Icon.Size = New System.Drawing.Size(52, 40)
         Me.ptb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -267,7 +283,7 @@ Partial Class frm_Department
         Me.BackColor = System.Drawing.Color.Linen
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1025, 464)
+        Me.ClientSize = New System.Drawing.Size(1228, 464)
         Me.Controls.Add(Me.ptb_Icon)
         Me.Controls.Add(Me.lbl_DepartmentID)
         Me.Controls.Add(Me.txt_DepartmentID)
@@ -315,4 +331,6 @@ Partial Class frm_Department
     Friend WithEvents department_id As DataGridViewTextBoxColumn
     Friend WithEvents department_name As DataGridViewTextBoxColumn
     Friend WithEvents status As DataGridViewTextBoxColumn
+    Friend WithEvents Number_Emp As DataGridViewTextBoxColumn
+    Friend WithEvents Number_Manager As DataGridViewTextBoxColumn
 End Class

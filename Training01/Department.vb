@@ -42,7 +42,9 @@ Public Class frm_Department
         Dim id As Integer = Convert.ToInt32(reader("id"))
         Dim name As String = reader("name").ToString()
         Dim status As Integer = Convert.ToInt32(reader("status"))
-        dgrv_Department.Rows.Add(No, id, name, status)
+        Dim number_emp As Integer = Convert.ToInt32(reader("Number_Emp"))
+        Dim number_manager As Integer = Convert.ToInt32(reader("Number_Manager"))
+        dgrv_Department.Rows.Add(No, id, name, status, number_emp, number_manager)
     End Sub
 
     Public Sub LoadData()
@@ -50,7 +52,7 @@ Public Class frm_Department
             con.Open()
         End If
         dgrv_Department.Rows.Clear()
-        Using cmd As SqlCommand = New SqlCommand("GetAllDepartments", con)
+        Using cmd As SqlCommand = New SqlCommand("GetCountEmpManagerAllDepartments", con)
             Dim reader As SqlDataReader = cmd.ExecuteReader()
             Dim No As Integer = 1
             While reader.Read()
@@ -371,4 +373,5 @@ Public Class frm_Department
         Dim dashboard As New NewDashboard()
         dashboard.Show()
     End Sub
+
 End Class
