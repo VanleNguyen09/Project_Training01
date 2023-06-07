@@ -33,6 +33,7 @@ Partial Class EditSalaryForm
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.closeApp = New System.Windows.Forms.PictureBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.cirProgressBar = New CircularProgressBar.CircularProgressBar()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -158,6 +159,7 @@ Partial Class EditSalaryForm
         '
         Me.Panel1.BackColor = System.Drawing.Color.Transparent
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.cirProgressBar)
         Me.Panel1.Controls.Add(Me.Label5)
         Me.Panel1.Controls.Add(Me.txtSalary)
         Me.Panel1.Controls.Add(Me.txtName)
@@ -169,6 +171,40 @@ Partial Class EditSalaryForm
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(358, 193)
         Me.Panel1.TabIndex = 1
+        '
+        'cirProgressBar
+        '
+        Me.cirProgressBar.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner
+        Me.cirProgressBar.AnimationSpeed = 500
+        Me.cirProgressBar.BackColor = System.Drawing.Color.Transparent
+        Me.cirProgressBar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.cirProgressBar.ForeColor = System.Drawing.Color.White
+        Me.cirProgressBar.InnerColor = System.Drawing.Color.Transparent
+        Me.cirProgressBar.InnerMargin = 2
+        Me.cirProgressBar.InnerWidth = -1
+        Me.cirProgressBar.Location = New System.Drawing.Point(98, 27)
+        Me.cirProgressBar.MarqueeAnimationSpeed = 1000
+        Me.cirProgressBar.Name = "cirProgressBar"
+        Me.cirProgressBar.OuterColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.cirProgressBar.OuterMargin = -25
+        Me.cirProgressBar.OuterWidth = 26
+        Me.cirProgressBar.ProgressColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.cirProgressBar.ProgressWidth = 20
+        Me.cirProgressBar.SecondaryFont = New System.Drawing.Font("Microsoft Sans Serif", 36.0!)
+        Me.cirProgressBar.Size = New System.Drawing.Size(153, 141)
+        Me.cirProgressBar.StartAngle = 270
+        Me.cirProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee
+        Me.cirProgressBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer))
+        Me.cirProgressBar.SubscriptMargin = New System.Windows.Forms.Padding(10, -35, 0, 0)
+        Me.cirProgressBar.SubscriptText = ""
+        Me.cirProgressBar.SuperscriptColor = System.Drawing.Color.FromArgb(CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer))
+        Me.cirProgressBar.SuperscriptMargin = New System.Windows.Forms.Padding(10, 35, 0, 0)
+        Me.cirProgressBar.SuperscriptText = ""
+        Me.cirProgressBar.TabIndex = 8
+        Me.cirProgressBar.Text = "SAVING..."
+        Me.cirProgressBar.TextMargin = New System.Windows.Forms.Padding(8, 8, 0, 0)
+        Me.cirProgressBar.Value = 68
+        Me.cirProgressBar.Visible = False
         '
         'EditSalaryForm
         '
@@ -205,4 +241,5 @@ Partial Class EditSalaryForm
     Friend WithEvents btnCancel As Button
     Friend WithEvents closeApp As PictureBox
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents cirProgressBar As CircularProgressBar.CircularProgressBar
 End Class
