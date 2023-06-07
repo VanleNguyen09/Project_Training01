@@ -45,10 +45,9 @@ Public Class Login
 
         'Switch to Dashboard if CheckLogin is successful
         If CheckLogin(email, pass) Then
-            GlobalVariables.LoggedInUserEmail = email
-            GlobalVariables.IsLoggedIn = True
-            My.Settings.IsLoggedIn = GlobalVariables.IsLoggedIn
-            My.Settings.LoggedInUserEmail = GlobalVariables.LoggedInUserEmail
+            My.Settings.IsLoggedIn = True
+            My.Settings.LoggedInUserEmail = email
+            My.Settings.Save()
             Me.Hide()
             Dim dashboard As New NewDashboard()
             dashboard.Show()

@@ -20,7 +20,6 @@ END
 GO
 
 EXEC dbo.GetAllEmployeesManager
-
 GO	
 
 --SELECT * FROM dbo.Dept_manager 

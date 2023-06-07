@@ -251,15 +251,20 @@ Public Class frm_EmpInDept
                 cmd.Parameters.AddWithValue("@status", status)
 
                 Dim isDuplicate As Integer = 0
+                Dim isBigger As Integer = 0
 
                 Using reader = cmd.ExecuteReader()
                     If reader.Read() Then
                         isDuplicate = CInt(reader("IsDuplicate"))
+                        isBigger = CInt(reader("IsBigger"))
                     End If
                 End Using
 
-                If isDuplicate = 1 Then
+                If isDuplicate Then
                     MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
+                    Exit Sub
+                ElseIf isBigger Then
+                    MessageBox.Show("Date is smaller than date exist in system. Can not Update. Please try again!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Exit Sub
                 Else
                     MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)

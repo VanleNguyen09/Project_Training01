@@ -358,8 +358,7 @@ Public Class frm_Department
 
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
         Me.Close()
-        ' Dim dashboard As New Dashboard
-        Dim dashboard As New Dashboard
+        Dim dashboard As New NewDashboard
         dashboard.Show()
     End Sub
 
@@ -369,9 +368,7 @@ Public Class frm_Department
 
     Private Sub btn_Close_Click(sender As Object, e As EventArgs) Handles btn_Close.Click
         Me.Close()
-        ' Dim dashboard As New Dashboard
         Dim dashboard As New NewDashboard()
         dashboard.Show()
     End Sub
-
 End Class

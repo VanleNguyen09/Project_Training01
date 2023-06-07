@@ -20,8 +20,7 @@ Public Class frm_Manager
 
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
         Me.Close()
-        'Dim dashboard As New Dashboard
-        Dim dashboard As New Dashboard
+        Dim dashboard As New NewDashboard
         dashboard.Show()
     End Sub
 
@@ -264,15 +263,20 @@ Public Class frm_Manager
                 cmd.Parameters.AddWithValue("@status", status)
 
                 Dim isDuplicate As Integer = 0
+                Dim isBigger As Integer = 0
 
                 Using reader = cmd.ExecuteReader()
                     If reader.Read() Then
                         isDuplicate = CInt(reader("IsDuplicate"))
+                        isBigger = CInt(reader("IsBigger"))
                     End If
                 End Using
 
-                If isDuplicate = 1 Then
+                If isDuplicate Then
                     MessageBox.Show(Message.Message.managerDuplicate, titleMsgBox, buttons, icons)
+                    Exit Sub
+                ElseIf isBigger Then
+                    MessageBox.Show("Date is smaller than date exist in system. Please try again!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Exit Sub
                 Else
                     MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
@@ -542,8 +546,7 @@ Public Class frm_Manager
 
     Private Sub btn_Exit_Click(sender As Object, e As EventArgs) Handles btn_Exit.Click
         Me.Close()
-        'Dim dashboard As New Dashboard
-        Dim dashboard As New Dashboard
+        Dim dashboard As New NewDashboard
         dashboard.Show()
     End Sub
 

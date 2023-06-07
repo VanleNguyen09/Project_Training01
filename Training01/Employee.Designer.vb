@@ -22,13 +22,13 @@ Partial Class frm_Employee
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btn_Close = New System.Windows.Forms.Button()
         Me.btn_Delete = New System.Windows.Forms.Button()
         Me.btn_Update = New System.Windows.Forms.Button()
@@ -62,12 +62,8 @@ Partial Class frm_Employee
         Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lbl_TitleEmployee = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.txt_Search = New System.Windows.Forms.TextBox()
         Me.lbl_Search = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.btn_Search = New System.Windows.Forms.Button()
         Me.btn_Reset = New System.Windows.Forms.Button()
         Me.btn_Clear = New System.Windows.Forms.Button()
@@ -345,8 +341,8 @@ Partial Class frm_Employee
         '
         'EmployeeID
         '
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmployeeID.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeID.DefaultCellStyle = DataGridViewCellStyle15
         Me.EmployeeID.HeaderText = "EmployeeID"
         Me.EmployeeID.MinimumWidth = 6
         Me.EmployeeID.Name = "EmployeeID"
@@ -356,8 +352,8 @@ Partial Class frm_Employee
         '
         'EmployeeName
         '
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmployeeName.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeName.DefaultCellStyle = DataGridViewCellStyle16
         Me.EmployeeName.HeaderText = "Name"
         Me.EmployeeName.MinimumWidth = 6
         Me.EmployeeName.Name = "EmployeeName"
@@ -376,8 +372,8 @@ Partial Class frm_Employee
         '
         'phone
         '
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.phone.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.phone.DefaultCellStyle = DataGridViewCellStyle17
         Me.phone.HeaderText = "Phone"
         Me.phone.MinimumWidth = 6
         Me.phone.Name = "phone"
@@ -385,8 +381,8 @@ Partial Class frm_Employee
         '
         'address
         '
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.address.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.address.DefaultCellStyle = DataGridViewCellStyle18
         Me.address.HeaderText = "Address"
         Me.address.MinimumWidth = 6
         Me.address.Name = "address"
@@ -394,8 +390,8 @@ Partial Class frm_Employee
         '
         'gender
         '
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gender.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gender.DefaultCellStyle = DataGridViewCellStyle19
         Me.gender.HeaderText = "Gender"
         Me.gender.MinimumWidth = 6
         Me.gender.Name = "gender"
@@ -403,8 +399,8 @@ Partial Class frm_Employee
         '
         'birthday
         '
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.birthday.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.birthday.DefaultCellStyle = DataGridViewCellStyle20
         Me.birthday.HeaderText = "Birthday"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
@@ -412,8 +408,8 @@ Partial Class frm_Employee
         '
         'email
         '
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.email.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle21.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.email.DefaultCellStyle = DataGridViewCellStyle21
         Me.email.HeaderText = "Email"
         Me.email.MinimumWidth = 6
         Me.email.Name = "email"
@@ -439,20 +435,6 @@ Partial Class frm_Employee
         Me.lbl_TitleEmployee.TabIndex = 25
         Me.lbl_TitleEmployee.Text = "EMPLOYEE LIST"
         '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(-19, -19)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(100, 22)
-        Me.TextBox1.TabIndex = 57
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Location = New System.Drawing.Point(-19, -19)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(100, 22)
-        Me.TextBox2.TabIndex = 58
-        '
         'txt_Search
         '
         Me.txt_Search.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -472,24 +454,6 @@ Partial Class frm_Employee
         Me.lbl_Search.Size = New System.Drawing.Size(75, 23)
         Me.lbl_Search.TabIndex = 60
         Me.lbl_Search.Text = "Search:"
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(-19, -19)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 61
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(-19, -19)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 62
-        Me.Button2.Text = "Button2"
-        Me.Button2.UseVisualStyleBackColor = True
         '
         'btn_Search
         '
@@ -562,12 +526,8 @@ Partial Class frm_Employee
         Me.Controls.Add(Me.btn_Clear)
         Me.Controls.Add(Me.btn_Reset)
         Me.Controls.Add(Me.btn_Search)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.lbl_Search)
         Me.Controls.Add(Me.txt_Search)
-        Me.Controls.Add(Me.TextBox2)
-        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.dgrv_Employee)
         Me.Controls.Add(Me.btn_Upload)
         Me.Controls.Add(Me.ptb_Employee)
@@ -628,12 +588,8 @@ Partial Class frm_Employee
     Friend WithEvents dgrv_Employee As DataGridView
     Friend WithEvents name1 As DataGridViewTextBoxColumn
     Friend WithEvents lbl_TitleEmployee As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents TextBox2 As TextBox
     Friend WithEvents txt_Search As TextBox
     Friend WithEvents lbl_Search As Label
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
     Friend WithEvents btn_Search As Button
     Friend WithEvents btn_Reset As Button
     Friend WithEvents btn_Clear As Button

@@ -110,6 +110,8 @@ Partial Class NewDashboard
         'pn_Header
         '
         Me.pn_Header.BackColor = System.Drawing.Color.PapayaWhip
+        Me.pn_Header.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin2
+        Me.pn_Header.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pn_Header.Controls.Add(Me.lbl_UserName)
         Me.pn_Header.Controls.Add(Me.PictureBox16)
         Me.pn_Header.Controls.Add(Me.ptb_Icon)
@@ -123,8 +125,9 @@ Partial Class NewDashboard
         'lbl_UserName
         '
         Me.lbl_UserName.AutoSize = True
+        Me.lbl_UserName.BackColor = System.Drawing.Color.Transparent
         Me.lbl_UserName.Font = New System.Drawing.Font("Yu Gothic", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_UserName.ForeColor = System.Drawing.Color.MediumTurquoise
+        Me.lbl_UserName.ForeColor = System.Drawing.Color.Aquamarine
         Me.lbl_UserName.Location = New System.Drawing.Point(948, 43)
         Me.lbl_UserName.Name = "lbl_UserName"
         Me.lbl_UserName.Size = New System.Drawing.Size(139, 30)
@@ -159,7 +162,7 @@ Partial Class NewDashboard
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Vladimir Script", 16.2!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.Crimson
+        Me.Label1.ForeColor = System.Drawing.Color.Aquamarine
         Me.Label1.Location = New System.Drawing.Point(14, 28)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(239, 34)
@@ -215,17 +218,18 @@ Partial Class NewDashboard
         '
         'btn_Dashboard
         '
+        Me.btn_Dashboard.BackColor = System.Drawing.Color.Transparent
         Me.btn_Dashboard.FlatAppearance.BorderSize = 0
         Me.btn_Dashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Dashboard.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Dashboard.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.btn_Dashboard.ForeColor = System.Drawing.Color.Linen
         Me.btn_Dashboard.Location = New System.Drawing.Point(59, 24)
         Me.btn_Dashboard.Name = "btn_Dashboard"
         Me.btn_Dashboard.Size = New System.Drawing.Size(177, 38)
         Me.btn_Dashboard.TabIndex = 21
         Me.btn_Dashboard.Text = "Dashboard"
         Me.btn_Dashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btn_Dashboard.UseVisualStyleBackColor = True
+        Me.btn_Dashboard.UseVisualStyleBackColor = False
         '
         'PictureBox3
         '
@@ -240,17 +244,18 @@ Partial Class NewDashboard
         '
         'btn_Employee
         '
+        Me.btn_Employee.BackColor = System.Drawing.Color.Transparent
         Me.btn_Employee.FlatAppearance.BorderSize = 0
         Me.btn_Employee.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Employee.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Employee.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.btn_Employee.ForeColor = System.Drawing.Color.Linen
         Me.btn_Employee.Location = New System.Drawing.Point(59, 78)
         Me.btn_Employee.Name = "btn_Employee"
         Me.btn_Employee.Size = New System.Drawing.Size(177, 38)
         Me.btn_Employee.TabIndex = 23
         Me.btn_Employee.Text = "Employee"
         Me.btn_Employee.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btn_Employee.UseVisualStyleBackColor = True
+        Me.btn_Employee.UseVisualStyleBackColor = False
         '
         'PictureBox4
         '
@@ -265,17 +270,18 @@ Partial Class NewDashboard
         '
         'btn_Department
         '
+        Me.btn_Department.BackColor = System.Drawing.Color.Transparent
         Me.btn_Department.FlatAppearance.BorderSize = 0
         Me.btn_Department.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Department.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Department.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.btn_Department.ForeColor = System.Drawing.Color.Linen
         Me.btn_Department.Location = New System.Drawing.Point(59, 132)
         Me.btn_Department.Name = "btn_Department"
         Me.btn_Department.Size = New System.Drawing.Size(177, 38)
         Me.btn_Department.TabIndex = 25
         Me.btn_Department.Text = "Department"
         Me.btn_Department.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btn_Department.UseVisualStyleBackColor = True
+        Me.btn_Department.UseVisualStyleBackColor = False
         '
         'PictureBox5
         '
@@ -290,17 +296,18 @@ Partial Class NewDashboard
         '
         'btn_Manager
         '
+        Me.btn_Manager.BackColor = System.Drawing.Color.Transparent
         Me.btn_Manager.FlatAppearance.BorderSize = 0
         Me.btn_Manager.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Manager.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Manager.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.btn_Manager.ForeColor = System.Drawing.Color.Linen
         Me.btn_Manager.Location = New System.Drawing.Point(59, 190)
         Me.btn_Manager.Name = "btn_Manager"
         Me.btn_Manager.Size = New System.Drawing.Size(177, 38)
         Me.btn_Manager.TabIndex = 27
         Me.btn_Manager.Text = "Manager"
         Me.btn_Manager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btn_Manager.UseVisualStyleBackColor = True
+        Me.btn_Manager.UseVisualStyleBackColor = False
         '
         'PictureBox6
         '
@@ -315,17 +322,18 @@ Partial Class NewDashboard
         '
         'btn_Position
         '
+        Me.btn_Position.BackColor = System.Drawing.Color.Transparent
         Me.btn_Position.FlatAppearance.BorderSize = 0
         Me.btn_Position.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Position.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Position.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.btn_Position.ForeColor = System.Drawing.Color.Linen
         Me.btn_Position.Location = New System.Drawing.Point(59, 245)
         Me.btn_Position.Name = "btn_Position"
         Me.btn_Position.Size = New System.Drawing.Size(177, 38)
         Me.btn_Position.TabIndex = 29
         Me.btn_Position.Text = "Position"
         Me.btn_Position.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btn_Position.UseVisualStyleBackColor = True
+        Me.btn_Position.UseVisualStyleBackColor = False
         '
         'PictureBox7
         '
@@ -340,17 +348,18 @@ Partial Class NewDashboard
         '
         'btn_Salary
         '
+        Me.btn_Salary.BackColor = System.Drawing.Color.Transparent
         Me.btn_Salary.FlatAppearance.BorderSize = 0
         Me.btn_Salary.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Salary.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Salary.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.btn_Salary.ForeColor = System.Drawing.Color.Linen
         Me.btn_Salary.Location = New System.Drawing.Point(59, 298)
         Me.btn_Salary.Name = "btn_Salary"
         Me.btn_Salary.Size = New System.Drawing.Size(177, 38)
         Me.btn_Salary.TabIndex = 31
         Me.btn_Salary.Text = "Salary"
         Me.btn_Salary.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btn_Salary.UseVisualStyleBackColor = True
+        Me.btn_Salary.UseVisualStyleBackColor = False
         '
         'PictureBox8
         '
@@ -365,10 +374,11 @@ Partial Class NewDashboard
         '
         'btn_Leave
         '
+        Me.btn_Leave.BackColor = System.Drawing.Color.Transparent
         Me.btn_Leave.FlatAppearance.BorderSize = 0
         Me.btn_Leave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Leave.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Leave.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.btn_Leave.ForeColor = System.Drawing.Color.Linen
         Me.btn_Leave.Location = New System.Drawing.Point(59, 352)
         Me.btn_Leave.Name = "btn_Leave"
         Me.btn_Leave.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -376,7 +386,7 @@ Partial Class NewDashboard
         Me.btn_Leave.TabIndex = 33
         Me.btn_Leave.Text = "Leave"
         Me.btn_Leave.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btn_Leave.UseVisualStyleBackColor = True
+        Me.btn_Leave.UseVisualStyleBackColor = False
         '
         'PictureBox9
         '
@@ -391,10 +401,11 @@ Partial Class NewDashboard
         '
         'btn_Signout
         '
+        Me.btn_Signout.BackColor = System.Drawing.Color.Transparent
         Me.btn_Signout.FlatAppearance.BorderSize = 0
         Me.btn_Signout.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Signout.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Signout.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.btn_Signout.ForeColor = System.Drawing.Color.Linen
         Me.btn_Signout.Location = New System.Drawing.Point(59, 408)
         Me.btn_Signout.Name = "btn_Signout"
         Me.btn_Signout.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -402,11 +413,13 @@ Partial Class NewDashboard
         Me.btn_Signout.TabIndex = 35
         Me.btn_Signout.Text = "Sign Out"
         Me.btn_Signout.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btn_Signout.UseVisualStyleBackColor = True
+        Me.btn_Signout.UseVisualStyleBackColor = False
         '
         'pn_Sidebar
         '
         Me.pn_Sidebar.BackColor = System.Drawing.Color.Cyan
+        Me.pn_Sidebar.BackgroundImage = Global.Training01.My.Resources.Resources.pngtree_simple_blue_tech_lines_background_image_206074
+        Me.pn_Sidebar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pn_Sidebar.Controls.Add(Me.btn_Signout)
         Me.pn_Sidebar.Controls.Add(Me.PictureBox9)
         Me.pn_Sidebar.Controls.Add(Me.btn_Leave)
@@ -433,6 +446,7 @@ Partial Class NewDashboard
         'pn_Main
         '
         Me.pn_Main.BackColor = System.Drawing.Color.LightCyan
+        Me.pn_Main.BackgroundImage = Global.Training01.My.Resources.Resources.wallpaper2you_556027
         Me.pn_Main.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pn_Main.Controls.Add(Me.pn_Content)
         Me.pn_Main.Dock = System.Windows.Forms.DockStyle.Fill
@@ -444,6 +458,7 @@ Partial Class NewDashboard
         'pn_Content
         '
         Me.pn_Content.BackColor = System.Drawing.Color.Lavender
+        Me.pn_Content.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.pn_Content.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pn_Content.Controls.Add(Me.pn_Salary)
         Me.pn_Content.Controls.Add(Me.pn_Position)

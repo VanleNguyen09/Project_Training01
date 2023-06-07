@@ -15,8 +15,6 @@ Public Class frm_Employee
         Public gender As String = ""
         Public birthday As Date = Date.Now()
         Public email As String = ""
-
-
         Public Sub New()
         End Sub
 
@@ -25,16 +23,10 @@ Public Class frm_Employee
 
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private Sub Employee_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lbl_TitleEmployee.BackColor = Color.Transparent
-        lbl_EmployeeID.BackColor = Color.Transparent
-        lbl_Name.BackColor = Color.Transparent
-        lbl_Phone.BackColor = Color.Transparent
-        lbl_Gender.BackColor = Color.Transparent
-        rdo_Female.BackColor = Color.Transparent
-        rdo_Male.BackColor = Color.Transparent
-        lbl_Email.BackColor = Color.Transparent
-        lbl_Address.BackColor = Color.Transparent
-        lbl_Birthday.BackColor = Color.Transparent
+        CustomElements.AddClearButtonInsideTextBox(txt_Search, "pbCloseSearch", Sub()
+                                                                                    txt_Search.Text = ""
+                                                                                    btn_Search.PerformClick()
+                                                                                End Sub)
         dtp_Birthday.Value = dtp_Birthday.Value.AddYears(-18)
         rdo_Female.Text = "Female"
         rdo_Male.Text = "Male"
@@ -527,8 +519,7 @@ Public Class frm_Employee
 
     Private Sub btn_Close_Click(sender As Object, e As EventArgs) Handles btn_Close.Click
         Me.Close()
-        'Dim dashboard As New Dashboard
-        Dim dashboard As New Dashboard
+        Dim dashboard As New NewDashboard
         dashboard.Show()
     End Sub
 
@@ -592,8 +583,7 @@ Public Class frm_Employee
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
         Me.Close()
-        'Dim dashboard As New Dashboard
-        Dim dashboard As New Dashboard
+        Dim dashboard As New NewDashboard
         dashboard.Show()
     End Sub
 
@@ -658,5 +648,9 @@ Public Class frm_Employee
 
     Private Sub frm_Employee_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         dgrv_Employee.ClearSelection()
+    End Sub
+
+    Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
+        txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
 End Class
