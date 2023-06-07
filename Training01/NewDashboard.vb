@@ -1,6 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Globalization
-
 Public Class NewDashboard
 
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -43,7 +41,7 @@ Public Class NewDashboard
             MessageBox.Show("Please login to access dashboard page!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Dim login As New Login
             login.ShowDialog()
-            Me.Close()
+            Me.Hide()
         End If
     End Sub
 
@@ -366,4 +364,11 @@ Public Class NewDashboard
         Application.Exit()
     End Sub
 
+    Private Sub ptb_Icon_MouseEnter(sender As Object, e As EventArgs) Handles ptb_Icon.MouseEnter
+        ptb_Icon.Cursor = Cursors.Hand
+    End Sub
+
+    Private Sub ptb_Icon_MouseLeave(sender As Object, e As EventArgs) Handles ptb_Icon.MouseLeave
+        ptb_Icon.Cursor = Cursors.Default
+    End Sub
 End Class

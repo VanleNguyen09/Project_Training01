@@ -22,14 +22,13 @@ Partial Class frm_Employee
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.btn_Close = New System.Windows.Forms.Button()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btn_Delete = New System.Windows.Forms.Button()
         Me.btn_Update = New System.Windows.Forms.Button()
         Me.btn_Add = New System.Windows.Forms.Button()
@@ -67,23 +66,10 @@ Partial Class frm_Employee
         Me.btn_Search = New System.Windows.Forms.Button()
         Me.btn_Reset = New System.Windows.Forms.Button()
         Me.btn_Clear = New System.Windows.Forms.Button()
-        Me.ptb_Icon = New System.Windows.Forms.PictureBox()
         Me.BtnEmpDept = New System.Windows.Forms.Button()
         CType(Me.ptb_Employee, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgrv_Employee, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'btn_Close
-        '
-        Me.btn_Close.BackColor = System.Drawing.Color.Ivory
-        Me.btn_Close.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Close.Location = New System.Drawing.Point(507, 426)
-        Me.btn_Close.Name = "btn_Close"
-        Me.btn_Close.Size = New System.Drawing.Size(141, 47)
-        Me.btn_Close.TabIndex = 47
-        Me.btn_Close.Text = "Close"
-        Me.btn_Close.UseVisualStyleBackColor = False
         '
         'btn_Delete
         '
@@ -341,8 +327,8 @@ Partial Class frm_Employee
         '
         'EmployeeID
         '
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmployeeID.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeID.DefaultCellStyle = DataGridViewCellStyle1
         Me.EmployeeID.HeaderText = "EmployeeID"
         Me.EmployeeID.MinimumWidth = 6
         Me.EmployeeID.Name = "EmployeeID"
@@ -352,8 +338,8 @@ Partial Class frm_Employee
         '
         'EmployeeName
         '
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmployeeName.DefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeName.DefaultCellStyle = DataGridViewCellStyle2
         Me.EmployeeName.HeaderText = "Name"
         Me.EmployeeName.MinimumWidth = 6
         Me.EmployeeName.Name = "EmployeeName"
@@ -372,8 +358,8 @@ Partial Class frm_Employee
         '
         'phone
         '
-        DataGridViewCellStyle17.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.phone.DefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.phone.DefaultCellStyle = DataGridViewCellStyle3
         Me.phone.HeaderText = "Phone"
         Me.phone.MinimumWidth = 6
         Me.phone.Name = "phone"
@@ -381,8 +367,8 @@ Partial Class frm_Employee
         '
         'address
         '
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.address.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.address.DefaultCellStyle = DataGridViewCellStyle4
         Me.address.HeaderText = "Address"
         Me.address.MinimumWidth = 6
         Me.address.Name = "address"
@@ -390,8 +376,8 @@ Partial Class frm_Employee
         '
         'gender
         '
-        DataGridViewCellStyle19.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gender.DefaultCellStyle = DataGridViewCellStyle19
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gender.DefaultCellStyle = DataGridViewCellStyle5
         Me.gender.HeaderText = "Gender"
         Me.gender.MinimumWidth = 6
         Me.gender.Name = "gender"
@@ -399,8 +385,8 @@ Partial Class frm_Employee
         '
         'birthday
         '
-        DataGridViewCellStyle20.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.birthday.DefaultCellStyle = DataGridViewCellStyle20
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.birthday.DefaultCellStyle = DataGridViewCellStyle6
         Me.birthday.HeaderText = "Birthday"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
@@ -408,8 +394,8 @@ Partial Class frm_Employee
         '
         'email
         '
-        DataGridViewCellStyle21.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.email.DefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.email.DefaultCellStyle = DataGridViewCellStyle7
         Me.email.HeaderText = "Email"
         Me.email.MinimumWidth = 6
         Me.email.Name = "email"
@@ -470,7 +456,7 @@ Partial Class frm_Employee
         '
         Me.btn_Reset.BackColor = System.Drawing.Color.Ivory
         Me.btn_Reset.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Reset.Location = New System.Drawing.Point(671, 426)
+        Me.btn_Reset.Location = New System.Drawing.Point(507, 426)
         Me.btn_Reset.Name = "btn_Reset"
         Me.btn_Reset.Size = New System.Drawing.Size(141, 47)
         Me.btn_Reset.TabIndex = 65
@@ -481,25 +467,12 @@ Partial Class frm_Employee
         '
         Me.btn_Clear.BackColor = System.Drawing.Color.Ivory
         Me.btn_Clear.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Clear.Location = New System.Drawing.Point(834, 426)
+        Me.btn_Clear.Location = New System.Drawing.Point(677, 426)
         Me.btn_Clear.Name = "btn_Clear"
         Me.btn_Clear.Size = New System.Drawing.Size(141, 47)
         Me.btn_Clear.TabIndex = 66
         Me.btn_Clear.Text = "Clear"
         Me.btn_Clear.UseVisualStyleBackColor = False
-        '
-        'ptb_Icon
-        '
-        Me.ptb_Icon.BackColor = System.Drawing.SystemColors.Control
-        Me.ptb_Icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ptb_Icon.ErrorImage = Nothing
-        Me.ptb_Icon.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
-        Me.ptb_Icon.Location = New System.Drawing.Point(1426, -1)
-        Me.ptb_Icon.Name = "ptb_Icon"
-        Me.ptb_Icon.Size = New System.Drawing.Size(43, 37)
-        Me.ptb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.ptb_Icon.TabIndex = 67
-        Me.ptb_Icon.TabStop = False
         '
         'BtnEmpDept
         '
@@ -522,7 +495,6 @@ Partial Class frm_Employee
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1491, 881)
         Me.Controls.Add(Me.BtnEmpDept)
-        Me.Controls.Add(Me.ptb_Icon)
         Me.Controls.Add(Me.btn_Clear)
         Me.Controls.Add(Me.btn_Reset)
         Me.Controls.Add(Me.btn_Search)
@@ -531,7 +503,6 @@ Partial Class frm_Employee
         Me.Controls.Add(Me.dgrv_Employee)
         Me.Controls.Add(Me.btn_Upload)
         Me.Controls.Add(Me.ptb_Employee)
-        Me.Controls.Add(Me.btn_Close)
         Me.Controls.Add(Me.btn_Delete)
         Me.Controls.Add(Me.btn_Update)
         Me.Controls.Add(Me.btn_Add)
@@ -558,13 +529,10 @@ Partial Class frm_Employee
         Me.Text = "employees"
         CType(Me.ptb_Employee, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgrv_Employee, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents btn_Close As Button
     Friend WithEvents btn_Delete As Button
     Friend WithEvents btn_Update As Button
     Friend WithEvents btn_Add As Button
@@ -593,7 +561,6 @@ Partial Class frm_Employee
     Friend WithEvents btn_Search As Button
     Friend WithEvents btn_Reset As Button
     Friend WithEvents btn_Clear As Button
-    Friend WithEvents ptb_Icon As PictureBox
     Friend WithEvents BtnEmpDept As Button
     Friend WithEvents No As DataGridViewTextBoxColumn
     Friend WithEvents EmployeeID As DataGridViewTextBoxColumn

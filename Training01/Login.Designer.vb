@@ -38,20 +38,20 @@ Partial Class Login
         'txtEmail
         '
         Me.txtEmail.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtEmail.Location = New System.Drawing.Point(24, 73)
-        Me.txtEmail.Margin = New System.Windows.Forms.Padding(2)
+        Me.txtEmail.Location = New System.Drawing.Point(32, 90)
+        Me.txtEmail.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtEmail.Name = "txtEmail"
-        Me.txtEmail.Size = New System.Drawing.Size(252, 26)
+        Me.txtEmail.Size = New System.Drawing.Size(335, 30)
         Me.txtEmail.TabIndex = 0
         '
         'txtPassword
         '
         Me.txtPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPassword.Location = New System.Drawing.Point(24, 144)
-        Me.txtPassword.Margin = New System.Windows.Forms.Padding(2)
+        Me.txtPassword.Location = New System.Drawing.Point(32, 177)
+        Me.txtPassword.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txtPassword.Size = New System.Drawing.Size(252, 26)
+        Me.txtPassword.Size = New System.Drawing.Size(335, 30)
         Me.txtPassword.TabIndex = 1
         '
         'btnLogin
@@ -60,10 +60,10 @@ Partial Class Login
         Me.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnLogin.Font = New System.Drawing.Font("Microsoft YaHei", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnLogin.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.btnLogin.Location = New System.Drawing.Point(24, 200)
-        Me.btnLogin.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnLogin.Location = New System.Drawing.Point(32, 246)
+        Me.btnLogin.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnLogin.Name = "btnLogin"
-        Me.btnLogin.Size = New System.Drawing.Size(252, 30)
+        Me.btnLogin.Size = New System.Drawing.Size(336, 37)
         Me.btnLogin.TabIndex = 2
         Me.btnLogin.Text = "Login"
         Me.btnLogin.UseVisualStyleBackColor = False
@@ -73,10 +73,9 @@ Partial Class Login
         Me.Email.BackColor = System.Drawing.Color.Transparent
         Me.Email.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Email.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.Email.Location = New System.Drawing.Point(28, 47)
-        Me.Email.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Email.Location = New System.Drawing.Point(37, 58)
         Me.Email.Name = "Email"
-        Me.Email.Size = New System.Drawing.Size(54, 24)
+        Me.Email.Size = New System.Drawing.Size(72, 30)
         Me.Email.TabIndex = 4
         Me.Email.Text = "Email"
         Me.Email.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -86,10 +85,9 @@ Partial Class Login
         Me.lblPassWord.BackColor = System.Drawing.Color.Transparent
         Me.lblPassWord.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblPassWord.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.lblPassWord.Location = New System.Drawing.Point(28, 118)
-        Me.lblPassWord.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblPassWord.Location = New System.Drawing.Point(37, 145)
         Me.lblPassWord.Name = "lblPassWord"
-        Me.lblPassWord.Size = New System.Drawing.Size(77, 24)
+        Me.lblPassWord.Size = New System.Drawing.Size(103, 30)
         Me.lblPassWord.TabIndex = 5
         Me.lblPassWord.Text = "Password"
         Me.lblPassWord.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -98,10 +96,10 @@ Partial Class Login
         '
         Me.Panel1.BackColor = System.Drawing.Color.Transparent
         Me.Panel1.Controls.Add(Me.LinkLabel1)
-        Me.Panel1.Location = New System.Drawing.Point(47, 246)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel1.Location = New System.Drawing.Point(63, 303)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(206, 28)
+        Me.Panel1.Size = New System.Drawing.Size(275, 34)
         Me.Panel1.TabIndex = 6
         '
         'LinkLabel1
@@ -109,10 +107,9 @@ Partial Class Login
         Me.LinkLabel1.AutoSize = True
         Me.LinkLabel1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.LinkLabel1.LinkColor = System.Drawing.Color.LightGreen
-        Me.LinkLabel1.Location = New System.Drawing.Point(113, 7)
-        Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabel1.Location = New System.Drawing.Point(151, 9)
         Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(81, 13)
+        Me.LinkLabel1.Size = New System.Drawing.Size(98, 16)
         Me.LinkLabel1.TabIndex = 7
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Create Account"
@@ -122,10 +119,9 @@ Partial Class Login
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.Label1.Location = New System.Drawing.Point(52, 253)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label1.Location = New System.Drawing.Point(69, 311)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(102, 13)
+        Me.Label1.Size = New System.Drawing.Size(127, 16)
         Me.Label1.TabIndex = 7
         Me.Label1.Text = "Not an member yet?"
         '
@@ -135,18 +131,19 @@ Partial Class Login
         Me.closeApp.BackgroundImage = Global.Training01.My.Resources.Resources.blue_exit_icon_16
         Me.closeApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.closeApp.Location = New System.Drawing.Point(267, 2)
+        Me.closeApp.Location = New System.Drawing.Point(356, 2)
+        Me.closeApp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.closeApp.Name = "closeApp"
-        Me.closeApp.Size = New System.Drawing.Size(31, 31)
+        Me.closeApp.Size = New System.Drawing.Size(41, 38)
         Me.closeApp.TabIndex = 8
         Me.closeApp.TabStop = False
         '
         'Login
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
-        Me.ClientSize = New System.Drawing.Size(301, 280)
+        Me.ClientSize = New System.Drawing.Size(401, 345)
         Me.Controls.Add(Me.closeApp)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Panel1)
@@ -157,7 +154,7 @@ Partial Class Login
         Me.Controls.Add(Me.txtEmail)
         Me.Cursor = System.Windows.Forms.Cursors.Arrow
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "Login"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Login"

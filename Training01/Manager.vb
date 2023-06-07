@@ -4,7 +4,7 @@ Imports System.Reflection
 Imports System.Security.Cryptography
 
 Public Class frm_Manager
-
+    Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private Property DeptmangerId As Integer
 
     Private Class Selected_Managers
@@ -17,12 +17,6 @@ Public Class frm_Manager
     End Class
 
     Private selectedManagers As Selected_Managers = New Selected_Managers()
-
-    Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
-        Me.Close()
-        Dim dashboard As New NewDashboard
-        dashboard.Show()
-    End Sub
 
     Private Sub LoadAndSortData()
         LoadData()
@@ -71,7 +65,7 @@ Public Class frm_Manager
         dtp_FromDate.Value = Date.Now()
         cb_EmpCreate.Enabled = True
         dtp_ToDate.Value = Date.Now()
-        dgv_DeptManager.ClearSelection() 'Xóa bỏ việc chọn hàng trong DataGridView             
+        dgv_DeptManager.ClearSelection()
         grb_create.Enabled = True
     End Sub
 
@@ -88,11 +82,6 @@ Public Class frm_Manager
             Return displayvalue
         End Function
     End Class
-
-
-
-    Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
-
     Private Sub Select_Departments()
         If con.State <> 1 Then
             con.Open()
@@ -133,19 +122,18 @@ Public Class frm_Manager
     End Sub
 
     Public Sub ShowEmployeeManager(ByVal No As Integer, ByVal reader As SqlDataReader)
-        Dim id As Integer = Convert.ToInt32(reader("id"))
+        Dim id As Integer = Convert.ToInt32(reader("id").ToString())
         Dim name As String = reader("name").ToString()
         Dim phone As String = reader("phone").ToString()
         Dim address As String = reader("address").ToString()
         Dim birthday As String = reader("birthday").ToString()
         Dim email As String = reader("email").ToString()
         Dim department_name As String = reader("department_name").ToString()
-        'Dim department_name As String = If(reader.IsDBNull(reader.GetOrdinal("department_name")), String.Empty, reader("department_name").ToString())
         Dim from_date As String = reader("from_date").ToString()
         Dim to_date As String = reader("to_date").ToString()
-        Dim dept_id As Integer = Convert.ToInt32(reader("dept_id"))
-        Dim deptmanager_id As Integer = Convert.ToInt32(reader("deptmanager_id"))
-        Dim status As Integer = Convert.ToInt32(reader("status"))
+        Dim dept_id As Integer = Convert.ToInt32(reader("dept_id").ToString())
+        Dim deptmanager_id As Integer = Convert.ToInt32(reader("deptmanager_id").ToString())
+        Dim status As Integer = Convert.ToInt32(reader("status").ToString())
         dgv_DeptManager.Rows.Add(No, id, name, phone, birthday, address, email, department_name, from_date, to_date, dept_id, status, deptmanager_id)
     End Sub
 
@@ -544,12 +532,6 @@ Public Class frm_Manager
         End If
     End Sub
 
-    Private Sub btn_Exit_Click(sender As Object, e As EventArgs) Handles btn_Exit.Click
-        Me.Close()
-        Dim dashboard As New NewDashboard
-        dashboard.Show()
-    End Sub
-
     Private Sub btn_Update_Click(sender As Object, e As EventArgs) Handles btn_Update.Click
         Dim dept_id As Integer = CInt(cb_DepCreate.SelectedItem.hiddenvalue)
         Dim emp_id As Integer = CInt(cb_EmpCreate.SelectedItem.hiddenvalue)
@@ -599,13 +581,6 @@ Public Class frm_Manager
         dtp_ToDate.Value = selectedManagers.to_date
         DeptmangerId = selectedManagers.deptmanager_id
     End Sub
-
-    Private Sub dgv_DeptManager_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles dgv_DeptManager.DataBindingComplete
-        If dgv_DeptManager.Rows.Count > 0 Then
-            dgv_DeptManager.Rows(0).Selected = False
-        End If
-    End Sub
-
     Private Sub frm_Manager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         dgv_DeptManager.ClearSelection()
     End Sub
