@@ -99,9 +99,6 @@ Public Class Leave
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim empId As Integer = cbEmpAdd.SelectedItem.Key
-        Dim separators() As Char = {"-"c}
-        Dim empName As String = cbEmpAdd.SelectedItem.Value.ToString().Split(separators, 2, StringSplitOptions.RemoveEmptyEntries)(1).Trim()
-
         Dim fromDate As Date = dtpFromDate.Value
         Dim reason As String = rtxtReason.Text.Trim()
 
@@ -110,6 +107,9 @@ Public Class Leave
             MessageBox.Show(Message.Message.emptyErrorMessage, Message.Title.error, MessageBoxButtons.OK)
             Exit Sub
         End If
+
+        Dim separators() As Char = {"-"c}
+        Dim empName As String = cbEmpAdd.SelectedItem.Value.ToString().Split(separators, 2, StringSplitOptions.RemoveEmptyEntries)(1).Trim()
 
         Try
             If con.State() <> 1 Then

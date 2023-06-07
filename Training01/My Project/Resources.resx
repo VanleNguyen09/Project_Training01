@@ -121,8 +121,8 @@
   <data name="blue-exit-icon-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blue-exit-icon-16.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="department-icon-png-5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\department-icon-png-5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="tech-background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tech-background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="search-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\search-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,9 +139,6 @@
   <data name="416-4162293_investment-services-salary-icon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\416-4162293_investment-services-salary-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="user-icon-vector1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\user-icon-vector.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="1823873" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1823873.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -151,11 +148,23 @@
   <data name="it-department-icon-151" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\it-department-icon-15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="1736503" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1736503.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BackgroundLogin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BackgroundLogin.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="mobile-menu-8-834368" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mobile-menu-8-834368.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="2020-08-261" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2020-08-26.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="702865" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\702865.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_close" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_close.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="19264851" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1926485.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -166,14 +175,11 @@
   <data name="blue-exit-icon-161" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blue-exit-icon-16.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="702865" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\702865.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="department-icon-png-5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\department-icon-png-5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="416-4162293_investment-services-salary-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\416-4162293_investment-services-salary-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="avatar3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\avatar3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="219986" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\219986.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,41 +190,38 @@
   <data name="sign-out-651" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sign-out-65.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icon-Leave-Message-Sign-Blue-BG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icon-Leave-Message-Sign-Blue-BG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="avatar2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\avatar2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="2199861" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\219986.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="115-1153942_white-home-icon-png-white-home-logo-transparent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\115-1153942_white-home-icon-png-white-home-logo-transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="3690107" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3690107.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="17365031" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1736503.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="1736503" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1736503.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="avatar3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avatar3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sign-out-65" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sign-out-65.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="user-icon-vector" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\user-icon-vector.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Icon-Leave-Message-Sign-Blue-BG1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon-Leave-Message-Sign-Blue-BG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="115-1153942_white-home-icon-png-white-home-logo-transparent" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\115-1153942_white-home-icon-png-white-home-logo-transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon-Leave-Message-Sign-Blue-BG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon-Leave-Message-Sign-Blue-BG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="a56292ab83236bedb3ab636cf79978dc1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\a56292ab83236bedb3ab636cf79978dc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="2020-08-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2020-08-26.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="it-department-icon-15" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\it-department-icon-15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="2626398" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2626398.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -232,14 +235,14 @@
   <data name="36901071" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3690107.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icon_close" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icon_close.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="it-department-icon-15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\it-department-icon-15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="user-icon-vector" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="user-icon-vector1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user-icon-vector.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BackgroundLogin" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BackgroundLogin.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="17365031" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1736503.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="7028651" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\702865.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -247,7 +250,7 @@
   <data name="1429747035" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1429747035.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tech-background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tech-background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="x-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\x-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

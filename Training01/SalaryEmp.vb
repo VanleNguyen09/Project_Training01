@@ -10,6 +10,12 @@ Public Class SalaryEmp
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub SalaryEmp_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CustomElements.AddClearButtonInsideTextBox(txtSearch, "pbCloseSearch", Sub()
+                                                                                   txtSearch.Text = ""
+                                                                               End Sub)
+        CustomElements.AddClearButtonInsideTextBox(txtSearchSalary, "pbClearSalarySearch", Sub()
+                                                                                               txtSearchSalary.Text = ""
+                                                                                           End Sub)
         Load_DGV_Emp()
         Load_DGV_SalaryEmp()
     End Sub
@@ -42,6 +48,7 @@ Public Class SalaryEmp
 
                 'Remove selected cell
                 dgvEmps.CurrentCell = Nothing
+                dgvSalaries.Select()
                 dgvSalaries.CurrentCell = Nothing
             End Using
         Catch ex As Exception
@@ -75,6 +82,10 @@ Public Class SalaryEmp
                 End While
 
                 'Remove selected cell
+                dgvEmps.Select()
+                dgvEmps.CurrentCell = Nothing
+
+                dgvSalaries.Select()
                 dgvSalaries.CurrentCell = Nothing
 
                 For Each r In dgvSalaries.Rows
@@ -106,7 +117,9 @@ Public Class SalaryEmp
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        txtSearch.Controls("pbCloseSearch").Visible = (txtSearch.Text.Length > 0)
         Load_DGV_Emp()
+        txtSearch.Select()
     End Sub
 
     ''' <summary>
@@ -216,11 +229,9 @@ Public Class SalaryEmp
         If e.ColumnIndex = 3 Then
             Dim value As Decimal = CDec(e.Value)
             salariesList.Add(value)
-            If value = 0 OrElse value = Nothing Then
-                e.Value = 0
-                Exit Sub
-            End If
-            e.Value = FuntionCommon.CurrencyFormat.ConvertCurrencyVND(value)
+            Dim returnValue As String = FuntionCommon.CurrencyFormat.ConvertToVnd(value)
+
+            e.Value = returnValue(0).ToString().ToUpper() & returnValue.Substring(1)
         End If
     End Sub
 
@@ -313,13 +324,15 @@ Public Class SalaryEmp
     End Sub
 
     Private Sub txtSearchSalary_TextChanged(sender As Object, e As EventArgs) Handles txtSearchSalary.TextChanged
+        txtSearchSalary.Controls("pbClearSalarySearch").Visible = (txtSearchSalary.Text.Length > 0)
         Load_DGV_SalaryEmp()
+        txtSearchSalary.Select()
     End Sub
 
     Private Sub dgvSalaries_Sorted(sender As Object, e As EventArgs) Handles dgvSalaries.Sorted
         'If it is stt column, sorted normal 
         If dgvSalaries.SortedColumn.Name <> "salary_stt" Then
-            For i As Integer = 0 To dgvEmps.Rows.Count + 1
+            For i As Integer = 0 To dgvSalaries.Rows.Count - 1
                 dgvSalaries.Rows(i).Cells("salary_stt").Value = (i + 1).ToString()
             Next
         End If
@@ -395,19 +408,21 @@ Public Class SalaryEmp
     End Sub
 
     Private Sub dgvSalaries_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSalaries.CellDoubleClick
-        Dim row As DataGridViewRow = dgvSalaries.Rows(e.RowIndex)
-        Dim editSalaryForm As New EditSalaryForm
+        If (e.RowIndex > -1) Then
+            Dim row As DataGridViewRow = dgvSalaries.Rows(e.RowIndex)
+            Dim editSalaryForm As New EditSalaryForm
 
-        Dim id As Integer = Convert.ToInt32(row.Cells("salary_id").Value)
-        Dim salaryName As String = row.Cells("salary_name").Value.ToString()
-        Dim salary As Decimal = salariesList(e.RowIndex)
+            Dim id As Integer = Convert.ToInt32(row.Cells("salary_id").Value)
+            Dim salaryName As String = row.Cells("salary_name").Value.ToString()
+            Dim salary As Decimal = salariesList(e.RowIndex)
 
-        editSalaryForm.TempData = ValueTuple.Create(id, salaryName, salary)
-        editSalaryForm.SetCallback(Sub()
-                                       MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
-                                       Load_DGV_SalaryEmp()
-                                   End Sub)
-        editSalaryForm.Show()
+            editSalaryForm.TempData = ValueTuple.Create(id, salaryName, salary)
+            editSalaryForm.SetCallback(Sub()
+                                           MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
+                                           Load_DGV_SalaryEmp()
+                                       End Sub)
+            editSalaryForm.Show()
+        End If
     End Sub
 
     Private Sub txtSalaryName_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtSalaryName.KeyPress
