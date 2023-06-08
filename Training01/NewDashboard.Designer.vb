@@ -26,7 +26,7 @@ Partial Class NewDashboard
         Me.lbl_UserName = New System.Windows.Forms.Label()
         Me.PictureBox16 = New System.Windows.Forms.PictureBox()
         Me.ptb_Icon = New System.Windows.Forms.PictureBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lbl_Title = New System.Windows.Forms.Label()
         Me.ptb_Close = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.btn_Menu = New System.Windows.Forms.Button()
@@ -115,7 +115,7 @@ Partial Class NewDashboard
         Me.pn_Header.Controls.Add(Me.lbl_UserName)
         Me.pn_Header.Controls.Add(Me.PictureBox16)
         Me.pn_Header.Controls.Add(Me.ptb_Icon)
-        Me.pn_Header.Controls.Add(Me.Label1)
+        Me.pn_Header.Controls.Add(Me.lbl_Title)
         Me.pn_Header.Dock = System.Windows.Forms.DockStyle.Top
         Me.pn_Header.Location = New System.Drawing.Point(259, 0)
         Me.pn_Header.Name = "pn_Header"
@@ -157,17 +157,17 @@ Partial Class NewDashboard
         Me.ptb_Icon.TabIndex = 68
         Me.ptb_Icon.TabStop = False
         '
-        'Label1
+        'lbl_Title
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Vladimir Script", 16.2!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.Aquamarine
-        Me.Label1.Location = New System.Drawing.Point(14, 28)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(239, 34)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "EmployeeManagement"
+        Me.lbl_Title.AutoSize = True
+        Me.lbl_Title.BackColor = System.Drawing.Color.Transparent
+        Me.lbl_Title.Font = New System.Drawing.Font("Vladimir Script", 16.2!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Title.ForeColor = System.Drawing.Color.Aquamarine
+        Me.lbl_Title.Location = New System.Drawing.Point(14, 28)
+        Me.lbl_Title.Name = "lbl_Title"
+        Me.lbl_Title.Size = New System.Drawing.Size(239, 34)
+        Me.lbl_Title.TabIndex = 0
+        Me.lbl_Title.Text = "EmployeeManagement"
         '
         'ptb_Close
         '
@@ -865,7 +865,7 @@ Partial Class NewDashboard
     Friend WithEvents PictureBox9 As PictureBox
     Friend WithEvents btn_Signout As Button
     Friend WithEvents pn_Sidebar As Panel
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lbl_Title As Label
     Friend WithEvents ptb_Icon As PictureBox
     Friend WithEvents PictureBox16 As PictureBox
     Friend WithEvents pn_Main As Panel

@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Reflection
 Imports System.Security.Cryptography
+Imports Training01.frm_Employee
 
 Public Class frm_Manager
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -18,15 +19,6 @@ Public Class frm_Manager
 
     Private selectedManagers As Selected_Managers = New Selected_Managers()
 
-    Private Sub LoadAndSortData()
-        LoadData()
-        SortDataById()
-    End Sub
-
-    Public Sub SortDataById()
-        dgv_DeptManager.Sort(dgv_DeptManager.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
-    End Sub
-
     Private Sub frm_Manager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim initialDepartment As ComboBoxItem = New ComboBoxItem("Select Department", "-1")
         Dim initialEmployee As ComboBoxItem = New ComboBoxItem("Select Employee", "-1")
@@ -39,8 +31,16 @@ Public Class frm_Manager
         EnableAdd()
         Select_Departments()
         Select_Employees()
-        LoadAndSortData()
+        LoadData()
     End Sub
+
+    Public Enum ManagerParameters
+        empId
+        deptId
+        fromDate
+        toDate
+        deptManagerId
+    End Enum
 
     Private Sub EnableAdd()
         btn_Add.Enabled = True
@@ -62,9 +62,9 @@ Public Class frm_Manager
     Private Sub ClearForm()
         cb_DepCreate.SelectedIndex = 0
         cb_EmpCreate.SelectedIndex = 0
-        dtp_FromDate.Value = Date.Now()
+        dtp_FromDate.Value = Date.Now().ToString("dd/MM/yyyy")
         cb_EmpCreate.Enabled = True
-        dtp_ToDate.Value = Date.Now()
+        dtp_ToDate.Value = Date.Now().ToString("dd/MM/yyyy")
         dgv_DeptManager.ClearSelection()
         grb_create.Enabled = True
     End Sub
@@ -115,7 +115,7 @@ Public Class frm_Manager
         End Using
     End Sub
 
-    Private Sub MakeButtonBackgroundBlurry(button As Button)
+    Private Sub MakeButtonBackgroundBlurry(ByVal button As Button)
         Dim originalColor As Color = button.BackColor
         Dim blurredColor As Color = ControlPaint.Light(originalColor, 0.5)
         button.BackColor = blurredColor
@@ -165,16 +165,19 @@ Public Class frm_Manager
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@emp_id", emp_id)
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
-
-                Dim returnValueParam As SqlParameter = New SqlParameter("@employee_exit", SqlDbType.Int)
-                returnValueParam.Direction = ParameterDirection.Output
-                cmd.Parameters.Add(returnValueParam)
-
                 cmd.ExecuteNonQuery()
 
-                If CInt(returnValueParam.Value) = 1 Then
+                Dim isExited As Integer = 0
+                Using reader = cmd.ExecuteReader()
+                    If reader.Read() Then
+                        isExited = CInt(reader("ReturnValue"))
+                    End If
+                End Using
+
+                If isExited = 1 Then
                     CheckEmpDeptExit = True
                 End If
+
             End Using
         Catch ex As Exception
             CheckEmpDeptExit = False
@@ -185,102 +188,199 @@ Public Class frm_Manager
         Return CheckEmpDeptExit
     End Function
 
-    Private Sub Add_Manager(emp_id As Integer, dept_id As Integer, from_date As Date, to_date As Date)
-        Dim status As Integer = 1
-        If CheckEmpDeptExit(emp_id, dept_id) = True Then
-            MessageBox.Show(Message.Message.employeeExitedForDepartment, titleMsgBox, buttons, icons)
-            Exit Sub
-        End If
-
+    Private Function CheckManagerExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
+        CheckManagerExit = False
         If con.State <> 1 Then
             con.Open()
         End If
         Try
-            Using cmd As SqlCommand = New SqlCommand("InsertDeptManager", con)
+            Using cmd As SqlCommand = New SqlCommand("CheckManagerExit", con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@emp_id", emp_id)
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
-                cmd.Parameters.AddWithValue("@from_date", from_date)
-                cmd.Parameters.AddWithValue("@to_date", to_date)
-                cmd.Parameters.AddWithValue("@status", status)
-                Dim isDuplicate As Integer = 0
+                cmd.ExecuteNonQuery()
 
+                Dim isExited As Integer = 0
                 Using reader = cmd.ExecuteReader()
                     If reader.Read() Then
-                        isDuplicate = CInt(reader("IsDuplicate"))
+                        isExited = CInt(reader("ReturnValue"))
                     End If
                 End Using
 
-
-                If isDuplicate = 1 Then
-                    MessageBox.Show(Message.Message.managerDuplicate, titleMsgBox, buttons, icons)
-                    Exit Sub
-                Else
-                    MessageBox.Show("Manager has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
-                    LoadAndSortData()
-                    Exit Sub
+                If isExited = 1 Then
+                    CheckManagerExit = True
                 End If
+
             End Using
-            MessageBox.Show("Manager has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
         Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            CheckManagerExit = False
+            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             con.Close()
         End Try
-    End Sub
+        Return CheckManagerExit
+    End Function
 
-
-    Private Sub Update_Manager(emp_id As Integer, dept_id As Integer, from_date As Date, to_date As Date, deptmanager_id As Integer)
-        Dim status As Integer = 1
-        If CheckEmpDeptExit(emp_id, dept_id) = True Then
-            MessageBox.Show(Message.Message.employeeExitedForDepartment, titleMsgBox, buttons, icons)
-            Exit Sub
-        End If
+    Private Function CheckManagerExitForUpdate(ByVal emp_id As Integer, ByVal dept_id As Integer, ByVal from_date As Date, ByVal to_date As Date) As Boolean
+        CheckManagerExitForUpdate = False
         If con.State <> 1 Then
             con.Open()
         End If
-
         Try
-            Using cmd As SqlCommand = New SqlCommand("UpdateManager", con)
+            Using cmd As SqlCommand = New SqlCommand("CheckManagerExitForUpdate", con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@emp_id", emp_id)
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
                 cmd.Parameters.AddWithValue("@from_date", from_date)
                 cmd.Parameters.AddWithValue("@to_date", to_date)
-                cmd.Parameters.AddWithValue("@deptmanager_id", deptmanager_id)
-                cmd.Parameters.AddWithValue("@status", status)
+                cmd.ExecuteNonQuery()
 
-                Dim isDuplicate As Integer = 0
+                Dim isExited As Integer = 0
+                Using reader = cmd.ExecuteReader()
+                    If reader.Read() Then
+                        isExited = CInt(reader("ReturnValue"))
+                    End If
+                End Using
+
+                If isExited = 1 Then
+                    CheckManagerExitForUpdate = True
+                End If
+
+            End Using
+        Catch ex As Exception
+            CheckManagerExitForUpdate = False
+            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
+        End Try
+        Return CheckManagerExitForUpdate
+    End Function
+
+    Private Function CheckManagerDateBigger(ByVal emp_id As Integer, ByVal dept_id As Integer, ByVal from_date As Date, ByVal to_date As Date) As Boolean
+        CheckManagerDateBigger = False
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("CheckManagerDateBigger", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@emp_id", emp_id)
+                cmd.Parameters.AddWithValue("@dept_id", dept_id)
+                cmd.Parameters.AddWithValue("@from_date", from_date)
+                cmd.Parameters.AddWithValue("@to_date", to_date)
+                cmd.ExecuteNonQuery()
+
                 Dim isBigger As Integer = 0
-
                 Using reader = cmd.ExecuteReader()
                     If reader.Read() Then
-                        isDuplicate = CInt(reader("IsDuplicate"))
-                        isBigger = CInt(reader("IsBigger"))
+                        isBigger = CInt(reader("ReturnValue"))
                     End If
                 End Using
 
-                If isDuplicate Then
-                    MessageBox.Show(Message.Message.managerDuplicate, titleMsgBox, buttons, icons)
-                    Exit Sub
-                ElseIf isBigger Then
-                    MessageBox.Show("Date is smaller than date exist in system. Please try again!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    Exit Sub
-                Else
-                    MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
-                    LoadAndSortData() ' Cập nhật dữ liệu trên DataGridView
-                    Exit Sub
+                If isBigger = 1 Then
+                    CheckManagerDateBigger = True
                 End If
+
             End Using
         Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            CheckManagerDateBigger = False
+            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             con.Close()
         End Try
+        Return CheckManagerDateBigger
+    End Function
+
+    Private Sub Add_Manager(ByVal values As Dictionary(Of ManagerParameters, Object))
+        Dim status As Integer = 1
+
+        Dim empIdValue As Integer = CInt(values(ManagerParameters.empId))
+        Dim deptIdValue As Integer = CInt(values(ManagerParameters.deptId))
+        Dim fromDate As Integer = (values(ManagerParameters.deptId))
+        Dim toDate As Integer = CInt(values(ManagerParameters.deptId))
+
+        If CheckEmpDeptExit(empIdValue, deptIdValue) Then
+            MessageBox.Show(Message.Message.employeeExitedForDepartment, titleMsgBox, buttons, icons)
+            Exit Sub
+        ElseIf CheckManagerExit(empIdValue, deptIdValue) Then
+            MessageBox.Show(Message.Message.managerDuplicate, titleMsgBox, buttons, icons)
+            Exit Sub
+        Else
+            If con.State <> 1 Then
+                con.Open()
+            End If
+            Try
+                Using cmd As SqlCommand = New SqlCommand("InsertDeptManager", con)
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.AddWithValue("@emp_id", empIdValue)
+                    cmd.Parameters.AddWithValue("@dept_id", deptIdValue)
+                    cmd.Parameters.AddWithValue("@from_date", values(ManagerParameters.fromDate))
+                    cmd.Parameters.AddWithValue("@to_date", values(ManagerParameters.toDate))
+
+                    cmd.Parameters.AddWithValue("@status", status)
+                    cmd.ExecuteNonQuery()
+                    MessageBox.Show("Manager has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                End Using
+                LoadData()
+            Catch ex As Exception
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                con.Close()
+            End Try
+        End If
+
+
     End Sub
 
 
-    Private Sub Delete_Manager(emp_id As Integer, dept_id As Integer)
+    Private Sub Update_Manager(ByVal values As Dictionary(Of ManagerParameters, Object))
+        Dim status As Integer = 1
+        Dim empIdValue As Integer = CInt(values(ManagerParameters.empId))
+        Dim deptIdValue As Integer = CInt(values(ManagerParameters.deptId))
+        Dim fromDate As Date = Date.Parse(values(ManagerParameters.fromDate))
+        Dim toDate As Date = Date.Parse(values(ManagerParameters.toDate))
+
+        If CheckEmpDeptExit(empIdValue, deptIdValue) = True Then
+            MessageBox.Show(Message.Message.employeeExitedForDepartment, titleMsgBox, buttons, icons)
+            Exit Sub
+        ElseIf CheckManagerExitForUpdate(empIdValue, deptIdValue, fromDate, toDate) Then
+            MessageBox.Show(Message.Message.managerDuplicate, titleMsgBox, buttons, icons)
+            Exit Sub
+        ElseIf CheckManagerDateBigger(empIdValue, deptIdValue, fromDate, toDate) Then
+            MessageBox.Show("Date is smaller than date exist in system. Please try again!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        Else
+            If con.State <> 1 Then
+                con.Open()
+            End If
+
+            Try
+                Using cmd As SqlCommand = New SqlCommand("UpdateManager", con)
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.AddWithValue("@emp_id", empIdValue)
+                    cmd.Parameters.AddWithValue("@dept_id", deptIdValue)
+                    cmd.Parameters.AddWithValue("@from_date", values(ManagerParameters.fromDate))
+                    cmd.Parameters.AddWithValue("@to_date", values(ManagerParameters.toDate))
+                    cmd.Parameters.AddWithValue("@deptmanager_id", values(ManagerParameters.deptManagerId))
+
+                    cmd.Parameters.AddWithValue("@status", status)
+                    cmd.ExecuteNonQuery()
+
+                    MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+
+                End Using
+                LoadData()
+            Catch ex As Exception
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                con.Close()
+            End Try
+        End If
+
+    End Sub
+
+
+    Private Sub Delete_Manager(ByVal emp_id As Integer, ByVal dept_id As Integer)
         If con.State <> 1 Then
             con.Open()
         End If
@@ -288,19 +388,17 @@ Public Class frm_Manager
             Using cmd As SqlCommand = New SqlCommand("DeleteManagerInDepartment", con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@emp_id", emp_id)
-                cmd.Parameters.AddWithValue("@dept_id", dept_id) ' Thêm tham số dept_id vào thủ tục xóa
+                cmd.Parameters.AddWithValue("@dept_id", dept_id)
                 cmd.ExecuteNonQuery()
             End Using
-            MessageBox.Show("Manager has been deleted successfully!!!", "Success", buttons, MessageBoxIcon.Information)
         Catch ex As Exception
             MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             con.Close()
         End Try
-        LoadAndSortData()
     End Sub
 
-    Private Sub SearchManagersByKeyword(keyword As String, department_id As Integer)
+    Private Sub SearchManagersByKeyword(ByVal keyword As String, ByVal department_id As Integer)
         Console.WriteLine(keyword)
         If con.State <> 1 Then
             con.Open()
@@ -330,7 +428,7 @@ Public Class frm_Manager
         If reload Then
             txt_Search.Text = Nothing
             cb_Department.SelectedIndex = 0
-            LoadAndSortData()
+            LoadData()
         End If
     End Sub
 
@@ -419,7 +517,7 @@ Public Class frm_Manager
             SearchManagersByKeyword(keyword, department_id)
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
-            LoadAndSortData()
+            LoadData()
             cb_Department.SelectedIndex = 0
         End If
     End Sub
@@ -459,19 +557,18 @@ Public Class frm_Manager
     Private Sub btn_Add_Click(sender As Object, e As EventArgs) Handles btn_Add.Click
         Dim emp_id As Integer = cb_EmpCreate.SelectedItem.hiddenvalue
         Dim dept_id As Integer = cb_DepCreate.SelectedItem.hiddenvalue
-        Dim from_date As Date = dtp_FromDate.Value
-        Dim to_date As Date = dtp_ToDate.Value
+        Dim from_date As Date = dtp_FromDate.Value.Date
+        Dim from_dateString As String = from_date.ToString("dd/MM/yyyy")
 
-        'Validations for Add comboboxes
+        Dim to_date As Date = dtp_ToDate.Value.Date
+        Dim to_dateString As String = from_date.ToString("dd/MM/yyyy")
+
         If emp_id < 0 OrElse dept_id < 0 Then
             MessageBox.Show(Message.Message.emptyErrorMessage, titleErrorBox, buttons, errorIcons)
             Exit Sub
         End If
 
-        ' Validate Date inputs
-        Dim fromDate As Date = dtp_FromDate.Value
-        Dim toDate As Date = dtp_ToDate.Value
-        Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(fromDate, toDate)
+        Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(from_date, to_date)
 
         If Not datesValid Then
             MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
@@ -491,7 +588,13 @@ Public Class frm_Manager
             Exit Sub
         End If
 
-        Add_Manager(emp_id, dept_id, from_date, to_date)
+        Dim values As New Dictionary(Of ManagerParameters, Object)
+        values.Add(ManagerParameters.empId, emp_id)
+        values.Add(ManagerParameters.deptId, dept_id)
+        values.Add(ManagerParameters.fromDate, from_dateString)
+        values.Add(ManagerParameters.toDate, to_dateString)
+
+        Add_Manager(values)
         ClearForm()
     End Sub
 
@@ -517,12 +620,14 @@ Public Class frm_Manager
                 Dim deptIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("dept_id")
 
                 If empIdColumn IsNot Nothing And deptIdColumn IsNot Nothing Then
-                    For i As Integer = selectedRows.Count - 1 To 0 Step -1
+                    MessageBox.Show("Manager has been deleted successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                    For i As Integer = 0 To selectedRows.Count - 1
                         Dim selectedRow As DataGridViewRow = selectedRows(i)
                         Dim emp_id As Integer = CInt(selectedRow.Cells(empIdColumn.Index).Value)
                         Dim dept_id As Integer = CInt(selectedRow.Cells(deptIdColumn.Index).Value)
                         Delete_Manager(emp_id, dept_id)
                     Next
+                    LoadData()
                     ClearForm()
                     EnableAdd()
                 End If
@@ -535,16 +640,17 @@ Public Class frm_Manager
     Private Sub btn_Update_Click(sender As Object, e As EventArgs) Handles btn_Update.Click
         Dim dept_id As Integer = CInt(cb_DepCreate.SelectedItem.hiddenvalue)
         Dim emp_id As Integer = CInt(cb_EmpCreate.SelectedItem.hiddenvalue)
-        Dim from_date As Date = dtp_FromDate.Value
-        Dim to_date As Date = dtp_ToDate.Value
+        Dim from_date As Date = dtp_FromDate.Value.Date
+        Dim from_dateString As String = from_date.ToString("dd/MM/yyyy")
 
-        ' Validations for Add comboboxes
+        Dim to_date As Date = dtp_ToDate.Value.Date
+        Dim to_dateString As String = from_date.ToString("dd/MM/yyyy")
+
         If emp_id < 0 OrElse dept_id < 0 Then
             MessageBox.Show(Message.Message.emptyErrorMessage, titleErrorBox, buttons, errorIcons)
             Exit Sub
         End If
 
-        ' Validate Date inputs
         Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(from_date, to_date)
 
         If Not datesValid Then
@@ -565,7 +671,14 @@ Public Class frm_Manager
             Exit Sub
         End If
 
-        Update_Manager(emp_id, dept_id, from_date, to_date, DeptmangerId)
+        Dim values As New Dictionary(Of ManagerParameters, Object)
+        values.Add(ManagerParameters.empId, emp_id)
+        values.Add(ManagerParameters.deptId, dept_id)
+        values.Add(ManagerParameters.fromDate, from_dateString)
+        values.Add(ManagerParameters.toDate, to_dateString)
+        values.Add(ManagerParameters.deptManagerId, DeptmangerId)
+
+        Update_Manager(values)
         ClearForm()
         EnableAdd()
     End Sub

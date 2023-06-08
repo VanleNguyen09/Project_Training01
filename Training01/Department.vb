@@ -18,19 +18,10 @@ Public Class frm_Department
         btn_Delete.Enabled = False
         txt_DepartmentID.Enabled = False
         EnableAdd()
-        LoadAndSortData()
+        LoadData()
     End Sub
 
     Private selectedDepartment As Selected_Departments = New Selected_Departments()
-
-    Private Sub LoadAndSortData()
-        LoadData()
-        SortDataById()
-    End Sub
-
-    Public Sub SortDataById()
-        dgrv_Department.Sort(dgrv_Department.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
-    End Sub
 
     Public Sub ShowDepartment(ByVal No As Integer, ByVal reader As SqlDataReader)
         Dim id As Integer = Convert.ToInt32(reader("id").ToString())
@@ -83,42 +74,6 @@ Public Class frm_Department
     Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
     Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
 
-    Public Sub Update_Department(name As String, id As Integer)
-        Dim status As Integer = 1
-
-        If con.State <> 1 Then
-            con.Open()
-        End If
-
-        Try
-            Using cmd As SqlCommand = New SqlCommand("UpdateDepartments", con)
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("@name", name)
-                cmd.Parameters.AddWithValue("@id", id)
-                cmd.Parameters.AddWithValue("@status", status)
-                cmd.ExecuteNonQuery()
-
-                Dim isDuplicate As Integer = 0
-
-                Using reader = cmd.ExecuteReader()
-                    If reader.Read() Then
-                        isDuplicate = CInt(reader("IsDuplicate"))
-                    End If
-                End Using
-
-                If isDuplicate = 1 Then
-                    MessageBox.Show(Message.Message.departmentDuplicate, titleMsgBox, buttons, icons)
-                Else
-                    MessageBox.Show("Department has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
-                    LoadAndSortData()
-                    Exit Sub
-                End If
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
     Private Sub MakeButtonBackgroundBlurry(button As Button)
         Dim originalColor As Color = button.BackColor
         Dim blurredColor As Color = ControlPaint.Light(originalColor, 0.5)
@@ -148,42 +103,87 @@ Public Class frm_Department
         Return CheckDepartmentExit
     End Function
 
-    Public Sub Add_Department(name As String)
-        Dim status As Integer = 1
-
+    Private Function CheckDepartmentExitForUpdate(ByVal name As String, ByVal id As Integer) As Boolean
+        CheckDepartmentExitForUpdate = False
         If con.State <> 1 Then
             con.Open()
         End If
         Try
-            Using cmd As SqlCommand = New SqlCommand("InsertDepartments", con)
+            Using cmd As SqlCommand = New SqlCommand("CheckDepartmentExitForUpdate", con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@name", name)
-                cmd.Parameters.AddWithValue("@status", status)
-
-                Dim isDuplicate As Integer = 0
-
-                Using reader = cmd.ExecuteReader()
-                    If reader.Read() Then
-                        isDuplicate = CInt(reader("IsDuplicate"))
-                    End If
-                End Using
-                cmd.ExecuteNonQuery()
-                If isDuplicate = 1 Then
-                    MessageBox.Show(Message.Message.departmentDuplicate, titleMsgBox, buttons, icons)
-                    Exit Sub
-                Else
-                    MessageBox.Show("Department has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
-                    LoadAndSortData()
-                    Exit Sub
+                cmd.Parameters.AddWithValue("@id", id)
+                Dim reader = cmd.ExecuteReader
+                If reader.Read() Then
+                    If reader("ReturnValue") = 1 Then CheckDepartmentExitForUpdate = True
                 End If
             End Using
         Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            CheckDepartmentExitForUpdate = False
+            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
         End Try
+        Return CheckDepartmentExitForUpdate
+    End Function
+
+    Public Sub Add_Department(ByVal name As String)
+        Dim status As Integer = 1
+        If CheckDepartmentExit(name) Then
+            MessageBox.Show(Message.Message.departmentDuplicate, titleMsgBox, buttons, icons)
+            Exit Sub
+        Else
+            If con.State <> 1 Then
+                con.Open()
+            End If
+            Try
+                Using cmd As SqlCommand = New SqlCommand("InsertDepartments", con)
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.AddWithValue("@name", name)
+                    cmd.Parameters.AddWithValue("@status", status)
+
+                    cmd.ExecuteNonQuery()
+
+                    MessageBox.Show("Department has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                End Using
+                LoadData()
+            Catch ex As Exception
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                con.Close()
+            End Try
+        End If
     End Sub
 
-    Private Sub SearchDepartmentsByKeyword(keyword As String)
-        Console.WriteLine(keyword)
+    Public Sub Update_Department(ByVal name As String, ByVal id As Integer)
+        Dim status As Integer = 1
+
+        If CheckDepartmentExitForUpdate(name, id) Then
+            MessageBox.Show(Message.Message.departmentDuplicate, titleMsgBox, buttons, icons)
+            Exit Sub
+        Else
+            If con.State <> 1 Then
+                con.Open()
+            End If
+
+            Try
+                Using cmd As SqlCommand = New SqlCommand("UpdateDepartments", con)
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.AddWithValue("@name", name)
+                    cmd.Parameters.AddWithValue("@id", id)
+                    cmd.Parameters.AddWithValue("@status", status)
+                    cmd.ExecuteNonQuery()
+
+                    MessageBox.Show("Department has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                End Using
+                LoadData()
+            Catch ex As Exception
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
+    End Sub
+
+    Private Sub SearchDepartmentsByKeyword(ByVal keyword As String)
         If con.State <> 1 Then
             con.Open()
         End If
@@ -209,10 +209,11 @@ Public Class frm_Department
         con.Close()
         If reload Then
             txt_Search.Text = Nothing
+            LoadData()
         End If
     End Sub
 
-    Public Sub Delete_Department(id As Integer)
+    Public Sub Delete_Department(ByVal id As Integer)
         If con.State <> 1 Then
             con.Open()
         End If
@@ -278,7 +279,7 @@ Public Class frm_Department
                     Dim id As Integer = CInt(selectedRow.Cells(departmentIdColumn.Index).Value)
                     Delete_Department(id)
                 Next
-                LoadAndSortData()
+                LoadData()
                 ClearForm()
                 EnableAdd()
             Else
@@ -306,6 +307,7 @@ Public Class frm_Department
             SearchDepartmentsByKeyword(keyword)
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
+            LoadData()
         End If
     End Sub
 

@@ -5,6 +5,7 @@ Public Class NewDashboard
 
     Dim btnEmployeeClicked As Boolean = False
     Private initialUserName As String = "UserName"
+    Private initialLabel As String = "EmployeeManagement"
 
     Private currentForm As Form = Nothing
 
@@ -15,6 +16,8 @@ Public Class NewDashboard
 
     Private Sub NewDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lbl_UserName.Text = initialUserName
+        lbl_Title.Text = initialLabel
+        SetActiveButton(btn_Dashboard)
         LoadUserData()
         CountTotalEmployees()
         CountTotalDepartments()
@@ -26,6 +29,29 @@ Public Class NewDashboard
         MaxDeptEmp()
         MaxDeptManager()
         MaxPosEmp()
+    End Sub
+
+    Private selectedButton As Button
+
+    Private currentSelection As String = ""
+    Private Sub UpdateTitleLabel()
+        If String.IsNullOrEmpty(currentSelection) Then
+            lbl_Title.Text = initialLabel
+        Else
+            lbl_Title.Text = currentSelection
+        End If
+    End Sub
+
+    Private Sub SetActiveButton(ByVal button As Button)
+        ChangeButtonColor(button, Color.LightSalmon, Color.LavenderBlush)
+        ' Kiểm tra nếu đã có button item được chọn trước đó
+        If selectedButton IsNot Nothing Then
+            ' Đặt trạng thái active về mặc định cho button item trước đó
+            selectedButton.BackColor = Color.Transparent
+            selectedButton.Cursor = Cursors.Default
+        End If
+
+        selectedButton = button
     End Sub
 
 
@@ -41,7 +67,7 @@ Public Class NewDashboard
             MessageBox.Show("Please login to access dashboard page!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Dim login As New Login
             login.ShowDialog()
-            Me.Hide()
+            Me.Close()
         End If
     End Sub
 
@@ -213,13 +239,6 @@ Public Class NewDashboard
         initialContentPanel = pn_Content
     End Sub
 
-    Private Sub btn_Dashboard_Click(sender As Object, e As EventArgs) Handles btn_Dashboard.Click
-        ResetMainPanel()
-        Dim clickedButton As Button = CType(sender, Button)
-        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-        ResetButtonColors(clickedButton)
-    End Sub
-
     Private Function GetFullNameByEmail(ByVal email As String) As String
         Dim fullName As String = ""
         Try
@@ -280,12 +299,12 @@ Public Class NewDashboard
         End If
     End Sub
 
-    Private Sub ChangeButtonColor(button As Button, backColor As Color, foreColor As Color)
+    Private Sub ChangeButtonColor(ByVal button As Button, ByVal backColor As Color, ByVal foreColor As Color)
         button.BackColor = backColor
         button.ForeColor = foreColor
     End Sub
 
-    Private Sub ResetButtonColors(clickedButton As Button)
+    Private Sub ResetButtonColors(ByVal clickedButton As Button)
         For Each btn As Button In pn_Sidebar.Controls.OfType(Of Button)()
             If btn IsNot clickedButton Then
                 btn.BackColor = SystemColors.Control
@@ -298,10 +317,21 @@ Public Class NewDashboard
         lbl_UserName.Text = initialUserName
     End Sub
 
+    Private Sub btn_Dashboard_Click(sender As Object, e As EventArgs) Handles btn_Dashboard.Click
+        ResetMainPanel()
+        Dim clickedButton As Button = CType(sender, Button)
+        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Dashboard"
+        UpdateTitleLabel()
+        ResetButtonColors(clickedButton)
+    End Sub
+
     Private Sub btn_Employee_Click(sender As Object, e As EventArgs) Handles btn_Employee.Click
         ShowFormInMainPanel(frm_Employee)
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Employee"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -309,6 +339,8 @@ Public Class NewDashboard
         ShowFormInMainPanel(frm_Department)
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Department"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -316,6 +348,8 @@ Public Class NewDashboard
         ShowFormInMainPanel(frm_Manager)
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Manager"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -323,6 +357,8 @@ Public Class NewDashboard
         ShowFormInMainPanel(PositionMenu)
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Position"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -330,6 +366,8 @@ Public Class NewDashboard
         ShowFormInMainPanel(SalaryEmp)
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Salary"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -337,6 +375,8 @@ Public Class NewDashboard
         ShowFormInMainPanel(My.Forms.Leave)
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Leave"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -344,6 +384,8 @@ Public Class NewDashboard
     Private Sub btn_Signout_Click(sender As Object, e As EventArgs) Handles btn_Signout.Click
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Signout"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
 
         If isLoggedIn Then

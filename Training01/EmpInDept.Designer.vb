@@ -56,8 +56,11 @@ Partial Class frm_EmpInDept
         Me.lbl_titleManager = New System.Windows.Forms.Label()
         Me.cb_Department = New System.Windows.Forms.ComboBox()
         Me.btn_Reset = New System.Windows.Forms.Button()
+        Me.btn_Exit = New System.Windows.Forms.Button()
+        Me.ptb_Icon = New System.Windows.Forms.PictureBox()
         Me.grb_create.SuspendLayout()
         CType(Me.dgv_DeptEmp, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'dtp_ToDate
@@ -438,6 +441,32 @@ Partial Class frm_EmpInDept
         Me.btn_Reset.Text = "RESET"
         Me.btn_Reset.UseVisualStyleBackColor = False
         '
+        'btn_Exit
+        '
+        Me.btn_Exit.BackColor = System.Drawing.Color.Lavender
+        Me.btn_Exit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_Exit.ForeColor = System.Drawing.Color.Black
+        Me.btn_Exit.Location = New System.Drawing.Point(506, 305)
+        Me.btn_Exit.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_Exit.Name = "btn_Exit"
+        Me.btn_Exit.Size = New System.Drawing.Size(203, 39)
+        Me.btn_Exit.TabIndex = 100
+        Me.btn_Exit.Text = "Exit"
+        Me.btn_Exit.UseVisualStyleBackColor = False
+        '
+        'ptb_Icon
+        '
+        Me.ptb_Icon.BackColor = System.Drawing.SystemColors.Control
+        Me.ptb_Icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Icon.ErrorImage = Nothing
+        Me.ptb_Icon.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
+        Me.ptb_Icon.Location = New System.Drawing.Point(1521, 0)
+        Me.ptb_Icon.Name = "ptb_Icon"
+        Me.ptb_Icon.Size = New System.Drawing.Size(43, 40)
+        Me.ptb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ptb_Icon.TabIndex = 101
+        Me.ptb_Icon.TabStop = False
+        '
         'frm_EmpInDept
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -445,6 +474,8 @@ Partial Class frm_EmpInDept
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1562, 954)
+        Me.Controls.Add(Me.ptb_Icon)
+        Me.Controls.Add(Me.btn_Exit)
         Me.Controls.Add(Me.btn_Reset)
         Me.Controls.Add(Me.btn_Clear)
         Me.Controls.Add(Me.btn_Search)
@@ -464,6 +495,7 @@ Partial Class frm_EmpInDept
         Me.grb_create.ResumeLayout(False)
         Me.grb_create.PerformLayout()
         CType(Me.dgv_DeptEmp, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -503,4 +535,6 @@ Partial Class frm_EmpInDept
     Friend WithEvents dept_id As DataGridViewTextBoxColumn
     Friend WithEvents status As DataGridViewTextBoxColumn
     Friend WithEvents deptemp_id As DataGridViewTextBoxColumn
+    Friend WithEvents btn_Exit As Button
+    Friend WithEvents ptb_Icon As PictureBox
 End Class
