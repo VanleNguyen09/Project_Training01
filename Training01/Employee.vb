@@ -27,7 +27,7 @@ Public Class frm_Employee
                                                                                     txt_Search.Text = ""
                                                                                     btn_Search.PerformClick()
                                                                                 End Sub)
-        dtp_Birthday.Value = dtp_Birthday.Value.Date.AddYears(-18)
+        dtp_Birthday.Value = dtp_Birthday.Value.AddYears(-18)
         rdo_Female.Text = "Female"
         rdo_Male.Text = "Male"
         rdo_Male.Checked = True
@@ -340,7 +340,7 @@ Public Class frm_Employee
             gender = "Female"
             MsgBox("your gender is" & gender)
         End If
-        Dim birthday As Date = dtp_Birthday.Value.Date
+        Dim birthday As Date = dtp_Birthday.Value
         Dim email As String = txt_Email.Text.Trim()
 
         If String.IsNullOrEmpty(name) OrElse
@@ -406,7 +406,7 @@ Public Class frm_Employee
             gender = "Female"
             MsgBox("your gender is" & gender)
         End If
-        Dim birthday As Date = dtp_Birthday.Value.Date
+        Dim birthday As Date = dtp_Birthday.Value
         Dim email As String = txt_Email.Text.Trim()
 
 

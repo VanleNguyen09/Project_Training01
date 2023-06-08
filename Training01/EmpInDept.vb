@@ -1,6 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Runtime.CompilerServices
-Imports Training01.frm_Manager
 
 Public Class frm_EmpInDept
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -56,7 +54,7 @@ Public Class frm_EmpInDept
         dtp_FromDate.Value = Date.Now()
         cb_EmpCreate.Enabled = True
         dtp_ToDate.Value = Date.Now()
-        dgv_DeptEmp.ClearSelection() 'Xóa bỏ việc chọn hàng trong DataGridView             
+        dgv_DeptEmp.ClearSelection()
         grb_create.Enabled = True
     End Sub
 
@@ -153,6 +151,7 @@ Public Class frm_EmpInDept
     Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
     Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
     Dim errorIcons As MessageBoxIcon = MessageBoxIcon.Error
+
     Private Function CheckManagerExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
         CheckManagerExit = False
         If con.State <> 1 Then
@@ -185,126 +184,184 @@ Public Class frm_EmpInDept
         Return CheckManagerExit
     End Function
 
+    Private Function CheckEmpDeptExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
+        CheckEmpDeptExit = False
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("CheckEmpDeptExit", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@emp_id", emp_id)
+                cmd.Parameters.AddWithValue("@dept_id", dept_id)
+                cmd.ExecuteNonQuery()
+
+                Dim isExited As Integer = 0
+                Using reader = cmd.ExecuteReader()
+                    If reader.Read() Then
+                        isExited = CInt(reader("ReturnValue"))
+                    End If
+                End Using
+
+                If isExited = 1 Then
+                    CheckEmpDeptExit = True
+                End If
+
+            End Using
+        Catch ex As Exception
+            CheckEmpDeptExit = False
+            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
+        End Try
+        Return CheckEmpDeptExit
+    End Function
+
+    Private Function CheckEmpDeptExitForUpdate(ByVal emp_id As Integer, ByVal dept_id As Integer, ByVal from_date As Date, ByVal to_date As Date) As Boolean
+        CheckEmpDeptExitForUpdate = False
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("CheckEmpDeptExitForUpdate", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@emp_id", emp_id)
+                cmd.Parameters.AddWithValue("@dept_id", dept_id)
+                cmd.Parameters.AddWithValue("@from_date", from_date)
+                cmd.Parameters.AddWithValue("@to_date", to_date)
+                cmd.ExecuteNonQuery()
+
+                Dim isExited As Integer = 0
+                Using reader = cmd.ExecuteReader()
+                    If reader.Read() Then
+                        isExited = CInt(reader("ReturnValue"))
+                    End If
+                End Using
+
+                If isExited = 1 Then
+                    CheckEmpDeptExitForUpdate = True
+                End If
+            End Using
+        Catch ex As Exception
+            CheckEmpDeptExitForUpdate = False
+            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
+        End Try
+        Return CheckEmpDeptExitForUpdate
+    End Function
+
+    Private Function CheckEmpDeptDateBigger(ByVal emp_id As Integer, ByVal dept_id As Integer, ByVal from_date As Date, ByVal to_date As Date) As Boolean
+        CheckEmpDeptDateBigger = False
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("CheckEmpDeptDateBigger", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@emp_id", emp_id)
+                cmd.Parameters.AddWithValue("@dept_id", dept_id)
+                cmd.Parameters.AddWithValue("@from_date", from_date)
+                cmd.Parameters.AddWithValue("@to_date", to_date)
+                cmd.ExecuteNonQuery()
+
+                Dim isBigger As Integer = 0
+                Using reader = cmd.ExecuteReader()
+                    If reader.Read() Then
+                        isBigger = CInt(reader("ReturnValue"))
+                    End If
+                End Using
+
+                If isBigger = 1 Then
+                    CheckEmpDeptDateBigger = True
+                End If
+
+            End Using
+        Catch ex As Exception
+            CheckEmpDeptDateBigger = False
+            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
+        End Try
+        Return CheckEmpDeptDateBigger
+    End Function
+
     Private Sub Add_EmpDept(ByVal values As Dictionary(Of EmpDeptParameters, Object))
         Dim status As Integer = 1
         Dim empId As Integer = CInt(values(EmpDeptParameters.empId))
         Dim deptId As Integer = CInt(values(EmpDeptParameters.deptId))
 
-        If CheckManagerExit(empId, deptId) = True Then
+        If CheckManagerExit(empId, deptId) Then
             MessageBox.Show(Message.Message.managerExitedForDepartment, titleMsgBox, buttons, icons)
             Exit Sub
-        End If
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Try
-            Using cmd As SqlCommand = New SqlCommand("InsertDeptEmp", con)
-                cmd.CommandType = CommandType.StoredProcedure
-                For Each kvp As KeyValuePair(Of EmpDeptParameters, Object) In values
-                    Dim key As EmpDeptParameters = kvp.Key
-                    Dim value As Object = kvp.Value
-                    Select Case key
-                        Case EmpDeptParameters.empId
-                            cmd.Parameters.AddWithValue("@emp_id", value)
-                        Case EmpDeptParameters.deptId
-                            cmd.Parameters.AddWithValue("@dept_id", value)
-                        Case EmpDeptParameters.fromDate
-                            cmd.Parameters.AddWithValue("@from_date", value)
-                        Case EmpDeptParameters.toDate
-                            cmd.Parameters.AddWithValue("@to_date", value)
-                    End Select
-                Next
-                cmd.Parameters.AddWithValue("@status", status)
-                cmd.ExecuteNonQuery()
-
-                Dim isDuplicate As Integer = 0
-
-                Using reader = cmd.ExecuteReader()
-                    If reader.Read() Then
-                        isDuplicate = CInt(reader("IsDuplicate"))
-                    End If
+        ElseIf CheckEmpDeptExit(empId, deptId) Then
+            MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
+            Exit Sub
+        Else
+            If con.State <> 1 Then
+                con.Open()
+            End If
+            Try
+                Using cmd As SqlCommand = New SqlCommand("InsertDeptEmp", con)
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.AddWithValue("@emp_id", empId)
+                    cmd.Parameters.AddWithValue("@dept_id", deptId)
+                    cmd.Parameters.AddWithValue("@from_date", values(EmpDeptParameters.fromDate))
+                    cmd.Parameters.AddWithValue("@to_date", values(EmpDeptParameters.toDate))
+                    cmd.Parameters.AddWithValue("@status", status)
+                    cmd.ExecuteNonQuery()
+                    MessageBox.Show("Employee Department has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                 End Using
-                If isDuplicate = 1 Then
-                    MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
-                    Exit Sub
-
-                Else
-                    MessageBox.Show("Employee has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
-                    Exit Sub
-                End If
-            End Using
-            LoadData()
-
-            MessageBox.Show("Employee has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
-        Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            con.Close()
-        End Try
+                LoadData()
+            Catch ex As Exception
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                con.Close()
+            End Try
+        End If
     End Sub
 
     Private Sub Update_EmpDept(ByVal values As Dictionary(Of EmpDeptParameters, Object))
         Dim status As Integer = 1
         Dim empId As Integer = CInt(values(EmpDeptParameters.empId))
         Dim deptId As Integer = CInt(values(EmpDeptParameters.deptId))
+        Dim fromDate As Date = Convert.ToDateTime(values(EmpDeptParameters.fromDate))
+        Dim toDate As Date = Convert.ToDateTime(values(EmpDeptParameters.toDate))
 
-        If CheckManagerExit(empId, deptId) = True Then
+        If CheckManagerExit(empId, deptId) Then
             MessageBox.Show(Message.Message.managerExitedForDepartment, titleMsgBox, buttons, icons)
             Exit Sub
-        End If
-        If con.State <> 1 Then
-            con.Open()
-        End If
+        ElseIf CheckEmpDeptExitForUpdate(empId, deptId, fromDate, toDate) Then
+            MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
+            Exit Sub
+        ElseIf CheckEmpDeptDateBigger(empId, deptId, fromDate, toDate) Then
+            MessageBox.Show("Date is smaller than date exist in system. Can not Update. Please try again!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        Else
+            If con.State <> 1 Then
+                con.Open()
+            End If
 
-        Try
-            Using cmd As SqlCommand = New SqlCommand("UpdateDeptEmp", con)
-                cmd.CommandType = CommandType.StoredProcedure
-                For Each kvp As KeyValuePair(Of EmpDeptParameters, Object) In values
-                    Dim key As EmpDeptParameters = kvp.Key
-                    Dim value As Object = kvp.Value
-                    Select Case key
-                        Case EmpDeptParameters.empId
-                            cmd.Parameters.AddWithValue("@emp_id", value)
-                        Case EmpDeptParameters.deptId
-                            cmd.Parameters.AddWithValue("@dept_id", value)
-                        Case EmpDeptParameters.fromDate
-                            cmd.Parameters.AddWithValue("@from_date", value)
-                        Case EmpDeptParameters.toDate
-                            cmd.Parameters.AddWithValue("@to_date", value)
-                        Case EmpDeptParameters.deptEmpId
-                            cmd.Parameters.AddWithValue("@deptemp_id", value)
-                    End Select
-                Next
-                cmd.Parameters.AddWithValue("@status", status)
-                cmd.ExecuteNonQuery()
+            Try
+                Using cmd As SqlCommand = New SqlCommand("UpdateDeptEmp", con)
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.AddWithValue("@emp_id", empId)
+                    cmd.Parameters.AddWithValue("@dept_id", deptId)
+                    cmd.Parameters.AddWithValue("@from_date", values(EmpDeptParameters.fromDate))
+                    cmd.Parameters.AddWithValue("@to_date", values(EmpDeptParameters.toDate))
+                    cmd.Parameters.AddWithValue("@deptemp_id", values(EmpDeptParameters.deptEmpId))
 
-                Dim isDuplicate As Integer = 0
-                Dim isBigger As Integer = 0
-
-                Using reader = cmd.ExecuteReader()
-                    If reader.Read() Then
-                        isDuplicate = CInt(reader("IsDuplicate"))
-                        isBigger = CInt(reader("IsBigger"))
-                    End If
+                    cmd.Parameters.AddWithValue("@status", status)
+                    cmd.ExecuteNonQuery()
+                    MessageBox.Show("Employee Department has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                 End Using
-
-                If isDuplicate Then
-                    MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
-                    Exit Sub
-                ElseIf isBigger Then
-                    MessageBox.Show("Date is smaller than date exist in system. Can not Update. Please try again!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    Exit Sub
-                Else
-                    MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
-                    Exit Sub
-                End If
-            End Using
-            LoadData()
-        Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            con.Close()
-        End Try
+                LoadData()
+            Catch ex As Exception
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                con.Close()
+            End Try
+        End If
     End Sub
     Private Sub SearchEmpDeptKeyword(ByVal keyword As String, ByVal department_id As Integer)
         Console.WriteLine(keyword)
@@ -401,19 +458,15 @@ Public Class frm_EmpInDept
     Private Sub btn_Add_Click(sender As Object, e As EventArgs) Handles btn_Add.Click
         Dim emp_id As Integer = cb_EmpCreate.SelectedItem.hiddenvalue
         Dim dept_id As Integer = cb_DepCreate.SelectedItem.hiddenvalue
-        Dim from_date As Date = dtp_FromDate.Value.Date
-        Dim fromDateString As String = from_date.ToString("dd/MM/yyyy")
-        Dim to_date As Date = dtp_ToDate.Value.Date
-        Dim toDateString As String = to_date.ToString("dd/MM/yyyy")
+        Dim from_date As Date = dtp_FromDate.Value
+        Dim to_date As Date = dtp_ToDate.Value
 
         If emp_id < 0 OrElse dept_id < 0 Then
             MessageBox.Show(Message.Message.emptyErrorMessage, titleErrorBox, buttons, errorIcons)
             Exit Sub
         End If
 
-        Dim fromDate As Date = dtp_FromDate.Value
-        Dim toDate As Date = dtp_ToDate.Value
-        Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(fromDate, toDate)
+        Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(from_date, to_date)
 
         If Not datesValid Then
             MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
@@ -427,7 +480,6 @@ Public Class frm_EmpInDept
         Dim fromIsValid As Boolean = FuntionCommon.Validation.ValidateYear(fromInputYear, currentYear)
         Dim toIsValid As Boolean = FuntionCommon.Validation.ValidateYear(toInputYear, currentYear)
 
-
         If Not fromIsValid OrElse Not toIsValid Then
             MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
             Exit Sub
@@ -436,8 +488,8 @@ Public Class frm_EmpInDept
         Dim values As New Dictionary(Of EmpDeptParameters, Object)
         values.Add(EmpDeptParameters.empId, emp_id)
         values.Add(EmpDeptParameters.deptId, dept_id)
-        values.Add(EmpDeptParameters.fromDate, fromDateString)
-        values.Add(EmpDeptParameters.toDate, toDateString)
+        values.Add(EmpDeptParameters.fromDate, from_date)
+        values.Add(EmpDeptParameters.toDate, to_date)
 
         Add_EmpDept(values)
         ClearForm()
@@ -491,10 +543,8 @@ Public Class frm_EmpInDept
     Private Sub btn_Update_Click(sender As Object, e As EventArgs) Handles btn_Update.Click
         Dim dept_id As Integer = CInt(cb_DepCreate.SelectedItem.hiddenvalue)
         Dim emp_id As Integer = CInt(cb_EmpCreate.SelectedItem.hiddenvalue)
-        Dim from_date As Date = dtp_FromDate.Value.Date
-        Dim fromDateString As String = from_date.ToString("dd/MM/yyyy")
-        Dim to_date As Date = dtp_ToDate.Value.Date
-        Dim toDateString As String = to_date.ToString("dd/MM/yyyy")
+        Dim from_date As Date = dtp_FromDate.Value
+        Dim to_date As Date = dtp_ToDate.Value
 
         If emp_id < 0 OrElse dept_id < 0 Then
             MessageBox.Show(Message.Message.emptyErrorMessage, titleErrorBox, buttons, errorIcons)
@@ -524,8 +574,8 @@ Public Class frm_EmpInDept
         Dim values As New Dictionary(Of EmpDeptParameters, Object)
         values.Add(EmpDeptParameters.empId, emp_id)
         values.Add(EmpDeptParameters.deptId, dept_id)
-        values.Add(EmpDeptParameters.fromDate, fromDateString)
-        values.Add(EmpDeptParameters.toDate, toDateString)
+        values.Add(EmpDeptParameters.fromDate, from_date)
+        values.Add(EmpDeptParameters.toDate, to_date)
         values.Add(EmpDeptParameters.deptEmpId, DeptEmpId)
 
         Update_EmpDept(values)

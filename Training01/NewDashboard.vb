@@ -44,9 +44,9 @@ Public Class NewDashboard
 
     Private Sub SetActiveButton(ByVal button As Button)
         ChangeButtonColor(button, Color.LightSalmon, Color.LavenderBlush)
-        ' Kiểm tra nếu đã có button item được chọn trước đó
+        ' Check if has button item selected
         If selectedButton IsNot Nothing Then
-            ' Đặt trạng thái active về mặc định cho button item trước đó
+            ' Set active state to defaut for previous button item 
             selectedButton.BackColor = Color.Transparent
             selectedButton.Cursor = Cursors.Default
         End If
@@ -277,14 +277,13 @@ Public Class NewDashboard
     End Sub
 
     Private Sub ShowFormInMainPanel(ByVal formToShow As Form)
-        ' Kiểm tra nếu form hiện tại không phải là formToShow
         If currentForm IsNot formToShow Then
-            ' Đóng form hiện tại (nếu có)
+            ' Close currentForm
             If currentForm IsNot Nothing Then
                 currentForm.Close()
             End If
 
-            ' Hiển thị formToShow trong contentPanel
+            ' Display formToShow in pn_Main
             formToShow.TopLevel = False
             formToShow.TopMost = True
             formToShow.FormBorderStyle = FormBorderStyle.None
@@ -294,7 +293,7 @@ Public Class NewDashboard
             pn_Main.Controls.Add(formToShow)
             formToShow.Show()
 
-            ' Cập nhật form hiện tại
+            ' Update curentForm
             currentForm = formToShow
         End If
     End Sub

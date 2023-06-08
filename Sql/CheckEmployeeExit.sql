@@ -15,6 +15,6 @@ BEGIN
 		SET @employee_exit = 1
 	ELSE
 		SET @employee_exit = 0
-	SELECT	@employee_exit AS ReturnValue
+	SELECT @employee_exit AS ReturnValue
 END
 GO
