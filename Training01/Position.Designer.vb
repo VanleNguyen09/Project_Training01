@@ -33,7 +33,6 @@ Partial Class Position
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtPosName = New System.Windows.Forms.TextBox()
         Me.btnAdd = New System.Windows.Forms.Button()
-        Me.btnExit = New System.Windows.Forms.Button()
         Me.appClose = New System.Windows.Forms.PictureBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btnEmpByPos = New System.Windows.Forms.Button()
@@ -142,8 +141,9 @@ Partial Class Position
         '
         'btnAdd
         '
-        Me.btnAdd.BackColor = System.Drawing.Color.Gray
+        Me.btnAdd.BackColor = System.Drawing.Color.Firebrick
         Me.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdd.ForeColor = System.Drawing.Color.Transparent
         Me.btnAdd.Location = New System.Drawing.Point(161, 79)
@@ -152,19 +152,6 @@ Partial Class Position
         Me.btnAdd.TabIndex = 3
         Me.btnAdd.Text = "ADD"
         Me.btnAdd.UseVisualStyleBackColor = False
-        '
-        'btnExit
-        '
-        Me.btnExit.BackColor = System.Drawing.Color.Gray
-        Me.btnExit.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnExit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnExit.ForeColor = System.Drawing.Color.White
-        Me.btnExit.Location = New System.Drawing.Point(441, 310)
-        Me.btnExit.Name = "btnExit"
-        Me.btnExit.Size = New System.Drawing.Size(267, 39)
-        Me.btnExit.TabIndex = 3
-        Me.btnExit.Text = "EXIT"
-        Me.btnExit.UseVisualStyleBackColor = False
         '
         'appClose
         '
@@ -192,11 +179,11 @@ Partial Class Position
         '
         'btnEmpByPos
         '
-        Me.btnEmpByPos.BackColor = System.Drawing.Color.Gray
+        Me.btnEmpByPos.BackColor = System.Drawing.Color.Firebrick
         Me.btnEmpByPos.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnEmpByPos.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnEmpByPos.ForeColor = System.Drawing.Color.White
-        Me.btnEmpByPos.Location = New System.Drawing.Point(441, 251)
+        Me.btnEmpByPos.Location = New System.Drawing.Point(441, 296)
         Me.btnEmpByPos.Name = "btnEmpByPos"
         Me.btnEmpByPos.Size = New System.Drawing.Size(267, 53)
         Me.btnEmpByPos.TabIndex = 3
@@ -214,7 +201,6 @@ Partial Class Position
         Me.Controls.Add(Me.appClose)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnEmpByPos)
-        Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.txtSearch)
         Me.Controls.Add(Me.dgvPositions)
         Me.Controls.Add(Me.Label1)
@@ -238,7 +224,6 @@ Partial Class Position
     Friend WithEvents txtPosName As TextBox
     Friend WithEvents btnAdd As Button
     Friend WithEvents Label2 As Label
-    Friend WithEvents btnExit As Button
     Friend WithEvents appClose As PictureBox
     Friend WithEvents Label3 As Label
     Friend WithEvents btnEmpByPos As Button

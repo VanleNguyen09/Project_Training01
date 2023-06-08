@@ -41,6 +41,125 @@
         btn.Region = New Region(Raduis)
     End Sub
 
+    Public Shared Sub KeepSttColumnUnsorted(ByRef dgv As DataGridView, ByVal nameColumn As String)
+        Dim tempDgv As DataGridView = dgv
+        AddHandler dgv.Sorted, Sub()
+                                   'If it is stt column, sorted normal 
+                                   If tempDgv.SortedColumn.Name <> nameColumn Then
+                                       For i As Integer = 0 To tempDgv.Rows.Count - 1
+                                           tempDgv.Rows(i).Cells(nameColumn).Value = (i + 1).ToString()
+                                       Next
+                                   End If
+                               End Sub
+    End Sub
+
+    ''' <summary>
+    ''' Show Circular ProgressBar
+    ''' </summary>
+    ''' <param name="time">seconds</param>
+    ''' <param name="callback">Function call when Progress is over</param>
+    Public Shared Sub ShowCirProgressBar(ByVal time As Integer, ByVal size As Size, ByVal callback As Action)
+        Dim progressBar As New CircularProgressBar.CircularProgressBar()
+
+        'Settings
+        progressBar.Size = size
+        progressBar.Location = New Point((Form.ActiveForm.ClientSize.Width - progressBar.Width) / 2, (Form.ActiveForm.ClientSize.Height - progressBar.Height) / 2)
+        progressBar.ProgressWidth = 20
+        progressBar.Text = "Processing..."
+        progressBar.OuterColor = Color.Black
+        progressBar.OuterMargin = -25
+        progressBar.OuterWidth = 25
+        progressBar.StartAngle = 270
+        progressBar.InnerColor = Color.Transparent
+        progressBar.Style = ProgressBarStyle.Marquee
+        progressBar.Font = New Font(progressBar.Font.OriginalFontName, 9)
+        progressBar.ForeColor = Color.White
+        progressBar.SubscriptText = ""
+        progressBar.SuperscriptText = ""
+        progressBar.MarqueeAnimationSpeed = 1000
+
+        Form.ActiveForm.Controls.Add(progressBar)
+        progressBar.BringToFront()
+        progressBar.BackColor = Color.Transparent
+
+        ' Set Value and Maximum của CircularProgressBar
+        progressBar.Value = 0
+        progressBar.Maximum = time
+
+        ' Create Timer to update values of CircularProgressBar
+        Dim timer As New Timer()
+        AddHandler timer.Tick, Sub(sender, e)
+                                   progressBar.Value += 1
+                                   If progressBar.Value = progressBar.Maximum Then
+                                       timer.Stop()
+                                       progressBar.Visible = False
+                                       callback()
+                                   End If
+                               End Sub
+        timer.Interval = 1000
+        timer.Start()
+    End Sub
+
+    ''' <summary>
+    ''' Moving Form when moving mouse
+    ''' </summary>
+    ''' <param name="mainForm">Form which you want to move</param>
+    Public Shared Sub MovingForm(ByRef mainForm As Form)
+        Dim mousePosX As Integer
+        Dim mousePosY As Integer
+        Dim formTemp As Form = mainForm
+
+        AddHandler mainForm.MouseDown, Sub(sender As Object, e As MouseEventArgs)
+                                           If e.Button = MouseButtons.Left Then
+                                               mousePosX = e.X
+                                               mousePosY = e.Y
+                                           End If
+                                       End Sub
+
+        AddHandler mainForm.MouseMove, Sub(sender As Object, e As MouseEventArgs)
+                                           If e.Button = MouseButtons.Left Then
+                                               formTemp.Left += e.X - mousePosX
+                                               formTemp.Top += e.Y - mousePosY
+                                           End If
+                                       End Sub
+    End Sub
+
+    ''' <summary>
+    ''' Moving Dashboard by Panels
+    ''' </summary>
+    ''' <param name="dashboard">The Dashboard form</param>
+    ''' <param name="header">The Header panel</param>
+    ''' <param name="sideBar">The Sidebar panel</param>
+    Public Shared Sub MovingDashboardByPanels(ByRef dashboard As Form,
+                                              Optional ByRef header As Panel = Nothing,
+                                              Optional ByRef sideBar As Panel = Nothing)
+        Dim mousePosX As Integer
+        Dim mousePosY As Integer
+        Dim formTemp As Form = dashboard
+        Dim mouseDownEvent = Sub(sender As Object, e As MouseEventArgs)
+                                 If e.Button = MouseButtons.Left Then
+                                     mousePosX = e.X
+                                     mousePosY = e.Y
+                                 End If
+                             End Sub
+        Dim mouseMoveEvent = Sub(sender As Object, e As MouseEventArgs)
+                                 If e.Button = MouseButtons.Left Then
+                                     formTemp.Left += e.X - mousePosX
+                                     formTemp.Top += e.Y - mousePosY
+                                 End If
+                             End Sub
+
+        If Not header Is Nothing Then
+            AddHandler header.MouseDown, mouseDownEvent
+            AddHandler header.MouseMove, mouseMoveEvent
+        End If
+
+        If Not sideBar Is Nothing Then
+            AddHandler sideBar.MouseDown, mouseDownEvent
+            AddHandler sideBar.MouseMove, mouseMoveEvent
+        End If
+    End Sub
+
     ''' <summary>
     ''' Create a clear button inside textbox
     ''' Author: Dat
@@ -55,7 +174,7 @@
         btn.BackgroundImageLayout = ImageLayout.Stretch
         btn.BackColor = Color.White
         btn.Cursor = Cursors.Default
-        btn.Size = New Size(18, textbox.ClientSize.Height + 2)
+        btn.Size = New Size(18, textbox.ClientSize.Height)
         btn.Location = New Point(textbox.ClientSize.Width - btn.Width - 1, -1)
         btn.Visible = False
 

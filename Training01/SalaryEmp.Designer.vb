@@ -22,9 +22,17 @@ Partial Class SalaryEmp
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvEmps = New System.Windows.Forms.DataGridView()
+        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.salary_emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgvSalaries = New System.Windows.Forms.DataGridView()
         Me.salary_stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.salary_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -47,14 +55,6 @@ Partial Class SalaryEmp
         Me.txtSearchSalary = New System.Windows.Forms.TextBox()
         Me.gbEmps = New System.Windows.Forms.GroupBox()
         Me.closeApp = New System.Windows.Forms.PictureBox()
-        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.salary_emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvEmps, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvSalaries, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -71,7 +71,7 @@ Partial Class SalaryEmp
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(461, 31)
+        Me.Label1.Location = New System.Drawing.Point(403, 26)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(394, 39)
         Me.Label1.TabIndex = 0
@@ -90,22 +90,91 @@ Partial Class SalaryEmp
         Me.dgvEmps.RowHeadersWidth = 51
         Me.dgvEmps.RowTemplate.Height = 40
         Me.dgvEmps.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvEmps.Size = New System.Drawing.Size(439, 318)
+        Me.dgvEmps.Size = New System.Drawing.Size(363, 318)
         Me.dgvEmps.TabIndex = 3
+        '
+        'stt
+        '
+        Me.stt.HeaderText = "STT"
+        Me.stt.MinimumWidth = 6
+        Me.stt.Name = "stt"
+        Me.stt.ReadOnly = True
+        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.stt.Width = 40
+        '
+        'id
+        '
+        Me.id.HeaderText = "ID"
+        Me.id.MinimumWidth = 6
+        Me.id.Name = "id"
+        Me.id.ReadOnly = True
+        Me.id.Visible = False
+        Me.id.Width = 125
+        '
+        'emp_name
+        '
+        Me.emp_name.HeaderText = "NAME"
+        Me.emp_name.MinimumWidth = 6
+        Me.emp_name.Name = "emp_name"
+        Me.emp_name.ReadOnly = True
+        '
+        'phone
+        '
+        Me.phone.HeaderText = "PHONE"
+        Me.phone.MinimumWidth = 6
+        Me.phone.Name = "phone"
+        Me.phone.ReadOnly = True
+        Me.phone.Visible = False
+        Me.phone.Width = 125
+        '
+        'address
+        '
+        Me.address.HeaderText = "ADDRESS"
+        Me.address.MinimumWidth = 6
+        Me.address.Name = "address"
+        Me.address.ReadOnly = True
+        Me.address.Visible = False
+        Me.address.Width = 125
+        '
+        'birthday
+        '
+        Me.birthday.HeaderText = "BIRTHDAY"
+        Me.birthday.MinimumWidth = 6
+        Me.birthday.Name = "birthday"
+        Me.birthday.ReadOnly = True
+        Me.birthday.Width = 90
+        '
+        'email
+        '
+        Me.email.HeaderText = "EMAIL"
+        Me.email.MinimumWidth = 6
+        Me.email.Name = "email"
+        Me.email.ReadOnly = True
+        Me.email.Width = 130
+        '
+        'salary_emp_id
+        '
+        Me.salary_emp_id.HeaderText = "SalaryId"
+        Me.salary_emp_id.MinimumWidth = 6
+        Me.salary_emp_id.Name = "salary_emp_id"
+        Me.salary_emp_id.ReadOnly = True
+        Me.salary_emp_id.Visible = False
+        Me.salary_emp_id.Width = 125
         '
         'dgvSalaries
         '
         Me.dgvSalaries.AllowUserToAddRows = False
         Me.dgvSalaries.AllowUserToDeleteRows = False
+        Me.dgvSalaries.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders
         Me.dgvSalaries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvSalaries.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.salary_stt, Me.salary_id, Me.salary_name, Me.salary, Me.salary_number})
         Me.dgvSalaries.Location = New System.Drawing.Point(10, 55)
         Me.dgvSalaries.Name = "dgvSalaries"
         Me.dgvSalaries.RowHeadersVisible = False
         Me.dgvSalaries.RowHeadersWidth = 51
-        Me.dgvSalaries.RowTemplate.Height = 30
+        Me.dgvSalaries.RowTemplate.Height = 40
         Me.dgvSalaries.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSalaries.Size = New System.Drawing.Size(497, 318)
+        Me.dgvSalaries.Size = New System.Drawing.Size(428, 318)
         Me.dgvSalaries.TabIndex = 7
         '
         'salary_stt
@@ -115,7 +184,7 @@ Partial Class SalaryEmp
         Me.salary_stt.Name = "salary_stt"
         Me.salary_stt.ReadOnly = True
         Me.salary_stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.salary_stt.Width = 50
+        Me.salary_stt.Width = 40
         '
         'salary_id
         '
@@ -136,20 +205,21 @@ Partial Class SalaryEmp
         '
         'salary
         '
-        DataGridViewCellStyle4.NullValue = "0.00"
-        Me.salary.DefaultCellStyle = DataGridViewCellStyle4
+        Me.salary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        DataGridViewCellStyle1.NullValue = "0.00"
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.salary.DefaultCellStyle = DataGridViewCellStyle1
         Me.salary.HeaderText = "SALARY"
         Me.salary.MinimumWidth = 6
         Me.salary.Name = "salary"
         Me.salary.ReadOnly = True
-        Me.salary.Width = 200
         '
         'salary_number
         '
         Me.salary_number.HeaderText = "SALARY NUMBER"
         Me.salary_number.Name = "salary_number"
         Me.salary_number.ReadOnly = True
-        Me.salary_number.Width = 125
+        Me.salary_number.Width = 120
         '
         'btnUpdate
         '
@@ -161,7 +231,7 @@ Partial Class SalaryEmp
         Me.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnUpdate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUpdate.ForeColor = System.Drawing.Color.White
-        Me.btnUpdate.Location = New System.Drawing.Point(486, 293)
+        Me.btnUpdate.Location = New System.Drawing.Point(410, 293)
         Me.btnUpdate.Name = "btnUpdate"
         Me.btnUpdate.Size = New System.Drawing.Size(85, 33)
         Me.btnUpdate.TabIndex = 4
@@ -219,7 +289,7 @@ Partial Class SalaryEmp
         Me.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnDelete.FlatAppearance.BorderSize = 2
         Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnDelete.Location = New System.Drawing.Point(513, 301)
+        Me.btnDelete.Location = New System.Drawing.Point(444, 340)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(227, 33)
         Me.btnDelete.TabIndex = 12
@@ -232,12 +302,13 @@ Partial Class SalaryEmp
         Me.btnExit.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnExit.FlatAppearance.BorderSize = 2
         Me.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnExit.Location = New System.Drawing.Point(513, 340)
+        Me.btnExit.Location = New System.Drawing.Point(444, 301)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(227, 33)
         Me.btnExit.TabIndex = 13
         Me.btnExit.Text = "EXIT"
         Me.btnExit.UseVisualStyleBackColor = False
+        Me.btnExit.Visible = False
         '
         'txtSearch
         '
@@ -245,7 +316,7 @@ Partial Class SalaryEmp
         Me.txtSearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSearch.Location = New System.Drawing.Point(14, 28)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(417, 20)
+        Me.txtSearch.Size = New System.Drawing.Size(335, 20)
         Me.txtSearch.TabIndex = 2
         '
         'PictureBox1
@@ -254,7 +325,7 @@ Partial Class SalaryEmp
         Me.PictureBox1.BackgroundImage = Global.Training01.My.Resources.Resources.search_icon
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.PictureBox1.Image = Global.Training01.My.Resources.Resources.search_icon
-        Me.PictureBox1.Location = New System.Drawing.Point(431, 28)
+        Me.PictureBox1.Location = New System.Drawing.Point(355, 28)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(22, 20)
         Me.PictureBox1.TabIndex = 9
@@ -271,9 +342,9 @@ Partial Class SalaryEmp
         Me.gbSalary.Controls.Add(Me.dgvSalaries)
         Me.gbSalary.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbSalary.ForeColor = System.Drawing.Color.White
-        Me.gbSalary.Location = New System.Drawing.Point(577, 108)
+        Me.gbSalary.Location = New System.Drawing.Point(501, 108)
         Me.gbSalary.Name = "gbSalary"
-        Me.gbSalary.Size = New System.Drawing.Size(746, 387)
+        Me.gbSalary.Size = New System.Drawing.Size(687, 387)
         Me.gbSalary.TabIndex = 5
         Me.gbSalary.TabStop = False
         Me.gbSalary.Text = "SALARY'S MANAGEMENT"
@@ -287,7 +358,7 @@ Partial Class SalaryEmp
         Me.GroupBox3.Controls.Add(Me.Label3)
         Me.GroupBox3.Controls.Add(Me.Label2)
         Me.GroupBox3.ForeColor = System.Drawing.Color.White
-        Me.GroupBox3.Location = New System.Drawing.Point(513, 55)
+        Me.GroupBox3.Location = New System.Drawing.Point(444, 55)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(227, 179)
         Me.GroupBox3.TabIndex = 8
@@ -300,7 +371,7 @@ Partial Class SalaryEmp
         Me.PictureBox2.BackgroundImage = Global.Training01.My.Resources.Resources.search_icon
         Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.PictureBox2.Image = Global.Training01.My.Resources.Resources.search_icon
-        Me.PictureBox2.Location = New System.Drawing.Point(485, 28)
+        Me.PictureBox2.Location = New System.Drawing.Point(416, 28)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(22, 20)
         Me.PictureBox2.TabIndex = 9
@@ -310,7 +381,7 @@ Partial Class SalaryEmp
         '
         Me.txtSearchSalary.Location = New System.Drawing.Point(10, 28)
         Me.txtSearchSalary.Name = "txtSearchSalary"
-        Me.txtSearchSalary.Size = New System.Drawing.Size(477, 20)
+        Me.txtSearchSalary.Size = New System.Drawing.Size(400, 20)
         Me.txtSearchSalary.TabIndex = 6
         '
         'gbEmps
@@ -323,7 +394,7 @@ Partial Class SalaryEmp
         Me.gbEmps.ForeColor = System.Drawing.Color.White
         Me.gbEmps.Location = New System.Drawing.Point(12, 108)
         Me.gbEmps.Name = "gbEmps"
-        Me.gbEmps.Size = New System.Drawing.Size(468, 387)
+        Me.gbEmps.Size = New System.Drawing.Size(392, 387)
         Me.gbEmps.TabIndex = 1
         Me.gbEmps.TabStop = False
         Me.gbEmps.Text = "EMPLOYEE'S LIST"
@@ -334,80 +405,12 @@ Partial Class SalaryEmp
         Me.closeApp.BackgroundImage = Global.Training01.My.Resources.Resources.blue_exit_icon_16
         Me.closeApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.closeApp.Location = New System.Drawing.Point(1297, 0)
+        Me.closeApp.Location = New System.Drawing.Point(1151, 1)
         Me.closeApp.Name = "closeApp"
         Me.closeApp.Size = New System.Drawing.Size(37, 36)
         Me.closeApp.TabIndex = 12
         Me.closeApp.TabStop = False
-        '
-        'stt
-        '
-        Me.stt.HeaderText = "STT"
-        Me.stt.MinimumWidth = 6
-        Me.stt.Name = "stt"
-        Me.stt.ReadOnly = True
-        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.stt.Width = 60
-        '
-        'id
-        '
-        Me.id.HeaderText = "ID"
-        Me.id.MinimumWidth = 6
-        Me.id.Name = "id"
-        Me.id.ReadOnly = True
-        Me.id.Visible = False
-        Me.id.Width = 125
-        '
-        'emp_name
-        '
-        Me.emp_name.HeaderText = "NAME"
-        Me.emp_name.MinimumWidth = 6
-        Me.emp_name.Name = "emp_name"
-        Me.emp_name.ReadOnly = True
-        Me.emp_name.Width = 125
-        '
-        'phone
-        '
-        Me.phone.HeaderText = "PHONE"
-        Me.phone.MinimumWidth = 6
-        Me.phone.Name = "phone"
-        Me.phone.ReadOnly = True
-        Me.phone.Visible = False
-        Me.phone.Width = 125
-        '
-        'address
-        '
-        Me.address.HeaderText = "ADDRESS"
-        Me.address.MinimumWidth = 6
-        Me.address.Name = "address"
-        Me.address.ReadOnly = True
-        Me.address.Visible = False
-        Me.address.Width = 125
-        '
-        'birthday
-        '
-        Me.birthday.HeaderText = "BIRTHDAY"
-        Me.birthday.MinimumWidth = 6
-        Me.birthday.Name = "birthday"
-        Me.birthday.ReadOnly = True
-        Me.birthday.Width = 125
-        '
-        'email
-        '
-        Me.email.HeaderText = "EMAIL"
-        Me.email.MinimumWidth = 6
-        Me.email.Name = "email"
-        Me.email.ReadOnly = True
-        Me.email.Width = 125
-        '
-        'salary_emp_id
-        '
-        Me.salary_emp_id.HeaderText = "SalaryId"
-        Me.salary_emp_id.MinimumWidth = 6
-        Me.salary_emp_id.Name = "salary_emp_id"
-        Me.salary_emp_id.ReadOnly = True
-        Me.salary_emp_id.Visible = False
-        Me.salary_emp_id.Width = 125
+        Me.closeApp.Visible = False
         '
         'SalaryEmp
         '
@@ -415,7 +418,7 @@ Partial Class SalaryEmp
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1335, 509)
+        Me.ClientSize = New System.Drawing.Size(1196, 509)
         Me.Controls.Add(Me.closeApp)
         Me.Controls.Add(Me.gbEmps)
         Me.Controls.Add(Me.gbSalary)
@@ -456,10 +459,10 @@ Partial Class SalaryEmp
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents gbSalary As GroupBox
     Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents txtSearchSalary As TextBox
     Friend WithEvents gbEmps As GroupBox
     Friend WithEvents closeApp As PictureBox
+    Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents salary_stt As DataGridViewTextBoxColumn
     Friend WithEvents salary_id As DataGridViewTextBoxColumn
     Friend WithEvents salary_name As DataGridViewTextBoxColumn

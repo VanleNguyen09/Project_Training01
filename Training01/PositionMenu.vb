@@ -6,13 +6,11 @@
     End Sub
 
     Private Sub btnEmployee_Click(sender As Object, e As EventArgs) Handles btnEmployee.Click
-        Me.Hide()
         Dim empByPos As New EmpByPos
         empByPos.Show()
     End Sub
 
     Private Sub btnPosition_Click(sender As Object, e As EventArgs) Handles btnPosition.Click
-        Me.Hide()
         Dim position As New Position
         position.Show()
     End Sub
@@ -23,7 +21,5 @@
 
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
         Me.Close()
-        Dim dboard As New Dashboard
-        dboard.Show()
     End Sub
 End Class

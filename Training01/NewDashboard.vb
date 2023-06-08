@@ -26,6 +26,7 @@ Public Class NewDashboard
         MaxDeptEmp()
         MaxDeptManager()
         MaxPosEmp()
+        CustomElements.MovingDashboardByPanels(Me, pn_Header, pn_Sidebar)
     End Sub
 
 

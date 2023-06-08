@@ -250,7 +250,7 @@ Public Class Leave
         End If
     End Sub
 
-    Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
+    Private Sub btnExit_Click(sender As Object, e As EventArgs) 
         Dim dboard As New Dashboard
         Me.Hide()
         dboard.Show()

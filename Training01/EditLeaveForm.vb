@@ -37,6 +37,7 @@ Public Class EditLeaveForm
         'Set Format
         dtpFromDate.Format = DateTimePickerFormat.Custom
         dtpFromDate.CustomFormat = daTFormat
+        CustomElements.MovingForm(Me)
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
@@ -82,9 +83,10 @@ Public Class EditLeaveForm
                         cmd.Parameters.AddWithValue("from_date", fDate.AddSeconds(-fDate.Second))
                         cmd.Parameters.AddWithValue("reason", reason)
                         cmd.ExecuteNonQuery()
-
-                        Me.Close()
-                        myCallback.Invoke()
+                        CustomElements.ShowCirProgressBar(3, New Size(180, 180), Sub()
+                                                                                     Me.Close()
+                                                                                     myCallback.Invoke()
+                                                                                 End Sub)
                     End Using
                 Catch ex As Exception
                     MessageBox.Show(Message.Message.errorSQLQuery & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -199,23 +201,5 @@ Public Class EditLeaveForm
                     con.Close()
                 End Try
         End Select
-    End Sub
-
-    ' Save location of mouse when moving the form
-    Private mousePosX As Integer
-    Private mousePosY As Integer
-
-    Private Sub EditLeaveForm_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
-        If e.Button = MouseButtons.Left Then
-            mousePosX = e.X
-            mousePosY = e.Y
-        End If
-    End Sub
-
-    Private Sub EditLeaveForm_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
-        If e.Button = MouseButtons.Left Then
-            Me.Left += e.X - mousePosX
-            Me.Top += e.Y - mousePosY
-        End If
     End Sub
 End Class

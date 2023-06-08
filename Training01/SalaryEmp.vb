@@ -17,6 +17,9 @@ Public Class SalaryEmp
                                                                                            End Sub)
         Load_DGV_Emp()
         Load_DGV_SalaryEmp()
+
+        CustomElements.KeepSttColumnUnsorted(dgvEmps, "stt")
+        CustomElements.KeepSttColumnUnsorted(dgvSalaries, "salary_stt")
     End Sub
 
     ''' <summary>
@@ -41,7 +44,7 @@ Public Class SalaryEmp
                     dgvEmps.Rows.Add(New String() {
                                          reader("stt").ToString(), reader("id").ToString(),
                                          reader("name").ToString(), reader("phone").ToString(),
-                                         reader("address").ToString(), reader("birthday").ToString(),
+                                         reader("address").ToString(), reader("birthday").ToString().Split(" ")(0),
                                          reader("email").ToString(), If(reader("salary_emp_id") Is DBNull.Value, -1, reader("salary_emp_id"))})
                 End While
 
@@ -116,21 +119,6 @@ Public Class SalaryEmp
         txtSearch.Controls("pbCloseSearch").Visible = (txtSearch.Text.Length > 0)
         Load_DGV_Emp()
         txtSearch.Select()
-    End Sub
-
-    ''' <summary>
-    ''' SORTED DGV EMPS EVENT
-    ''' - Prevent sort stt column
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    Private Sub dgvEmps_Sorted(sender As Object, e As EventArgs) Handles dgvEmps.Sorted
-        'If it is stt column, sorted normal 
-        If dgvEmps.SortedColumn.Name <> "stt" Then
-            For i As Integer = 0 To dgvEmps.Rows.Count - 1
-                dgvEmps.Rows(i).Cells("stt").Value = (i + 1).ToString()
-            Next
-        End If
     End Sub
 
     ''' <summary>
@@ -300,10 +288,11 @@ Public Class SalaryEmp
                     con.Close()
                 End Try
 
-                'Reload again and Select again
+                ' Reload again and Select again
                 Load_DGV_Emp()
+
                 dgvEmps.CurrentCell = dgvEmps.Rows(selectedRowIndexInDGVEmps).Cells(0)
-                dgvEmps.FirstDisplayedScrollingRowIndex = selectedRowIndexInDGVEmps
+                'dgvEmps.FirstDisplayedScrollingRowIndex = selectedRowIndexInDGVEmps
                 dgvEmps_SelectionChanged(sender, e)
         End Select
     End Sub
@@ -314,34 +303,32 @@ Public Class SalaryEmp
         txtSearchSalary.Select()
     End Sub
 
-    Private Sub dgvSalaries_Sorted(sender As Object, e As EventArgs) Handles dgvSalaries.Sorted
-        'If it is stt column, sorted normal 
-        If dgvSalaries.SortedColumn.Name <> "salary_stt" Then
-            For i As Integer = 0 To dgvSalaries.Rows.Count - 1
-                dgvSalaries.Rows(i).Cells("salary_stt").Value = (i + 1).ToString()
-            Next
-        End If
-    End Sub
-
     Private Sub dgvEmps_SelectionChanged(sender As Object, e As EventArgs) Handles dgvEmps.SelectionChanged
-        'reset color of DGV Salaries when click other row in DGV Emps
-        For Each r In dgvSalaries.Rows
-            r.DefaultCellStyle.BackColor = dgvSalaries.DefaultCellStyle.BackColor
-        Next
+        Dim checkVariable As Boolean = False
 
         If dgvEmps.CurrentRow Is Nothing OrElse dgvEmps.CurrentRow.Index = -1 Then
-            Exit Sub
+            checkVariable = False
+        Else
+            checkVariable = True
         End If
 
-        Dim row As DataGridViewRow = dgvEmps.Rows(dgvEmps.CurrentRow.Index)
+        Dim row As DataGridViewRow
+        Dim salaryId As Integer
 
-        Dim salaryId As Integer = Convert.ToInt32(row.Cells("salary_emp_id").Value)
+        If checkVariable Then
+            row = dgvEmps.Rows(dgvEmps.CurrentRow.Index)
+            salaryId = Convert.ToInt32(row.Cells("salary_emp_id").Value)
+        End If
 
-        ' Check value of salary_id column in dgvSalaries
-        For Each r As DataGridViewRow In dgvSalaries.Rows
-            r.Selected = False 'Check when nothing change
-            If (r.Cells("salary_id").Value = salaryId) Then
-                r.Selected = True
+        ' Reset color of DGV Salaries when click other row in DGV Emps
+        ' And check value of salary_id column in dgvSalaries
+        For Each salaryRow In dgvSalaries.Rows
+            salaryRow.DefaultCellStyle.BackColor = dgvSalaries.DefaultCellStyle.BackColor
+            salaryRow.Selected = False 'Check when nothing change
+
+            'compare salary_id
+            If checkVariable And salaryRow.Cells("salary_id").Value = salaryId Then
+                salaryRow.Selected = True
             End If
         Next
     End Sub

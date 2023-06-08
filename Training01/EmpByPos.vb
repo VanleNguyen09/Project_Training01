@@ -80,6 +80,7 @@ Public Class EmpByPos
 
         'Remove selected cell
         dgvEmpByPos.CurrentCell = Nothing
+        CustomElements.MovingForm(Me)
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -184,20 +185,20 @@ Public Class EmpByPos
         End Select
     End Sub
 
-    Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
+    Private Sub btnExit_Click(sender As Object, e As EventArgs)
         Me.Close()
         Dim posMenu As New PositionMenu
         posMenu.Show()
     End Sub
 
     Private Sub btnManagePos_Click(sender As Object, e As EventArgs) Handles btnManagePos.Click
-        Me.Close()
+        Me.Hide()
         Dim managePos As New Position
         managePos.Show()
     End Sub
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
-        Environment.Exit(0)
+        Me.Close()
     End Sub
 
     Private Sub dgvEmpByPos_Sorted(sender As Object, e As EventArgs) Handles dgvEmpByPos.Sorted
@@ -219,26 +220,6 @@ Public Class EmpByPos
         For Each column As DataGridViewColumn In dgvEmpByPos.Columns
             column.HeaderCell.SortGlyphDirection = Nothing
         Next
-    End Sub
-
-    ' Save location of mouse when moving the form
-    Private mousePosX As Integer
-    Private mousePosY As Integer
-
-    ' MouseDown: begin moving Form
-    Private Sub EmpByPos_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
-        If e.Button = MouseButtons.Left Then
-            mousePosX = e.X
-            mousePosY = e.Y
-        End If
-    End Sub
-
-    ' MouseMove: moving Form
-    Private Sub EmpByPos_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
-        If e.Button = MouseButtons.Left Then
-            Me.Left += e.X - mousePosX
-            Me.Top += e.Y - mousePosY
-        End If
     End Sub
 
     '------------- FUNCTIONS -------------
