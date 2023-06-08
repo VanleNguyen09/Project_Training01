@@ -156,7 +156,7 @@ Public Class EditLeaveForm
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
 
                 While reader.Read
-                    cbEmpName.Items.Add(New DictionaryEntry(CInt(reader("id")), reader("id") & " - " & reader("name").ToString()))
+                    cbEmpName.Items.Add(New DictionaryEntry(CInt(reader("id").ToString()), reader("id").ToString() & " - " & reader("name").ToString()))
                 End While
             End Using
         Catch ex As Exception

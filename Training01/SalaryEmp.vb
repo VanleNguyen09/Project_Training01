@@ -2,7 +2,6 @@
 
 Public Class SalaryEmp
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
-    Private salariesList As New List(Of Decimal)
 
     ''' <summary>
     ''' LOAD THIS FORM
@@ -40,10 +39,10 @@ Public Class SalaryEmp
 
                 While reader.Read
                     dgvEmps.Rows.Add(New String() {
-                                         reader("stt"), reader("id"),
-                                         reader("name"), reader("phone"),
-                                         reader("address"), reader("birthday"),
-                                         reader("email"), If(reader("salary_emp_id") Is DBNull.Value, -1, reader("salary_emp_id"))})
+                                         reader("stt").ToString(), reader("id").ToString(),
+                                         reader("name").ToString(), reader("phone").ToString(),
+                                         reader("address").ToString(), reader("birthday").ToString(),
+                                         reader("email").ToString(), If(reader("salary_emp_id") Is DBNull.Value, -1, reader("salary_emp_id"))})
                 End While
 
                 'Remove selected cell
@@ -75,10 +74,11 @@ Public Class SalaryEmp
 
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
                 dgvSalaries.Rows.Clear()
-                salariesList.Clear()
 
                 While reader.Read
-                    dgvSalaries.Rows.Add({reader("stt"), reader("salary_id"), reader("salary_name"), reader("salary")})
+                    dgvSalaries.Rows.Add({reader("stt").ToString(), reader("salary_id").ToString(),
+                                         reader("salary_name").ToString(), reader("salary").ToString(),
+                                         reader("salary").ToString()})
                 End While
 
                 'Remove selected cell
@@ -87,10 +87,6 @@ Public Class SalaryEmp
 
                 dgvSalaries.Select()
                 dgvSalaries.CurrentCell = Nothing
-
-                For Each r In dgvSalaries.Rows
-                    r.DefaultCellStyle.BackColor = dgvSalaries.DefaultCellStyle.BackColor
-                Next
             End Using
         Catch ex As Exception
             MessageBox.Show("Load_DGV_SalaryEmp: " & Message.Message.errorSQLQuery & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -228,7 +224,6 @@ Public Class SalaryEmp
         ' Salary is fourth column
         If e.ColumnIndex = 3 Then
             Dim value As Decimal = CDec(e.Value)
-            salariesList.Add(value)
             Dim returnValue As String = FuntionCommon.CurrencyFormat.ConvertToVnd(value)
 
             e.Value = returnValue(0).ToString().ToUpper() & returnValue.Substring(1)
@@ -311,16 +306,6 @@ Public Class SalaryEmp
                 dgvEmps.FirstDisplayedScrollingRowIndex = selectedRowIndexInDGVEmps
                 dgvEmps_SelectionChanged(sender, e)
         End Select
-    End Sub
-
-    ''' <summary>
-    ''' AFTER FORM IS SHOWN 
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    Private Sub SalaryEmp_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        dgvEmps.CurrentCell = Nothing
-        dgvSalaries.CurrentCell = Nothing
     End Sub
 
     Private Sub txtSearchSalary_TextChanged(sender As Object, e As EventArgs) Handles txtSearchSalary.TextChanged
@@ -414,7 +399,7 @@ Public Class SalaryEmp
 
             Dim id As Integer = Convert.ToInt32(row.Cells("salary_id").Value)
             Dim salaryName As String = row.Cells("salary_name").Value.ToString()
-            Dim salary As Decimal = salariesList(e.RowIndex)
+            Dim salary As Decimal = row.Cells("salary_number").Value
 
             editSalaryForm.TempData = ValueTuple.Create(id, salaryName, salary)
             editSalaryForm.SetCallback(Sub()
@@ -457,6 +442,22 @@ Public Class SalaryEmp
         If e.KeyCode = Keys.Right Then
             ' Press Key Right -> Focus DGV Salaries
             dgvSalaries.Focus()
+        End If
+    End Sub
+
+    Private Sub btnUpdate_MouseEnter(sender As Object, e As EventArgs) Handles btnUpdate.MouseEnter
+        btnUpdate.BackColor = Color.DarkRed
+    End Sub
+
+    Private Sub btnUpdate_MouseLeave(sender As Object, e As EventArgs) Handles btnUpdate.MouseLeave
+        btnUpdate.BackColor = Color.OrangeRed
+    End Sub
+
+    Private Sub btnUpdate_EnabledChanged(sender As Object, e As EventArgs) Handles btnUpdate.EnabledChanged
+        If Not btnUpdate.Enabled Then
+            btnUpdate.ForeColor = Color.Black
+        Else
+            btnUpdate.ForeColor = Color.White
         End If
     End Sub
 End Class

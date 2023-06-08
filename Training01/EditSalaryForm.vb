@@ -86,8 +86,22 @@ Public Class EditSalaryForm
                         cmd.Parameters.AddWithValue("salary", salary)
                         cmd.ExecuteNonQuery()
 
-                        Me.Close()
-                        myCallback.Invoke()
+                        ' Show loading and disable button Save
+                        cirProgressBar.Visible = True
+                        btnSave.Enabled = False
+
+                        ' Set timmer
+                        Dim timer As New Timer
+                        timer.Interval = 1000
+                        AddHandler timer.Tick, Sub()
+                                                   ' Hide loading and enable button Save
+                                                   cirProgressBar.Visible = False
+                                                   btnSave.Enabled = True
+                                                   timer.Stop()
+                                                   Me.Close()
+                                                   myCallback.Invoke()
+                                               End Sub
+                        timer.Start()
                     End Using
                 Catch ex As Exception
                     MessageBox.Show(Message.Message.errorSQLQuery & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)

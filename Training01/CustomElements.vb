@@ -1,5 +1,10 @@
-﻿
-Public Class CustomElements
+﻿Public Class CustomElements
+
+    ''' <summary>
+    ''' Rounded Button
+    ''' Author: Dat
+    ''' </summary>
+    ''' <param name="btn"></param>
     Public Shared Sub RoundButton(btn As Button)
 
         btn.FlatStyle = FlatStyle.Flat
@@ -36,6 +41,13 @@ Public Class CustomElements
         btn.Region = New Region(Raduis)
     End Sub
 
+    ''' <summary>
+    ''' Create a clear button inside textbox
+    ''' Author: Dat
+    ''' </summary>
+    ''' <param name="textbox"></param>
+    ''' <param name="name"></param>
+    ''' <param name="buttonClickHandler"></param>
     Public Shared Sub AddClearButtonInsideTextBox(textbox As Object, name As String, ByVal buttonClickHandler As EventHandler)
         Dim btn As New PictureBox
         btn.Name = name
@@ -57,8 +69,4 @@ Public Class CustomElements
     <System.Runtime.InteropServices.DllImport("user32.dll")>
     Private Shared Function SendMessage(ByVal hWnd As IntPtr, ByVal msg As Integer, ByVal wp As IntPtr, ByVal lp As IntPtr) As IntPtr
     End Function
-
-
-
-
 End Class

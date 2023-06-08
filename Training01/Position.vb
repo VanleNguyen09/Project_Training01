@@ -41,7 +41,10 @@ Public Class Position
 
                 dgvPositions.Rows.Clear()
                 While reader.Read
-                    dgvPositions.Rows.Add({reader("stt"), reader("id"), reader("name"), reader("emp_num")})
+                    dgvPositions.Rows.Add({reader("stt").ToString(),
+                                          reader("id").ToString(),
+                                          reader("name").ToString(),
+                                          reader("emp_num").ToString()})
                 End While
 
                 'Remove selected cell
