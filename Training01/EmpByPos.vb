@@ -21,8 +21,8 @@ Public Class EmpByPos
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
 
                 While reader.Read
-                    cbPosCreate.Items.Add(New DictionaryEntry(CInt(reader("id")), reader("name").ToString()))
-                    cbSearch.Items.Add(New DictionaryEntry(CInt(reader("id")), reader("name").ToString()))
+                    cbPosCreate.Items.Add(New DictionaryEntry(CInt(reader("id").ToString()), reader("name").ToString()))
+                    cbSearch.Items.Add(New DictionaryEntry(CInt(reader("id").ToString()), reader("name").ToString()))
                 End While
 
             End Using
@@ -46,7 +46,7 @@ Public Class EmpByPos
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
 
                 While reader.Read
-                    cbEmpCreate.Items.Add(New DictionaryEntry(CInt(reader("id")), reader("name").ToString()))
+                    cbEmpCreate.Items.Add(New DictionaryEntry(CInt(reader("id").ToString()), reader("name").ToString()))
                 End While
             End Using
         Catch ex As Exception
@@ -259,10 +259,10 @@ Public Class EmpByPos
 
                 While reader.Read
                     dgvEmpByPos.Rows.Add(New String() {
-                                         reader("stt"), reader("id"),
-                                         reader("name"), reader("phone"),
-                                         reader("email"), reader("birthday"),
-                                         reader("pos_name"), reader("pos_id")})
+                                         reader("stt").ToString(), reader("id").ToString(),
+                                         reader("name").ToString(), reader("phone").ToString(),
+                                         reader("email").ToString(), reader("birthday").ToString(),
+                                         reader("pos_name").ToString(), reader("pos_id").ToString()})
                 End While
 
                 'Remove selected cell

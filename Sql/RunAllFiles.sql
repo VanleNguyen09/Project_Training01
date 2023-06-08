@@ -41,7 +41,9 @@ SET XACT_ABORT ON
 	END   
     COMMIT
 END
--- Example: exec RunAllFiles 'DESKTOP-11P8S1B\SQLEXPRESS' , 'EmployeeManagement', 'D:\Rikai_Internship_Training_.NET\Project_Training01\Sql\'
+
+-- use EmployeeManagement
+-- Example: exec RunAllFiles 'DESKTOP-8T6JQDI' , 'EmployeeManagement', 'E:\.NET\.Net Training\Project_Training01\Sql\'
 
 -- ENABLE xp_cmdshell
 -- To allow advanced options to be changed.

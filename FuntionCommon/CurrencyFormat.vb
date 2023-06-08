@@ -46,58 +46,55 @@
 
         Dim groupIndex As Integer = 0
 
-        'Xử lý phần nguyên 1,234,400
+        ' Check Integer Part
         While integerPart > 0
-            Dim groupValue As Integer = CInt(integerPart Mod 1000) ' Tách 3 số cuối để phân tích
-            integerPart \= 1000 ' Số còn lại
+            Dim groupValue As Integer = CInt(integerPart Mod 1000) ' group 3 last numbers
+            integerPart \= 1000 ' Rest numbers
 
-            'Phân tích 3 số cuối
             If groupValue > 0 Then
                 Dim groupText As String = ""
 
-                'Nếu số ở phần trăm
+                'If number is hundred
                 If groupValue >= 100 Then
-                    'Tương ứng với chỉ số nào trong mảng number thì hiện ra
-                    groupText &= numbers(groupValue \ 100) & " trăm "
+                    groupText &= numbers(groupValue \ 100) & " trăm"
                     groupValue = groupValue Mod 100
                 End If
 
-                ' Tương tự với hàng chục
-                ' Lớn hơn 10 và nhỏ hơn 20 thì là mười
-                ' Lớn hơn bằng 20 thì là thêm số và chữ mươi
+                '2,200,022
                 If groupValue >= 10 AndAlso groupValue <= 19 Then
-                    groupText &= "mười "
+                    groupText &= " mười"
                     groupValue = groupValue Mod 10
                 ElseIf groupValue >= 20 Then
-                    groupText &= numbers(groupValue \ 10) & " mươi "
+                    groupText &= " " & numbers(groupValue \ 10) & " mươi"
                     groupValue = groupValue Mod 10
                 End If
 
-                ' Tương tự hàng đơn vị
                 If groupValue > 0 Then
-                    groupText &= numbers(groupValue)
+                    groupText &= " " & numbers(groupValue)
                 End If
 
-                groupText &= " " & units(groupIndex) 'Cộng với đơn vị tương ứng
-                result = groupText & " " & result ' Cộng chuỗi lùi
+                groupText &= " " & units(groupIndex) 'Add unit
+                result = groupText & " " & result.Trim()
             End If
 
-            'Tăng chỉ số đơn vị
             groupIndex += 1
         End While
 
-        result = result.Trim()
+        result = result.Trim() & " đồng"
 
-        'Kiểm tra hàng thập phân 2 số
-        If decimalPart > 0 Then
-            result &= " và " & numbers(decimalPart \ 10) & " mươi " & numbers(decimalPart Mod 10) & " xu"
-        Else
-            result &= " đồng"
+        'Check Decimal Part
+        If decimalPart >= 20 Then
+            result &= " và " & numbers(decimalPart \ 10) & " mươi "
+            result &= If(decimalPart Mod 10 = 0, "", numbers(decimalPart Mod 10)) & " xu"
+        ElseIf decimalPart = 10 Then
+            result &= " và mười xu"
+        ElseIf decimalPart > 10 AndAlso decimalPart < 20 Then
+            result &= " và mười " & numbers(decimalPart Mod 10) & " xu"
+        ElseIf decimalPart > 0 AndAlso decimalPart < 10 Then
+            result &= " và " & numbers(decimalPart Mod 10) & " xu"
         End If
 
-        result = result.Trim()
-
-        Return result
+        Return result.Trim()
     End Function
 
 End Class
