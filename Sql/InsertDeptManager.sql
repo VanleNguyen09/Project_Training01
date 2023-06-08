@@ -17,20 +17,17 @@ BEGIN
 	DECLARE @isDuplicate INT;
 
 	-- Kiểm tra trùng lặp dữ liệu
-	IF EXISTS (SELECT 1 FROM dbo.Dept_manager WHERE emp_id = @emp_id AND dept_id = @dept_id)
+
+	IF EXISTS (SELECT 1 FROM dbo.Dept_manager WHERE emp_id = @emp_id AND dept_id = @dept_id AND status = 1)
 	BEGIN
-		IF EXISTS (SELECT 1 FROM dbo.Dept_manager WHERE emp_id = @emp_id AND dept_id = @dept_id AND status = 1)
-		BEGIN
-			SET @isDuplicate = 1; -- Đánh dấu là đã tồn tại
-		END
-		
-		IF EXISTS (SELECT 1 FROM dbo.Dept_manager WHERE emp_id = @emp_id AND dept_id = @dept_id AND status = 0)
+		SET @isDuplicate = 1; -- Đánh dấu là đã tồn tại
+	END
+	ELSE IF EXISTS (SELECT 1 FROM dbo.Dept_manager WHERE emp_id = @emp_id AND dept_id = @dept_id AND status = 0)
 		BEGIN
 			-- Cập nhật status của bản ghi hiện có từ 0 thành 1
 			UPDATE dbo.Dept_manager SET status = 1 WHERE emp_id = @emp_id AND dept_id = @dept_id AND status = 0;
 			SET @isDuplicate = 0; -- Đánh dấu là cập nhật thành công
 		END
-	END
 	ELSE
 	BEGIN
 	    INSERT INTO dbo.Dept_manager

@@ -313,6 +313,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\pngtree-simple-blue-tech-lines-background-image_206074.jpg" />
+    <None Include="Resources\wallpaper2you_556027.jpg" />
     <None Include="packages.config" />
     <None Include="Resources\x-icon.png" />
     <None Include="Resources\tech-background.jpg" />
@@ -332,6 +334,7 @@
     <None Include="Resources\3690107.png" />
     <None Include="Resources\a56292ab83236bedb3ab636cf79978dc.png" />
     <None Include="Resources\2020-08-26.jpg" />
+    <None Include="Resources\63dbf39f6f6a0fac00c19cde43dd8832.jpg" />
     <Content Include="Resources\avatar2.jpg" />
     <Content Include="Resources\avatar3.jpg" />
     <Content Include="Resources\BackgroundLogin2.jpg" />

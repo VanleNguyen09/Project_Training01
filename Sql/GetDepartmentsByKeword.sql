@@ -8,8 +8,17 @@ CREATE OR ALTER PROCEDURE [dbo].[GetDepartmentsByKeyWord]
 	@keyword NVARCHAR(255)
 AS
 BEGIN
-	SELECT * FROM dbo.Department
-	WHERE id LIKE @keyword OR name  LIKE '%' + @keyword  + '%' AND status = 1
+	SELECT a.id, a.name, a.status, ISNULL(COUNT(DISTINCT b.emp_id), 0) AS Number_Emp, ISNULL(COUNT(DISTINCT d.emp_id), 0) 
+	AS Number_Manager FROM dbo.Department a
+	LEFT JOIN dbo.Dept_emp b
+	ON a.id = b.dept_id AND b.status = 1
+	LEFT JOIN dbo.Employees c
+	ON c.id = b.emp_id
+	LEFT JOIN dbo.Dept_manager d
+	ON d.dept_id = a.id AND d.status = 1
+	WHERE a.id LIKE @keyword OR a.name  LIKE '%' + @keyword  + '%' AND a.status = 1
+	GROUP BY a.id, a.name, a.status
 	ORDER BY id
 END
 GO
+

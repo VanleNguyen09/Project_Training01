@@ -1,4 +1,7 @@
-﻿USE [EmployeeManagement]
+﻿--B1 Tìm xem bản ghi có sẵn trong department manager chưa
+--B2 Kết hợp insert hoặc update
+
+USE [EmployeeManagement]
 GO
 SET ANSI_NULLS ON
 GO

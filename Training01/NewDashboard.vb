@@ -1,8 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Globalization
-Imports System.Text.RegularExpressions
-Imports System.Windows
-
 Public Class NewDashboard
 
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -14,14 +10,12 @@ Public Class NewDashboard
 
     Private initialContentPanel As Panel = Nothing
 
-    Dim isLoggedIn = GlobalVariables.IsLoggedIn
-    Dim loggedInUserEmail = GlobalVariables.LoggedInUserEmail
-    Dim loggedInUserFullName = GlobalVariables.loggedInUserFullName
+    Dim isLoggedIn = My.Settings.IsLoggedIn
+    Dim loggedInUserEmail = My.Settings.LoggedInUserEmail
 
     Private Sub NewDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lbl_UserName.Text = initialUserName
         LoadUserData()
-        MessageBox.Show("User is logged in: " + My.Settings.LoggedInUserEmail, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
         CountTotalEmployees()
         CountTotalDepartments()
         CountTotalManagers()
@@ -34,27 +28,20 @@ Public Class NewDashboard
         MaxPosEmp()
     End Sub
 
-    Private Function FormatFullName(loggedInUserFullName As String) As String
-        Dim textInfo As TextInfo = CultureInfo.CurrentCulture.TextInfo
-        Dim formattedName As String = textInfo.ToTitleCase(loggedInUserFullName.ToLower())
-        Return formattedName
-    End Function
 
     Private Sub LoadUserData()
-        isLoggedIn = My.Settings.IsLoggedIn
-        loggedInUserEmail = My.Settings.LoggedInUserEmail
         If isLoggedIn Then
             Dim email As String = loggedInUserEmail
             Dim fullName As String = GetFullNameByEmail(email)
 
             If Not String.IsNullOrEmpty(fullName) Then
-                loggedInUserFullName = fullName
-                SaveFullNameToDatabase(email, loggedInUserFullName)
-
-                lbl_UserName.Text = FormatFullName(loggedInUserFullName)
+                lbl_UserName.Text = fullName
             End If
         Else
-            lbl_UserName.Text = initialUserName
+            MessageBox.Show("Please login to access dashboard page!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Dim login As New Login
+            login.ShowDialog()
+            Me.Hide()
         End If
     End Sub
 
@@ -194,8 +181,8 @@ Public Class NewDashboard
                 If reader.Read Then
                     Dim manager_name = reader("manager_name").ToString()
                     Dim dept_count = reader("department_count").ToString()
-                    Dim DeptString As String = "Best Dept Manager: " & " " & vbCrLf & manager_name & " - " & dept_count
-                    lbl_DeptManagerMax.Text = DeptString
+                    Dim DeptMgString As String = "Best Dept Manager: " & " " & vbCrLf & manager_name & " - " & dept_count
+                    lbl_DeptManagerMax.Text = DeptMgString
                     lbl_DeptManagerMax.Font = New Font(lbl_DeptManagerMax.Font, FontStyle.Bold)
                     lbl_DeptManagerMax.ForeColor = Color.Navy
                 End If
@@ -213,8 +200,8 @@ Public Class NewDashboard
                 If reader.Read Then
                     Dim pos_name = reader("position_name").ToString()
                     Dim emp_count = reader("employee_count").ToString()
-                    Dim DeptString As String = "Best Pos Emp: " & " " & pos_name & " - " & emp_count
-                    lbl_PosEmpMax.Text = DeptString
+                    Dim PosString As String = "Best Pos Emp: " & " " & pos_name & " - " & emp_count
+                    lbl_PosEmpMax.Text = PosString
                     lbl_PosEmpMax.Font = New Font(lbl_PosEmpMax.Font, FontStyle.Bold)
                     lbl_PosEmpMax.ForeColor = Color.SpringGreen
                 End If
@@ -229,13 +216,11 @@ Public Class NewDashboard
     Private Sub btn_Dashboard_Click(sender As Object, e As EventArgs) Handles btn_Dashboard.Click
         ResetMainPanel()
         Dim clickedButton As Button = CType(sender, Button)
-
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-
         ResetButtonColors(clickedButton)
     End Sub
 
-    Private Function GetFullNameByEmail(email As String) As String
+    Private Function GetFullNameByEmail(ByVal email As String) As String
         Dim fullName As String = ""
         Try
             If con.State <> 1 Then
@@ -259,43 +244,6 @@ Public Class NewDashboard
         Return fullName
     End Function
 
-    Private Sub SaveFullNameToDatabase(email As String, fullName As String)
-        Try
-            If con.State <> 1 Then
-                con.Open()
-            End If
-            Using cmd As SqlCommand = New SqlCommand("SaveFullNameToDatabase", con)
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("@email", email)
-                cmd.Parameters.AddWithValue("@fullName", fullName)
-                cmd.ExecuteNonQuery()
-            End Using
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        Finally
-            con.Close()
-        End Try
-    End Sub
-
-    Private Sub SaveIsLoggedInToDatabase(email As String, isLoggedIn As Boolean)
-        Try
-            If con.State <> 1 Then
-                con.Open()
-            End If
-
-            Using cmd As SqlCommand = New SqlCommand("UpdateUserIsLoggedIn", con)
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("@email", email)
-                cmd.Parameters.AddWithValue("@isLoggedIn", If((isLoggedIn), True, False))
-                cmd.ExecuteNonQuery()
-            End Using
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        Finally
-            con.Close()
-        End Try
-    End Sub
-
     Private Sub ResetMainPanel()
         ' Đóng form hiện tại (nếu có)
         If currentForm IsNot Nothing Then
@@ -309,7 +257,7 @@ Public Class NewDashboard
         pn_Main.Controls.Add(initialContentPanel)
     End Sub
 
-    Private Sub ShowFormInMainPanel(formToShow As Form)
+    Private Sub ShowFormInMainPanel(ByVal formToShow As Form)
         ' Kiểm tra nếu form hiện tại không phải là formToShow
         If currentForm IsNot formToShow Then
             ' Đóng form hiện tại (nếu có)
@@ -351,62 +299,44 @@ Public Class NewDashboard
     End Sub
 
     Private Sub btn_Employee_Click(sender As Object, e As EventArgs) Handles btn_Employee.Click
-        Dim employee As New frm_Employee
         ShowFormInMainPanel(frm_Employee)
         Dim clickedButton As Button = CType(sender, Button)
-
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-
         ResetButtonColors(clickedButton)
     End Sub
 
     Private Sub btn_Department_Click(sender As Object, e As EventArgs) Handles btn_Department.Click
-        Dim department As New frm_Department
-        ShowFormInMainPanel(department)
+        ShowFormInMainPanel(frm_Department)
         Dim clickedButton As Button = CType(sender, Button)
-
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-
         ResetButtonColors(clickedButton)
     End Sub
 
     Private Sub btn_Manager_Click(sender As Object, e As EventArgs) Handles btn_Manager.Click
-        Dim manager As New frm_Manager
-        ShowFormInMainPanel(manager)
+        ShowFormInMainPanel(frm_Manager)
         Dim clickedButton As Button = CType(sender, Button)
-
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-
         ResetButtonColors(clickedButton)
     End Sub
 
     Private Sub btn_Position_Click(sender As Object, e As EventArgs) Handles btn_Position.Click
-        Dim positon As New PositionMenu
-        ShowFormInMainPanel(positon)
+        ShowFormInMainPanel(PositionMenu)
         Dim clickedButton As Button = CType(sender, Button)
-
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-
         ResetButtonColors(clickedButton)
     End Sub
 
     Private Sub btn_Salary_Click(sender As Object, e As EventArgs) Handles btn_Salary.Click
-        Dim salary As New SalaryEmp
-        ShowFormInMainPanel(salary)
+        ShowFormInMainPanel(SalaryEmp)
         Dim clickedButton As Button = CType(sender, Button)
-
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-
         ResetButtonColors(clickedButton)
     End Sub
 
     Private Sub btn_Leave_Click(sender As Object, e As EventArgs) Handles btn_Leave.Click
-        Dim leave As New Leave
-        ShowFormInMainPanel(leave)
+        ShowFormInMainPanel(My.Forms.Leave)
         Dim clickedButton As Button = CType(sender, Button)
-
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -415,38 +345,30 @@ Public Class NewDashboard
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
         ResetButtonColors(clickedButton)
+
         If isLoggedIn Then
             Dim result As DialogResult = MessageBox.Show("Are you sure to log out user!!!", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
             If result = DialogResult.Yes Then
-                isLoggedIn = False
+                My.Settings.Reset()
                 ResetFormState()
                 MessageBox.Show("You logout success!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Dim login As New Login
+                Me.Hide()
+                login.Show()
             End If
-        Else
-            MessageBox.Show("Please login. User is empty!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Dim login As New Login
-            login.Show()
-            Me.Hide()
         End If
-    End Sub
-
-    Private Sub SaveUserDataAndCloseForm()
-        My.Settings.IsLoggedIn = isLoggedIn
-        My.Settings.LoggedInUserEmail = loggedInUserEmail
-        My.Settings.Save()
-        If isLoggedIn Then
-            Dim email As String = loggedInUserEmail
-
-            SaveFullNameToDatabase(email, loggedInUserFullName)
-            SaveIsLoggedInToDatabase(email, isLoggedIn)
-        End If
-
-        Application.Exit()
     End Sub
 
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
-        SaveUserDataAndCloseForm()
+        Application.Exit()
     End Sub
 
+    Private Sub ptb_Icon_MouseEnter(sender As Object, e As EventArgs) Handles ptb_Icon.MouseEnter
+        ptb_Icon.Cursor = Cursors.Hand
+    End Sub
+
+    Private Sub ptb_Icon_MouseLeave(sender As Object, e As EventArgs) Handles ptb_Icon.MouseLeave
+        ptb_Icon.Cursor = Cursors.Default
+    End Sub
 End Class

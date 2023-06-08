@@ -29,7 +29,6 @@ Partial Class frm_Employee
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.btn_Close = New System.Windows.Forms.Button()
         Me.btn_Delete = New System.Windows.Forms.Button()
         Me.btn_Update = New System.Windows.Forms.Button()
         Me.btn_Add = New System.Windows.Forms.Button()
@@ -62,32 +61,15 @@ Partial Class frm_Employee
         Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lbl_TitleEmployee = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.txt_Search = New System.Windows.Forms.TextBox()
         Me.lbl_Search = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.btn_Search = New System.Windows.Forms.Button()
         Me.btn_Reset = New System.Windows.Forms.Button()
         Me.btn_Clear = New System.Windows.Forms.Button()
-        Me.ptb_Icon = New System.Windows.Forms.PictureBox()
         Me.BtnEmpDept = New System.Windows.Forms.Button()
         CType(Me.ptb_Employee, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgrv_Employee, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'btn_Close
-        '
-        Me.btn_Close.BackColor = System.Drawing.Color.Ivory
-        Me.btn_Close.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Close.Location = New System.Drawing.Point(507, 426)
-        Me.btn_Close.Name = "btn_Close"
-        Me.btn_Close.Size = New System.Drawing.Size(141, 47)
-        Me.btn_Close.TabIndex = 47
-        Me.btn_Close.Text = "Close"
-        Me.btn_Close.UseVisualStyleBackColor = False
         '
         'btn_Delete
         '
@@ -439,20 +421,6 @@ Partial Class frm_Employee
         Me.lbl_TitleEmployee.TabIndex = 25
         Me.lbl_TitleEmployee.Text = "EMPLOYEE LIST"
         '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(-19, -19)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(100, 22)
-        Me.TextBox1.TabIndex = 57
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Location = New System.Drawing.Point(-19, -19)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(100, 22)
-        Me.TextBox2.TabIndex = 58
-        '
         'txt_Search
         '
         Me.txt_Search.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -473,24 +441,6 @@ Partial Class frm_Employee
         Me.lbl_Search.TabIndex = 60
         Me.lbl_Search.Text = "Search:"
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(-19, -19)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 61
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(-19, -19)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 62
-        Me.Button2.Text = "Button2"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'btn_Search
         '
         Me.btn_Search.BackColor = System.Drawing.Color.Ivory
@@ -506,7 +456,7 @@ Partial Class frm_Employee
         '
         Me.btn_Reset.BackColor = System.Drawing.Color.Ivory
         Me.btn_Reset.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Reset.Location = New System.Drawing.Point(671, 426)
+        Me.btn_Reset.Location = New System.Drawing.Point(507, 426)
         Me.btn_Reset.Name = "btn_Reset"
         Me.btn_Reset.Size = New System.Drawing.Size(141, 47)
         Me.btn_Reset.TabIndex = 65
@@ -517,25 +467,12 @@ Partial Class frm_Employee
         '
         Me.btn_Clear.BackColor = System.Drawing.Color.Ivory
         Me.btn_Clear.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Clear.Location = New System.Drawing.Point(834, 426)
+        Me.btn_Clear.Location = New System.Drawing.Point(677, 426)
         Me.btn_Clear.Name = "btn_Clear"
         Me.btn_Clear.Size = New System.Drawing.Size(141, 47)
         Me.btn_Clear.TabIndex = 66
         Me.btn_Clear.Text = "Clear"
         Me.btn_Clear.UseVisualStyleBackColor = False
-        '
-        'ptb_Icon
-        '
-        Me.ptb_Icon.BackColor = System.Drawing.SystemColors.Control
-        Me.ptb_Icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ptb_Icon.ErrorImage = Nothing
-        Me.ptb_Icon.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
-        Me.ptb_Icon.Location = New System.Drawing.Point(1426, -1)
-        Me.ptb_Icon.Name = "ptb_Icon"
-        Me.ptb_Icon.Size = New System.Drawing.Size(43, 37)
-        Me.ptb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.ptb_Icon.TabIndex = 67
-        Me.ptb_Icon.TabStop = False
         '
         'BtnEmpDept
         '
@@ -558,20 +495,14 @@ Partial Class frm_Employee
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1491, 881)
         Me.Controls.Add(Me.BtnEmpDept)
-        Me.Controls.Add(Me.ptb_Icon)
         Me.Controls.Add(Me.btn_Clear)
         Me.Controls.Add(Me.btn_Reset)
         Me.Controls.Add(Me.btn_Search)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.lbl_Search)
         Me.Controls.Add(Me.txt_Search)
-        Me.Controls.Add(Me.TextBox2)
-        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.dgrv_Employee)
         Me.Controls.Add(Me.btn_Upload)
         Me.Controls.Add(Me.ptb_Employee)
-        Me.Controls.Add(Me.btn_Close)
         Me.Controls.Add(Me.btn_Delete)
         Me.Controls.Add(Me.btn_Update)
         Me.Controls.Add(Me.btn_Add)
@@ -598,13 +529,10 @@ Partial Class frm_Employee
         Me.Text = "employees"
         CType(Me.ptb_Employee, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgrv_Employee, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents btn_Close As Button
     Friend WithEvents btn_Delete As Button
     Friend WithEvents btn_Update As Button
     Friend WithEvents btn_Add As Button
@@ -628,16 +556,11 @@ Partial Class frm_Employee
     Friend WithEvents dgrv_Employee As DataGridView
     Friend WithEvents name1 As DataGridViewTextBoxColumn
     Friend WithEvents lbl_TitleEmployee As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents TextBox2 As TextBox
     Friend WithEvents txt_Search As TextBox
     Friend WithEvents lbl_Search As Label
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
     Friend WithEvents btn_Search As Button
     Friend WithEvents btn_Reset As Button
     Friend WithEvents btn_Clear As Button
-    Friend WithEvents ptb_Icon As PictureBox
     Friend WithEvents BtnEmpDept As Button
     Friend WithEvents No As DataGridViewTextBoxColumn
     Friend WithEvents EmployeeID As DataGridViewTextBoxColumn

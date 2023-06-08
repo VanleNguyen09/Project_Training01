@@ -19,13 +19,21 @@ AS
 BEGIN
 	DECLARE @exist INT
 	SET @exist = 0
+	DECLARE @isBigger INT
+	SET @isBigger = 0
 
 	IF EXISTS (SELECT 1 FROM dbo.Dept_manager WHERE emp_id = @emp_id AND dept_id = @dept_id 
 	AND from_date = @from_date AND to_date = @to_date AND status = 1)
 	BEGIN
 		SET @exist = 1
 	END
-	ELSE	
+	ELSE IF EXISTS (SELECT 1 FROM dbo.Dept_manager WHERE	
+	emp_id = @emp_id AND dept_id = @dept_id AND (from_date > @from_date 
+	OR to_date > @to_date) AND status = 1)
+	BEGIN
+		SET @isBigger = 1
+	END
+	ELSE
 	BEGIN
 		UPDATE dbo.Dept_manager
 		SET status = 0
@@ -37,19 +45,20 @@ BEGIN
 
 		IF @@ROWCOUNT = 0
 		BEGIN	
-			INSERT INTO dbo.Dept_manager
-			(
-				emp_id,
-				dept_id,
-				from_date,
-				to_date,
-				status
-			)
-			VALUES
-			(   
-				@emp_id, @dept_id, @from_date, @to_date, @status
-			)
-		END 
+		INSERT INTO dbo.Dept_manager
+		(
+			emp_id,
+			dept_id,
+			from_date,
+			to_date,
+			status
+		)
+		VALUES
+		(   
+			@emp_id, @dept_id, @from_date, @to_date, @status
+		)
+		END
 	END
-	SELECT @exist AS IsDuplicate
+	SELECT @exist AS IsDuplicate, @isBigger AS IsBigger
 END
+GO

@@ -4,6 +4,7 @@ Imports System.IO
 
 
 Public Class frm_Employee
+    Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
 
     Private Class Selected_Employees
         Public id As Integer = 0
@@ -15,26 +16,17 @@ Public Class frm_Employee
         Public gender As String = ""
         Public birthday As Date = Date.Now()
         Public email As String = ""
-
-
         Public Sub New()
         End Sub
 
     End Class
     Private selectedEmployees As Selected_Employees = New Selected_Employees()
 
-    Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private Sub Employee_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lbl_TitleEmployee.BackColor = Color.Transparent
-        lbl_EmployeeID.BackColor = Color.Transparent
-        lbl_Name.BackColor = Color.Transparent
-        lbl_Phone.BackColor = Color.Transparent
-        lbl_Gender.BackColor = Color.Transparent
-        rdo_Female.BackColor = Color.Transparent
-        rdo_Male.BackColor = Color.Transparent
-        lbl_Email.BackColor = Color.Transparent
-        lbl_Address.BackColor = Color.Transparent
-        lbl_Birthday.BackColor = Color.Transparent
+        CustomElements.AddClearButtonInsideTextBox(txt_Search, "pbCloseSearch", Sub()
+                                                                                    txt_Search.Text = ""
+                                                                                    btn_Search.PerformClick()
+                                                                                End Sub)
         dtp_Birthday.Value = dtp_Birthday.Value.AddYears(-18)
         rdo_Female.Text = "Female"
         rdo_Male.Text = "Male"
@@ -128,46 +120,6 @@ Public Class frm_Employee
 
     End Sub
 
-    Private Function CheckEmployeeStatus(phone As String) As Integer
-        Dim status As Integer = 0
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Try
-            Using cmd As SqlCommand = New SqlCommand("CheckEmployeeStatus", con)
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("@phone", phone)
-                Dim statusParam As SqlParameter = New SqlParameter("@status", SqlDbType.Int)
-                statusParam.Direction = ParameterDirection.Output
-                cmd.Parameters.Add(statusParam)
-                cmd.ExecuteNonQuery()
-                status = CInt(statusParam.Value)
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            con.Close()
-        End Try
-        Return status
-    End Function
-
-    Private Sub UpdateEmployeeStatus(phone As String)
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Try
-            Using cmd As SqlCommand = New SqlCommand("UpdateEmployeeStatus", con)
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("@phone", phone)
-                cmd.ExecuteNonQuery()
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            con.Close()
-        End Try
-    End Sub
-
     Public Sub Add_Employees(name As String, phone As String, address As String, gender As String, birthday As Date, email As String, img As Byte())
         Dim status As Integer = 1
         If con.State <> 1 Then
@@ -225,13 +177,11 @@ Public Class frm_Employee
                 cmd.ExecuteNonQuery()
 
             End Using
-            MessageBox.Show("Employee has been deleted successfully!!!", "Success", buttons, MessageBoxIcon.Information)
         Catch ex As Exception
             MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             con.Close()
         End Try
-        LoadAndSortData()
     End Sub
 
     Public Sub SortDataById()
@@ -239,7 +189,7 @@ Public Class frm_Employee
     End Sub
 
     Public Sub ShowEmployee(ByVal No As Integer, ByVal reader As SqlDataReader)
-        Dim id As Integer = Convert.ToInt32(reader("id"))
+        Dim id As Integer = Convert.ToInt32(reader("id").ToString())
         Dim name As String = reader("name").ToString()
         Dim img As Image = Nothing
 
@@ -261,7 +211,7 @@ Public Class frm_Employee
         Dim gender As String = reader("gender").ToString()
         Dim birthday As String = reader("birthday").ToString()
         Dim email As String = reader("email").ToString()
-        Dim status As Integer = Convert.ToInt32(reader("status"))
+        Dim status As Integer = Convert.ToInt32(reader("status").ToString())
         dgrv_Employee.Rows.Add(No, id, name, img, phone, address, gender, birthday, email, status)
     End Sub
 
@@ -275,7 +225,7 @@ Public Class frm_Employee
             Dim No As Integer = 1
             While reader.Read()
                 ShowEmployee(No, reader)
-                No = No + 1
+                No += 1
             End While
             con.Close()
         End Using
@@ -331,7 +281,7 @@ Public Class frm_Employee
                     Dim No As Integer = 1
                     While reader.Read()
                         ShowEmployee(No, reader)
-                        No = No + 1
+                        No += 1
                     End While
                 Else
                     MessageBox.Show(Message.Message.errorInvalidSearch, titleMsgBox, buttons, icons)
@@ -501,12 +451,13 @@ Public Class frm_Employee
 
         If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected employee?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             If employeeIdColumn IsNot Nothing Then
-
+                MessageBox.Show("Employee has been deleted successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                 For i As Integer = selectedRows.Count - 1 To 0 Step -1
                     Dim selectedRow As DataGridViewRow = selectedRows(i)
                     Dim id As Integer = CInt(selectedRow.Cells(employeeIdColumn.Index).Value)
                     Delete_Employee(id)
                 Next
+                LoadAndSortData()
                 ClearForm()
                 EnableAdd()
             Else
@@ -523,13 +474,6 @@ Public Class frm_Employee
         If FuntionCommon.Validation.ValidatePhone(phone) Then
             txt_Address.Focus()
         End If
-    End Sub
-
-    Private Sub btn_Close_Click(sender As Object, e As EventArgs) Handles btn_Close.Click
-        Me.Close()
-        'Dim dashboard As New Dashboard
-        Dim dashboard As New Dashboard
-        dashboard.Show()
     End Sub
 
     Private imageSelected As Boolean = False
@@ -588,13 +532,6 @@ Public Class frm_Employee
     Private Sub btn_Clear_Click(sender As Object, e As EventArgs) Handles btn_Clear.Click
         ClearForm()
         EnableAdd()
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
-        Me.Close()
-        'Dim dashboard As New Dashboard
-        Dim dashboard As New Dashboard
-        dashboard.Show()
     End Sub
 
     Private Sub txt_Name_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_Name.KeyDown
@@ -658,5 +595,9 @@ Public Class frm_Employee
 
     Private Sub frm_Employee_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         dgrv_Employee.ClearSelection()
+    End Sub
+
+    Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
+        txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
 End Class

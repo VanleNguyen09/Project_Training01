@@ -61,6 +61,6 @@ Public Class Dashboard
     End Sub
 
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
-        Me.Close()
+        Application.Exit()
     End Sub
 End Class

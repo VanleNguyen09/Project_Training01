@@ -2,7 +2,7 @@
 Imports System.Runtime.CompilerServices
 
 Public Class frm_EmpInDept
-
+    Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private Property DeptEmpId As Integer
 
     Private Class Selected_EmpDept
@@ -72,23 +72,19 @@ Public Class frm_EmpInDept
             Return displayvalue
         End Function
     End Class
-
-    Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
-
     Public Sub ShowEmployeeDept(ByVal No As Integer, ByVal reader As SqlDataReader)
-        Dim id As Integer = Convert.ToInt32(reader("id"))
+        Dim id As Integer = Convert.ToInt32(reader("id").ToString())
         Dim name As String = reader("name").ToString()
         Dim phone As String = reader("phone").ToString()
         Dim address As String = reader("address").ToString()
         Dim birthday As String = reader("birthday").ToString()
         Dim email As String = reader("email").ToString()
         Dim department_name As String = reader("department_name").ToString()
-        'Dim department_name As String = If(reader.IsDBNull(reader.GetOrdinal("department_name")), String.Empty, reader("department_name").ToString())
         Dim from_date As String = reader("from_date").ToString()
         Dim to_date As String = reader("to_date").ToString()
-        Dim dept_id As Integer = Convert.ToInt32(reader("dept_id"))
-        Dim status As Integer = Convert.ToInt32(reader("status"))
-        Dim deptemp_id As Integer = Convert.ToInt32(reader("deptemp_id"))
+        Dim dept_id As Integer = Convert.ToInt32(reader("dept_id").ToString())
+        Dim status As Integer = Convert.ToInt32(reader("status").ToString())
+        Dim deptemp_id As Integer = Convert.ToInt32(reader("deptemp_id").ToString())
 
         dgv_DeptEmp.Rows.Add(No, id, name, phone, birthday, address, email, department_name, from_date, to_date, dept_id, status, deptemp_id)
     End Sub
@@ -104,7 +100,7 @@ Public Class frm_EmpInDept
 
             While reader.Read()
                 ShowEmployeeDept(No, reader)
-                No = No + 1
+                No += 1
             End While
             con.Close()
         End Using
@@ -251,15 +247,20 @@ Public Class frm_EmpInDept
                 cmd.Parameters.AddWithValue("@status", status)
 
                 Dim isDuplicate As Integer = 0
+                Dim isBigger As Integer = 0
 
                 Using reader = cmd.ExecuteReader()
                     If reader.Read() Then
                         isDuplicate = CInt(reader("IsDuplicate"))
+                        isBigger = CInt(reader("IsBigger"))
                     End If
                 End Using
 
-                If isDuplicate = 1 Then
+                If isDuplicate Then
                     MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
+                    Exit Sub
+                ElseIf isBigger Then
+                    MessageBox.Show("Date is smaller than date exist in system. Can not Update. Please try again!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Exit Sub
                 Else
                     MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
@@ -291,7 +292,7 @@ Public Class frm_EmpInDept
                 If reader.HasRows Then
                     While reader.Read()
                         ShowEmployeeDept(No, reader)
-                        No = No + 1
+                        No += 1
                     End While
                 Else
                     MessageBox.Show(Message.Message.errorInvalidSearch, titleMsgBox, buttons, icons)
@@ -319,24 +320,17 @@ Public Class frm_EmpInDept
                 cmd.Parameters.AddWithValue("@dept_id", dept_id) ' Thêm tham số dept_id vào thủ tục xóa
                 cmd.ExecuteNonQuery()
             End Using
-            MessageBox.Show("Employee has been deleted successfully!!!", "Success", buttons, MessageBoxIcon.Information)
         Catch ex As Exception
             MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             con.Close()
         End Try
-        LoadAndSortData()
     End Sub
 
     Private Sub MakeButtonBackgroundBlurry(button As Button)
         Dim originalColor As Color = button.BackColor
         Dim blurredColor As Color = ControlPaint.Light(originalColor, 0.5)
         button.BackColor = blurredColor
-    End Sub
-    Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
-        Me.Close()
-        Dim employee As New frm_Employee
-        employee.Show()
     End Sub
 
     Private Sub cb_Department_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cb_Department.SelectedIndexChanged
@@ -353,7 +347,7 @@ Public Class frm_EmpInDept
                 Dim No As Integer = 1
                 While reader.Read()
                     ShowEmployeeDept(No, reader)
-                    No = No + 1
+                    No += 1
                 End While
                 con.Close()
             End Using
@@ -365,7 +359,7 @@ Public Class frm_EmpInDept
                 Dim No As Integer = 1
                 While reader.Read()
                     ShowEmployeeDept(No, reader)
-                    No = No + 1
+                    No += 1
                 End While
                 con.Close()
             End Using
@@ -427,12 +421,6 @@ Public Class frm_EmpInDept
         End If
     End Sub
 
-    Private Sub btn_Exit_Click(sender As Object, e As EventArgs) Handles btn_Exit.Click
-        Me.Close()
-        Dim employee As New frm_Employee
-        employee.Show()
-    End Sub
-
     Private Sub btn_Delete_Click(sender As Object, e As EventArgs) Handles btn_Delete.Click
         Dim selectedRows As DataGridViewSelectedRowCollection = dgv_DeptEmp.SelectedRows
 
@@ -444,12 +432,14 @@ Public Class frm_EmpInDept
                 Dim deptIdColumn As DataGridViewColumn = dgv_DeptEmp.Columns("dept_id")
 
                 If empIdColumn IsNot Nothing And deptIdColumn IsNot Nothing Then
+                    MessageBox.Show("Employee has been deleted successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                     For i As Integer = selectedRows.Count - 1 To 0 Step -1
                         Dim selectedRow As DataGridViewRow = selectedRows(i)
                         Dim emp_id As Integer = CInt(selectedRow.Cells(empIdColumn.Index).Value)
                         Dim dept_id As Integer = CInt(selectedRow.Cells(deptIdColumn.Index).Value)
                         Delete_EmpDept(emp_id, dept_id)
                     Next
+                    LoadAndSortData()
                     ClearForm()
                     EnableAdd()
                 End If

@@ -31,7 +31,6 @@ Partial Class frm_EmpInDept
         Me.Label4 = New System.Windows.Forms.Label()
         Me.cb_DepCreate = New System.Windows.Forms.ComboBox()
         Me.btn_Clear = New System.Windows.Forms.Button()
-        Me.btn_Exit = New System.Windows.Forms.Button()
         Me.btn_Search = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btn_Update = New System.Windows.Forms.Button()
@@ -40,11 +39,6 @@ Partial Class frm_EmpInDept
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txt_Search = New System.Windows.Forms.TextBox()
         Me.dgv_DeptEmp = New System.Windows.Forms.DataGridView()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.ptb_Icon = New System.Windows.Forms.PictureBox()
-        Me.lbl_titleManager = New System.Windows.Forms.Label()
-        Me.cb_Department = New System.Windows.Forms.ComboBox()
-        Me.btn_Reset = New System.Windows.Forms.Button()
         Me.NO = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -58,9 +52,12 @@ Partial Class frm_EmpInDept
         Me.dept_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.deptemp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lbl_titleManager = New System.Windows.Forms.Label()
+        Me.cb_Department = New System.Windows.Forms.ComboBox()
+        Me.btn_Reset = New System.Windows.Forms.Button()
         Me.grb_create.SuspendLayout()
         CType(Me.dgv_DeptEmp, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'dtp_ToDate
@@ -183,19 +180,6 @@ Partial Class frm_EmpInDept
         Me.btn_Clear.Text = "CLEAR"
         Me.btn_Clear.UseVisualStyleBackColor = False
         '
-        'btn_Exit
-        '
-        Me.btn_Exit.BackColor = System.Drawing.Color.Lavender
-        Me.btn_Exit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Exit.ForeColor = System.Drawing.Color.Black
-        Me.btn_Exit.Location = New System.Drawing.Point(506, 250)
-        Me.btn_Exit.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Exit.Name = "btn_Exit"
-        Me.btn_Exit.Size = New System.Drawing.Size(203, 39)
-        Me.btn_Exit.TabIndex = 97
-        Me.btn_Exit.Text = "EXIT"
-        Me.btn_Exit.UseVisualStyleBackColor = False
-        '
         'btn_Search
         '
         Me.btn_Search.BackColor = System.Drawing.Color.Lavender
@@ -227,7 +211,7 @@ Partial Class frm_EmpInDept
         Me.btn_Update.BackColor = System.Drawing.Color.Lavender
         Me.btn_Update.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_Update.ForeColor = System.Drawing.Color.Black
-        Me.btn_Update.Location = New System.Drawing.Point(732, 249)
+        Me.btn_Update.Location = New System.Drawing.Point(506, 251)
         Me.btn_Update.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_Update.Name = "btn_Update"
         Me.btn_Update.Size = New System.Drawing.Size(203, 39)
@@ -240,10 +224,10 @@ Partial Class frm_EmpInDept
         Me.btn_Delete.BackColor = System.Drawing.Color.Lavender
         Me.btn_Delete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_Delete.ForeColor = System.Drawing.Color.Black
-        Me.btn_Delete.Location = New System.Drawing.Point(732, 194)
+        Me.btn_Delete.Location = New System.Drawing.Point(732, 192)
         Me.btn_Delete.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_Delete.Name = "btn_Delete"
-        Me.btn_Delete.Size = New System.Drawing.Size(203, 35)
+        Me.btn_Delete.Size = New System.Drawing.Size(203, 39)
         Me.btn_Delete.TabIndex = 95
         Me.btn_Delete.Text = "REMOVE"
         Me.btn_Delete.UseVisualStyleBackColor = False
@@ -306,71 +290,6 @@ Partial Class frm_EmpInDept
         Me.dgv_DeptEmp.Size = New System.Drawing.Size(1452, 363)
         Me.dgv_DeptEmp.TabIndex = 89
         '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.Lavender
-        Me.Label2.Location = New System.Drawing.Point(42, 136)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(107, 20)
-        Me.Label2.TabIndex = 88
-        Me.Label2.Text = "Department"
-        '
-        'ptb_Icon
-        '
-        Me.ptb_Icon.BackColor = System.Drawing.SystemColors.Control
-        Me.ptb_Icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ptb_Icon.ErrorImage = Nothing
-        Me.ptb_Icon.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
-        Me.ptb_Icon.Location = New System.Drawing.Point(1505, 12)
-        Me.ptb_Icon.Name = "ptb_Icon"
-        Me.ptb_Icon.Size = New System.Drawing.Size(43, 37)
-        Me.ptb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.ptb_Icon.TabIndex = 87
-        Me.ptb_Icon.TabStop = False
-        '
-        'lbl_titleManager
-        '
-        Me.lbl_titleManager.AutoSize = True
-        Me.lbl_titleManager.BackColor = System.Drawing.Color.Transparent
-        Me.lbl_titleManager.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_titleManager.ForeColor = System.Drawing.Color.Lavender
-        Me.lbl_titleManager.Location = New System.Drawing.Point(243, 32)
-        Me.lbl_titleManager.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lbl_titleManager.Name = "lbl_titleManager"
-        Me.lbl_titleManager.Size = New System.Drawing.Size(637, 39)
-        Me.lbl_titleManager.TabIndex = 86
-        Me.lbl_titleManager.Text = "EMPLOYEES LIST BY DEPARTMENT"
-        '
-        'cb_Department
-        '
-        Me.cb_Department.AllowDrop = True
-        Me.cb_Department.DropDownHeight = 200
-        Me.cb_Department.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cb_Department.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cb_Department.FormattingEnabled = True
-        Me.cb_Department.IntegralHeight = False
-        Me.cb_Department.Location = New System.Drawing.Point(166, 132)
-        Me.cb_Department.Name = "cb_Department"
-        Me.cb_Department.Size = New System.Drawing.Size(229, 30)
-        Me.cb_Department.TabIndex = 85
-        '
-        'btn_Reset
-        '
-        Me.btn_Reset.BackColor = System.Drawing.Color.Lavender
-        Me.btn_Reset.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Reset.ForeColor = System.Drawing.Color.Black
-        Me.btn_Reset.Location = New System.Drawing.Point(506, 318)
-        Me.btn_Reset.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Reset.Name = "btn_Reset"
-        Me.btn_Reset.Size = New System.Drawing.Size(429, 39)
-        Me.btn_Reset.TabIndex = 99
-        Me.btn_Reset.Text = "RESET"
-        Me.btn_Reset.UseVisualStyleBackColor = False
-        '
         'NO
         '
         Me.NO.HeaderText = "NO"
@@ -399,6 +318,7 @@ Partial Class frm_EmpInDept
         Me.phone.HeaderText = "PHONE"
         Me.phone.MinimumWidth = 6
         Me.phone.Name = "phone"
+        Me.phone.Width = 125
         '
         'birthday
         '
@@ -426,6 +346,7 @@ Partial Class frm_EmpInDept
         Me.department_name.HeaderText = "Department"
         Me.department_name.MinimumWidth = 6
         Me.department_name.Name = "department_name"
+        Me.department_name.Width = 125
         '
         'from_date
         '
@@ -465,6 +386,58 @@ Partial Class frm_EmpInDept
         Me.deptemp_id.Visible = False
         Me.deptemp_id.Width = 125
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.Lavender
+        Me.Label2.Location = New System.Drawing.Point(42, 136)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(107, 20)
+        Me.Label2.TabIndex = 88
+        Me.Label2.Text = "Department"
+        '
+        'lbl_titleManager
+        '
+        Me.lbl_titleManager.AutoSize = True
+        Me.lbl_titleManager.BackColor = System.Drawing.Color.Transparent
+        Me.lbl_titleManager.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_titleManager.ForeColor = System.Drawing.Color.Lavender
+        Me.lbl_titleManager.Location = New System.Drawing.Point(243, 32)
+        Me.lbl_titleManager.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbl_titleManager.Name = "lbl_titleManager"
+        Me.lbl_titleManager.Size = New System.Drawing.Size(637, 39)
+        Me.lbl_titleManager.TabIndex = 86
+        Me.lbl_titleManager.Text = "EMPLOYEES LIST BY DEPARTMENT"
+        '
+        'cb_Department
+        '
+        Me.cb_Department.AllowDrop = True
+        Me.cb_Department.DropDownHeight = 200
+        Me.cb_Department.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cb_Department.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cb_Department.FormattingEnabled = True
+        Me.cb_Department.IntegralHeight = False
+        Me.cb_Department.Location = New System.Drawing.Point(166, 132)
+        Me.cb_Department.Name = "cb_Department"
+        Me.cb_Department.Size = New System.Drawing.Size(229, 30)
+        Me.cb_Department.TabIndex = 85
+        '
+        'btn_Reset
+        '
+        Me.btn_Reset.BackColor = System.Drawing.Color.Lavender
+        Me.btn_Reset.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_Reset.ForeColor = System.Drawing.Color.Black
+        Me.btn_Reset.Location = New System.Drawing.Point(732, 251)
+        Me.btn_Reset.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_Reset.Name = "btn_Reset"
+        Me.btn_Reset.Size = New System.Drawing.Size(203, 39)
+        Me.btn_Reset.TabIndex = 99
+        Me.btn_Reset.Text = "RESET"
+        Me.btn_Reset.UseVisualStyleBackColor = False
+        '
         'frm_EmpInDept
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -474,7 +447,6 @@ Partial Class frm_EmpInDept
         Me.ClientSize = New System.Drawing.Size(1562, 954)
         Me.Controls.Add(Me.btn_Reset)
         Me.Controls.Add(Me.btn_Clear)
-        Me.Controls.Add(Me.btn_Exit)
         Me.Controls.Add(Me.btn_Search)
         Me.Controls.Add(Me.btn_Update)
         Me.Controls.Add(Me.btn_Delete)
@@ -483,7 +455,6 @@ Partial Class frm_EmpInDept
         Me.Controls.Add(Me.txt_Search)
         Me.Controls.Add(Me.dgv_DeptEmp)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.ptb_Icon)
         Me.Controls.Add(Me.lbl_titleManager)
         Me.Controls.Add(Me.cb_Department)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -493,7 +464,6 @@ Partial Class frm_EmpInDept
         Me.grb_create.ResumeLayout(False)
         Me.grb_create.PerformLayout()
         CType(Me.dgv_DeptEmp, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -508,7 +478,6 @@ Partial Class frm_EmpInDept
     Friend WithEvents Label4 As Label
     Friend WithEvents cb_DepCreate As ComboBox
     Friend WithEvents btn_Clear As Button
-    Friend WithEvents btn_Exit As Button
     Friend WithEvents btn_Search As Button
     Friend WithEvents Label3 As Label
     Friend WithEvents btn_Update As Button
@@ -518,7 +487,6 @@ Partial Class frm_EmpInDept
     Friend WithEvents txt_Search As TextBox
     Friend WithEvents dgv_DeptEmp As DataGridView
     Friend WithEvents Label2 As Label
-    Friend WithEvents ptb_Icon As PictureBox
     Friend WithEvents lbl_titleManager As Label
     Friend WithEvents cb_Department As ComboBox
     Friend WithEvents btn_Reset As Button
