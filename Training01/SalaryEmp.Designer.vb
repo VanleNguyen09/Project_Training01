@@ -22,7 +22,7 @@ Partial Class SalaryEmp
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvEmps = New System.Windows.Forms.DataGridView()
         Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -44,17 +44,17 @@ Partial Class SalaryEmp
         Me.txtSalaryName = New System.Windows.Forms.TextBox()
         Me.txtSalary = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.btnAdd = New System.Windows.Forms.Button()
-        Me.btnDelete = New System.Windows.Forms.Button()
-        Me.btnExit = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.gbSalary = New System.Windows.Forms.GroupBox()
+        Me.gbtnExportExcel = New Guna.UI2.WinForms.Guna2Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.txtSearchSalary = New System.Windows.Forms.TextBox()
         Me.gbEmps = New System.Windows.Forms.GroupBox()
         Me.closeApp = New System.Windows.Forms.PictureBox()
+        Me.gBtnDelete = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gBtnAdd = New Guna.UI2.WinForms.Guna2Button()
         CType(Me.dgvEmps, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvSalaries, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -206,9 +206,9 @@ Partial Class SalaryEmp
         'salary
         '
         Me.salary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        DataGridViewCellStyle1.NullValue = "0.00"
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.salary.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle10.NullValue = "0.00"
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.salary.DefaultCellStyle = DataGridViewCellStyle10
         Me.salary.HeaderText = "SALARY"
         Me.salary.MinimumWidth = 6
         Me.salary.Name = "salary"
@@ -270,46 +270,6 @@ Partial Class SalaryEmp
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "Salary"
         '
-        'btnAdd
-        '
-        Me.btnAdd.BackColor = System.Drawing.Color.SteelBlue
-        Me.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnAdd.FlatAppearance.BorderSize = 2
-        Me.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnAdd.Location = New System.Drawing.Point(9, 132)
-        Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(212, 31)
-        Me.btnAdd.TabIndex = 11
-        Me.btnAdd.Text = "ADD"
-        Me.btnAdd.UseVisualStyleBackColor = False
-        '
-        'btnDelete
-        '
-        Me.btnDelete.BackColor = System.Drawing.Color.IndianRed
-        Me.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnDelete.FlatAppearance.BorderSize = 2
-        Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnDelete.Location = New System.Drawing.Point(444, 340)
-        Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(227, 33)
-        Me.btnDelete.TabIndex = 12
-        Me.btnDelete.Text = "DELETE"
-        Me.btnDelete.UseVisualStyleBackColor = False
-        '
-        'btnExit
-        '
-        Me.btnExit.BackColor = System.Drawing.Color.IndianRed
-        Me.btnExit.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnExit.FlatAppearance.BorderSize = 2
-        Me.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnExit.Location = New System.Drawing.Point(444, 301)
-        Me.btnExit.Name = "btnExit"
-        Me.btnExit.Size = New System.Drawing.Size(227, 33)
-        Me.btnExit.TabIndex = 13
-        Me.btnExit.Text = "EXIT"
-        Me.btnExit.UseVisualStyleBackColor = False
-        Me.btnExit.Visible = False
-        '
         'txtSearch
         '
         Me.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -334,10 +294,10 @@ Partial Class SalaryEmp
         'gbSalary
         '
         Me.gbSalary.BackColor = System.Drawing.Color.Transparent
+        Me.gbSalary.Controls.Add(Me.gBtnDelete)
+        Me.gbSalary.Controls.Add(Me.gbtnExportExcel)
         Me.gbSalary.Controls.Add(Me.GroupBox3)
-        Me.gbSalary.Controls.Add(Me.btnExit)
         Me.gbSalary.Controls.Add(Me.PictureBox2)
-        Me.gbSalary.Controls.Add(Me.btnDelete)
         Me.gbSalary.Controls.Add(Me.txtSearchSalary)
         Me.gbSalary.Controls.Add(Me.dgvSalaries)
         Me.gbSalary.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -349,10 +309,32 @@ Partial Class SalaryEmp
         Me.gbSalary.TabStop = False
         Me.gbSalary.Text = "SALARY'S MANAGEMENT"
         '
+        'gbtnExportExcel
+        '
+        Me.gbtnExportExcel.Animated = True
+        Me.gbtnExportExcel.AutoRoundedCorners = True
+        Me.gbtnExportExcel.BorderRadius = 18
+        Me.gbtnExportExcel.BorderThickness = 2
+        Me.gbtnExportExcel.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.gbtnExportExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtnExportExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtnExportExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtnExportExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtnExportExcel.FillColor = System.Drawing.Color.White
+        Me.gbtnExportExcel.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.gbtnExportExcel.ForeColor = System.Drawing.Color.Black
+        Me.gbtnExportExcel.Image = Global.Training01.My.Resources.Resources.download_icon
+        Me.gbtnExportExcel.Location = New System.Drawing.Point(444, 334)
+        Me.gbtnExportExcel.Name = "gbtnExportExcel"
+        Me.gbtnExportExcel.Size = New System.Drawing.Size(226, 39)
+        Me.gbtnExportExcel.TabIndex = 14
+        Me.gbtnExportExcel.Text = "EXPORT EXCEL"
+        Me.gbtnExportExcel.UseTransparentBackground = True
+        '
         'GroupBox3
         '
         Me.GroupBox3.BackColor = System.Drawing.Color.Transparent
-        Me.GroupBox3.Controls.Add(Me.btnAdd)
+        Me.GroupBox3.Controls.Add(Me.gBtnAdd)
         Me.GroupBox3.Controls.Add(Me.txtSalary)
         Me.GroupBox3.Controls.Add(Me.txtSalaryName)
         Me.GroupBox3.Controls.Add(Me.Label3)
@@ -412,6 +394,49 @@ Partial Class SalaryEmp
         Me.closeApp.TabStop = False
         Me.closeApp.Visible = False
         '
+        'gBtnDelete
+        '
+        Me.gBtnDelete.Animated = True
+        Me.gBtnDelete.AutoRoundedCorners = True
+        Me.gBtnDelete.BorderColor = System.Drawing.Color.White
+        Me.gBtnDelete.BorderRadius = 16
+        Me.gBtnDelete.BorderThickness = 2
+        Me.gBtnDelete.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.gBtnDelete.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gBtnDelete.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gBtnDelete.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gBtnDelete.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gBtnDelete.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gBtnDelete.FillColor2 = System.Drawing.Color.DarkMagenta
+        Me.gBtnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gBtnDelete.ForeColor = System.Drawing.Color.White
+        Me.gBtnDelete.Location = New System.Drawing.Point(444, 289)
+        Me.gBtnDelete.Name = "gBtnDelete"
+        Me.gBtnDelete.Size = New System.Drawing.Size(225, 34)
+        Me.gBtnDelete.TabIndex = 15
+        Me.gBtnDelete.Text = "DELETE"
+        '
+        'gBtnAdd
+        '
+        Me.gBtnAdd.Animated = True
+        Me.gBtnAdd.AutoRoundedCorners = True
+        Me.gBtnAdd.BorderColor = System.Drawing.Color.White
+        Me.gBtnAdd.BorderRadius = 18
+        Me.gBtnAdd.BorderThickness = 2
+        Me.gBtnAdd.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.gBtnAdd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gBtnAdd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gBtnAdd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gBtnAdd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gBtnAdd.FillColor = System.Drawing.Color.DarkViolet
+        Me.gBtnAdd.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gBtnAdd.ForeColor = System.Drawing.Color.White
+        Me.gBtnAdd.Location = New System.Drawing.Point(8, 129)
+        Me.gBtnAdd.Name = "gBtnAdd"
+        Me.gBtnAdd.Size = New System.Drawing.Size(210, 38)
+        Me.gBtnAdd.TabIndex = 11
+        Me.gBtnAdd.Text = "ADD"
+        '
         'SalaryEmp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -452,9 +477,6 @@ Partial Class SalaryEmp
     Friend WithEvents txtSalaryName As TextBox
     Friend WithEvents txtSalary As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents btnAdd As Button
-    Friend WithEvents btnDelete As Button
-    Friend WithEvents btnExit As Button
     Friend WithEvents txtSearch As TextBox
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents gbSalary As GroupBox
@@ -476,4 +498,7 @@ Partial Class SalaryEmp
     Friend WithEvents birthday As DataGridViewTextBoxColumn
     Friend WithEvents email As DataGridViewTextBoxColumn
     Friend WithEvents salary_emp_id As DataGridViewTextBoxColumn
+    Friend WithEvents gbtnExportExcel As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents gBtnDelete As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gBtnAdd As Guna.UI2.WinForms.Guna2Button
 End Class

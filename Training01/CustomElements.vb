@@ -1,5 +1,4 @@
 ﻿Public Class CustomElements
-
     ''' <summary>
     ''' Rounded Button
     ''' Author: Dat
@@ -58,7 +57,7 @@
     ''' </summary>
     ''' <param name="time">seconds</param>
     ''' <param name="callback">Function call when Progress is over</param>
-    Public Shared Sub ShowCirProgressBar(ByVal time As Integer, ByVal size As Size, ByVal callback As Action)
+    Public Shared Sub ShowCirProgressBar(ByVal time As Integer, ByVal size As Size, Optional ByVal callback As Action = Nothing)
         Dim progressBar As New CircularProgressBar.CircularProgressBar()
 
         'Settings
@@ -66,7 +65,7 @@
         progressBar.Location = New Point((Form.ActiveForm.ClientSize.Width - progressBar.Width) / 2, (Form.ActiveForm.ClientSize.Height - progressBar.Height) / 2)
         progressBar.ProgressWidth = 20
         progressBar.Text = "Processing..."
-        progressBar.OuterColor = Color.Black
+        progressBar.OuterColor = Color.White
         progressBar.OuterMargin = -25
         progressBar.OuterWidth = 25
         progressBar.StartAngle = 270
@@ -80,7 +79,7 @@
 
         Form.ActiveForm.Controls.Add(progressBar)
         progressBar.BringToFront()
-        progressBar.BackColor = Color.Transparent
+        progressBar.BackColor = Color.DarkBlue
 
         ' Set Value and Maximum của CircularProgressBar
         progressBar.Value = 0
@@ -93,7 +92,9 @@
                                    If progressBar.Value = progressBar.Maximum Then
                                        timer.Stop()
                                        progressBar.Visible = False
-                                       callback()
+                                       If callback IsNot Nothing Then
+                                           callback()
+                                       End If
                                    End If
                                End Sub
         timer.Interval = 1000

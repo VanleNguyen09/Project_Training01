@@ -38,6 +38,9 @@ Public Class Leave
 
         dtpFromDate.Format = DateTimePickerFormat.Custom
         dtpFromDate.CustomFormat = DateTimeformat
+        CustomElements.AddClearButtonInsideTextBox(txtSearch, "btnClearSearch", Sub()
+                                                                                    txtSearch.Text = ""
+                                                                                End Sub)
     End Sub
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
@@ -157,6 +160,7 @@ Public Class Leave
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        txtSearch.Controls("btnClearSearch").Visible = (txtSearch.Text.Length > 0)
         If isClickedFindBtn Then
             btnFindFromDate.PerformClick()
         Else
