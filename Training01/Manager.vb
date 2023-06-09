@@ -1,4 +1,8 @@
 ﻿Imports System.Data.SqlClient
+Imports System.IO
+Imports iTextSharp.text
+Imports iTextSharp.text.FontFactory
+Imports iTextSharp.text.pdf
 
 Public Class frm_Manager
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -16,6 +20,10 @@ Public Class frm_Manager
     Private selectedManagers As Selected_Managers = New Selected_Managers()
 
     Private Sub frm_Manager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CustomElements.AddClearButtonInsideTextBox(txt_Search, "pbCloseSearch", Sub()
+                                                                                    txt_Search.Text = ""
+                                                                                    btn_Search.PerformClick()
+                                                                                End Sub)
         Dim initialDepartment As ComboBoxItem = New ComboBoxItem("Select Department", "-1")
         Dim initialEmployee As ComboBoxItem = New ComboBoxItem("Select Employee", "-1")
         cb_Department.Items.Add(initialDepartment)
@@ -501,7 +509,6 @@ Public Class frm_Manager
             SearchManagersByKeyword(keyword, department_id)
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
-            LoadData()
             cb_Department.SelectedIndex = 0
         End If
     End Sub
@@ -673,5 +680,119 @@ Public Class frm_Manager
     End Sub
     Private Sub frm_Manager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         dgv_DeptManager.ClearSelection()
+    End Sub
+
+    Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
+        txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
+    End Sub
+
+    Private Sub ExportSalarySlipToPDF()
+        If con.State <> 1 Then
+            con.Open()
+        End If
+
+        Try
+            Using cmd As SqlCommand = New SqlCommand("GetSalarySlipData", con)
+                cmd.CommandType = CommandType.StoredProcedure
+
+                Using reader As SqlDataReader = cmd.ExecuteReader()
+
+                    ' Tạo file PDF mới
+                    Dim document As New Document()
+
+                    ' Mở tệp PDF để ghi
+                    Dim outputPath As String = "D:\Rikai_Internship_Training_.NET\Project_Training01\output.pdf"
+                    File.Create(outputPath).Close() ' Tạo một tệp mới
+                    Dim outputStream As New FileStream(outputPath, FileMode.Create)
+
+                    Dim writer As PdfWriter = PdfWriter.GetInstance(document, outputStream)
+
+                    ' Mở tài liệu PDF
+                    document.Open()
+
+                    Dim fontTitle As Font = FontFactory.GetFont("Arial", 18, FontStyle.Bold, BaseColor.RED)
+                    Dim titleText As String = "Employee Salary Slip"
+
+                    Dim titleUpper As String = titleText.ToUpper()
+
+                    Dim title As New Paragraph(titleUpper, fontTitle)
+                    title.Alignment = Element.ALIGN_CENTER
+
+                    document.Add(title)
+                    document.Add(Chunk.NEWLINE)
+
+                    ' Tạo font chữ tiếng Việt từ tên font
+                    Dim fontHeader As Font = FontFactory.GetFont("Arial", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12, FontStyle.Bold)
+                    Dim fontContent As Font = FontFactory.GetFont("Arial", BaseFont.IDENTITY_H, BaseFont.EMBEDDED)
+
+                    ' Tạo danh sách chiều rộng các cột dựa trên số lượng cột và tỷ lệ phần trăm chiều rộng mong muốn
+                    Dim columnWidths() As Single = {10, 30, 25, 45, 30, 30, 25, 25, 25, 25}
+
+                    Dim columnHeaders() As String = {"ID", "Name", "Phone", "Address", "Salary Name",
+                    "Salary", "Department", "From Date", "Position", "From Date"}
+
+                    ' Tạo một bảng để chứa nội dung phiếu lương
+                    Dim table As New PdfPTable(columnWidths.Length)
+
+                    table.WidthPercentage = 100 ' Đặt tỷ lệ phần trăm chiều rộng bảng
+                    table.SetWidths(columnWidths) ' Đặt tỷ lệ phần trăm chiều rộng cho các cột
+
+                    Dim isFirstRow As Boolean = True
+
+                    ' Thiết lập chiều cao cố định cho các ô trong bảng
+                    table.DefaultCell.FixedHeight = 30 ' Chiều cao 20 (đơn vị pixel)
+
+                    ' Đọc dữ liệu từ SqlDataReader và thêm nội dung vào bảng
+                    While reader.Read()
+                        Dim employeeID As Integer? = If(Not reader.IsDBNull(0), reader.GetInt32(0), Nothing)
+                        Dim employeeName As String = reader.GetString(1)
+                        Dim phone As String = reader.GetString(2)
+                        Dim address As String = reader.GetString(3)
+                        Dim salaryName As String = reader.GetString(4)
+                        Dim salary As Decimal = reader.GetDecimal(5)
+                        Dim department As String = reader.GetString(6)
+                        Dim fromDateDept As DateTime = reader.GetDateTime(7)
+                        Dim postion As String = reader.GetString(8)
+                        Dim fromDatePos As DateTime = reader.GetDateTime(9)
+
+                        If isFirstRow Then
+                            ' Add column headers in the first row
+                            For Each columnHeader As String In columnHeaders
+                                Dim cell As New PdfPCell(New Phrase(columnHeader, fontHeader))
+                                table.AddCell(cell)
+                            Next
+
+                            isFirstRow = False
+                        End If
+
+                        table.AddCell(New PdfPCell(New Phrase(employeeID.ToString(), fontContent)))
+                        table.AddCell(New PdfPCell(New Phrase(employeeName, fontContent)))
+                        table.AddCell(New PdfPCell(New Phrase(phone, fontContent)))
+                        table.AddCell(New PdfPCell(New Phrase(address, fontContent)))
+                        table.AddCell(New PdfPCell(New Phrase(salaryName, fontContent)))
+                        table.AddCell(New PdfPCell(New Phrase(salary.ToString(), fontContent)))
+                        table.AddCell(New PdfPCell(New Phrase(department, fontContent)))
+                        table.AddCell(New PdfPCell(New Phrase(fromDateDept.ToString(), fontContent)))
+                        table.AddCell(New PdfPCell(New Phrase(postion, fontContent)))
+                        table.AddCell(New PdfPCell(New Phrase(fromDatePos.ToString(), fontContent)))
+                    End While
+
+                    ' Thêm bảng vào tài liệu PDF
+                    document.Add(table)
+
+                    ' Đóng tài liệu PDF
+                    document.Close()
+                End Using
+            End Using
+            MessageBox.Show("Salary slip has been exported successfully!!!", "Notification", buttons, MessageBoxIcon.Information)
+        Catch ex As Exception
+            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
+        End Try
+    End Sub
+
+    Private Sub btn_ExportPDF_Click(sender As Object, e As EventArgs) Handles btn_ExportPDF.Click
+        ExportSalarySlipToPDF()
     End Sub
 End Class

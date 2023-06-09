@@ -22,8 +22,8 @@ Partial Class frm_Department
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.lbl_TitleDepartment = New System.Windows.Forms.Label()
         Me.txt_Name = New System.Windows.Forms.TextBox()
         Me.lbl_Name = New System.Windows.Forms.Label()
@@ -44,6 +44,10 @@ Partial Class frm_Department
         Me.txt_Search = New System.Windows.Forms.TextBox()
         Me.lbl_DepartmentID = New System.Windows.Forms.Label()
         Me.txt_DepartmentID = New System.Windows.Forms.TextBox()
+        Me.lbl_CurrentPage = New System.Windows.Forms.Label()
+        Me.lbl_TotalPage = New System.Windows.Forms.Label()
+        Me.btn_Previous = New System.Windows.Forms.Button()
+        Me.btn_Next = New System.Windows.Forms.Button()
         CType(Me.dgrv_Department, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -119,7 +123,7 @@ Partial Class frm_Department
         Me.dgrv_Department.AllowUserToAddRows = False
         Me.dgrv_Department.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgrv_Department.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.No, Me.department_id, Me.department_name, Me.status, Me.Number_Emp, Me.Number_Manager})
-        Me.dgrv_Department.Location = New System.Drawing.Point(465, 88)
+        Me.dgrv_Department.Location = New System.Drawing.Point(470, 66)
         Me.dgrv_Department.Name = "dgrv_Department"
         Me.dgrv_Department.RowHeadersVisible = False
         Me.dgrv_Department.RowHeadersWidth = 51
@@ -138,8 +142,8 @@ Partial Class frm_Department
         '
         'department_id
         '
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.department_id.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.department_id.DefaultCellStyle = DataGridViewCellStyle5
         Me.department_id.HeaderText = "DepartmentID"
         Me.department_id.MinimumWidth = 6
         Me.department_id.Name = "department_id"
@@ -149,8 +153,8 @@ Partial Class frm_Department
         '
         'department_name
         '
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.department_name.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.department_name.DefaultCellStyle = DataGridViewCellStyle6
         Me.department_name.HeaderText = "Department Name"
         Me.department_name.MinimumWidth = 6
         Me.department_name.Name = "department_name"
@@ -252,6 +256,50 @@ Partial Class frm_Department
         Me.txt_DepartmentID.Size = New System.Drawing.Size(163, 30)
         Me.txt_DepartmentID.TabIndex = 72
         '
+        'lbl_CurrentPage
+        '
+        Me.lbl_CurrentPage.AutoSize = True
+        Me.lbl_CurrentPage.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_CurrentPage.Location = New System.Drawing.Point(782, 433)
+        Me.lbl_CurrentPage.Name = "lbl_CurrentPage"
+        Me.lbl_CurrentPage.Size = New System.Drawing.Size(48, 22)
+        Me.lbl_CurrentPage.TabIndex = 74
+        Me.lbl_CurrentPage.Text = "Page"
+        '
+        'lbl_TotalPage
+        '
+        Me.lbl_TotalPage.AutoSize = True
+        Me.lbl_TotalPage.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_TotalPage.Location = New System.Drawing.Point(851, 433)
+        Me.lbl_TotalPage.Name = "lbl_TotalPage"
+        Me.lbl_TotalPage.Size = New System.Drawing.Size(94, 22)
+        Me.lbl_TotalPage.TabIndex = 75
+        Me.lbl_TotalPage.Text = "Total Page"
+        '
+        'btn_Previous
+        '
+        Me.btn_Previous.AllowDrop = True
+        Me.btn_Previous.BackColor = System.Drawing.Color.Linen
+        Me.btn_Previous.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_Previous.Location = New System.Drawing.Point(669, 426)
+        Me.btn_Previous.Name = "btn_Previous"
+        Me.btn_Previous.Size = New System.Drawing.Size(95, 35)
+        Me.btn_Previous.TabIndex = 76
+        Me.btn_Previous.Text = "Previous"
+        Me.btn_Previous.UseVisualStyleBackColor = False
+        '
+        'btn_Next
+        '
+        Me.btn_Next.AllowDrop = True
+        Me.btn_Next.BackColor = System.Drawing.Color.Linen
+        Me.btn_Next.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_Next.Location = New System.Drawing.Point(963, 426)
+        Me.btn_Next.Name = "btn_Next"
+        Me.btn_Next.Size = New System.Drawing.Size(95, 35)
+        Me.btn_Next.TabIndex = 77
+        Me.btn_Next.Text = "Next"
+        Me.btn_Next.UseVisualStyleBackColor = False
+        '
         'frm_Department
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -260,6 +308,10 @@ Partial Class frm_Department
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1228, 464)
+        Me.Controls.Add(Me.btn_Next)
+        Me.Controls.Add(Me.btn_Previous)
+        Me.Controls.Add(Me.lbl_TotalPage)
+        Me.Controls.Add(Me.lbl_CurrentPage)
         Me.Controls.Add(Me.lbl_DepartmentID)
         Me.Controls.Add(Me.txt_DepartmentID)
         Me.Controls.Add(Me.btn_Search)
@@ -304,4 +356,8 @@ Partial Class frm_Department
     Friend WithEvents status As DataGridViewTextBoxColumn
     Friend WithEvents Number_Emp As DataGridViewTextBoxColumn
     Friend WithEvents Number_Manager As DataGridViewTextBoxColumn
+    Friend WithEvents lbl_CurrentPage As Label
+    Friend WithEvents lbl_TotalPage As Label
+    Friend WithEvents btn_Previous As Button
+    Friend WithEvents btn_Next As Button
 End Class

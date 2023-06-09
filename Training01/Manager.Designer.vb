@@ -57,6 +57,7 @@ Partial Class frm_Manager
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btn_Update = New System.Windows.Forms.Button()
         Me.btn_Reset = New System.Windows.Forms.Button()
+        Me.btn_ExportPDF = New System.Windows.Forms.Button()
         CType(Me.dgv_DeptManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_create.SuspendLayout()
         Me.SuspendLayout()
@@ -452,6 +453,19 @@ Partial Class frm_Manager
         Me.btn_Reset.Text = "RESET"
         Me.btn_Reset.UseVisualStyleBackColor = False
         '
+        'btn_ExportPDF
+        '
+        Me.btn_ExportPDF.BackColor = System.Drawing.Color.Linen
+        Me.btn_ExportPDF.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_ExportPDF.ForeColor = System.Drawing.Color.Black
+        Me.btn_ExportPDF.Location = New System.Drawing.Point(483, 354)
+        Me.btn_ExportPDF.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_ExportPDF.Name = "btn_ExportPDF"
+        Me.btn_ExportPDF.Size = New System.Drawing.Size(203, 39)
+        Me.btn_ExportPDF.TabIndex = 86
+        Me.btn_ExportPDF.Text = "Export PDF"
+        Me.btn_ExportPDF.UseVisualStyleBackColor = False
+        '
         'frm_Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -459,6 +473,7 @@ Partial Class frm_Manager
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1586, 966)
+        Me.Controls.Add(Me.btn_ExportPDF)
         Me.Controls.Add(Me.btn_Reset)
         Me.Controls.Add(Me.btn_Update)
         Me.Controls.Add(Me.btn_Clear)
@@ -518,4 +533,5 @@ Partial Class frm_Manager
     Friend WithEvents dept_id As DataGridViewTextBoxColumn
     Friend WithEvents status As DataGridViewTextBoxColumn
     Friend WithEvents deptmanager_id As DataGridViewTextBoxColumn
+    Friend WithEvents btn_ExportPDF As Button
 End Class

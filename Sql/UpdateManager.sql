@@ -21,7 +21,7 @@ BEGIN
 	UPDATE dbo.Dept_manager
 	SET status = 1, emp_id = @emp_id, dept_id = @dept_id, 
 	from_date = @from_date, to_date = @to_date
-	WHERE emp_id = @emp_id AND dept_id = @dept_id 
+	WHERE emp_id = @emp_id AND dept_id = @dept_id
 
 	IF @@ROWCOUNT = 0
 	BEGIN	

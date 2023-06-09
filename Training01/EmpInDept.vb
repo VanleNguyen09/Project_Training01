@@ -16,6 +16,10 @@ Public Class frm_EmpInDept
     Private selectedEmpDept As Selected_EmpDept = New Selected_EmpDept
 
     Private Sub frm_EmpInDept_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CustomElements.AddClearButtonInsideTextBox(txt_Search, "pbCloseSearch", Sub()
+                                                                                    txt_Search.Text = ""
+                                                                                    btn_Search.PerformClick()
+                                                                                End Sub)
         Dim initialDepartment As ComboBoxItem = New ComboBoxItem("Select Department", "-1")
         Dim initialEmployee As ComboBoxItem = New ComboBoxItem("Select Employee", "-1")
         cb_Department.Items.Add(initialDepartment)
@@ -507,7 +511,6 @@ Public Class frm_EmpInDept
             SearchEmpDeptKeyword(keyword, department_id)
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
-            LoadData()
             cb_Department.SelectedIndex = 0
         End If
     End Sub
@@ -682,5 +685,9 @@ Public Class frm_EmpInDept
         Dim dashboard As New NewDashboard
         Me.Close()
         dashboard.Show()
+    End Sub
+
+    Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
+        txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
 End Class

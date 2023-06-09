@@ -44,3 +44,4 @@ BEGIN
 	OR salary LIKE '%' + @words + '%')
 END
 GO
+

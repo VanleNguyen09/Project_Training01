@@ -13,11 +13,73 @@ Public Class frm_Department
         End Sub
     End Class
 
+    Private currentPage As Integer = 0
+    Private Const pageSize As Integer = 10
+    Private totalRows As Integer = 0
+    Private initialData As List(Of Object()) = New List(Of Object()) ' Lưu giữ dữ liệu của trang đầu tiên
+
+
+    Private Sub SetupDataGridView()
+        ' Clear DataGridView and load initial data
+        dgrv_Department.Rows.Clear()
+        LoadData()
+        DisplayPage(currentPage)
+    End Sub
+
+    Private Sub DisplayPage(pageIndex As Integer)
+        ' Clear the existing rows in the DataGridView
+        dgrv_Department.Rows.Clear()
+
+        ' Calculate the total number of rows
+        totalRows = GetTotalRows()
+
+        ' Calculate the number of pages and the page size
+        Dim totalPages As Integer = Math.Ceiling(totalRows / pageSize) ' Số lượng trang, mỗi trang có 10 dòng
+
+        ' Calculate the starting and ending index of rows for the current page
+        Dim startIndex As Integer = pageIndex * pageSize
+        Dim endIndex As Integer = Math.Min(startIndex + pageSize - 1, totalRows - 1)
+
+        ' Add the rows for the current page to the DataGridView
+        For i As Integer = startIndex To endIndex
+            Dim rowValues As Object() = GetRowValues(i)
+            dgrv_Department.Rows.Add(rowValues)
+        Next
+
+        ' Update the current page label
+        lbl_CurrentPage.Text = (pageIndex + 1).ToString()
+        ' Update the total pages label
+        lbl_TotalPage.Text = totalPages.ToString()
+    End Sub
+
+    Private Function GetRowValues(rowIndex As Integer) As Object()
+        Dim rowValues As New List(Of Object)
+
+        If rowIndex >= 0 AndAlso rowIndex < dgrv_Department.Rows.Count Then
+            Dim row As DataGridViewRow = dgrv_Department.Rows(rowIndex)
+
+            For Each cell As DataGridViewCell In row.Cells
+                rowValues.Add(cell.Value)
+            Next
+        End If
+
+        Return rowValues.ToArray()
+    End Function
+
     Private Sub frm_Department_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CustomElements.AddClearButtonInsideTextBox(txt_Search, "pbCloseSearch", Sub()
+                                                                                    txt_Search.Text = ""
+                                                                                    btn_Search.PerformClick()
+                                                                                End Sub)
+
         btn_Update.Enabled = False
+        btn_Previous.Enabled = False
+        btn_Next.Enabled = False
         btn_Delete.Enabled = False
         txt_DepartmentID.Enabled = False
         EnableAdd()
+        'SetupDataGridView()
+
         LoadData()
     End Sub
 
@@ -36,17 +98,44 @@ Public Class frm_Department
         If con.State <> 1 Then
             con.Open()
         End If
+        ' Clear the DataGridView
         dgrv_Department.Rows.Clear()
+
+        ' Reset totalRows
+        totalRows = 0
+
         Using cmd As SqlCommand = New SqlCommand("GetCountEmpManagerAllDepartments", con)
             Dim reader As SqlDataReader = cmd.ExecuteReader()
             Dim No As Integer = 1
             While reader.Read()
                 ShowDepartment(No, reader)
                 No += 1
+                totalRows += 1 ' Tăng giá trị totalRows sau mỗi hàng được thêm
             End While
             con.Close()
+
+            ' Lưu giữ dữ liệu của trang đầu tiên
+            If currentPage = 0 Then
+                initialData.Clear()
+                For Each row As DataGridViewRow In dgrv_Department.Rows
+                    Dim rowValues As Object() = GetRowValues(row.Index)
+                    initialData.Add(rowValues)
+                Next
+            End If
         End Using
     End Sub
+
+    Private Function GetTotalRows() As Integer
+        Dim totalRows As Integer = 0
+
+        For Each row As DataGridViewRow In dgrv_Department.Rows
+            If Not row.IsNewRow Then
+                totalRows += 1
+            End If
+        Next
+
+        Return totalRows
+    End Function
 
     Private Sub EnableAdd()
         btn_Add.Enabled = True
@@ -307,7 +396,6 @@ Public Class frm_Department
             SearchDepartmentsByKeyword(keyword)
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
-            LoadData()
         End If
     End Sub
 
@@ -315,4 +403,38 @@ Public Class frm_Department
         dgrv_Department.ClearSelection()
     End Sub
 
+    Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
+        txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
+    End Sub
+
+    Private Sub btn_Previous_Click(sender As Object, e As EventArgs) Handles btn_Previous.Click
+        ' Kiểm tra xem có trang trước đó không
+        Console.WriteLine(currentPage)
+        If currentPage > 0 Then
+            ' Giảm giá trị của currentPage
+            currentPage -= 1
+
+            ' Hiển thị trang trước đó
+            DisplayPage(currentPage)
+        Else
+            ' Hiển thị lại dữ liệu của trang đầu tiên
+
+            currentPage = 0
+            DisplayPage(0)
+        End If
+    End Sub
+
+    Private Sub btn_Next_Click(sender As Object, e As EventArgs) Handles btn_Next.Click
+        ' Kiểm tra xem có trang tiếp theo không
+        Dim totalPages As Integer = Math.Ceiling(totalRows / pageSize)
+        Console.WriteLine(currentPage)
+        If currentPage < totalPages - 1 Then
+            ' Tăng giá trị của currentPage
+            currentPage += 1
+        ElseIf currentPage = totalPages - 1 Then
+            ' Hiển thị lại dữ liệu của trang đầu tiên
+            currentPage = 0
+        End If
+        DisplayPage(currentPage)
+    End Sub
 End Class

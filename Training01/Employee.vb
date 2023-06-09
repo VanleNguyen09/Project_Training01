@@ -1,7 +1,6 @@
 ﻿Imports System.Data.SqlClient
+
 Imports System.IO
-
-
 
 Public Class frm_Employee
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -559,7 +558,6 @@ Public Class frm_Employee
             SearchEmployeesByKeyword(keyword)
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
-            LoadData()
         End If
     End Sub
 

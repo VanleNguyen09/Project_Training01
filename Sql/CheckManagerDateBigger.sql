@@ -16,6 +16,8 @@ BEGIN
 	IF EXISTS (SELECT 1 FROM dbo.Dept_manager WHERE	
 	emp_id = @emp_id AND dept_id = @dept_id AND (from_date > @from_date 
 	OR to_date > @to_date) AND status = 1)
+		SET @isBigger = 1
+	ELSE
 		SET @isBigger = 0
 	SELECT	@isBigger AS ReturnValue
 END
