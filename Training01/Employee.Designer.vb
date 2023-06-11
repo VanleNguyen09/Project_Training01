@@ -22,16 +22,13 @@ Partial Class frm_Employee
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.btn_Delete = New System.Windows.Forms.Button()
-        Me.btn_Update = New System.Windows.Forms.Button()
-        Me.btn_Add = New System.Windows.Forms.Button()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.txt_Email = New System.Windows.Forms.TextBox()
         Me.lbl_Email = New System.Windows.Forms.Label()
         Me.dtp_Birthday = New System.Windows.Forms.DateTimePicker()
@@ -47,7 +44,6 @@ Partial Class frm_Employee
         Me.lbl_Name = New System.Windows.Forms.Label()
         Me.txt_EmployeeID = New System.Windows.Forms.TextBox()
         Me.lbl_EmployeeID = New System.Windows.Forms.Label()
-        Me.btn_Upload = New System.Windows.Forms.Button()
         Me.ptb_Employee = New System.Windows.Forms.PictureBox()
         Me.dgrv_Employee = New System.Windows.Forms.DataGridView()
         Me.No = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -63,47 +59,22 @@ Partial Class frm_Employee
         Me.lbl_TitleEmployee = New System.Windows.Forms.Label()
         Me.txt_Search = New System.Windows.Forms.TextBox()
         Me.lbl_Search = New System.Windows.Forms.Label()
-        Me.btn_Search = New System.Windows.Forms.Button()
-        Me.btn_Reset = New System.Windows.Forms.Button()
-        Me.btn_Clear = New System.Windows.Forms.Button()
-        Me.BtnEmpDept = New System.Windows.Forms.Button()
+        Me.lbl_Page = New System.Windows.Forms.Label()
+        Me.gbtn_Add = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Update = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Delete = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Reset = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Clear = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Upload = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Search = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_EmpDept = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.ptb_Previous = New Guna.UI2.WinForms.Guna2PictureBox()
+        Me.ptb_Next = New Guna.UI2.WinForms.Guna2PictureBox()
         CType(Me.ptb_Employee, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgrv_Employee, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'btn_Delete
-        '
-        Me.btn_Delete.AllowDrop = True
-        Me.btn_Delete.BackColor = System.Drawing.Color.Ivory
-        Me.btn_Delete.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Delete.Location = New System.Drawing.Point(345, 426)
-        Me.btn_Delete.Name = "btn_Delete"
-        Me.btn_Delete.Size = New System.Drawing.Size(136, 47)
-        Me.btn_Delete.TabIndex = 46
-        Me.btn_Delete.Text = "Delete"
-        Me.btn_Delete.UseVisualStyleBackColor = False
-        '
-        'btn_Update
-        '
-        Me.btn_Update.BackColor = System.Drawing.Color.Ivory
-        Me.btn_Update.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Update.Location = New System.Drawing.Point(190, 426)
-        Me.btn_Update.Name = "btn_Update"
-        Me.btn_Update.Size = New System.Drawing.Size(128, 47)
-        Me.btn_Update.TabIndex = 45
-        Me.btn_Update.Text = "Update"
-        Me.btn_Update.UseVisualStyleBackColor = False
-        '
-        'btn_Add
-        '
-        Me.btn_Add.BackColor = System.Drawing.Color.Ivory
-        Me.btn_Add.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Add.Location = New System.Drawing.Point(35, 426)
-        Me.btn_Add.Name = "btn_Add"
-        Me.btn_Add.Size = New System.Drawing.Size(124, 47)
-        Me.btn_Add.TabIndex = 44
-        Me.btn_Add.Text = "Add"
-        Me.btn_Add.UseVisualStyleBackColor = False
         '
         'txt_Email
         '
@@ -278,18 +249,6 @@ Partial Class frm_Employee
         Me.lbl_EmployeeID.TabIndex = 26
         Me.lbl_EmployeeID.Text = "Employee Id:"
         '
-        'btn_Upload
-        '
-        Me.btn_Upload.BackColor = System.Drawing.Color.Ivory
-        Me.btn_Upload.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Upload.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.btn_Upload.Location = New System.Drawing.Point(557, 352)
-        Me.btn_Upload.Name = "btn_Upload"
-        Me.btn_Upload.Size = New System.Drawing.Size(150, 47)
-        Me.btn_Upload.TabIndex = 51
-        Me.btn_Upload.Text = "Choose FIle"
-        Me.btn_Upload.UseVisualStyleBackColor = False
-        '
         'ptb_Employee
         '
         Me.ptb_Employee.BackgroundImage = Global.Training01.My.Resources.Resources.avatar2
@@ -327,8 +286,8 @@ Partial Class frm_Employee
         '
         'EmployeeID
         '
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmployeeID.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeID.DefaultCellStyle = DataGridViewCellStyle8
         Me.EmployeeID.HeaderText = "EmployeeID"
         Me.EmployeeID.MinimumWidth = 6
         Me.EmployeeID.Name = "EmployeeID"
@@ -338,8 +297,8 @@ Partial Class frm_Employee
         '
         'EmployeeName
         '
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmployeeName.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeName.DefaultCellStyle = DataGridViewCellStyle9
         Me.EmployeeName.HeaderText = "Name"
         Me.EmployeeName.MinimumWidth = 6
         Me.EmployeeName.Name = "EmployeeName"
@@ -358,8 +317,8 @@ Partial Class frm_Employee
         '
         'phone
         '
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.phone.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.phone.DefaultCellStyle = DataGridViewCellStyle10
         Me.phone.HeaderText = "Phone"
         Me.phone.MinimumWidth = 6
         Me.phone.Name = "phone"
@@ -367,8 +326,8 @@ Partial Class frm_Employee
         '
         'address
         '
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.address.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.address.DefaultCellStyle = DataGridViewCellStyle11
         Me.address.HeaderText = "Address"
         Me.address.MinimumWidth = 6
         Me.address.Name = "address"
@@ -376,8 +335,8 @@ Partial Class frm_Employee
         '
         'gender
         '
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gender.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gender.DefaultCellStyle = DataGridViewCellStyle12
         Me.gender.HeaderText = "Gender"
         Me.gender.MinimumWidth = 6
         Me.gender.Name = "gender"
@@ -385,8 +344,8 @@ Partial Class frm_Employee
         '
         'birthday
         '
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.birthday.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.birthday.DefaultCellStyle = DataGridViewCellStyle13
         Me.birthday.HeaderText = "Birthday"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
@@ -394,8 +353,8 @@ Partial Class frm_Employee
         '
         'email
         '
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.email.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.email.DefaultCellStyle = DataGridViewCellStyle14
         Me.email.HeaderText = "Email"
         Me.email.MinimumWidth = 6
         Me.email.Name = "email"
@@ -415,7 +374,7 @@ Partial Class frm_Employee
         Me.lbl_TitleEmployee.BackColor = System.Drawing.Color.Transparent
         Me.lbl_TitleEmployee.Font = New System.Drawing.Font("Times New Roman", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_TitleEmployee.ForeColor = System.Drawing.Color.Ivory
-        Me.lbl_TitleEmployee.Location = New System.Drawing.Point(281, 9)
+        Me.lbl_TitleEmployee.Location = New System.Drawing.Point(354, 9)
         Me.lbl_TitleEmployee.Name = "lbl_TitleEmployee"
         Me.lbl_TitleEmployee.Size = New System.Drawing.Size(353, 45)
         Me.lbl_TitleEmployee.TabIndex = 25
@@ -441,71 +400,246 @@ Partial Class frm_Employee
         Me.lbl_Search.TabIndex = 60
         Me.lbl_Search.Text = "Search:"
         '
-        'btn_Search
+        'lbl_Page
         '
-        Me.btn_Search.BackColor = System.Drawing.Color.Ivory
-        Me.btn_Search.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Search.Location = New System.Drawing.Point(799, 242)
-        Me.btn_Search.Name = "btn_Search"
-        Me.btn_Search.Size = New System.Drawing.Size(230, 47)
-        Me.btn_Search.TabIndex = 64
-        Me.btn_Search.Text = "Search"
-        Me.btn_Search.UseVisualStyleBackColor = False
+        Me.lbl_Page.AutoSize = True
+        Me.lbl_Page.BackColor = System.Drawing.Color.Transparent
+        Me.lbl_Page.Font = New System.Drawing.Font("Times New Roman", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Page.ForeColor = System.Drawing.Color.Azure
+        Me.lbl_Page.Location = New System.Drawing.Point(520, 814)
+        Me.lbl_Page.Name = "lbl_Page"
+        Me.lbl_Page.Size = New System.Drawing.Size(79, 32)
+        Me.lbl_Page.TabIndex = 90
+        Me.lbl_Page.Text = "Page "
         '
-        'btn_Reset
+        'gbtn_Add
         '
-        Me.btn_Reset.BackColor = System.Drawing.Color.Ivory
-        Me.btn_Reset.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Reset.Location = New System.Drawing.Point(507, 426)
-        Me.btn_Reset.Name = "btn_Reset"
-        Me.btn_Reset.Size = New System.Drawing.Size(141, 47)
-        Me.btn_Reset.TabIndex = 65
-        Me.btn_Reset.Text = "Reset"
-        Me.btn_Reset.UseVisualStyleBackColor = False
+        Me.gbtn_Add.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Add.BorderRadius = 8
+        Me.gbtn_Add.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Add.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Add.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Add.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Add.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Add.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Add.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Add.FillColor = System.Drawing.Color.MistyRose
+        Me.gbtn_Add.FillColor2 = System.Drawing.Color.AntiqueWhite
+        Me.gbtn_Add.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Add.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Add.Location = New System.Drawing.Point(21, 426)
+        Me.gbtn_Add.Name = "gbtn_Add"
+        Me.gbtn_Add.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Add.Size = New System.Drawing.Size(139, 45)
+        Me.gbtn_Add.TabIndex = 94
+        Me.gbtn_Add.Text = "Add"
         '
-        'btn_Clear
+        'gbtn_Update
         '
-        Me.btn_Clear.BackColor = System.Drawing.Color.Ivory
-        Me.btn_Clear.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Clear.Location = New System.Drawing.Point(677, 426)
-        Me.btn_Clear.Name = "btn_Clear"
-        Me.btn_Clear.Size = New System.Drawing.Size(141, 47)
-        Me.btn_Clear.TabIndex = 66
-        Me.btn_Clear.Text = "Clear"
-        Me.btn_Clear.UseVisualStyleBackColor = False
+        Me.gbtn_Update.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Update.BorderRadius = 8
+        Me.gbtn_Update.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Update.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Update.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Update.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Update.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Update.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Update.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Update.FillColor = System.Drawing.Color.MistyRose
+        Me.gbtn_Update.FillColor2 = System.Drawing.Color.AntiqueWhite
+        Me.gbtn_Update.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Update.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Update.Location = New System.Drawing.Point(182, 426)
+        Me.gbtn_Update.Name = "gbtn_Update"
+        Me.gbtn_Update.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Update.Size = New System.Drawing.Size(139, 45)
+        Me.gbtn_Update.TabIndex = 95
+        Me.gbtn_Update.Text = "Update"
         '
-        'BtnEmpDept
+        'gbtn_Delete
         '
-        Me.BtnEmpDept.BackColor = System.Drawing.Color.Ivory
-        Me.BtnEmpDept.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnEmpDept.Location = New System.Drawing.Point(799, 352)
-        Me.BtnEmpDept.Name = "BtnEmpDept"
-        Me.BtnEmpDept.Size = New System.Drawing.Size(230, 47)
-        Me.BtnEmpDept.TabIndex = 68
-        Me.BtnEmpDept.Text = "Empt In Dept"
-        Me.BtnEmpDept.UseVisualStyleBackColor = False
+        Me.gbtn_Delete.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Delete.BorderRadius = 8
+        Me.gbtn_Delete.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Delete.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Delete.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Delete.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Delete.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Delete.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Delete.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Delete.FillColor = System.Drawing.Color.MistyRose
+        Me.gbtn_Delete.FillColor2 = System.Drawing.Color.AntiqueWhite
+        Me.gbtn_Delete.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Delete.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Delete.Location = New System.Drawing.Point(342, 426)
+        Me.gbtn_Delete.Name = "gbtn_Delete"
+        Me.gbtn_Delete.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Delete.Size = New System.Drawing.Size(139, 45)
+        Me.gbtn_Delete.TabIndex = 96
+        Me.gbtn_Delete.Text = "Delete"
+        '
+        'gbtn_Reset
+        '
+        Me.gbtn_Reset.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Reset.BorderRadius = 8
+        Me.gbtn_Reset.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Reset.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Reset.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Reset.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Reset.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Reset.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Reset.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Reset.FillColor = System.Drawing.Color.MistyRose
+        Me.gbtn_Reset.FillColor2 = System.Drawing.Color.AntiqueWhite
+        Me.gbtn_Reset.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Reset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Reset.Location = New System.Drawing.Point(507, 426)
+        Me.gbtn_Reset.Name = "gbtn_Reset"
+        Me.gbtn_Reset.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Reset.Size = New System.Drawing.Size(139, 45)
+        Me.gbtn_Reset.TabIndex = 97
+        Me.gbtn_Reset.Text = "Reset"
+        '
+        'gbtn_Clear
+        '
+        Me.gbtn_Clear.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Clear.BorderRadius = 8
+        Me.gbtn_Clear.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Clear.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Clear.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Clear.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Clear.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Clear.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Clear.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Clear.FillColor = System.Drawing.Color.MistyRose
+        Me.gbtn_Clear.FillColor2 = System.Drawing.Color.AntiqueWhite
+        Me.gbtn_Clear.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Clear.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Clear.Location = New System.Drawing.Point(674, 424)
+        Me.gbtn_Clear.Name = "gbtn_Clear"
+        Me.gbtn_Clear.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Clear.Size = New System.Drawing.Size(139, 47)
+        Me.gbtn_Clear.TabIndex = 98
+        Me.gbtn_Clear.Text = "Clear"
+        '
+        'gbtn_Upload
+        '
+        Me.gbtn_Upload.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Upload.BorderRadius = 8
+        Me.gbtn_Upload.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Upload.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Upload.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Upload.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Upload.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Upload.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Upload.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Upload.FillColor = System.Drawing.Color.MistyRose
+        Me.gbtn_Upload.FillColor2 = System.Drawing.Color.AntiqueWhite
+        Me.gbtn_Upload.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Upload.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Upload.Location = New System.Drawing.Point(548, 352)
+        Me.gbtn_Upload.Name = "gbtn_Upload"
+        Me.gbtn_Upload.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Upload.Size = New System.Drawing.Size(159, 47)
+        Me.gbtn_Upload.TabIndex = 99
+        Me.gbtn_Upload.Text = "Choose File"
+        '
+        'gbtn_Search
+        '
+        Me.gbtn_Search.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Search.BorderRadius = 8
+        Me.gbtn_Search.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Search.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Search.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Search.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Search.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Search.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Search.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Search.FillColor = System.Drawing.Color.MistyRose
+        Me.gbtn_Search.FillColor2 = System.Drawing.Color.AntiqueWhite
+        Me.gbtn_Search.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Search.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Search.Location = New System.Drawing.Point(799, 244)
+        Me.gbtn_Search.Name = "gbtn_Search"
+        Me.gbtn_Search.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Search.Size = New System.Drawing.Size(230, 47)
+        Me.gbtn_Search.TabIndex = 100
+        Me.gbtn_Search.Text = "Search"
+        '
+        'gbtn_EmpDept
+        '
+        Me.gbtn_EmpDept.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_EmpDept.BorderRadius = 8
+        Me.gbtn_EmpDept.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_EmpDept.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_EmpDept.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_EmpDept.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_EmpDept.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_EmpDept.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_EmpDept.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_EmpDept.FillColor = System.Drawing.Color.MistyRose
+        Me.gbtn_EmpDept.FillColor2 = System.Drawing.Color.AntiqueWhite
+        Me.gbtn_EmpDept.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_EmpDept.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_EmpDept.Location = New System.Drawing.Point(799, 352)
+        Me.gbtn_EmpDept.Name = "gbtn_EmpDept"
+        Me.gbtn_EmpDept.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_EmpDept.Size = New System.Drawing.Size(230, 47)
+        Me.gbtn_EmpDept.TabIndex = 101
+        Me.gbtn_EmpDept.Text = "Emp In Dept"
+        '
+        'ptb_Previous
+        '
+        Me.ptb_Previous.BackColor = System.Drawing.Color.Transparent
+        Me.ptb_Previous.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Previous.FillColor = System.Drawing.Color.Transparent
+        Me.ptb_Previous.Image = Global.Training01.My.Resources.Resources.left_arrow
+        Me.ptb_Previous.ImageRotate = 0!
+        Me.ptb_Previous.Location = New System.Drawing.Point(453, 814)
+        Me.ptb_Previous.Name = "ptb_Previous"
+        Me.ptb_Previous.Size = New System.Drawing.Size(48, 32)
+        Me.ptb_Previous.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ptb_Previous.TabIndex = 103
+        Me.ptb_Previous.TabStop = False
+        '
+        'ptb_Next
+        '
+        Me.ptb_Next.BackColor = System.Drawing.Color.Transparent
+        Me.ptb_Next.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Next.FillColor = System.Drawing.Color.Transparent
+        Me.ptb_Next.Image = Global.Training01.My.Resources.Resources.right_arrow__1_
+        Me.ptb_Next.ImageRotate = 0!
+        Me.ptb_Next.Location = New System.Drawing.Point(687, 814)
+        Me.ptb_Next.Name = "ptb_Next"
+        Me.ptb_Next.Size = New System.Drawing.Size(48, 32)
+        Me.ptb_Next.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ptb_Next.TabIndex = 104
+        Me.ptb_Next.TabStop = False
         '
         'frm_Employee
         '
         Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
+        Me.BackColor = System.Drawing.Color.Black
+        Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1491, 881)
-        Me.Controls.Add(Me.BtnEmpDept)
-        Me.Controls.Add(Me.btn_Clear)
-        Me.Controls.Add(Me.btn_Reset)
-        Me.Controls.Add(Me.btn_Search)
+        Me.Controls.Add(Me.ptb_Next)
+        Me.Controls.Add(Me.ptb_Previous)
+        Me.Controls.Add(Me.gbtn_EmpDept)
+        Me.Controls.Add(Me.gbtn_Search)
+        Me.Controls.Add(Me.gbtn_Upload)
+        Me.Controls.Add(Me.gbtn_Clear)
+        Me.Controls.Add(Me.gbtn_Reset)
+        Me.Controls.Add(Me.gbtn_Delete)
+        Me.Controls.Add(Me.gbtn_Update)
+        Me.Controls.Add(Me.gbtn_Add)
+        Me.Controls.Add(Me.lbl_Page)
         Me.Controls.Add(Me.lbl_Search)
         Me.Controls.Add(Me.txt_Search)
         Me.Controls.Add(Me.dgrv_Employee)
-        Me.Controls.Add(Me.btn_Upload)
         Me.Controls.Add(Me.ptb_Employee)
-        Me.Controls.Add(Me.btn_Delete)
-        Me.Controls.Add(Me.btn_Update)
-        Me.Controls.Add(Me.btn_Add)
         Me.Controls.Add(Me.txt_Email)
         Me.Controls.Add(Me.lbl_Email)
         Me.Controls.Add(Me.dtp_Birthday)
@@ -522,20 +656,19 @@ Partial Class frm_Employee
         Me.Controls.Add(Me.txt_EmployeeID)
         Me.Controls.Add(Me.lbl_EmployeeID)
         Me.Controls.Add(Me.lbl_TitleEmployee)
-        Me.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.DoubleBuffered = True
+        Me.ForeColor = System.Drawing.SystemColors.ControlText
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frm_Employee"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "employees"
         CType(Me.ptb_Employee, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgrv_Employee, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btn_Delete As Button
-    Friend WithEvents btn_Update As Button
-    Friend WithEvents btn_Add As Button
     Friend WithEvents txt_Email As TextBox
     Friend WithEvents lbl_Email As Label
     Private WithEvents dtp_Birthday As DateTimePicker
@@ -552,16 +685,11 @@ Partial Class frm_Employee
     Friend WithEvents txt_EmployeeID As TextBox
     Friend WithEvents lbl_EmployeeID As Label
     Friend WithEvents ptb_Employee As PictureBox
-    Friend WithEvents btn_Upload As Button
     Friend WithEvents dgrv_Employee As DataGridView
     Friend WithEvents name1 As DataGridViewTextBoxColumn
     Friend WithEvents lbl_TitleEmployee As Label
     Friend WithEvents txt_Search As TextBox
     Friend WithEvents lbl_Search As Label
-    Friend WithEvents btn_Search As Button
-    Friend WithEvents btn_Reset As Button
-    Friend WithEvents btn_Clear As Button
-    Friend WithEvents BtnEmpDept As Button
     Friend WithEvents No As DataGridViewTextBoxColumn
     Friend WithEvents EmployeeID As DataGridViewTextBoxColumn
     Friend WithEvents EmployeeName As DataGridViewTextBoxColumn
@@ -572,4 +700,15 @@ Partial Class frm_Employee
     Friend WithEvents birthday As DataGridViewTextBoxColumn
     Friend WithEvents email As DataGridViewTextBoxColumn
     Friend WithEvents status As DataGridViewTextBoxColumn
+    Friend WithEvents lbl_Page As Label
+    Friend WithEvents gbtn_Add As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Update As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Delete As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Reset As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Clear As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Upload As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Search As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_EmpDept As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents ptb_Previous As Guna.UI2.WinForms.Guna2PictureBox
+    Friend WithEvents ptb_Next As Guna.UI2.WinForms.Guna2PictureBox
 End Class

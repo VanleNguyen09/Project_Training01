@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Net
 Imports System.Runtime.CompilerServices
+Imports iTextSharp.text
 
 Public Class frm_Department
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -13,73 +14,18 @@ Public Class frm_Department
         End Sub
     End Class
 
-    Private currentPage As Integer = 0
-    Private Const pageSize As Integer = 10
-    Private totalRows As Integer = 0
-    Private initialData As List(Of Object()) = New List(Of Object()) ' Lưu giữ dữ liệu của trang đầu tiên
-
-
-    Private Sub SetupDataGridView()
-        ' Clear DataGridView and load initial data
-        dgrv_Department.Rows.Clear()
-        LoadData()
-        DisplayPage(currentPage)
-    End Sub
-
-    Private Sub DisplayPage(pageIndex As Integer)
-        ' Clear the existing rows in the DataGridView
-        dgrv_Department.Rows.Clear()
-
-        ' Calculate the total number of rows
-        totalRows = GetTotalRows()
-
-        ' Calculate the number of pages and the page size
-        Dim totalPages As Integer = Math.Ceiling(totalRows / pageSize) ' Số lượng trang, mỗi trang có 10 dòng
-
-        ' Calculate the starting and ending index of rows for the current page
-        Dim startIndex As Integer = pageIndex * pageSize
-        Dim endIndex As Integer = Math.Min(startIndex + pageSize - 1, totalRows - 1)
-
-        ' Add the rows for the current page to the DataGridView
-        For i As Integer = startIndex To endIndex
-            Dim rowValues As Object() = GetRowValues(i)
-            dgrv_Department.Rows.Add(rowValues)
-        Next
-
-        ' Update the current page label
-        lbl_CurrentPage.Text = (pageIndex + 1).ToString()
-        ' Update the total pages label
-        lbl_TotalPage.Text = totalPages.ToString()
-    End Sub
-
-    Private Function GetRowValues(rowIndex As Integer) As Object()
-        Dim rowValues As New List(Of Object)
-
-        If rowIndex >= 0 AndAlso rowIndex < dgrv_Department.Rows.Count Then
-            Dim row As DataGridViewRow = dgrv_Department.Rows(rowIndex)
-
-            For Each cell As DataGridViewCell In row.Cells
-                rowValues.Add(cell.Value)
-            Next
-        End If
-
-        Return rowValues.ToArray()
-    End Function
-
     Private Sub frm_Department_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CustomElements.AddClearButtonInsideTextBox(txt_Search, "pbCloseSearch", Sub()
                                                                                     txt_Search.Text = ""
-                                                                                    btn_Search.PerformClick()
+                                                                                    gbtn_Search.PerformClick()
                                                                                 End Sub)
 
-        btn_Update.Enabled = False
-        btn_Previous.Enabled = False
-        btn_Next.Enabled = False
-        btn_Delete.Enabled = False
+        gbtn_Update.Enabled = False
+        gbtn_Delete.Enabled = False
         txt_DepartmentID.Enabled = False
-        EnableAdd()
-        'SetupDataGridView()
+        GlobalVariables.lblPage = lbl_Page
 
+        EnableAdd()
         LoadData()
     End Sub
 
@@ -94,6 +40,8 @@ Public Class frm_Department
         dgrv_Department.Rows.Add(No, id, name, status, number_emp, number_manager)
     End Sub
 
+    Private currentPage As Integer = 1 ' Trang hiện tại
+
     Public Sub LoadData()
         If con.State <> 1 Then
             con.Open()
@@ -101,57 +49,32 @@ Public Class frm_Department
         ' Clear the DataGridView
         dgrv_Department.Rows.Clear()
 
-        ' Reset totalRows
-        totalRows = 0
-
         Using cmd As SqlCommand = New SqlCommand("GetCountEmpManagerAllDepartments", con)
             Dim reader As SqlDataReader = cmd.ExecuteReader()
             Dim No As Integer = 1
             While reader.Read()
                 ShowDepartment(No, reader)
                 No += 1
-                totalRows += 1 ' Tăng giá trị totalRows sau mỗi hàng được thêm
             End While
             con.Close()
-
-            ' Lưu giữ dữ liệu của trang đầu tiên
-            If currentPage = 0 Then
-                initialData.Clear()
-                For Each row As DataGridViewRow In dgrv_Department.Rows
-                    Dim rowValues As Object() = GetRowValues(row.Index)
-                    initialData.Add(rowValues)
-                Next
-            End If
         End Using
+
+        ' Gọi hàm PaginateDataGridView sau khi tải dữ liệu
+        Pagination.PaginateDataGridView(dgrv_Department, 1) ' 1 là trang đầu tiên
     End Sub
 
-    Private Function GetTotalRows() As Integer
-        Dim totalRows As Integer = 0
-
-        For Each row As DataGridViewRow In dgrv_Department.Rows
-            If Not row.IsNewRow Then
-                totalRows += 1
-            End If
-        Next
-
-        Return totalRows
-    End Function
-
     Private Sub EnableAdd()
-        btn_Add.Enabled = True
-        btn_Update.Enabled = False
-        btn_Delete.Enabled = False
-        btn_Reset.Enabled = False
-        MakeButtonBackgroundBlurry(btn_Update)
-        MakeButtonBackgroundBlurry(btn_Delete)
+        gbtn_Add.Enabled = True
+        gbtn_Update.Enabled = False
+        gbtn_Delete.Enabled = False
+        gbtn_Reset.Enabled = False
     End Sub
 
     Private Sub DisableAdd()
-        btn_Add.Enabled = False
-        btn_Update.Enabled = True
-        btn_Delete.Enabled = True
-        btn_Reset.Enabled = True
-        MakeButtonBackgroundBlurry(btn_Add)
+        gbtn_Add.Enabled = False
+        gbtn_Update.Enabled = True
+        gbtn_Delete.Enabled = True
+        gbtn_Reset.Enabled = True
     End Sub
     Private Sub ClearForm()
         txt_Name.Text = String.Empty
@@ -162,12 +85,6 @@ Public Class frm_Department
     Dim titleMsgBox As String = "notification"
     Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
     Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
-
-    Private Sub MakeButtonBackgroundBlurry(button As Button)
-        Dim originalColor As Color = button.BackColor
-        Dim blurredColor As Color = ControlPaint.Light(originalColor, 0.5)
-        button.BackColor = blurredColor
-    End Sub
 
     Private Function CheckDepartmentExit(ByVal name As String) As Boolean
         CheckDepartmentExit = False
@@ -318,7 +235,7 @@ Public Class frm_Department
         End Try
     End Sub
 
-    Private Sub btn_Add_Click(sender As Object, e As EventArgs) Handles btn_Add.Click
+    Private Sub gbtn_Add_Click(sender As Object, e As EventArgs) Handles gbtn_Add.Click
         Dim name As String = txt_Name.Text
 
         If String.IsNullOrEmpty(name) Then
@@ -329,8 +246,7 @@ Public Class frm_Department
         Add_Department(name)
         ClearForm()
     End Sub
-
-    Private Sub btn_Update_Click(sender As Object, e As EventArgs) Handles btn_Update.Click
+    Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
         Dim name As String = txt_Name.Text
         Dim id As Integer = CInt(txt_DepartmentID.Text)
 
@@ -355,8 +271,7 @@ Public Class frm_Department
             dgrv_Department.ReadOnly = True
         End If
     End Sub
-
-    Private Sub btn_Delete_Click(sender As Object, e As EventArgs) Handles btn_Delete.Click
+    Private Sub gbtn_Delete_Click(sender As Object, e As EventArgs) Handles gbtn_Delete.Click
         Dim selectedRows As DataGridViewSelectedRowCollection = dgrv_Department.SelectedRows
 
         If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected department? Employee involved will also be deleted", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
@@ -377,20 +292,18 @@ Public Class frm_Department
         Else
             MessageBox.Show("Deletion canceled.", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
-
     End Sub
 
-    Private Sub btn_Reset_Click(sender As Object, e As EventArgs) Handles btn_Reset.Click
+    Private Sub gbtn_Reset_Click(sender As Object, e As EventArgs) Handles gbtn_Reset.Click
         txt_DepartmentID.Text = selectedDepartment.id
         txt_Name.Text = selectedDepartment.name
     End Sub
-
-    Private Sub btn_Clear_Click(sender As Object, e As EventArgs) Handles btn_Clear.Click
+    Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
         EnableAdd()
     End Sub
 
-    Private Sub btn_Search_Click(sender As Object, e As EventArgs) Handles btn_Search.Click
+    Private Sub gbtn_Search_Click(sender As Object, e As EventArgs) Handles gbtn_Search.Click
         Dim keyword As String = txt_Search.Text.Trim
         If Not String.IsNullOrEmpty(keyword) Then
             SearchDepartmentsByKeyword(keyword)
@@ -407,34 +320,21 @@ Public Class frm_Department
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
 
-    Private Sub btn_Previous_Click(sender As Object, e As EventArgs) Handles btn_Previous.Click
-        ' Kiểm tra xem có trang trước đó không
-        Console.WriteLine(currentPage)
-        If currentPage > 0 Then
-            ' Giảm giá trị của currentPage
+    Private Sub ptb_Previous_Click(sender As Object, e As EventArgs) Handles ptb_Previous.Click
+        If currentPage > 1 Then
             currentPage -= 1
-
-            ' Hiển thị trang trước đó
-            DisplayPage(currentPage)
-        Else
-            ' Hiển thị lại dữ liệu của trang đầu tiên
-
-            currentPage = 0
-            DisplayPage(0)
+            Pagination.PaginateDataGridView(dgrv_Department, currentPage)
         End If
     End Sub
 
-    Private Sub btn_Next_Click(sender As Object, e As EventArgs) Handles btn_Next.Click
-        ' Kiểm tra xem có trang tiếp theo không
+    Private Sub ptb_Next_Click(sender As Object, e As EventArgs) Handles ptb_Next.Click
+        Dim totalRows As Integer = dgrv_Department.Rows.Count
+        Dim pageSize As Integer = 10 ' Số dòng hiển thị trên mỗi trang
         Dim totalPages As Integer = Math.Ceiling(totalRows / pageSize)
-        Console.WriteLine(currentPage)
-        If currentPage < totalPages - 1 Then
-            ' Tăng giá trị của currentPage
+
+        If currentPage < totalPages Then
             currentPage += 1
-        ElseIf currentPage = totalPages - 1 Then
-            ' Hiển thị lại dữ liệu của trang đầu tiên
-            currentPage = 0
+            Pagination.PaginateDataGridView(dgrv_Department, currentPage)
         End If
-        DisplayPage(currentPage)
     End Sub
 End Class

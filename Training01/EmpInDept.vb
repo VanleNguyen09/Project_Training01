@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Window
 
 Public Class frm_EmpInDept
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -18,10 +19,13 @@ Public Class frm_EmpInDept
     Private Sub frm_EmpInDept_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CustomElements.AddClearButtonInsideTextBox(txt_Search, "pbCloseSearch", Sub()
                                                                                     txt_Search.Text = ""
-                                                                                    btn_Search.PerformClick()
+                                                                                    gbtn_Search.PerformClick()
                                                                                 End Sub)
         Dim initialDepartment As ComboBoxItem = New ComboBoxItem("Select Department", "-1")
         Dim initialEmployee As ComboBoxItem = New ComboBoxItem("Select Employee", "-1")
+        GlobalVariables.lblPage = lbl_Page
+        dtp_FromDate.Value = Date.Now()
+        dtp_ToDate.Value = Date.Now()
         cb_Department.Items.Add(initialDepartment)
         cb_DepCreate.Items.Add(initialDepartment)
         cb_EmpCreate.Items.Add(initialEmployee)
@@ -36,20 +40,17 @@ Public Class frm_EmpInDept
     End Sub
 
     Private Sub EnableAdd()
-        btn_Add.Enabled = True
-        btn_Update.Enabled = False
-        btn_Delete.Enabled = False
-        btn_Reset.Enabled = False
-        MakeButtonBackgroundBlurry(btn_Update)
-        MakeButtonBackgroundBlurry(btn_Delete)
+        gbtn_Add.Enabled = True
+        gbtn_Update.Enabled = False
+        gbtn_Delete.Enabled = False
+        gbtn_Reset.Enabled = False
     End Sub
 
     Private Sub DisableAdd()
-        btn_Add.Enabled = False
-        btn_Update.Enabled = True
-        btn_Delete.Enabled = True
-        btn_Reset.Enabled = True
-        MakeButtonBackgroundBlurry(btn_Add)
+        gbtn_Add.Enabled = False
+        gbtn_Update.Enabled = True
+        gbtn_Delete.Enabled = True
+        gbtn_Reset.Enabled = True
     End Sub
 
     Private Sub ClearForm()
@@ -69,6 +70,8 @@ Public Class frm_EmpInDept
         toDate
         deptEmpId
     End Enum
+
+    Dim currentPage As Integer = 1
 
     Private Class ComboBoxItem
         Public displayvalue As String
@@ -115,6 +118,8 @@ Public Class frm_EmpInDept
             End While
             con.Close()
         End Using
+
+        Pagination.PaginateDataGridView(dgv_DeptEmp, 1)
 
     End Sub
     Private Sub Select_Departments()
@@ -420,12 +425,6 @@ Public Class frm_EmpInDept
         End Try
     End Sub
 
-    Private Sub MakeButtonBackgroundBlurry(button As Button)
-        Dim originalColor As Color = button.BackColor
-        Dim blurredColor As Color = ControlPaint.Light(originalColor, 0.5)
-        button.BackColor = blurredColor
-    End Sub
-
     Private Sub cb_Department_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cb_Department.SelectedIndexChanged
         Dim dept_id As Integer = cb_Department.SelectedItem.hiddenvalue
         dgv_DeptEmp.RowCount = 0
@@ -459,7 +458,10 @@ Public Class frm_EmpInDept
         End If
     End Sub
 
-    Private Sub btn_Add_Click(sender As Object, e As EventArgs) Handles btn_Add.Click
+    Private Sub btn_Add_Click(sender As Object, e As EventArgs)
+
+    End Sub
+    Private Sub gbtn_Add_Click(sender As Object, e As EventArgs) Handles gbtn_Add.Click
         Dim emp_id As Integer = cb_EmpCreate.SelectedItem.hiddenvalue
         Dim dept_id As Integer = cb_DepCreate.SelectedItem.hiddenvalue
         Dim from_date As Date = dtp_FromDate.Value
@@ -499,12 +501,11 @@ Public Class frm_EmpInDept
         ClearForm()
     End Sub
 
-    Private Sub btn_Clear_Click(sender As Object, e As EventArgs) Handles btn_Clear.Click
+    Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
         EnableAdd()
     End Sub
-
-    Private Sub btn_Search_Click(sender As Object, e As EventArgs) Handles btn_Search.Click
+    Private Sub gbtn_Search_Click(sender As Object, e As EventArgs) Handles gbtn_Search.Click
         Dim keyword As String = txt_Search.Text.Trim()
         Dim department_id As Integer = cb_Department.SelectedItem.hiddenvalue
         If Not String.IsNullOrEmpty(keyword) Then
@@ -515,7 +516,7 @@ Public Class frm_EmpInDept
         End If
     End Sub
 
-    Private Sub btn_Delete_Click(sender As Object, e As EventArgs) Handles btn_Delete.Click
+    Private Sub gbtn_Delete_Click(sender As Object, e As EventArgs) Handles gbtn_Delete.Click
         Dim selectedRows As DataGridViewSelectedRowCollection = dgv_DeptEmp.SelectedRows
 
         If selectedRows.Count > 0 Then
@@ -543,7 +544,7 @@ Public Class frm_EmpInDept
         End If
     End Sub
 
-    Private Sub btn_Update_Click(sender As Object, e As EventArgs) Handles btn_Update.Click
+    Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
         Dim dept_id As Integer = CInt(cb_DepCreate.SelectedItem.hiddenvalue)
         Dim emp_id As Integer = CInt(cb_EmpCreate.SelectedItem.hiddenvalue)
         Dim from_date As Date = dtp_FromDate.Value
@@ -620,14 +621,13 @@ Public Class frm_EmpInDept
             selectedEmpDept.to_date = dtp_ToDate.Value
             dgv_DeptEmp.ReadOnly = True
 
-            btn_Add.Enabled = False
-            btn_Delete.Enabled = True
+            gbtn_Add.Enabled = False
+            gbtn_Delete.Enabled = True
             cb_EmpCreate.Enabled = False
             DisableAdd()
         End If
     End Sub
-
-    Private Sub btn_Reset_Click(sender As Object, e As EventArgs) Handles btn_Reset.Click
+    Private Sub gbtn_Reset_Click(sender As Object, e As EventArgs) Handles gbtn_Reset.Click
         For Each item As ComboBoxItem In cb_DepCreate.Items
             If item.displayvalue = selectedEmpDept.department_name Then
                 cb_DepCreate.SelectedItem = item
@@ -663,10 +663,10 @@ Public Class frm_EmpInDept
     Private Sub dtp_ToDate_KeyDown(sender As Object, e As KeyEventArgs) Handles dtp_ToDate.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
-            If btn_Add.Enabled = True Then
-                btn_Add.Focus()
+            If gbtn_Add.Enabled = True Then
+                gbtn_Add.Focus()
             Else
-                btn_Update.Focus()
+                gbtn_Update.Focus()
             End If
         End If
     End Sub
@@ -681,7 +681,7 @@ Public Class frm_EmpInDept
         dashboard.Show()
     End Sub
 
-    Private Sub btn_Exit_Click(sender As Object, e As EventArgs) Handles btn_Exit.Click
+    Private Sub gbtn_Exit_Click(sender As Object, e As EventArgs) Handles gbtn_Exit.Click
         Dim dashboard As New NewDashboard
         Me.Close()
         dashboard.Show()
@@ -689,5 +689,35 @@ Public Class frm_EmpInDept
 
     Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
+    End Sub
+
+    Private Sub ptb_Previous_Click(sender As Object, e As EventArgs) Handles ptb_Previous.Click
+        If currentPage > 1 Then
+            currentPage -= 1
+            Pagination.PaginateDataGridView(dgv_DeptEmp, currentPage)
+        End If
+    End Sub
+
+    Private Sub ptb_Next_Click(sender As Object, e As EventArgs) Handles ptb_Next.Click
+        Dim totalRows As Integer = dgv_DeptEmp.Rows.Count
+        Dim pageSize As Integer = 10
+        Dim totalPages As Integer = Math.Ceiling(totalRows / pageSize)
+
+        If currentPage < totalPages Then
+            currentPage += 1
+            Pagination.PaginateDataGridView(dgv_DeptEmp, currentPage)
+        End If
+    End Sub
+
+    Private Sub lbl_Page_Click(sender As Object, e As EventArgs) Handles lbl_Page.Click
+
+    End Sub
+
+    Private Sub frm_EmpInDept_MouseEnter(sender As Object, e As EventArgs) Handles MyBase.MouseEnter
+        ptb_Icon.Cursor = Cursors.Hand
+    End Sub
+
+    Private Sub frm_EmpInDept_MouseLeave(sender As Object, e As EventArgs) Handles MyBase.MouseLeave
+        ptb_Icon.Cursor = Cursors.Default
     End Sub
 End Class

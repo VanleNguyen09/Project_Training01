@@ -14,11 +14,21 @@ Public Class NewDashboard
     Dim isLoggedIn = My.Settings.IsLoggedIn
     Dim loggedInUserEmail = My.Settings.LoggedInUserEmail
 
+    Private Sub EnableDoubleBuffering(panel As Panel)
+        Dim doubleBufferedProperty = GetType(Control).GetProperty("DoubleBuffered", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic)
+        doubleBufferedProperty.SetValue(panel, True, Nothing)
+    End Sub
     Private Sub NewDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lbl_UserName.Text = initialUserName
         lbl_Title.Text = initialLabel
+        Me.BackColor = TransparencyKey
+        EnableDoubleBuffering(pn_Header)
+        EnableDoubleBuffering(pn_Main)
+        EnableDoubleBuffering(pn_Sidebar)
+        EnableDoubleBuffering(pn_Content)
+        Me.Controls.Add(pn_Sidebar)
+        'LoadUserData()
         SetActiveButton(btn_Dashboard)
-        LoadUserData()
         CountTotalEmployees()
         CountTotalDepartments()
         CountTotalManagers()
@@ -29,6 +39,9 @@ Public Class NewDashboard
         MaxDeptEmp()
         MaxDeptManager()
         MaxPosEmp()
+    End Sub
+    Private Sub NewDashboard_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        LoadUserData()
     End Sub
 
     Private selectedButton As Button
@@ -54,8 +67,7 @@ Public Class NewDashboard
         selectedButton = button
     End Sub
 
-
-    Private Sub LoadUserData()
+    Public Sub LoadUserData()
         If isLoggedIn Then
             Dim email As String = loggedInUserEmail
             Dim fullName As String = GetFullNameByEmail(email)
@@ -65,9 +77,9 @@ Public Class NewDashboard
             End If
         Else
             MessageBox.Show("Please login to access dashboard page!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Me.Hide() ' Đóng form Dashboard
             Dim login As New Login
             login.ShowDialog()
-            Me.Close()
         End If
     End Sub
 
@@ -396,12 +408,13 @@ Public Class NewDashboard
                 MessageBox.Show("You logout success!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Dim login As New Login
                 Me.Hide()
-                login.Show()
+                login.ShowDialog()
             End If
         End If
     End Sub
 
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
+        My.Settings.Save()
         Application.Exit()
     End Sub
 
@@ -412,4 +425,5 @@ Public Class NewDashboard
     Private Sub ptb_Icon_MouseLeave(sender As Object, e As EventArgs) Handles ptb_Icon.MouseLeave
         ptb_Icon.Cursor = Cursors.Default
     End Sub
+
 End Class

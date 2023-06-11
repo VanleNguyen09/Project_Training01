@@ -200,6 +200,7 @@
     <Compile Include="NewDashboard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pagination.vb" />
     <Compile Include="Position.Designer.vb">
       <DependentUpon>Position.vb</DependentUpon>
     </Compile>

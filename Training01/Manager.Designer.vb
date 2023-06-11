@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frm_Manager
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frm_Manager
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.cb_Department = New System.Windows.Forms.ComboBox()
         Me.lbl_titleManager = New System.Windows.Forms.Label()
@@ -41,25 +41,30 @@ Partial Class frm_Manager
         Me.deptmanager_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txt_Search = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.btn_Search = New System.Windows.Forms.Button()
-        Me.btn_Clear = New System.Windows.Forms.Button()
-        Me.btn_Manage = New System.Windows.Forms.Button()
-        Me.btn_Delete = New System.Windows.Forms.Button()
         Me.grb_create = New System.Windows.Forms.GroupBox()
+        Me.gbtn_Add = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.dtp_ToDate = New System.Windows.Forms.DateTimePicker()
         Me.dtp_FromDate = New System.Windows.Forms.DateTimePicker()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.btn_Add = New System.Windows.Forms.Button()
         Me.cb_EmpCreate = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.cb_DepCreate = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.btn_Update = New System.Windows.Forms.Button()
-        Me.btn_Reset = New System.Windows.Forms.Button()
-        Me.btn_ExportPDF = New System.Windows.Forms.Button()
+        Me.gbtn_Clear = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Delete = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Reset = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Update = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_ExportPDF = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Manage = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Search = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.ptb_Next = New Guna.UI2.WinForms.Guna2PictureBox()
+        Me.ptb_Previous = New Guna.UI2.WinForms.Guna2PictureBox()
+        Me.lbl_Page = New System.Windows.Forms.Label()
         CType(Me.dgv_DeptManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_create.SuspendLayout()
+        CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cb_Department
@@ -232,66 +237,14 @@ Partial Class frm_Manager
         Me.Label6.TabIndex = 78
         Me.Label6.Text = "Search"
         '
-        'btn_Search
-        '
-        Me.btn_Search.BackColor = System.Drawing.Color.Linen
-        Me.btn_Search.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Search.ForeColor = System.Drawing.Color.Black
-        Me.btn_Search.Location = New System.Drawing.Point(386, 85)
-        Me.btn_Search.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Search.Name = "btn_Search"
-        Me.btn_Search.Size = New System.Drawing.Size(271, 35)
-        Me.btn_Search.TabIndex = 79
-        Me.btn_Search.Text = "SEARCH"
-        Me.btn_Search.UseVisualStyleBackColor = False
-        '
-        'btn_Clear
-        '
-        Me.btn_Clear.BackColor = System.Drawing.Color.Linen
-        Me.btn_Clear.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Clear.ForeColor = System.Drawing.Color.Black
-        Me.btn_Clear.Location = New System.Drawing.Point(483, 235)
-        Me.btn_Clear.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Clear.Name = "btn_Clear"
-        Me.btn_Clear.Size = New System.Drawing.Size(203, 39)
-        Me.btn_Clear.TabIndex = 84
-        Me.btn_Clear.Text = "CLEAR"
-        Me.btn_Clear.UseVisualStyleBackColor = False
-        '
-        'btn_Manage
-        '
-        Me.btn_Manage.BackColor = System.Drawing.Color.Linen
-        Me.btn_Manage.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Manage.ForeColor = System.Drawing.Color.Black
-        Me.btn_Manage.Location = New System.Drawing.Point(483, 169)
-        Me.btn_Manage.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Manage.Name = "btn_Manage"
-        Me.btn_Manage.Size = New System.Drawing.Size(429, 39)
-        Me.btn_Manage.TabIndex = 80
-        Me.btn_Manage.Text = "MANAGE DEPARTMENT"
-        Me.btn_Manage.UseVisualStyleBackColor = False
-        '
-        'btn_Delete
-        '
-        Me.btn_Delete.BackColor = System.Drawing.Color.Linen
-        Me.btn_Delete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Delete.ForeColor = System.Drawing.Color.Black
-        Me.btn_Delete.Location = New System.Drawing.Point(709, 237)
-        Me.btn_Delete.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Delete.Name = "btn_Delete"
-        Me.btn_Delete.Size = New System.Drawing.Size(203, 35)
-        Me.btn_Delete.TabIndex = 81
-        Me.btn_Delete.Text = "REMOVE"
-        Me.btn_Delete.UseVisualStyleBackColor = False
-        '
         'grb_create
         '
         Me.grb_create.BackColor = System.Drawing.Color.Transparent
+        Me.grb_create.Controls.Add(Me.gbtn_Add)
         Me.grb_create.Controls.Add(Me.dtp_ToDate)
         Me.grb_create.Controls.Add(Me.dtp_FromDate)
         Me.grb_create.Controls.Add(Me.Label5)
         Me.grb_create.Controls.Add(Me.Label1)
-        Me.grb_create.Controls.Add(Me.btn_Add)
         Me.grb_create.Controls.Add(Me.cb_EmpCreate)
         Me.grb_create.Controls.Add(Me.Label4)
         Me.grb_create.Controls.Add(Me.cb_DepCreate)
@@ -306,6 +259,28 @@ Partial Class frm_Manager
         Me.grb_create.TabIndex = 82
         Me.grb_create.TabStop = False
         Me.grb_create.Text = "CREATE AND UPDATE"
+        '
+        'gbtn_Add
+        '
+        Me.gbtn_Add.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Add.BorderRadius = 8
+        Me.gbtn_Add.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Add.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Add.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Add.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Add.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Add.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Add.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Add.FillColor = System.Drawing.Color.Azure
+        Me.gbtn_Add.FillColor2 = System.Drawing.Color.Aquamarine
+        Me.gbtn_Add.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Add.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Add.Location = New System.Drawing.Point(121, 236)
+        Me.gbtn_Add.Name = "gbtn_Add"
+        Me.gbtn_Add.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Add.Size = New System.Drawing.Size(267, 39)
+        Me.gbtn_Add.TabIndex = 103
+        Me.gbtn_Add.Text = "ADD"
         '
         'dtp_ToDate
         '
@@ -361,19 +336,6 @@ Partial Class frm_Manager
         Me.Label1.TabIndex = 4
         Me.Label1.Text = "From Date"
         '
-        'btn_Add
-        '
-        Me.btn_Add.BackColor = System.Drawing.Color.Linen
-        Me.btn_Add.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Add.ForeColor = System.Drawing.Color.Black
-        Me.btn_Add.Location = New System.Drawing.Point(119, 239)
-        Me.btn_Add.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Add.Name = "btn_Add"
-        Me.btn_Add.Size = New System.Drawing.Size(267, 39)
-        Me.btn_Add.TabIndex = 3
-        Me.btn_Add.Text = "ADD"
-        Me.btn_Add.UseVisualStyleBackColor = False
-        '
         'cb_EmpCreate
         '
         Me.cb_EmpCreate.DropDownHeight = 200
@@ -427,72 +389,234 @@ Partial Class frm_Manager
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Department"
         '
-        'btn_Update
+        'gbtn_Clear
         '
-        Me.btn_Update.BackColor = System.Drawing.Color.Linen
-        Me.btn_Update.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Update.ForeColor = System.Drawing.Color.Black
-        Me.btn_Update.Location = New System.Drawing.Point(709, 292)
-        Me.btn_Update.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Update.Name = "btn_Update"
-        Me.btn_Update.Size = New System.Drawing.Size(203, 39)
-        Me.btn_Update.TabIndex = 75
-        Me.btn_Update.Text = "UPDATE"
-        Me.btn_Update.UseVisualStyleBackColor = False
+        Me.gbtn_Clear.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Clear.BorderRadius = 8
+        Me.gbtn_Clear.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Clear.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Clear.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Clear.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Clear.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Clear.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Clear.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Clear.FillColor = System.Drawing.Color.Azure
+        Me.gbtn_Clear.FillColor2 = System.Drawing.Color.Aquamarine
+        Me.gbtn_Clear.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Clear.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Clear.Location = New System.Drawing.Point(483, 228)
+        Me.gbtn_Clear.Name = "gbtn_Clear"
+        Me.gbtn_Clear.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Clear.Size = New System.Drawing.Size(203, 39)
+        Me.gbtn_Clear.TabIndex = 104
+        Me.gbtn_Clear.Text = "CLEAR"
         '
-        'btn_Reset
+        'gbtn_Delete
         '
-        Me.btn_Reset.BackColor = System.Drawing.Color.Linen
-        Me.btn_Reset.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Reset.ForeColor = System.Drawing.Color.Black
-        Me.btn_Reset.Location = New System.Drawing.Point(483, 292)
-        Me.btn_Reset.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_Reset.Name = "btn_Reset"
-        Me.btn_Reset.Size = New System.Drawing.Size(203, 39)
-        Me.btn_Reset.TabIndex = 85
-        Me.btn_Reset.Text = "RESET"
-        Me.btn_Reset.UseVisualStyleBackColor = False
+        Me.gbtn_Delete.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Delete.BorderRadius = 8
+        Me.gbtn_Delete.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Delete.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Delete.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Delete.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Delete.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Delete.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Delete.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Delete.FillColor = System.Drawing.Color.Azure
+        Me.gbtn_Delete.FillColor2 = System.Drawing.Color.Aquamarine
+        Me.gbtn_Delete.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Delete.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Delete.Location = New System.Drawing.Point(709, 228)
+        Me.gbtn_Delete.Name = "gbtn_Delete"
+        Me.gbtn_Delete.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Delete.Size = New System.Drawing.Size(203, 39)
+        Me.gbtn_Delete.TabIndex = 105
+        Me.gbtn_Delete.Text = "REMOVE"
         '
-        'btn_ExportPDF
+        'gbtn_Reset
         '
-        Me.btn_ExportPDF.BackColor = System.Drawing.Color.Linen
-        Me.btn_ExportPDF.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_ExportPDF.ForeColor = System.Drawing.Color.Black
-        Me.btn_ExportPDF.Location = New System.Drawing.Point(483, 354)
-        Me.btn_ExportPDF.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_ExportPDF.Name = "btn_ExportPDF"
-        Me.btn_ExportPDF.Size = New System.Drawing.Size(203, 39)
-        Me.btn_ExportPDF.TabIndex = 86
-        Me.btn_ExportPDF.Text = "Export PDF"
-        Me.btn_ExportPDF.UseVisualStyleBackColor = False
+        Me.gbtn_Reset.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Reset.BorderRadius = 8
+        Me.gbtn_Reset.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Reset.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Reset.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Reset.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Reset.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Reset.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Reset.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Reset.FillColor = System.Drawing.Color.Azure
+        Me.gbtn_Reset.FillColor2 = System.Drawing.Color.Aquamarine
+        Me.gbtn_Reset.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Reset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Reset.Location = New System.Drawing.Point(483, 282)
+        Me.gbtn_Reset.Name = "gbtn_Reset"
+        Me.gbtn_Reset.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Reset.Size = New System.Drawing.Size(203, 39)
+        Me.gbtn_Reset.TabIndex = 106
+        Me.gbtn_Reset.Text = "RESET"
+        '
+        'gbtn_Update
+        '
+        Me.gbtn_Update.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Update.BorderRadius = 8
+        Me.gbtn_Update.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Update.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Update.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Update.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Update.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Update.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Update.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Update.FillColor = System.Drawing.Color.Azure
+        Me.gbtn_Update.FillColor2 = System.Drawing.Color.Aquamarine
+        Me.gbtn_Update.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Update.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Update.Location = New System.Drawing.Point(709, 282)
+        Me.gbtn_Update.Name = "gbtn_Update"
+        Me.gbtn_Update.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Update.Size = New System.Drawing.Size(203, 39)
+        Me.gbtn_Update.TabIndex = 107
+        Me.gbtn_Update.Text = "UPDATE"
+        '
+        'gbtn_ExportPDF
+        '
+        Me.gbtn_ExportPDF.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_ExportPDF.BorderRadius = 8
+        Me.gbtn_ExportPDF.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_ExportPDF.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_ExportPDF.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_ExportPDF.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_ExportPDF.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_ExportPDF.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_ExportPDF.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_ExportPDF.FillColor = System.Drawing.Color.Azure
+        Me.gbtn_ExportPDF.FillColor2 = System.Drawing.Color.Aquamarine
+        Me.gbtn_ExportPDF.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_ExportPDF.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_ExportPDF.Location = New System.Drawing.Point(483, 335)
+        Me.gbtn_ExportPDF.Name = "gbtn_ExportPDF"
+        Me.gbtn_ExportPDF.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_ExportPDF.Size = New System.Drawing.Size(203, 39)
+        Me.gbtn_ExportPDF.TabIndex = 108
+        Me.gbtn_ExportPDF.Text = "EXPORT PDF"
+        '
+        'gbtn_Manage
+        '
+        Me.gbtn_Manage.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Manage.BorderRadius = 8
+        Me.gbtn_Manage.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Manage.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Manage.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Manage.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Manage.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Manage.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Manage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Manage.FillColor = System.Drawing.Color.Azure
+        Me.gbtn_Manage.FillColor2 = System.Drawing.Color.Aquamarine
+        Me.gbtn_Manage.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Manage.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Manage.Location = New System.Drawing.Point(483, 167)
+        Me.gbtn_Manage.Name = "gbtn_Manage"
+        Me.gbtn_Manage.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Manage.Size = New System.Drawing.Size(429, 39)
+        Me.gbtn_Manage.TabIndex = 109
+        Me.gbtn_Manage.Text = "MANAGE DEPARTMENT"
+        '
+        'gbtn_Search
+        '
+        Me.gbtn_Search.BackColor = System.Drawing.Color.Transparent
+        Me.gbtn_Search.BorderRadius = 8
+        Me.gbtn_Search.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Search.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.gbtn_Search.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Search.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gbtn_Search.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Search.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gbtn_Search.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gbtn_Search.FillColor = System.Drawing.Color.Azure
+        Me.gbtn_Search.FillColor2 = System.Drawing.Color.Aquamarine
+        Me.gbtn_Search.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Search.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.gbtn_Search.Location = New System.Drawing.Point(397, 81)
+        Me.gbtn_Search.Name = "gbtn_Search"
+        Me.gbtn_Search.PressedColor = System.Drawing.Color.Transparent
+        Me.gbtn_Search.Size = New System.Drawing.Size(289, 39)
+        Me.gbtn_Search.TabIndex = 110
+        Me.gbtn_Search.Text = "SEARCH"
+        '
+        'ptb_Next
+        '
+        Me.ptb_Next.BackColor = System.Drawing.Color.Transparent
+        Me.ptb_Next.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Next.FillColor = System.Drawing.Color.Transparent
+        Me.ptb_Next.Image = Global.Training01.My.Resources.Resources.right_arrow__1_
+        Me.ptb_Next.ImageRotate = 0!
+        Me.ptb_Next.Location = New System.Drawing.Point(716, 903)
+        Me.ptb_Next.Name = "ptb_Next"
+        Me.ptb_Next.Size = New System.Drawing.Size(48, 32)
+        Me.ptb_Next.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ptb_Next.TabIndex = 113
+        Me.ptb_Next.TabStop = False
+        '
+        'ptb_Previous
+        '
+        Me.ptb_Previous.BackColor = System.Drawing.Color.Transparent
+        Me.ptb_Previous.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Previous.FillColor = System.Drawing.Color.Transparent
+        Me.ptb_Previous.Image = Global.Training01.My.Resources.Resources.left_arrow
+        Me.ptb_Previous.ImageRotate = 0!
+        Me.ptb_Previous.Location = New System.Drawing.Point(461, 903)
+        Me.ptb_Previous.Name = "ptb_Previous"
+        Me.ptb_Previous.Size = New System.Drawing.Size(48, 32)
+        Me.ptb_Previous.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ptb_Previous.TabIndex = 112
+        Me.ptb_Previous.TabStop = False
+        '
+        'lbl_Page
+        '
+        Me.lbl_Page.AutoSize = True
+        Me.lbl_Page.BackColor = System.Drawing.Color.Transparent
+        Me.lbl_Page.Font = New System.Drawing.Font("Times New Roman", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Page.ForeColor = System.Drawing.Color.Azure
+        Me.lbl_Page.Location = New System.Drawing.Point(546, 903)
+        Me.lbl_Page.Name = "lbl_Page"
+        Me.lbl_Page.Size = New System.Drawing.Size(79, 32)
+        Me.lbl_Page.TabIndex = 111
+        Me.lbl_Page.Text = "Page "
         '
         'frm_Manager
         '
+        Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
+        Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1586, 966)
-        Me.Controls.Add(Me.btn_ExportPDF)
-        Me.Controls.Add(Me.btn_Reset)
-        Me.Controls.Add(Me.btn_Update)
-        Me.Controls.Add(Me.btn_Clear)
-        Me.Controls.Add(Me.btn_Manage)
-        Me.Controls.Add(Me.btn_Delete)
+        Me.Controls.Add(Me.ptb_Next)
+        Me.Controls.Add(Me.ptb_Previous)
+        Me.Controls.Add(Me.lbl_Page)
+        Me.Controls.Add(Me.gbtn_Search)
+        Me.Controls.Add(Me.gbtn_Manage)
+        Me.Controls.Add(Me.gbtn_ExportPDF)
+        Me.Controls.Add(Me.gbtn_Update)
+        Me.Controls.Add(Me.gbtn_Reset)
+        Me.Controls.Add(Me.gbtn_Delete)
+        Me.Controls.Add(Me.gbtn_Clear)
         Me.Controls.Add(Me.grb_create)
-        Me.Controls.Add(Me.btn_Search)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.txt_Search)
         Me.Controls.Add(Me.dgv_DeptManager)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.lbl_titleManager)
         Me.Controls.Add(Me.cb_Department)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frm_Manager"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         CType(Me.dgv_DeptManager, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grb_create.ResumeLayout(False)
         Me.grb_create.PerformLayout()
+        CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -504,22 +628,15 @@ Partial Class frm_Manager
     Friend WithEvents dgv_DeptManager As DataGridView
     Friend WithEvents txt_Search As TextBox
     Friend WithEvents Label6 As Label
-    Friend WithEvents btn_Search As Button
-    Friend WithEvents btn_Clear As Button
-    Friend WithEvents btn_Manage As Button
-    Friend WithEvents btn_Delete As Button
     Friend WithEvents grb_create As GroupBox
     Private WithEvents dtp_ToDate As DateTimePicker
     Private WithEvents dtp_FromDate As DateTimePicker
     Friend WithEvents Label5 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents btn_Add As Button
     Friend WithEvents cb_EmpCreate As ComboBox
     Friend WithEvents Label4 As Label
     Friend WithEvents cb_DepCreate As ComboBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents btn_Update As Button
-    Friend WithEvents btn_Reset As Button
     Friend WithEvents NO As DataGridViewTextBoxColumn
     Friend WithEvents emp_id As DataGridViewTextBoxColumn
     Friend WithEvents emp_name As DataGridViewTextBoxColumn
@@ -533,5 +650,15 @@ Partial Class frm_Manager
     Friend WithEvents dept_id As DataGridViewTextBoxColumn
     Friend WithEvents status As DataGridViewTextBoxColumn
     Friend WithEvents deptmanager_id As DataGridViewTextBoxColumn
-    Friend WithEvents btn_ExportPDF As Button
+    Friend WithEvents gbtn_Add As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Clear As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Delete As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Reset As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Update As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_ExportPDF As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Manage As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Search As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents ptb_Next As Guna.UI2.WinForms.Guna2PictureBox
+    Friend WithEvents ptb_Previous As Guna.UI2.WinForms.Guna2PictureBox
+    Friend WithEvents lbl_Page As Label
 End Class

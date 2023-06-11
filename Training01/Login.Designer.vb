@@ -132,7 +132,7 @@ Partial Class Login
         Me.closeApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
         Me.closeApp.Location = New System.Drawing.Point(356, 2)
-        Me.closeApp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.closeApp.Margin = New System.Windows.Forms.Padding(4)
         Me.closeApp.Name = "closeApp"
         Me.closeApp.Size = New System.Drawing.Size(41, 38)
         Me.closeApp.TabIndex = 8
@@ -142,7 +142,7 @@ Partial Class Login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
+        Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.ClientSize = New System.Drawing.Size(401, 345)
         Me.Controls.Add(Me.closeApp)
         Me.Controls.Add(Me.Label1)
@@ -153,6 +153,7 @@ Partial Class Login
         Me.Controls.Add(Me.txtPassword)
         Me.Controls.Add(Me.txtEmail)
         Me.Cursor = System.Windows.Forms.Cursors.Arrow
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "Login"

@@ -35,7 +35,6 @@ Partial Class NewDashboard
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.btn_Employee = New System.Windows.Forms.Button()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
-        Me.btn_Department = New System.Windows.Forms.Button()
         Me.PictureBox5 = New System.Windows.Forms.PictureBox()
         Me.btn_Manager = New System.Windows.Forms.Button()
         Me.PictureBox6 = New System.Windows.Forms.PictureBox()
@@ -47,6 +46,7 @@ Partial Class NewDashboard
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
         Me.btn_Signout = New System.Windows.Forms.Button()
         Me.pn_Sidebar = New System.Windows.Forms.Panel()
+        Me.btn_Department = New System.Windows.Forms.Button()
         Me.pn_Main = New System.Windows.Forms.Panel()
         Me.pn_Content = New System.Windows.Forms.Panel()
         Me.pn_Salary = New System.Windows.Forms.Panel()
@@ -109,7 +109,7 @@ Partial Class NewDashboard
         '
         'pn_Header
         '
-        Me.pn_Header.BackColor = System.Drawing.Color.PapayaWhip
+        Me.pn_Header.BackColor = System.Drawing.Color.Transparent
         Me.pn_Header.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin2
         Me.pn_Header.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pn_Header.Controls.Add(Me.lbl_UserName)
@@ -136,17 +136,19 @@ Partial Class NewDashboard
         '
         'PictureBox16
         '
-        Me.PictureBox16.BackgroundImage = Global.Training01.My.Resources.Resources._2199861
+        Me.PictureBox16.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox16.Image = Global.Training01.My.Resources.Resources._219986
         Me.PictureBox16.Location = New System.Drawing.Point(863, 34)
         Me.PictureBox16.Name = "PictureBox16"
         Me.PictureBox16.Size = New System.Drawing.Size(66, 53)
+        Me.PictureBox16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox16.TabIndex = 69
         Me.PictureBox16.TabStop = False
         '
         'ptb_Icon
         '
-        Me.ptb_Icon.BackColor = System.Drawing.SystemColors.Control
+        Me.ptb_Icon.BackColor = System.Drawing.Color.Transparent
         Me.ptb_Icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ptb_Icon.ErrorImage = Nothing
         Me.ptb_Icon.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
@@ -172,7 +174,6 @@ Partial Class NewDashboard
         'ptb_Close
         '
         Me.ptb_Close.BackColor = System.Drawing.Color.Transparent
-        Me.ptb_Close.BackgroundImage = Global.Training01.My.Resources.Resources.blue_exit_icon_161
         Me.ptb_Close.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ptb_Close.Location = New System.Drawing.Point(1249, 0)
         Me.ptb_Close.Name = "ptb_Close"
@@ -183,7 +184,6 @@ Partial Class NewDashboard
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox1.BackgroundImage = Global.Training01.My.Resources.Resources._219986
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.PictureBox1.Location = New System.Drawing.Point(1013, 16)
         Me.PictureBox1.Name = "PictureBox1"
@@ -194,7 +194,6 @@ Partial Class NewDashboard
         'btn_Menu
         '
         Me.btn_Menu.BackColor = System.Drawing.Color.Transparent
-        Me.btn_Menu.BackgroundImage = Global.Training01.My.Resources.Resources.mobile_menu_8_834368
         Me.btn_Menu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.btn_Menu.FlatAppearance.BorderSize = 0
         Me.btn_Menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -208,11 +207,12 @@ Partial Class NewDashboard
         'PictureBox2
         '
         Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox2.BackgroundImage = Global.Training01.My.Resources.Resources.free_download_of_clipart_icon_home_png_1300x1300
         Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox2.Image = Global.Training01.My.Resources.Resources.free_download_of_clipart_icon_home_png_1300x1300
         Me.PictureBox2.Location = New System.Drawing.Point(11, 24)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(42, 38)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 20
         Me.PictureBox2.TabStop = False
         '
@@ -234,11 +234,12 @@ Partial Class NewDashboard
         'PictureBox3
         '
         Me.PictureBox3.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox3.BackgroundImage = Global.Training01.My.Resources.Resources.avatar31
         Me.PictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox3.Image = Global.Training01.My.Resources.Resources.avatar2
         Me.PictureBox3.Location = New System.Drawing.Point(11, 78)
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.Size = New System.Drawing.Size(42, 38)
+        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox3.TabIndex = 22
         Me.PictureBox3.TabStop = False
         '
@@ -260,37 +261,23 @@ Partial Class NewDashboard
         'PictureBox4
         '
         Me.PictureBox4.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox4.BackgroundImage = Global.Training01.My.Resources.Resources.department_icon_png_5
         Me.PictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox4.Image = Global.Training01.My.Resources.Resources.department_icon_png_5
         Me.PictureBox4.Location = New System.Drawing.Point(11, 132)
         Me.PictureBox4.Name = "PictureBox4"
         Me.PictureBox4.Size = New System.Drawing.Size(42, 38)
+        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox4.TabIndex = 24
         Me.PictureBox4.TabStop = False
-        '
-        'btn_Department
-        '
-        Me.btn_Department.BackColor = System.Drawing.Color.Transparent
-        Me.btn_Department.FlatAppearance.BorderSize = 0
-        Me.btn_Department.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btn_Department.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Department.ForeColor = System.Drawing.Color.Linen
-        Me.btn_Department.Location = New System.Drawing.Point(59, 132)
-        Me.btn_Department.Name = "btn_Department"
-        Me.btn_Department.Size = New System.Drawing.Size(177, 38)
-        Me.btn_Department.TabIndex = 25
-        Me.btn_Department.Text = "Department"
-        Me.btn_Department.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btn_Department.UseVisualStyleBackColor = False
         '
         'PictureBox5
         '
         Me.PictureBox5.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox5.BackgroundImage = Global.Training01.My.Resources.Resources._19264851
-        Me.PictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox5.Image = Global.Training01.My.Resources.Resources._1926485
         Me.PictureBox5.Location = New System.Drawing.Point(11, 190)
         Me.PictureBox5.Name = "PictureBox5"
         Me.PictureBox5.Size = New System.Drawing.Size(42, 38)
+        Me.PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox5.TabIndex = 26
         Me.PictureBox5.TabStop = False
         '
@@ -312,11 +299,11 @@ Partial Class NewDashboard
         'PictureBox6
         '
         Me.PictureBox6.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox6.BackgroundImage = Global.Training01.My.Resources.Resources._7028651
-        Me.PictureBox6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox6.Image = Global.Training01.My.Resources.Resources._702865
         Me.PictureBox6.Location = New System.Drawing.Point(11, 245)
         Me.PictureBox6.Name = "PictureBox6"
         Me.PictureBox6.Size = New System.Drawing.Size(42, 38)
+        Me.PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox6.TabIndex = 28
         Me.PictureBox6.TabStop = False
         '
@@ -338,11 +325,12 @@ Partial Class NewDashboard
         'PictureBox7
         '
         Me.PictureBox7.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox7.BackgroundImage = Global.Training01.My.Resources.Resources._416_4162293_investment_services_salary_icon1
         Me.PictureBox7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox7.Image = Global.Training01.My.Resources.Resources._416_4162293_investment_services_salary_icon
         Me.PictureBox7.Location = New System.Drawing.Point(11, 298)
         Me.PictureBox7.Name = "PictureBox7"
         Me.PictureBox7.Size = New System.Drawing.Size(42, 38)
+        Me.PictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox7.TabIndex = 30
         Me.PictureBox7.TabStop = False
         '
@@ -364,11 +352,12 @@ Partial Class NewDashboard
         'PictureBox8
         '
         Me.PictureBox8.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox8.BackgroundImage = Global.Training01.My.Resources.Resources.Icon_Leave_Message_Sign_Blue_BG1
         Me.PictureBox8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox8.Image = Global.Training01.My.Resources.Resources.Icon_Leave_Message_Sign_Blue_BG
         Me.PictureBox8.Location = New System.Drawing.Point(11, 352)
         Me.PictureBox8.Name = "PictureBox8"
         Me.PictureBox8.Size = New System.Drawing.Size(42, 38)
+        Me.PictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox8.TabIndex = 32
         Me.PictureBox8.TabStop = False
         '
@@ -391,11 +380,12 @@ Partial Class NewDashboard
         'PictureBox9
         '
         Me.PictureBox9.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox9.BackgroundImage = Global.Training01.My.Resources.Resources.sign_out_651
         Me.PictureBox9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox9.Image = Global.Training01.My.Resources.Resources.sign_out_65
         Me.PictureBox9.Location = New System.Drawing.Point(11, 408)
         Me.PictureBox9.Name = "PictureBox9"
         Me.PictureBox9.Size = New System.Drawing.Size(42, 38)
+        Me.PictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox9.TabIndex = 34
         Me.PictureBox9.TabStop = False
         '
@@ -417,7 +407,7 @@ Partial Class NewDashboard
         '
         'pn_Sidebar
         '
-        Me.pn_Sidebar.BackColor = System.Drawing.Color.Cyan
+        Me.pn_Sidebar.BackColor = System.Drawing.Color.Transparent
         Me.pn_Sidebar.BackgroundImage = Global.Training01.My.Resources.Resources.pngtree_simple_blue_tech_lines_background_image_206074
         Me.pn_Sidebar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pn_Sidebar.Controls.Add(Me.btn_Signout)
@@ -437,15 +427,30 @@ Partial Class NewDashboard
         Me.pn_Sidebar.Controls.Add(Me.btn_Dashboard)
         Me.pn_Sidebar.Controls.Add(Me.PictureBox2)
         Me.pn_Sidebar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.pn_Sidebar.ForeColor = System.Drawing.Color.Linen
+        Me.pn_Sidebar.ForeColor = System.Drawing.Color.Transparent
         Me.pn_Sidebar.Location = New System.Drawing.Point(0, 0)
         Me.pn_Sidebar.Name = "pn_Sidebar"
         Me.pn_Sidebar.Size = New System.Drawing.Size(259, 790)
         Me.pn_Sidebar.TabIndex = 17
         '
+        'btn_Department
+        '
+        Me.btn_Department.BackColor = System.Drawing.Color.Transparent
+        Me.btn_Department.FlatAppearance.BorderSize = 0
+        Me.btn_Department.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btn_Department.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_Department.ForeColor = System.Drawing.Color.Linen
+        Me.btn_Department.Location = New System.Drawing.Point(59, 132)
+        Me.btn_Department.Name = "btn_Department"
+        Me.btn_Department.Size = New System.Drawing.Size(177, 38)
+        Me.btn_Department.TabIndex = 25
+        Me.btn_Department.Text = "Department"
+        Me.btn_Department.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btn_Department.UseVisualStyleBackColor = False
+        '
         'pn_Main
         '
-        Me.pn_Main.BackColor = System.Drawing.Color.LightCyan
+        Me.pn_Main.BackColor = System.Drawing.Color.Transparent
         Me.pn_Main.BackgroundImage = Global.Training01.My.Resources.Resources.wallpaper2you_556027
         Me.pn_Main.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pn_Main.Controls.Add(Me.pn_Content)
@@ -457,7 +462,7 @@ Partial Class NewDashboard
         '
         'pn_Content
         '
-        Me.pn_Content.BackColor = System.Drawing.Color.Lavender
+        Me.pn_Content.BackColor = System.Drawing.Color.Transparent
         Me.pn_Content.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.pn_Content.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pn_Content.Controls.Add(Me.pn_Salary)
@@ -467,7 +472,7 @@ Partial Class NewDashboard
         Me.pn_Content.Controls.Add(Me.pn_Department)
         Me.pn_Content.Controls.Add(Me.pn_Employee)
         Me.pn_Content.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.pn_Content.ForeColor = System.Drawing.Color.DarkGray
+        Me.pn_Content.ForeColor = System.Drawing.Color.Transparent
         Me.pn_Content.Location = New System.Drawing.Point(83, 45)
         Me.pn_Content.Name = "pn_Content"
         Me.pn_Content.Size = New System.Drawing.Size(1169, 588)
@@ -797,13 +802,17 @@ Partial Class NewDashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = Global.Training01.My.Resources.Resources.BackgroundLogin
+        Me.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange
+        Me.BackColor = System.Drawing.Color.YellowGreen
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1601, 790)
         Me.Controls.Add(Me.pn_Main)
         Me.Controls.Add(Me.pn_Header)
         Me.Controls.Add(Me.pn_Sidebar)
+        Me.DoubleBuffered = True
+        Me.ForeColor = System.Drawing.SystemColors.ControlText
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.IsMdiContainer = True
         Me.Name = "NewDashboard"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.pn_Header.ResumeLayout(False)
@@ -853,7 +862,6 @@ Partial Class NewDashboard
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents btn_Employee As Button
     Friend WithEvents PictureBox4 As PictureBox
-    Friend WithEvents btn_Department As Button
     Friend WithEvents PictureBox5 As PictureBox
     Friend WithEvents btn_Manager As Button
     Friend WithEvents PictureBox6 As PictureBox
@@ -899,4 +907,5 @@ Partial Class NewDashboard
     Friend WithEvents lbl_EmptDeptMax As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents lbl_UserName As Label
+    Friend WithEvents btn_Department As Button
 End Class
