@@ -2,12 +2,16 @@
 
 Public Class Login
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
+
+    Private isPasswordVisible As Boolean = False ' Trạng thái ban đầu của mật khẩu (ẩn)
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Panel1.BackColor = Color.Transparent
         LinkLabel1.BackColor = Color.Transparent
         Label1.BackColor = Color.Transparent
         Email.BackColor = Color.Transparent
+        CustomElements.MovingForm(Me)
         lblPassWord.BackColor = Color.Transparent
+        ptb_TogglePassword.Image = My.Resources.hide
     End Sub
 
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
@@ -112,6 +116,21 @@ Public Class Login
     Private Sub EnterClick(e As KeyPressEventArgs)
         If e.KeyChar = Convert.ToChar(Keys.Enter) Then
             btnLogin.PerformClick()
+        End If
+    End Sub
+
+    Private Sub ptb_TogglePassword_Click(sender As Object, e As EventArgs) Handles ptb_TogglePassword.Click
+        ' Đảo ngược trạng thái
+        isPasswordVisible = Not isPasswordVisible
+
+
+        ' Thực hiện thay đổi trạng thái
+        If isPasswordVisible Then
+            txtPassword.PasswordChar = "*"
+            ptb_TogglePassword.Image = My.Resources.view
+        Else
+            txtPassword.PasswordChar = ""
+            ptb_TogglePassword.Image = My.Resources.hide
         End If
     End Sub
 End Class

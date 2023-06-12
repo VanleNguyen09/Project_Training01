@@ -24,7 +24,9 @@ Public Class frm_Department
         gbtn_Delete.Enabled = False
         txt_DepartmentID.Enabled = False
         GlobalVariables.lblPage = lbl_Page
+        AddHandler dgrv_Department.ColumnHeaderMouseClick, AddressOf dgrv_Department_ColumnHeaderMouseClick
 
+        dgrv_Department.Columns("No").SortMode = DataGridViewColumnSortMode.NotSortable
         EnableAdd()
         LoadData()
     End Sub
@@ -59,8 +61,11 @@ Public Class frm_Department
             con.Close()
         End Using
 
+        ' Gọi hàm SaveInitialNoValues để lưu giá trị ban đầu của cột "No"
+        SaveInitialNoValues()
+
         ' Gọi hàm PaginateDataGridView sau khi tải dữ liệu
-        Pagination.PaginateDataGridView(dgrv_Department, 1) ' 1 là trang đầu tiên
+        Pagination.PaginateDataGridView(dgrv_Department, currentPage)
     End Sub
 
     Private Sub EnableAdd()
@@ -336,5 +341,29 @@ Public Class frm_Department
             currentPage += 1
             Pagination.PaginateDataGridView(dgrv_Department, currentPage)
         End If
+    End Sub
+
+    Private initialNoValues As New List(Of Integer)()
+    Private Sub SaveInitialNoValues()
+        ' Xóa dữ liệu cũ
+        initialNoValues.Clear()
+
+        For i As Integer = 0 To dgrv_Department.Rows.Count - 1
+            Dim noValue As Integer = Convert.ToInt32(dgrv_Department.Rows(i).Cells("No").Value)
+            initialNoValues.Add(noValue)
+        Next
+    End Sub
+
+    Private Sub RestoreInitialNoValues()
+        For i As Integer = 0 To dgrv_Department.Rows.Count - 1
+            dgrv_Department.Rows(i).Cells("No").Value = initialNoValues(i)
+        Next
+    End Sub
+    Private Sub dgrv_Department_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgrv_Department.ColumnHeaderMouseClick
+        If dgrv_Department.Columns(e.ColumnIndex).Name <> "No" Then
+            ' Gọi hàm RestoreInitialNo sau khi thay đổi dữ liệu
+            RestoreInitialNoValues()
+        End If
+
     End Sub
 End Class

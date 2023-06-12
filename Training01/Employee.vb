@@ -1,4 +1,5 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.ComponentModel
+Imports System.Data.SqlClient
 
 Imports System.IO
 Imports Guna.UI2.WinForms
@@ -31,6 +32,7 @@ Public Class frm_Employee
                                                                                     gbtn_Search.PerformClick()
                                                                                 End Sub)
         dtp_Birthday.Value = dtp_Birthday.Value.AddYears(-18)
+        dgrv_Employee.Columns("No").SortMode = DataGridViewColumnSortMode.NotSortable
         GlobalVariables.lblPage = lbl_Page
         rdo_Female.Text = "Female"
         rdo_Male.Text = "Male"
@@ -38,7 +40,6 @@ Public Class frm_Employee
         rdo_Female.Checked = False
         EnableAdd()
         txt_EmployeeID.Enabled = False
-        gbtn_Reset.Enabled = False
         dgrv_Employee.ClearSelection()
         LoadData()
     End Sub
@@ -143,7 +144,7 @@ Public Class frm_Employee
                     cmd.Parameters.AddWithValue("@address", values(EmployeeParameters.Address))
                     cmd.Parameters.AddWithValue("@gender", If((values(EmployeeParameters.Gender) = "Male"), True, False))
                     cmd.Parameters.AddWithValue("@birthday", values(EmployeeParameters.Birthday))
-                    cmd.Parameters.AddWithValue("@email", values(EmployeeParameters.Address))
+                    cmd.Parameters.AddWithValue("@email", values(EmployeeParameters.Email))
                     cmd.Parameters.AddWithValue("@image", values(EmployeeParameters.Image))
                     cmd.Parameters.AddWithValue("@status", status)
                     cmd.ExecuteNonQuery()
@@ -202,75 +203,71 @@ Public Class frm_Employee
     End Sub
 
     Public Sub Delete_Employee(ByVal id As Integer)
-            If con.State <> 1 Then
-                con.Open()
-            End If
-            Try
-                Using cmd As SqlCommand = New SqlCommand("DeleteEmployee", con)
-                    cmd.CommandType = CommandType.StoredProcedure
-                    cmd.Parameters.AddWithValue("@id", id)
-                    cmd.ExecuteNonQuery()
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("DeleteEmployee", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@id", id)
+                cmd.ExecuteNonQuery()
 
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Finally
-                con.Close()
-            End Try
-        End Sub
-
-        Public Sub ShowEmployee(ByVal No As Integer, ByVal reader As SqlDataReader)
-            Dim id As Integer = Convert.ToInt32(reader("id").ToString())
-            Dim name As String = reader("name").ToString()
-            Dim img As Image = Nothing
-
-            If reader("image").ToString() <> String.Empty Then
-                Dim bytes As Byte() = CType(reader("image"), Byte())
-                If bytes IsNot Nothing AndAlso bytes.Length > 0 Then
-                    Try
-                        img = Image.FromStream(New MemoryStream(bytes))
-                    Catch ex As Exception
-                        Console.WriteLine("Error creating image: " & ex.Message)
-                    End Try
-                Else
-                    Console.WriteLine("Invalid or empty image data")
-                End If
-            End If
-
-            Dim phone As String = reader("phone").ToString()
-            Dim address As String = reader("address").ToString()
-            Dim gender As String = reader("gender").ToString()
-            Dim birthday As String = reader("birthday").ToString()
-            Dim email As String = reader("email").ToString()
-            Dim status As Integer = Convert.ToInt32(reader("status").ToString())
-            dgrv_Employee.Rows.Add(No, id, name, img, phone, address, gender, birthday, email, status)
-        End Sub
-
-        Public Sub LoadData()
-            If con.State <> 1 Then
-                con.Open()
-            End If
-            dgrv_Employee.Rows.Clear()
-            Using cmd As SqlCommand = New SqlCommand("GetAllEmployees", con)
-                Dim reader As SqlDataReader = cmd.ExecuteReader()
-                Dim No As Integer = 1
-                While reader.Read()
-                    ShowEmployee(No, reader)
-                    No += 1
-                End While
-                con.Close()
             End Using
-
-            Pagination.PaginateDataGridView(dgrv_Employee, 1)
-        End Sub
-
-        Private Sub EnableAdd()
-            gbtn_Add.Enabled = True
-            gbtn_Update.Enabled = False
-            gbtn_Delete.Enabled = False
-        gbtn_Reset.Enabled = False
+        Catch ex As Exception
+            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
+        End Try
     End Sub
 
+    Public Sub ShowEmployee(ByVal No As Integer, ByVal reader As SqlDataReader)
+        Dim id As Integer = Convert.ToInt32(reader("id").ToString())
+        Dim name As String = reader("name").ToString()
+        Dim img As Image = Nothing
+        If reader("image").ToString() <> String.Empty Then
+            Dim bytes As Byte() = CType(reader("image"), Byte())
+            If bytes IsNot Nothing AndAlso bytes.Length > 0 Then
+                Try
+                    img = Image.FromStream(New MemoryStream(bytes))
+                Catch ex As Exception
+                    Console.WriteLine("Error creating image: " & ex.Message)
+                End Try
+            Else
+                Console.WriteLine("Invalid or empty image data")
+            End If
+        End If
+
+
+        Dim phone As String = reader("phone").ToString()
+        Dim address As String = reader("address").ToString()
+        Dim gender As String = reader("gender").ToString()
+        Dim birthday As String = reader("birthday").ToString()
+        Dim email As String = reader("email").ToString()
+        Dim status As Integer = Convert.ToInt32(reader("status").ToString())
+        dgrv_Employee.Rows.Add(No, id, name, img, phone, address, gender, birthday, email, status)
+    End Sub
+    Public Sub LoadData()
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        dgrv_Employee.Rows.Clear()
+        Using cmd As SqlCommand = New SqlCommand("GetAllEmployees", con)
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+            Dim No As Integer = 1
+            While reader.Read()
+                ShowEmployee(No, reader)
+                No += 1
+            End While
+            con.Close()
+        End Using
+        Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
+    End Sub
+    Private Sub EnableAdd()
+        gbtn_Add.Enabled = True
+        gbtn_Update.Enabled = False
+        gbtn_Delete.Enabled = False
+        gbtn_Reset.Enabled = False
+    End Sub
     Private Sub DisableAdd()
         gbtn_Add.Enabled = False
         gbtn_Update.Enabled = True
@@ -279,51 +276,49 @@ Public Class frm_Employee
     End Sub
 
     Private Sub ClearForm()
-            txt_Name.Text = String.Empty
-            txt_Address.Text = String.Empty
-            txt_Phone.Text = String.Empty
-            txt_EmployeeID.Text = String.Empty
-            txt_Email.Text = String.Empty
-            rdo_Male.Checked = True
-            rdo_Female.Checked = False
-            dtp_Birthday.Value = Date.Now()
-            ptb_Employee.Image = Nothing
-            dgrv_Employee.ClearSelection()
-        End Sub
+        txt_Name.Text = String.Empty
+        txt_Address.Text = String.Empty
+        txt_Phone.Text = String.Empty
+        txt_EmployeeID.Text = String.Empty
+        txt_Email.Text = String.Empty
+        rdo_Male.Checked = True
+        rdo_Female.Checked = False
+        dtp_Birthday.Value = Date.Now()
+        ptb_Employee.Image = Nothing
+        dgrv_Employee.ClearSelection()
+    End Sub
 
-        Dim titleMsgBox As String = "notification"
-        Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
-        Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
-
-        Private Sub SearchEmployeesByKeyword(ByVal keyword As String)
-            If con.State <> 1 Then
-                con.Open()
-            End If
-
-            dgrv_Employee.Rows.Clear()
-            Dim reload = False
-            Using cmd As SqlCommand = New SqlCommand("GetEmployeesByKeyWord", con)
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("@keyword", keyword)
-                Using reader As SqlDataReader = cmd.ExecuteReader()
-                    If reader.HasRows Then
-                        Dim No As Integer = 1
-                        While reader.Read()
-                            ShowEmployee(No, reader)
-                            No += 1
-                        End While
-                    Else
-                        MessageBox.Show(Message.Message.errorInvalidSearch, titleMsgBox, buttons, icons)
-                        reload = True
-                    End If
-                End Using
+    Dim titleMsgBox As String = "notification"
+    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
+    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
+    Private Sub SearchEmployeesByKeyword(ByVal keyword As String)
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        dgrv_Employee.Rows.Clear()
+        Dim reload = False
+        Using cmd As SqlCommand = New SqlCommand("GetEmployeesByKeyWord", con)
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@keyword", keyword)
+            Using reader As SqlDataReader = cmd.ExecuteReader()
+                If reader.HasRows Then
+                    Dim No As Integer = 1
+                    While reader.Read()
+                        ShowEmployee(No, reader)
+                        No += 1
+                    End While
+                Else
+                    MessageBox.Show(Message.Message.errorInvalidSearch, titleMsgBox, buttons, icons)
+                    reload = True
+                End If
             End Using
-            con.Close()
-            If reload Then
-                txt_Search.Text = Nothing
-                LoadData()
-            End If
-        End Sub
+        End Using
+        con.Close()
+        If reload Then
+            txt_Search.Text = Nothing
+            LoadData()
+        End If
+    End Sub
 
     Private Sub gbtn_Add_Click(sender As Object, e As EventArgs) Handles gbtn_Add.Click
         Dim name As String = txt_Name.Text.Trim()
@@ -342,10 +337,10 @@ Public Class frm_Employee
         Dim email As String = txt_Email.Text.Trim()
 
         If String.IsNullOrEmpty(name) OrElse
-                String.IsNullOrEmpty(phone) OrElse
-                String.IsNullOrEmpty(address) OrElse
-                String.IsNullOrEmpty(gender) OrElse
-                String.IsNullOrEmpty(email) Then
+            String.IsNullOrEmpty(phone) OrElse
+            String.IsNullOrEmpty(address) OrElse
+            String.IsNullOrEmpty(gender) OrElse
+            String.IsNullOrEmpty(email) Then
             MessageBox.Show(Message.Message.emptyDataErrorMessage, titleMsgBox, buttons, icons)
             Return
         End If
@@ -630,7 +625,6 @@ Public Class frm_Employee
     End Sub
 
     Private Sub gbtn_EmpDept_Click(sender As Object, e As EventArgs) Handles gbtn_EmpDept.Click
-        Me.Close()
         Dim empDept As New frm_EmpInDept
         empDept.Show()
     End Sub
@@ -658,6 +652,15 @@ Public Class frm_Employee
         If currentPage < totalPages Then
             currentPage += 1
             Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
+        End If
+    End Sub
+
+    Private Sub dgrv_Employee_Sorted(sender As Object, e As EventArgs) Handles dgrv_Employee.Sorted
+        'If it is No column, sorted normal, and No is not sorted
+        If dgrv_Employee.SortedColumn.Name <> "No" Then
+            For i As Integer = 0 To dgrv_Employee.Rows.Count - 1
+                dgrv_Employee.Rows(i).Cells("No").Value = (i + 1).ToString()
+            Next
         End If
     End Sub
 End Class

@@ -35,8 +35,8 @@ Public Class frm_Manager
         cb_Department.SelectedIndex = 0
         cb_DepCreate.SelectedIndex = 0
         cb_EmpCreate.SelectedIndex = 0
+        dgv_DeptManager.Columns("No").SortMode = DataGridViewColumnSortMode.NotSortable
         EnableAdd()
-
         Select_Departments()
         Select_Employees()
         LoadData()
@@ -152,7 +152,7 @@ Public Class frm_Manager
             con.Close()
         End Using
 
-        Pagination.PaginateDataGridView(dgv_DeptManager, 1)
+        Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
     End Sub
 
     Private Function CheckEmpDeptExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
@@ -803,6 +803,15 @@ Public Class frm_Manager
         If currentPage < totalPages Then
             currentPage += 1
             Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
+        End If
+    End Sub
+
+    Private Sub dgv_DeptManager_Sorted(sender As Object, e As EventArgs) Handles dgv_DeptManager.Sorted
+        'If it is No column, sorted normal, and No is not sorted
+        If dgv_DeptManager.SortedColumn.Name <> "No" Then
+            For i As Integer = 0 To dgv_DeptManager.Rows.Count - 1
+                dgv_DeptManager.Rows(i).Cells("No").Value = (i + 1).ToString()
+            Next
         End If
     End Sub
 End Class

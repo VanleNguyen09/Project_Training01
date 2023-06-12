@@ -4,12 +4,17 @@ Public Class RegisterUser
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private Sub RegisterUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtEmail.Select()
+        CustomElements.MovingForm(Me)
     End Sub
+    Private isPasswordVisible As Boolean = False ' Trạng thái ban đầu của mật khẩu (ẩn)
+    Private isCFPasswordVisible As Boolean = False ' Trạng thái ban đầu của mật khẩu (ẩn)
 
     Private Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
         txtEmail.Text = Nothing
         txtFullName.Text = Nothing
         txtPassword.Text = Nothing
+        ptb_TogglePassword.Image = My.Resources.hide
+        ptb_ToggleCFPassword.Image = My.Resources.hide
         txtConfirmPassword.Text = Nothing
     End Sub
 
@@ -134,6 +139,35 @@ Public Class RegisterUser
         If e.KeyChar = Convert.ToChar(Keys.Enter) Then
             SendKeys.Send("{TAB}")
             e.Handled = True
+        End If
+    End Sub
+
+    Private Sub ptb_ToggleCFPassword_Click(sender As Object, e As EventArgs) Handles ptb_ToggleCFPassword.Click
+        ' Đảo ngược trạng thái
+        isCFPasswordVisible = Not isCFPasswordVisible
+
+        ' Thực hiện thay đổi trạng thái
+        If isCFPasswordVisible Then
+            txtConfirmPassword.PasswordChar = "*"
+            ptb_ToggleCFPassword.Image = My.Resources.view
+        Else
+            txtConfirmPassword.PasswordChar = ""
+            ptb_ToggleCFPassword.Image = My.Resources.hide
+        End If
+
+    End Sub
+
+    Private Sub ptb_TogglePassword_Click(sender As Object, e As EventArgs) Handles ptb_TogglePassword.Click
+        ' Đảo ngược trạng thái
+        isPasswordVisible = Not isPasswordVisible
+
+        ' Thực hiện thay đổi trạng thái
+        If isPasswordVisible Then
+            txtPassword.PasswordChar = "*"
+            ptb_TogglePassword.Image = My.Resources.view
+        Else
+            txtPassword.PasswordChar = ""
+            ptb_TogglePassword.Image = My.Resources.hide
         End If
     End Sub
 End Class

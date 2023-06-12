@@ -22,13 +22,13 @@ Partial Class frm_Employee
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.txt_Email = New System.Windows.Forms.TextBox()
         Me.lbl_Email = New System.Windows.Forms.Label()
         Me.dtp_Birthday = New System.Windows.Forms.DateTimePicker()
@@ -286,8 +286,8 @@ Partial Class frm_Employee
         '
         'EmployeeID
         '
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmployeeID.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeID.DefaultCellStyle = DataGridViewCellStyle1
         Me.EmployeeID.HeaderText = "EmployeeID"
         Me.EmployeeID.MinimumWidth = 6
         Me.EmployeeID.Name = "EmployeeID"
@@ -297,8 +297,8 @@ Partial Class frm_Employee
         '
         'EmployeeName
         '
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmployeeName.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeName.DefaultCellStyle = DataGridViewCellStyle2
         Me.EmployeeName.HeaderText = "Name"
         Me.EmployeeName.MinimumWidth = 6
         Me.EmployeeName.Name = "EmployeeName"
@@ -317,8 +317,8 @@ Partial Class frm_Employee
         '
         'phone
         '
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.phone.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.phone.DefaultCellStyle = DataGridViewCellStyle3
         Me.phone.HeaderText = "Phone"
         Me.phone.MinimumWidth = 6
         Me.phone.Name = "phone"
@@ -326,8 +326,8 @@ Partial Class frm_Employee
         '
         'address
         '
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.address.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.address.DefaultCellStyle = DataGridViewCellStyle4
         Me.address.HeaderText = "Address"
         Me.address.MinimumWidth = 6
         Me.address.Name = "address"
@@ -335,8 +335,8 @@ Partial Class frm_Employee
         '
         'gender
         '
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gender.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gender.DefaultCellStyle = DataGridViewCellStyle5
         Me.gender.HeaderText = "Gender"
         Me.gender.MinimumWidth = 6
         Me.gender.Name = "gender"
@@ -344,8 +344,8 @@ Partial Class frm_Employee
         '
         'birthday
         '
-        DataGridViewCellStyle13.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.birthday.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.birthday.DefaultCellStyle = DataGridViewCellStyle6
         Me.birthday.HeaderText = "Birthday"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
@@ -353,8 +353,8 @@ Partial Class frm_Employee
         '
         'email
         '
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.email.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.email.DefaultCellStyle = DataGridViewCellStyle7
         Me.email.HeaderText = "Email"
         Me.email.MinimumWidth = 6
         Me.email.Name = "email"

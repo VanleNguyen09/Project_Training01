@@ -291,15 +291,6 @@ Partial Class Leave
         '
         'btnExit
         '
-        Me.btnExit.BackColor = System.Drawing.Color.Gray
-        Me.btnExit.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnExit.Location = New System.Drawing.Point(15, 64)
-        Me.btnExit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnExit.Name = "btnExit"
-        Me.btnExit.Size = New System.Drawing.Size(393, 33)
-        Me.btnExit.TabIndex = 19
-        Me.btnExit.Text = "EXIT"
-        Me.btnExit.UseVisualStyleBackColor = False
         '
         'btnReload
         '

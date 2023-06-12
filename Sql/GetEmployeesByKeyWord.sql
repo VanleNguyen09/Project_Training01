@@ -6,7 +6,6 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE OR ALTER PROCEDURE [dbo].[GetEmployeesByKeyWord]
 	@keyword NVARCHAR(255)
-	--@department_id INT
 AS
 BEGIN
 	SELECT * FROM dbo.Employees a
