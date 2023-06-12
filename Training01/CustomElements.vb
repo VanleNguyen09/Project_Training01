@@ -40,6 +40,34 @@
         btn.Region = New Region(Raduis)
     End Sub
 
+    ''' <summary>
+    ''' Keep Column Unsorted Data
+    ''' Author: Dat
+    ''' </summary>
+    ''' <param name="dgv"></param>
+    ''' <param name="nameColumn"></param>
+    ''' <param name="getCurrentPage"></param>
+    ''' <param name="getRowsNumberInAPage"></param>
+    Public Shared Sub KeepColumnUnsorted(ByRef dgv As DataGridView,
+                                         ByVal nameColumn As String,
+                                         ByVal getCurrentPage As Func(Of Integer),
+                                         ByVal getRowsNumberInAPage As Func(Of Integer))
+        Dim tempDgv As DataGridView = dgv
+        AddHandler dgv.Sorted, Sub()
+                                   Dim currentPage As Integer = getCurrentPage()
+                                   Dim recordsPerPage As Integer = getRowsNumberInAPage()
+
+                                   Dim startIndex As Integer = (currentPage - 1) * recordsPerPage
+                                   Dim endIndex As Integer = startIndex + recordsPerPage - 1
+
+                                   If tempDgv.SortedColumn.Name <> nameColumn Then
+                                       For i As Integer = startIndex To endIndex
+                                           tempDgv.Rows(i).Cells(nameColumn).Value = (i + 1).ToString()
+                                       Next
+                                   End If
+                               End Sub
+    End Sub
+
     Public Shared Sub KeepSttColumnUnsorted(ByRef dgv As DataGridView, ByVal nameColumn As String)
         Dim tempDgv As DataGridView = dgv
         AddHandler dgv.Sorted, Sub()

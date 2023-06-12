@@ -59,4 +59,9 @@ Public Class Validation
             Return False
         End If
     End Function
+
+    Public Shared Function IsIntegerNumber(ByVal input As String) As Boolean
+        Dim regex As New Regex("^[-]?\d+$")
+        Return regex.IsMatch(input)
+    End Function
 End Class
