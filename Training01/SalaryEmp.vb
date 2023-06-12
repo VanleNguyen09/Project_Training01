@@ -1,4 +1,6 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Threading
+Imports OfficeFunctions = FuntionCommon.CommonOfficeFunctions
 
 Public Class SalaryEmp
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -17,6 +19,9 @@ Public Class SalaryEmp
                                                                                            End Sub)
         Load_DGV_Emp()
         Load_DGV_SalaryEmp()
+
+        CustomElements.KeepSttColumnUnsorted(dgvEmps, "stt")
+        CustomElements.KeepSttColumnUnsorted(dgvSalaries, "salary_stt")
     End Sub
 
     ''' <summary>
@@ -41,7 +46,7 @@ Public Class SalaryEmp
                     dgvEmps.Rows.Add(New String() {
                                          reader("stt").ToString(), reader("id").ToString(),
                                          reader("name").ToString(), reader("phone").ToString(),
-                                         reader("address").ToString(), reader("birthday").ToString(),
+                                         reader("address").ToString(), reader("birthday").ToString().Split(" ")(0),
                                          reader("email").ToString(), If(reader("salary_emp_id") Is DBNull.Value, -1, reader("salary_emp_id"))})
                 End While
 
@@ -119,21 +124,6 @@ Public Class SalaryEmp
     End Sub
 
     ''' <summary>
-    ''' SORTED DGV EMPS EVENT
-    ''' - Prevent sort stt column
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    Private Sub dgvEmps_Sorted(sender As Object, e As EventArgs) Handles dgvEmps.Sorted
-        'If it is stt column, sorted normal 
-        If dgvEmps.SortedColumn.Name <> "stt" Then
-            For i As Integer = 0 To dgvEmps.Rows.Count - 1
-                dgvEmps.Rows(i).Cells("stt").Value = (i + 1).ToString()
-            Next
-        End If
-    End Sub
-
-    ''' <summary>
     ''' CLOSE APP
     ''' </summary>
     ''' <param name="sender"></param>
@@ -142,13 +132,13 @@ Public Class SalaryEmp
         Environment.Exit(0)
     End Sub
 
-    Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
+    Private Sub btnExit_Click(sender As Object, e As EventArgs)
         Dim dboard As New Dashboard
         dboard.Show()
         Me.Close()
     End Sub
 
-    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles gBtnAdd.Click
         Dim salaryName = txtSalaryName.Text.Trim()
         Dim salary = txtSalary.Text.Trim()
 
@@ -300,10 +290,11 @@ Public Class SalaryEmp
                     con.Close()
                 End Try
 
-                'Reload again and Select again
+                ' Reload again and Select again
                 Load_DGV_Emp()
+
                 dgvEmps.CurrentCell = dgvEmps.Rows(selectedRowIndexInDGVEmps).Cells(0)
-                dgvEmps.FirstDisplayedScrollingRowIndex = selectedRowIndexInDGVEmps
+                'dgvEmps.FirstDisplayedScrollingRowIndex = selectedRowIndexInDGVEmps
                 dgvEmps_SelectionChanged(sender, e)
         End Select
     End Sub
@@ -314,39 +305,37 @@ Public Class SalaryEmp
         txtSearchSalary.Select()
     End Sub
 
-    Private Sub dgvSalaries_Sorted(sender As Object, e As EventArgs) Handles dgvSalaries.Sorted
-        'If it is stt column, sorted normal 
-        If dgvSalaries.SortedColumn.Name <> "salary_stt" Then
-            For i As Integer = 0 To dgvSalaries.Rows.Count - 1
-                dgvSalaries.Rows(i).Cells("salary_stt").Value = (i + 1).ToString()
-            Next
-        End If
-    End Sub
-
     Private Sub dgvEmps_SelectionChanged(sender As Object, e As EventArgs) Handles dgvEmps.SelectionChanged
-        'reset color of DGV Salaries when click other row in DGV Emps
-        For Each r In dgvSalaries.Rows
-            r.DefaultCellStyle.BackColor = dgvSalaries.DefaultCellStyle.BackColor
-        Next
+        Dim checkVariable As Boolean = False
 
         If dgvEmps.CurrentRow Is Nothing OrElse dgvEmps.CurrentRow.Index = -1 Then
-            Exit Sub
+            checkVariable = False
+        Else
+            checkVariable = True
         End If
 
-        Dim row As DataGridViewRow = dgvEmps.Rows(dgvEmps.CurrentRow.Index)
+        Dim row As DataGridViewRow
+        Dim salaryId As Integer
 
-        Dim salaryId As Integer = Convert.ToInt32(row.Cells("salary_emp_id").Value)
+        If checkVariable Then
+            row = dgvEmps.Rows(dgvEmps.CurrentRow.Index)
+            salaryId = Convert.ToInt32(row.Cells("salary_emp_id").Value)
+        End If
 
-        ' Check value of salary_id column in dgvSalaries
-        For Each r As DataGridViewRow In dgvSalaries.Rows
-            r.Selected = False 'Check when nothing change
-            If (r.Cells("salary_id").Value = salaryId) Then
-                r.Selected = True
+        ' Reset color of DGV Salaries when click other row in DGV Emps
+        ' And check value of salary_id column in dgvSalaries
+        For Each salaryRow In dgvSalaries.Rows
+            salaryRow.DefaultCellStyle.BackColor = dgvSalaries.DefaultCellStyle.BackColor
+            salaryRow.Selected = False 'Check when nothing change
+
+            'compare salary_id
+            If checkVariable And salaryRow.Cells("salary_id").Value = salaryId Then
+                salaryRow.Selected = True
             End If
         Next
     End Sub
 
-    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles gBtnDelete.Click
         If dgvSalaries.SelectedRows.Count < 1 Then
             MessageBox.Show(Message.Message.selectedRowError, Message.Title.error, MessageBoxButtons.OK)
             Exit Sub
@@ -382,7 +371,7 @@ Public Class SalaryEmp
                     MessageBox.Show(Message.Message.successfullDeleteEmpPos, Message.Title.notif, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     'Reload Data
-                    Load_DGV_Emp()
+                    'Load_DGV_Emp()
                     Load_DGV_SalaryEmp()
                 Catch ex As Exception
                     MsgBox($"ERROR: {ex.Message}")
@@ -412,19 +401,19 @@ Public Class SalaryEmp
 
     Private Sub txtSalaryName_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtSalaryName.KeyPress
         If e.KeyChar = Convert.ToChar(Keys.Enter) Then
-            btnAdd.PerformClick()
+            gBtnAdd.PerformClick()
         End If
     End Sub
 
     Private Sub txtSalary_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtSalary.KeyPress
         If e.KeyChar = Convert.ToChar(Keys.Enter) Then
-            btnAdd.PerformClick()
+            gBtnAdd.PerformClick()
         End If
     End Sub
 
     Private Sub dgvSalaries_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvSalaries.KeyDown
         If e.KeyCode = Keys.Delete Then
-            btnDelete.PerformClick()
+            gBtnDelete.PerformClick()
         End If
 
         If e.KeyCode = Keys.Enter Then
@@ -459,5 +448,52 @@ Public Class SalaryEmp
         Else
             btnUpdate.ForeColor = Color.White
         End If
+    End Sub
+
+    Private Sub gbtnExportExcel_Click(sender As Object, e As EventArgs) Handles gbtnExportExcel.Click
+        Dim data As New DataTable()
+        Try
+            If con.State() <> 1 Then
+                con.Open()
+            End If
+
+            Dim sql = "SELECT e.id, e.name, e.phone, e.birthday, e.email, s.salary_name, s.salary FROM Employees e 
+                        LEFT JOIN SalaryEmp s ON s.id = e.salary_emp_id AND s.status = 1 
+                        WHERE e.status = 1"
+            Using cmd As SqlCommand = New SqlCommand(sql, con)
+                cmd.CommandType = CommandType.Text
+                Dim reader As SqlDataReader = cmd.ExecuteReader()
+                data.Load(reader)
+                reader.Close()
+            End Using
+        Catch ex As Exception
+            MessageBox.Show(Message.Message.errorSQLQuery & " " & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        Finally
+            con.Close()
+        End Try
+
+        Dim excelThread = New Thread(Sub() OfficeFunctions.ExportToExcel(data, Sub()
+                                                                                   ShowMessageBox(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                                                               End Sub))
+        excelThread.SetApartmentState(ApartmentState.STA) 'Single Threaded Apartment
+        CustomElements.ShowCirProgressBar(3, New Size(200, 200))
+        Try
+            excelThread.Start()
+        Catch ex As Exception
+            MessageBox.Show("EXCEL ERROR: " & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' This function to solve asynchronous when you create message in another thread
+    ''' </summary>
+    Private Sub ShowMessageBox(ByVal message As String, ByVal title As String, ByVal buttons As MessageBoxButtons, ByVal icon As MessageBoxIcon)
+        If Me.InvokeRequired Then
+            Me.BeginInvoke(New Action(Of String, String, MessageBoxButtons, MessageBoxIcon)(AddressOf ShowMessageBox), message, title, buttons, icon)
+            Return
+        End If
+        MessageBox.Show(Me, message, title, buttons, icon)
     End Sub
 End Class

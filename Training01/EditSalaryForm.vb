@@ -19,6 +19,7 @@ Public Class EditSalaryForm
         txtId.Text = TempData.Item1
         txtName.Text = TempData.Item2
         txtSalary.Text = TempData.Item3
+        CustomElements.MovingForm(Me)
     End Sub
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
@@ -84,24 +85,14 @@ Public Class EditSalaryForm
                         cmd.Parameters.AddWithValue("salary_id", txtId.Text)
                         cmd.Parameters.AddWithValue("salary_name", salaryName)
                         cmd.Parameters.AddWithValue("salary", salary)
+
+                        btnSave.Enabled = False
                         cmd.ExecuteNonQuery()
 
-                        ' Show loading and disable button Save
-                        cirProgressBar.Visible = True
-                        btnSave.Enabled = False
-
-                        ' Set timmer
-                        Dim timer As New Timer
-                        timer.Interval = 1000
-                        AddHandler timer.Tick, Sub()
-                                                   ' Hide loading and enable button Save
-                                                   cirProgressBar.Visible = False
-                                                   btnSave.Enabled = True
-                                                   timer.Stop()
-                                                   Me.Close()
-                                                   myCallback.Invoke()
-                                               End Sub
-                        timer.Start()
+                        CustomElements.ShowCirProgressBar(3, New Size(150, 150), Sub()
+                                                                                     Me.Close()
+                                                                                     myCallback.Invoke()
+                                                                                 End Sub)
                     End Using
                 Catch ex As Exception
                     MessageBox.Show(Message.Message.errorSQLQuery & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -126,23 +117,6 @@ Public Class EditSalaryForm
     Private Sub txtSalary_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtSalary.KeyPress
         If e.KeyChar = Convert.ToChar(Keys.Enter) Then
             btnSave.PerformClick()
-        End If
-    End Sub
-    ' Save location of mouse when moving the form
-    Private mousePosX As Integer
-    Private mousePosY As Integer
-
-    Private Sub EditSalaryForm_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
-        If e.Button = MouseButtons.Left Then
-            mousePosX = e.X
-            mousePosY = e.Y
-        End If
-    End Sub
-
-    Private Sub EditSalaryForm_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
-        If e.Button = MouseButtons.Left Then
-            Me.Left += e.X - mousePosX
-            Me.Top += e.Y - mousePosY
         End If
     End Sub
 End Class
