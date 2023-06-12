@@ -48,8 +48,12 @@ Public Class Login
             My.Settings.LoggedInUserEmail = email
             My.Settings.Save()
             MessageBox.Show("Login succes. User can access to dashboard page", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Me.Hide()
+
             Dim dashboard As New NewDashboard()
+            dashboard.LoadUserData() ' Gọi hàm để load dữ liệu người dùng trong form Dashboard
+
+            Me.Hide() ' Ẩn form Login
+            ' Hiển thị form Dashboard
             dashboard.Show()
         Else
             MessageBox.Show(Message.Message.failedLoginMsg, Message.Title.notif, buttons, MessageBoxIcon.Information)

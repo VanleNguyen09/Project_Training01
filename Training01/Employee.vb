@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SqlClient
+
 Imports System.IO
-
-
+Imports Guna.UI2.WinForms
 
 Public Class frm_Employee
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -20,46 +20,59 @@ Public Class frm_Employee
         End Sub
 
     End Class
+
     Private selectedEmployees As Selected_Employees = New Selected_Employees()
+
+    Dim currentPage As Integer = 1
 
     Private Sub Employee_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CustomElements.AddClearButtonInsideTextBox(txt_Search, "pbCloseSearch", Sub()
                                                                                     txt_Search.Text = ""
-                                                                                    btn_Search.PerformClick()
+                                                                                    gbtn_Search.PerformClick()
                                                                                 End Sub)
         dtp_Birthday.Value = dtp_Birthday.Value.AddYears(-18)
+        GlobalVariables.lblPage = lbl_Page
         rdo_Female.Text = "Female"
         rdo_Male.Text = "Male"
         rdo_Male.Checked = True
         rdo_Female.Checked = False
         EnableAdd()
         txt_EmployeeID.Enabled = False
-        btn_Reset.Enabled = False
+        gbtn_Reset.Enabled = False
         dgrv_Employee.ClearSelection()
-        LoadAndSortData()
-    End Sub
-
-    Private Sub LoadAndSortData()
         LoadData()
-        SortDataById()
     End Sub
 
-    Private Function CheckEmployeeExit(ByVal phone As String) As Boolean
+    Public Enum EmployeeParameters
+        Name
+        Phone
+        Address
+        Gender
+        Birthday
+        Email
+        Image
+        Id
+    End Enum
+
+    Private Function CheckEmployeeExit(ByVal name As String, ByVal phone As String) As Boolean
         CheckEmployeeExit = False
+
         If con.State <> 1 Then
             con.Open()
         End If
         Try
             Using cmd As SqlCommand = New SqlCommand("CheckEmployeeExit", con)
                 cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@name", name)
                 cmd.Parameters.AddWithValue("@phone", phone)
+                cmd.ExecuteNonQuery()
+
                 Dim isExited As Integer = 0
                 Using reader = cmd.ExecuteReader()
                     If reader.Read() Then
                         isExited = CInt(reader("ReturnValue"))
                     End If
                 End Using
-                cmd.ExecuteNonQuery()
 
                 If isExited = 1 Then
                     CheckEmployeeExit = True
@@ -74,232 +87,248 @@ Public Class frm_Employee
         Return CheckEmployeeExit
     End Function
 
-    Public Sub Update_Employee(id As Integer, name As String, phone As String, address As String, gender As String, birthday As Date, email As String, img As Byte())
-        Dim status As Integer = 1
+    Private Function CheckEmployeeExitForUpdate(ByVal name As String, ByVal phone As String, ByVal id As Integer) As Boolean
+        CheckEmployeeExitForUpdate = False
 
         If con.State <> 1 Then
             con.Open()
         End If
-
         Try
-            Using cmd As SqlCommand = New SqlCommand("UpdateEmployees", con)
+            Using cmd As SqlCommand = New SqlCommand("CheckEmployeeExitForUpdate", con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@name", name)
                 cmd.Parameters.AddWithValue("@phone", phone)
-                cmd.Parameters.AddWithValue("@address", address)
-                cmd.Parameters.AddWithValue("@gender", If((gender = "Male"), True, False))
-                cmd.Parameters.AddWithValue("@birthday", birthday)
-                cmd.Parameters.AddWithValue("@email", email)
-                cmd.Parameters.AddWithValue("@image", img)
-                cmd.Parameters.AddWithValue("@status", status)
                 cmd.Parameters.AddWithValue("@id", id)
-
-                Dim isDuplicate As Integer = 0
-
-                Using reader = cmd.ExecuteReader()
-                    If reader.Read() Then
-                        isDuplicate = CInt(reader("IsDuplicate"))
-                    End If
-                End Using
                 cmd.ExecuteNonQuery()
 
-                If isDuplicate = 1 Then
-                    MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
-                    Exit Sub
-                Else
-                    MessageBox.Show("Employee has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
-                    LoadAndSortData()
-                    Exit Sub
+                Dim isExited As Integer = 0
+                Using reader = cmd.ExecuteReader()
+                    If reader.Read() Then
+                        isExited = CInt(reader("ReturnValue"))
+                    End If
+                End Using
+
+                If isExited = 1 Then
+                    CheckEmployeeExitForUpdate = True
                 End If
             End Using
         Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            CheckEmployeeExitForUpdate = False
+            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             con.Close()
         End Try
+        Return CheckEmployeeExitForUpdate
+    End Function
 
-    End Sub
-
-    Public Sub Add_Employees(name As String, phone As String, address As String, gender As String, birthday As Date, email As String, img As Byte())
+    Public Sub Add_Employees(ByVal values As Dictionary(Of EmployeeParameters, Object))
         Dim status As Integer = 1
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Try
-            Using cmd As SqlCommand = New SqlCommand("InsertEmployees", con)
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("@name", name)
-                cmd.Parameters.AddWithValue("@phone", phone)
-                cmd.Parameters.AddWithValue("@address", address)
-                cmd.Parameters.AddWithValue("@gender", If((gender = "Male"), True, False))
-                cmd.Parameters.AddWithValue("@birthday", birthday)
-                cmd.Parameters.AddWithValue("@email", email)
-                cmd.Parameters.AddWithValue("@image", img)
-                cmd.Parameters.AddWithValue("@status", status)
-                Dim isDuplicate As Integer = 0
+        Dim name As String = values(EmployeeParameters.Name)
+        Dim phone As String = values(EmployeeParameters.Phone)
 
-                Using reader = cmd.ExecuteReader()
-                    If reader.Read() Then
-                        isDuplicate = CInt(reader("IsDuplicate"))
-                    End If
-                End Using
-                cmd.ExecuteNonQuery()
-
-                If isDuplicate = 1 Then
-                    MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
-                    Exit Sub
-                Else
-                    MessageBox.Show("Employee has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
-                    LoadAndSortData()
-                    Exit Sub
-                End If
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-
-    End Sub
-
-    Private Sub MakeButtonBackgroundBlurry(button As Button)
-        Dim originalColor As Color = button.BackColor
-        Dim blurredColor As Color = ControlPaint.Light(originalColor, 0.5)
-        button.BackColor = blurredColor
-    End Sub
-
-    Public Sub Delete_Employee(id As Integer)
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Try
-            Using cmd As SqlCommand = New SqlCommand("DeleteEmployee", con)
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("@id", id)
-                cmd.ExecuteNonQuery()
-
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            con.Close()
-        End Try
-    End Sub
-
-    Public Sub SortDataById()
-        dgrv_Employee.Sort(dgrv_Employee.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
-    End Sub
-
-    Public Sub ShowEmployee(ByVal No As Integer, ByVal reader As SqlDataReader)
-        Dim id As Integer = Convert.ToInt32(reader("id").ToString())
-        Dim name As String = reader("name").ToString()
-        Dim img As Image = Nothing
-
-        If reader("image").ToString() <> String.Empty Then
-            Dim bytes As Byte() = CType(reader("image"), Byte())
-            If bytes IsNot Nothing AndAlso bytes.Length > 0 Then
-                Try
-                    img = Image.FromStream(New MemoryStream(bytes))
-                Catch ex As Exception
-                    Console.WriteLine("Error creating image: " & ex.Message)
-                End Try
-            Else
-                Console.WriteLine("Invalid or empty image data")
+        If CheckEmployeeExit(name, phone) Then
+            MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
+            Exit Sub
+        Else
+            If con.State <> 1 Then
+                con.Open()
             End If
+
+            Try
+                Using cmd As SqlCommand = New SqlCommand("InsertEmployees", con)
+                    cmd.CommandType = CommandType.StoredProcedure
+
+                    cmd.Parameters.AddWithValue("@name", name)
+                    cmd.Parameters.AddWithValue("@phone", phone)
+                    cmd.Parameters.AddWithValue("@address", values(EmployeeParameters.Address))
+                    cmd.Parameters.AddWithValue("@gender", If((values(EmployeeParameters.Gender) = "Male"), True, False))
+                    cmd.Parameters.AddWithValue("@birthday", values(EmployeeParameters.Birthday))
+                    cmd.Parameters.AddWithValue("@email", values(EmployeeParameters.Address))
+                    cmd.Parameters.AddWithValue("@image", values(EmployeeParameters.Image))
+                    cmd.Parameters.AddWithValue("@status", status)
+                    cmd.ExecuteNonQuery()
+
+                    MessageBox.Show("Employee has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                End Using
+                LoadData()
+            Catch ex As Exception
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                con.Close()
+            End Try
         End If
 
-        Dim phone As String = reader("phone").ToString()
-        Dim address As String = reader("address").ToString()
-        Dim gender As String = reader("gender").ToString()
-        Dim birthday As String = reader("birthday").ToString()
-        Dim email As String = reader("email").ToString()
-        Dim status As Integer = Convert.ToInt32(reader("status").ToString())
-        dgrv_Employee.Rows.Add(No, id, name, img, phone, address, gender, birthday, email, status)
     End Sub
 
-    Public Sub LoadData()
-        If con.State <> 1 Then
-            con.Open()
+    Public Sub Update_Employee(ByVal values As Dictionary(Of EmployeeParameters, Object))
+        Dim status As Integer = 1
+        Dim name As String = values(EmployeeParameters.Name)
+        Dim phone As String = values(EmployeeParameters.Phone)
+        Dim id As Integer = CInt(values(EmployeeParameters.Id))
+
+
+        If CheckEmployeeExitForUpdate(name, phone, id) Then
+            MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
+            Exit Sub
+        Else
+            If con.State <> 1 Then
+                con.Open()
+            End If
+
+            Try
+                Using cmd As SqlCommand = New SqlCommand("UpdateEmployees", con)
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.AddWithValue("@name", name)
+                    cmd.Parameters.AddWithValue("@phone", phone)
+                    cmd.Parameters.AddWithValue("@address", values(EmployeeParameters.Address))
+                    cmd.Parameters.AddWithValue("@gender", If((values(EmployeeParameters.Gender) = "Male"), True, False))
+                    cmd.Parameters.AddWithValue("@birthday", values(EmployeeParameters.Birthday))
+                    cmd.Parameters.AddWithValue("@email", values(EmployeeParameters.Email))
+                    cmd.Parameters.AddWithValue("@image", values(EmployeeParameters.Image))
+                    cmd.Parameters.AddWithValue("@id", id)
+
+                    cmd.Parameters.AddWithValue("@status", status)
+                    cmd.ExecuteNonQuery()
+
+                    MessageBox.Show("Employee has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                End Using
+                LoadData()
+            Catch ex As Exception
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                con.Close()
+            End Try
         End If
-        dgrv_Employee.Rows.Clear()
-        Using cmd As SqlCommand = New SqlCommand("GetAllEmployees", con)
-            Dim reader As SqlDataReader = cmd.ExecuteReader()
-            Dim No As Integer = 1
-            While reader.Read()
-                ShowEmployee(No, reader)
-                No += 1
-            End While
-            con.Close()
-        End Using
     End Sub
 
-    Private Sub EnableAdd()
-        btn_Add.Enabled = True
-        btn_Update.Enabled = False
-        btn_Delete.Enabled = False
-        btn_Reset.Enabled = False
-        MakeButtonBackgroundBlurry(btn_Update)
-        MakeButtonBackgroundBlurry(btn_Delete)
+    Public Sub Delete_Employee(ByVal id As Integer)
+            If con.State <> 1 Then
+                con.Open()
+            End If
+            Try
+                Using cmd As SqlCommand = New SqlCommand("DeleteEmployee", con)
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.AddWithValue("@id", id)
+                    cmd.ExecuteNonQuery()
+
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                con.Close()
+            End Try
+        End Sub
+
+        Public Sub ShowEmployee(ByVal No As Integer, ByVal reader As SqlDataReader)
+            Dim id As Integer = Convert.ToInt32(reader("id").ToString())
+            Dim name As String = reader("name").ToString()
+            Dim img As Image = Nothing
+
+            If reader("image").ToString() <> String.Empty Then
+                Dim bytes As Byte() = CType(reader("image"), Byte())
+                If bytes IsNot Nothing AndAlso bytes.Length > 0 Then
+                    Try
+                        img = Image.FromStream(New MemoryStream(bytes))
+                    Catch ex As Exception
+                        Console.WriteLine("Error creating image: " & ex.Message)
+                    End Try
+                Else
+                    Console.WriteLine("Invalid or empty image data")
+                End If
+            End If
+
+            Dim phone As String = reader("phone").ToString()
+            Dim address As String = reader("address").ToString()
+            Dim gender As String = reader("gender").ToString()
+            Dim birthday As String = reader("birthday").ToString()
+            Dim email As String = reader("email").ToString()
+            Dim status As Integer = Convert.ToInt32(reader("status").ToString())
+            dgrv_Employee.Rows.Add(No, id, name, img, phone, address, gender, birthday, email, status)
+        End Sub
+
+        Public Sub LoadData()
+            If con.State <> 1 Then
+                con.Open()
+            End If
+            dgrv_Employee.Rows.Clear()
+            Using cmd As SqlCommand = New SqlCommand("GetAllEmployees", con)
+                Dim reader As SqlDataReader = cmd.ExecuteReader()
+                Dim No As Integer = 1
+                While reader.Read()
+                    ShowEmployee(No, reader)
+                    No += 1
+                End While
+                con.Close()
+            End Using
+
+            Pagination.PaginateDataGridView(dgrv_Employee, 1)
+        End Sub
+
+        Private Sub EnableAdd()
+            gbtn_Add.Enabled = True
+            gbtn_Update.Enabled = False
+            gbtn_Delete.Enabled = False
+        gbtn_Reset.Enabled = False
     End Sub
 
     Private Sub DisableAdd()
-        btn_Add.Enabled = False
-        btn_Update.Enabled = True
-        btn_Delete.Enabled = True
-        btn_Reset.Enabled = True
-        MakeButtonBackgroundBlurry(btn_Add)
+        gbtn_Add.Enabled = False
+        gbtn_Update.Enabled = True
+        gbtn_Delete.Enabled = True
+        gbtn_Reset.Enabled = True
     End Sub
 
     Private Sub ClearForm()
-        txt_Name.Text = String.Empty
-        txt_Address.Text = String.Empty
-        txt_Phone.Text = String.Empty
-        txt_EmployeeID.Text = String.Empty
-        txt_Email.Text = String.Empty
-        rdo_Male.Checked = True
-        rdo_Female.Checked = False
-        dtp_Birthday.Value = Date.Now()
-        ptb_Employee.Image = Nothing
-        dgrv_Employee.ClearSelection() ' Xóa bỏ việc chọn hàng trong DataGridView             
-    End Sub
+            txt_Name.Text = String.Empty
+            txt_Address.Text = String.Empty
+            txt_Phone.Text = String.Empty
+            txt_EmployeeID.Text = String.Empty
+            txt_Email.Text = String.Empty
+            rdo_Male.Checked = True
+            rdo_Female.Checked = False
+            dtp_Birthday.Value = Date.Now()
+            ptb_Employee.Image = Nothing
+            dgrv_Employee.ClearSelection()
+        End Sub
 
-    Dim titleMsgBox As String = "notification"
-    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
-    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
+        Dim titleMsgBox As String = "notification"
+        Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
+        Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
 
-    Private Sub SearchEmployeesByKeyword(keyword As String)
-        Console.WriteLine(keyword)
-        If con.State <> 1 Then
-            con.Open()
-        End If
+        Private Sub SearchEmployeesByKeyword(ByVal keyword As String)
+            If con.State <> 1 Then
+                con.Open()
+            End If
 
-        dgrv_Employee.Rows.Clear()
-        Dim reload = False
-        Using cmd As SqlCommand = New SqlCommand("GetEmployeesByKeyWord", con)
-            cmd.CommandType = CommandType.StoredProcedure
-            cmd.Parameters.AddWithValue("@keyword", keyword)
-            Using reader As SqlDataReader = cmd.ExecuteReader()
-                If reader.HasRows Then
-                    Dim No As Integer = 1
-                    While reader.Read()
-                        ShowEmployee(No, reader)
-                        No += 1
-                    End While
-                Else
-                    MessageBox.Show(Message.Message.errorInvalidSearch, titleMsgBox, buttons, icons)
-                    reload = True
-                End If
+            dgrv_Employee.Rows.Clear()
+            Dim reload = False
+            Using cmd As SqlCommand = New SqlCommand("GetEmployeesByKeyWord", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@keyword", keyword)
+                Using reader As SqlDataReader = cmd.ExecuteReader()
+                    If reader.HasRows Then
+                        Dim No As Integer = 1
+                        While reader.Read()
+                            ShowEmployee(No, reader)
+                            No += 1
+                        End While
+                    Else
+                        MessageBox.Show(Message.Message.errorInvalidSearch, titleMsgBox, buttons, icons)
+                        reload = True
+                    End If
+                End Using
             End Using
-        End Using
-        con.Close()
-        If reload Then
-            txt_Search.Text = Nothing
-            LoadAndSortData()
-        End If
-    End Sub
+            con.Close()
+            If reload Then
+                txt_Search.Text = Nothing
+                LoadData()
+            End If
+        End Sub
 
-    Private Sub btn_add_click(sender As Object, e As EventArgs) Handles btn_Add.Click
-        Dim name As String = txt_Name.Text
-        Dim phone As String = txt_Phone.Text
-        Dim address As String = txt_Address.Text
+    Private Sub gbtn_Add_Click(sender As Object, e As EventArgs) Handles gbtn_Add.Click
+        Dim name As String = txt_Name.Text.Trim()
+        Dim phone As String = txt_Phone.Text.Trim()
+        Dim address As String = txt_Address.Text.Trim()
         Dim gender As String
 
 
@@ -310,25 +339,23 @@ Public Class frm_Employee
             MsgBox("your gender is" & gender)
         End If
         Dim birthday As Date = dtp_Birthday.Value
-        Dim email As String = txt_Email.Text
+        Dim email As String = txt_Email.Text.Trim()
 
         If String.IsNullOrEmpty(name) OrElse
-            String.IsNullOrEmpty(phone) OrElse
-            String.IsNullOrEmpty(address) OrElse
-            String.IsNullOrEmpty(gender) OrElse
-            String.IsNullOrEmpty(email) Then
+                String.IsNullOrEmpty(phone) OrElse
+                String.IsNullOrEmpty(address) OrElse
+                String.IsNullOrEmpty(gender) OrElse
+                String.IsNullOrEmpty(email) Then
             MessageBox.Show(Message.Message.emptyDataErrorMessage, titleMsgBox, buttons, icons)
             Return
         End If
 
-        If FuntionCommon.Validation.IsEmail(email) Then
-        Else
+        If Not FuntionCommon.Validation.IsEmail(email) Then
             MessageBox.Show(Message.Message.emailInvalidMessage, titleMsgBox, buttons, icons)
             Exit Sub
         End If
 
-        If FuntionCommon.Validation.ValidatePhone(phone) Then
-        Else
+        If Not FuntionCommon.Validation.ValidatePhone(phone) Then
             MessageBox.Show(Message.Message.phoneInvalidMessage, titleMsgBox, buttons, icons)
             Exit Sub
         End If
@@ -349,16 +376,25 @@ Public Class frm_Employee
             Exit Sub
         End If
 
-        Add_Employees(name, phone, address, gender, birthday, email, img)
+        Dim values As New Dictionary(Of EmployeeParameters, Object)
+        values.Add(EmployeeParameters.Name, name)
+        values.Add(EmployeeParameters.Phone, phone)
+        values.Add(EmployeeParameters.Address, address)
+        values.Add(EmployeeParameters.Gender, gender)
+        values.Add(EmployeeParameters.Birthday, birthday)
+        values.Add(EmployeeParameters.Email, email)
+        values.Add(EmployeeParameters.Image, img)
+
+
+        Add_Employees(values)
         ClearForm()
     End Sub
 
-
-    Private Sub btn_update_click(sender As Object, e As EventArgs) Handles btn_Update.Click
+    Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
         Dim id As Integer = Convert.ToInt32(txt_EmployeeID.Text)
-        Dim name As String = txt_Name.Text
-        Dim phone As String = txt_Phone.Text
-        Dim address As String = txt_Address.Text
+        Dim name As String = txt_Name.Text.Trim()
+        Dim phone As String = txt_Phone.Text.Trim()
+        Dim address As String = txt_Address.Text.Trim()
         Dim gender As String
 
         If rdo_Male.Checked = True Then
@@ -368,14 +404,14 @@ Public Class frm_Employee
             MsgBox("your gender is" & gender)
         End If
         Dim birthday As Date = dtp_Birthday.Value
-        Dim email As String = txt_Email.Text
+        Dim email As String = txt_Email.Text.Trim()
 
 
         If String.IsNullOrEmpty(name) OrElse
-            String.IsNullOrEmpty(phone) OrElse
-            String.IsNullOrEmpty(address) OrElse
-            String.IsNullOrEmpty(gender) OrElse
-            String.IsNullOrEmpty(email) Then
+                String.IsNullOrEmpty(phone) OrElse
+                String.IsNullOrEmpty(address) OrElse
+                String.IsNullOrEmpty(gender) OrElse
+                String.IsNullOrEmpty(email) Then
             MessageBox.Show(Message.Message.emptyDataErrorMessage, titleMsgBox, buttons, icons)
             Return
         End If
@@ -402,7 +438,18 @@ Public Class frm_Employee
 
         Dim img As Byte() = ImageToByte(ptb_Employee.Image)
 
-        Update_Employee(id, name, phone, address, gender, birthday, email, img)
+
+        Dim values As New Dictionary(Of EmployeeParameters, Object)
+        values.Add(EmployeeParameters.Name, name)
+        values.Add(EmployeeParameters.Phone, phone)
+        values.Add(EmployeeParameters.Address, address)
+        values.Add(EmployeeParameters.Gender, gender)
+        values.Add(EmployeeParameters.Birthday, birthday)
+        values.Add(EmployeeParameters.Email, email)
+        values.Add(EmployeeParameters.Image, img)
+        values.Add(EmployeeParameters.Id, id)
+
+        Update_Employee(values)
         EnableAdd()
         ClearForm()
     End Sub
@@ -442,22 +489,22 @@ Public Class frm_Employee
             selectedEmployees.gender = CBool(gender.Value)
             dtp_Birthday.Value = Convert.ToDateTime(selectedrow.Cells("birthday").Value)
             selectedEmployees.birthday = dtp_Birthday.Value
-            End If
+        End If
     End Sub
 
-    Private Sub btn_Delete_Click(sender As Object, e As EventArgs) Handles btn_Delete.Click
+    Private Sub gbtn_Delete_Click(sender As Object, e As EventArgs) Handles gbtn_Delete.Click
         Dim selectedRows As DataGridViewSelectedRowCollection = dgrv_Employee.SelectedRows
         Dim employeeIdColumn As DataGridViewColumn = dgrv_Employee.Columns("EmployeeID") ' Replace "name" with the actual column name for department ID
 
         If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected employee?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             If employeeIdColumn IsNot Nothing Then
                 MessageBox.Show("Employee has been deleted successfully!!!", "Success", buttons, MessageBoxIcon.Information)
-                For i As Integer = selectedRows.Count - 1 To 0 Step -1
+                For i As Integer = 0 To selectedRows.Count - 1
                     Dim selectedRow As DataGridViewRow = selectedRows(i)
                     Dim id As Integer = CInt(selectedRow.Cells(employeeIdColumn.Index).Value)
                     Delete_Employee(id)
                 Next
-                LoadAndSortData()
+                LoadData()
                 ClearForm()
                 EnableAdd()
             Else
@@ -466,7 +513,6 @@ Public Class frm_Employee
         Else
             MessageBox.Show("Deletion canceled.", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
-
     End Sub
 
     Private Sub txt_Phone_TextChanged(sender As Object, e As EventArgs) Handles txt_Phone.TextChanged
@@ -477,8 +523,7 @@ Public Class frm_Employee
     End Sub
 
     Private imageSelected As Boolean = False
-
-    Private Sub btn_Upload_Click(sender As Object, e As EventArgs) Handles btn_Upload.Click
+    Private Sub gbtn_Upload_Click(sender As Object, e As EventArgs) Handles gbtn_Upload.Click
         Dim open As New OpenFileDialog()
         open.Title = "Please select an image you want!!!"
         open.Filter = "Image File|*.jpg;*.jpeg;*.png;*.gif"
@@ -487,10 +532,9 @@ Public Class frm_Employee
             ptb_Employee.Image = Image.FromFile(selectedImage)
             imageSelected = True
         End If
-
     End Sub
 
-    Public Function ImageToByte(img As Image) As Byte()
+    Public Function ImageToByte(ByVal img As Image) As Byte()
         If img Is Nothing Then
             Return New Byte(-1) {}
         End If
@@ -503,17 +547,15 @@ Public Class frm_Employee
         Return byteArray
     End Function
 
-    Private Sub btn_Search_Click(sender As Object, e As EventArgs) Handles btn_Search.Click
+    Private Sub gbtn_Search_Click(sender As Object, e As EventArgs) Handles gbtn_Search.Click
         Dim keyword As String = txt_Search.Text.Trim()
         If Not String.IsNullOrEmpty(keyword) Then
             SearchEmployeesByKeyword(keyword)
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
-            LoadAndSortData()
         End If
     End Sub
-
-    Private Sub btn_Reset_Click(sender As Object, e As EventArgs) Handles btn_Reset.Click
+    Private Sub gbtn_Reset_Click(sender As Object, e As EventArgs) Handles gbtn_Reset.Click
         txt_EmployeeID.Text = selectedEmployees.id
         txt_Name.Text = selectedEmployees.name
         txt_Phone.Text = selectedEmployees.phone
@@ -529,7 +571,7 @@ Public Class frm_Employee
         txt_Email.Text = selectedEmployees.email
     End Sub
 
-    Private Sub btn_Clear_Click(sender As Object, e As EventArgs) Handles btn_Clear.Click
+    Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
         EnableAdd()
     End Sub
@@ -579,15 +621,15 @@ Public Class frm_Employee
     Private Sub txt_Email_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_Email.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
-            If btn_Add.Enabled = True Then
-                btn_Add.Focus()
+            If gbtn_Add.Enabled = True Then
+                gbtn_Add.Focus()
             Else
-                btn_Update.Focus()
+                gbtn_Update.Focus()
             End If
         End If
     End Sub
 
-    Private Sub BtnEmpDept_Click(sender As Object, e As EventArgs) Handles BtnEmpDept.Click
+    Private Sub gbtn_EmpDept_Click(sender As Object, e As EventArgs) Handles gbtn_EmpDept.Click
         Me.Close()
         Dim empDept As New frm_EmpInDept
         empDept.Show()
@@ -599,5 +641,23 @@ Public Class frm_Employee
 
     Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
+    End Sub
+
+    Private Sub ptb_Previous_Click(sender As Object, e As EventArgs) Handles ptb_Previous.Click
+        If currentPage > 1 Then
+            currentPage -= 1
+            Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
+        End If
+    End Sub
+
+    Private Sub ptb_Next_Click(sender As Object, e As EventArgs) Handles ptb_Next.Click
+        Dim totalRows As Integer = dgrv_Employee.Rows.Count
+        Dim pageSize As Integer = 10
+        Dim totalPages As Integer = Math.Ceiling(totalRows / pageSize)
+
+        If currentPage < totalPages Then
+            currentPage += 1
+            Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
+        End If
     End Sub
 End Class

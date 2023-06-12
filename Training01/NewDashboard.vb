@@ -5,6 +5,7 @@ Public Class NewDashboard
 
     Dim btnEmployeeClicked As Boolean = False
     Private initialUserName As String = "UserName"
+    Private initialLabel As String = "EmployeeManagement"
 
     Private currentForm As Form = Nothing
 
@@ -13,9 +14,21 @@ Public Class NewDashboard
     Dim isLoggedIn = My.Settings.IsLoggedIn
     Dim loggedInUserEmail = My.Settings.LoggedInUserEmail
 
+    Private Sub EnableDoubleBuffering(panel As Panel)
+        Dim doubleBufferedProperty = GetType(Control).GetProperty("DoubleBuffered", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic)
+        doubleBufferedProperty.SetValue(panel, True, Nothing)
+    End Sub
     Private Sub NewDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lbl_UserName.Text = initialUserName
-        LoadUserData()
+        lbl_Title.Text = initialLabel
+        Me.BackColor = TransparencyKey
+        EnableDoubleBuffering(pn_Header)
+        EnableDoubleBuffering(pn_Main)
+        EnableDoubleBuffering(pn_Sidebar)
+        EnableDoubleBuffering(pn_Content)
+        Me.Controls.Add(pn_Sidebar)
+        'LoadUserData()
+        SetActiveButton(btn_Dashboard)
         CountTotalEmployees()
         CountTotalDepartments()
         CountTotalManagers()
@@ -28,9 +41,34 @@ Public Class NewDashboard
         MaxPosEmp()
         CustomElements.MovingDashboardByPanels(Me, pn_Header, pn_Sidebar)
     End Sub
+    Private Sub NewDashboard_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        LoadUserData()
+    End Sub
 
+    Private selectedButton As Button
 
-    Private Sub LoadUserData()
+    Private currentSelection As String = ""
+    Private Sub UpdateTitleLabel()
+        If String.IsNullOrEmpty(currentSelection) Then
+            lbl_Title.Text = initialLabel
+        Else
+            lbl_Title.Text = currentSelection
+        End If
+    End Sub
+
+    Private Sub SetActiveButton(ByVal button As Button)
+        ChangeButtonColor(button, Color.LightSalmon, Color.LavenderBlush)
+        ' Check if has button item selected
+        If selectedButton IsNot Nothing Then
+            ' Set active state to defaut for previous button item 
+            selectedButton.BackColor = Color.Transparent
+            selectedButton.Cursor = Cursors.Default
+        End If
+
+        selectedButton = button
+    End Sub
+
+    Public Sub LoadUserData()
         If isLoggedIn Then
             Dim email As String = loggedInUserEmail
             Dim fullName As String = GetFullNameByEmail(email)
@@ -40,9 +78,9 @@ Public Class NewDashboard
             End If
         Else
             MessageBox.Show("Please login to access dashboard page!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Me.Hide() ' Đóng form Dashboard
             Dim login As New Login
             login.ShowDialog()
-            Me.Hide()
         End If
     End Sub
 
@@ -214,13 +252,6 @@ Public Class NewDashboard
         initialContentPanel = pn_Content
     End Sub
 
-    Private Sub btn_Dashboard_Click(sender As Object, e As EventArgs) Handles btn_Dashboard.Click
-        ResetMainPanel()
-        Dim clickedButton As Button = CType(sender, Button)
-        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-        ResetButtonColors(clickedButton)
-    End Sub
-
     Private Function GetFullNameByEmail(ByVal email As String) As String
         Dim fullName As String = ""
         Try
@@ -259,14 +290,13 @@ Public Class NewDashboard
     End Sub
 
     Private Sub ShowFormInMainPanel(ByVal formToShow As Form)
-        ' Kiểm tra nếu form hiện tại không phải là formToShow
         If currentForm IsNot formToShow Then
-            ' Đóng form hiện tại (nếu có)
+            ' Close currentForm
             If currentForm IsNot Nothing Then
                 currentForm.Close()
             End If
 
-            ' Hiển thị formToShow trong contentPanel
+            ' Display formToShow in pn_Main
             formToShow.TopLevel = False
             formToShow.TopMost = True
             formToShow.FormBorderStyle = FormBorderStyle.None
@@ -276,17 +306,17 @@ Public Class NewDashboard
             pn_Main.Controls.Add(formToShow)
             formToShow.Show()
 
-            ' Cập nhật form hiện tại
+            ' Update curentForm
             currentForm = formToShow
         End If
     End Sub
 
-    Private Sub ChangeButtonColor(button As Button, backColor As Color, foreColor As Color)
+    Private Sub ChangeButtonColor(ByVal button As Button, ByVal backColor As Color, ByVal foreColor As Color)
         button.BackColor = backColor
         button.ForeColor = foreColor
     End Sub
 
-    Private Sub ResetButtonColors(clickedButton As Button)
+    Private Sub ResetButtonColors(ByVal clickedButton As Button)
         For Each btn As Button In pn_Sidebar.Controls.OfType(Of Button)()
             If btn IsNot clickedButton Then
                 btn.BackColor = SystemColors.Control
@@ -299,10 +329,21 @@ Public Class NewDashboard
         lbl_UserName.Text = initialUserName
     End Sub
 
+    Private Sub btn_Dashboard_Click(sender As Object, e As EventArgs) Handles btn_Dashboard.Click
+        ResetMainPanel()
+        Dim clickedButton As Button = CType(sender, Button)
+        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Dashboard"
+        UpdateTitleLabel()
+        ResetButtonColors(clickedButton)
+    End Sub
+
     Private Sub btn_Employee_Click(sender As Object, e As EventArgs) Handles btn_Employee.Click
         ShowFormInMainPanel(frm_Employee)
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Employee"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -310,6 +351,8 @@ Public Class NewDashboard
         ShowFormInMainPanel(frm_Department)
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Department"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -317,6 +360,8 @@ Public Class NewDashboard
         ShowFormInMainPanel(frm_Manager)
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Manager"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -324,6 +369,8 @@ Public Class NewDashboard
         ShowFormInMainPanel(PositionMenu)
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Position"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -331,6 +378,8 @@ Public Class NewDashboard
         ShowFormInMainPanel(SalaryEmp)
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Salary"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -338,6 +387,8 @@ Public Class NewDashboard
         ShowFormInMainPanel(My.Forms.Leave)
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Leave"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
 
@@ -345,6 +396,8 @@ Public Class NewDashboard
     Private Sub btn_Signout_Click(sender As Object, e As EventArgs) Handles btn_Signout.Click
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        currentSelection = "Signout"
+        UpdateTitleLabel()
         ResetButtonColors(clickedButton)
 
         If isLoggedIn Then
@@ -356,12 +409,13 @@ Public Class NewDashboard
                 MessageBox.Show("You logout success!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Dim login As New Login
                 Me.Hide()
-                login.Show()
+                login.ShowDialog()
             End If
         End If
     End Sub
 
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
+        My.Settings.Save()
         Application.Exit()
     End Sub
 
@@ -372,4 +426,5 @@ Public Class NewDashboard
     Private Sub ptb_Icon_MouseLeave(sender As Object, e As EventArgs) Handles ptb_Icon.MouseLeave
         ptb_Icon.Cursor = Cursors.Default
     End Sub
+
 End Class

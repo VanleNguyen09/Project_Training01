@@ -21,7 +21,3 @@ GO
 
 EXEC dbo.GetAllEmployeesManager
 GO	
-
---SELECT * FROM dbo.Dept_manager 
---WHERE STATUS = 0
---ORDER BY emp_id ASC, dept_id ASC
