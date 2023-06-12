@@ -77,6 +77,7 @@ Partial Class PositionMenu
         Me.closeApp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.closeApp.TabIndex = 2
         Me.closeApp.TabStop = False
+        Me.closeApp.Visible = False
         '
         'btnExit
         '
@@ -89,6 +90,7 @@ Partial Class PositionMenu
         Me.btnExit.TabIndex = 1
         Me.btnExit.Text = "EXIT"
         Me.btnExit.UseVisualStyleBackColor = False
+        Me.btnExit.Visible = False
         '
         'PositionMenu
         '

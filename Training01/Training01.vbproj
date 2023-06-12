@@ -325,6 +325,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\mobilemenu_icon.jfif" />
+    <Content Include="Resources\th.jfif" />
+    <None Include="Resources\red-arrow-2-way.png" />
     <None Include="Resources\pngtree-simple-blue-tech-lines-background-image_206074.jpg" />
     <None Include="Resources\wallpaper2you_556027.jpg" />
     <None Include="packages.config" />
@@ -347,6 +350,7 @@
     <None Include="Resources\a56292ab83236bedb3ab636cf79978dc.png" />
     <None Include="Resources\2020-08-26.jpg" />
     <None Include="Resources\63dbf39f6f6a0fac00c19cde43dd8832.jpg" />
+    <Content Include="Resources\565717-200.png" />
     <Content Include="Resources\avatar2.jpg" />
     <Content Include="Resources\avatar3.jpg" />
     <Content Include="Resources\BackgroundLogin2.jpg" />
@@ -354,6 +358,8 @@
     <None Include="Resources\free-download-of-clipart-icon-home-png-1300x1300.png" />
     <None Include="Resources\department-icon-png-5.png" />
     <None Include="Resources\Icon-Leave-Message-Sign-Blue-BG.png" />
+    <None Include="Resources\download-icon.png" />
+    <Content Include="Resources\icon infography-02.png" />
     <Content Include="Resources\icon_close.jpg" />
     <None Include="Resources\it-department-icon-15.png" />
     <Content Include="Resources\loginBack.jpg" />

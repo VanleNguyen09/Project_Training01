@@ -5,10 +5,10 @@ Public Class Position
     Private beforeEdit As ValueTuple(Of Integer, String)
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles appClose.Click
-        Environment.Exit(0)
+        Me.Close()
     End Sub
 
-    Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
+    Private Sub btnExit_Click(sender As Object, e As EventArgs)
         Me.Close()
         Dim pMenu As New PositionMenu
         pMenu.Show()
@@ -25,6 +25,7 @@ Public Class Position
         btn.Name = "btnDelete"
         btn.UseColumnTextForButtonValue = True
         dgvPositions.Columns.Insert(dgvPositions.Columns.Count, btn)
+        CustomElements.MovingForm(Me)
     End Sub
 
     Private Sub Load_DGVPosition()

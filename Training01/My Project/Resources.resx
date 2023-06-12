@@ -141,6 +141,12 @@
   </data>
   <data name="arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+</data>
+  <data name="download-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\download-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="a56292ab83236bedb3ab636cf79978dc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\a56292ab83236bedb3ab636cf79978dc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="free-download-of-clipart-icon-home-png-1300x1300" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\free-download-of-clipart-icon-home-png-1300x1300.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -157,9 +163,6 @@
   <data name="close-btn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\close-btn.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="it-department-icon-151" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\it-department-icon-15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="tech-background1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tech-background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -168,6 +171,9 @@
   </data>
   <data name="BackgroundLogin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BackgroundLogin.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+</data>
+  <data name="blue-exit-icon-161" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue-exit-icon-16.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="3690107" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3690107.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -186,12 +192,18 @@
   </data>
   <data name="19264851" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1926485.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+</data>
+  <data name="BackgroundLogin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BackgroundLogin.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="it-department-icon-151" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\it-department-icon-15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="1926485" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1926485.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="blue-exit-icon-161" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\blue-exit-icon-16.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="19264851" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1926485.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="702865" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\702865.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -246,6 +258,9 @@
   </data>
   <data name="63dbf39f6f6a0fac00c19cde43dd88321" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\63dbf39f6f6a0fac00c19cde43dd8832.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+</data>
+  <data name="sign-out-65" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sign-out-65.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Icon-Leave-Message-Sign-Blue-BG1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon-Leave-Message-Sign-Blue-BG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -280,8 +295,12 @@
   <data name="user-icon-vector" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user-icon-vector.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+
   <data name="17365031" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1736503.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+</data>
+  <data name="1429747035" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1429747035.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="7028651" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\702865.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -291,5 +310,8 @@
   </data>
   <data name="tech-background2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tech-background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+</data>
+  <data name="wallpaper2you_556027" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wallpaper2you_556027.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

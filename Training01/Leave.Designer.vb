@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Leave
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,9 +20,9 @@ Partial Class Leave
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtSearch = New System.Windows.Forms.TextBox()
@@ -44,7 +44,6 @@ Partial Class Leave
         Me.Label4 = New System.Windows.Forms.Label()
         Me.cbEmpAdd = New System.Windows.Forms.ComboBox()
         Me.gb_actions = New System.Windows.Forms.GroupBox()
-        Me.btnExit = New System.Windows.Forms.Button()
         Me.btnReload = New System.Windows.Forms.Button()
         Me.closeApp = New System.Windows.Forms.PictureBox()
         Me.dtpStartDate = New System.Windows.Forms.DateTimePicker()
@@ -171,9 +170,9 @@ Partial Class Leave
         '
         'is_confirmed
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-        Me.is_confirmed.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White
+        Me.is_confirmed.DefaultCellStyle = DataGridViewCellStyle5
         Me.is_confirmed.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.is_confirmed.HeaderText = "IS CONFIRMED"
         Me.is_confirmed.MinimumWidth = 6
@@ -206,7 +205,7 @@ Partial Class Leave
         '
         'btnAdd
         '
-        Me.btnAdd.BackColor = System.Drawing.Color.Gray
+        Me.btnAdd.BackColor = System.Drawing.Color.IndianRed
         Me.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnAdd.Location = New System.Drawing.Point(15, 226)
         Me.btnAdd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
@@ -278,7 +277,6 @@ Partial Class Leave
         'gb_actions
         '
         Me.gb_actions.BackColor = System.Drawing.Color.Transparent
-        Me.gb_actions.Controls.Add(Me.btnExit)
         Me.gb_actions.Controls.Add(Me.btnReload)
         Me.gb_actions.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gb_actions.ForeColor = System.Drawing.Color.White
@@ -305,12 +303,13 @@ Partial Class Leave
         '
         'btnReload
         '
-        Me.btnReload.BackColor = System.Drawing.Color.Gray
+        Me.btnReload.BackColor = System.Drawing.Color.IndianRed
         Me.btnReload.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnReload.Location = New System.Drawing.Point(15, 23)
         Me.btnReload.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnReload.Name = "btnReload"
         Me.btnReload.Size = New System.Drawing.Size(393, 33)
+        Me.btnReload.Size = New System.Drawing.Size(295, 64)
         Me.btnReload.TabIndex = 18
         Me.btnReload.Text = "RELOAD FORM"
         Me.btnReload.UseVisualStyleBackColor = False
@@ -327,6 +326,7 @@ Partial Class Leave
         Me.closeApp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.closeApp.TabIndex = 7
         Me.closeApp.TabStop = False
+        Me.closeApp.Visible = False
         '
         'dtpStartDate
         '
@@ -338,7 +338,7 @@ Partial Class Leave
         '
         'btnFindFromDate
         '
-        Me.btnFindFromDate.BackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.btnFindFromDate.BackColor = System.Drawing.SystemColors.HotTrack
         Me.btnFindFromDate.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnFindFromDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnFindFromDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -420,7 +420,6 @@ Partial Class Leave
     Friend WithEvents Label6 As Label
     Friend WithEvents gb_actions As GroupBox
     Friend WithEvents btnAdd As Button
-    Friend WithEvents btnExit As Button
     Friend WithEvents btnReload As Button
     Friend WithEvents closeApp As PictureBox
     Friend WithEvents dtpStartDate As DateTimePicker

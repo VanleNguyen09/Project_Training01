@@ -39,6 +39,7 @@ Public Class NewDashboard
         MaxDeptEmp()
         MaxDeptManager()
         MaxPosEmp()
+        CustomElements.MovingDashboardByPanels(Me, pn_Header, pn_Sidebar)
     End Sub
     Private Sub NewDashboard_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         LoadUserData()
