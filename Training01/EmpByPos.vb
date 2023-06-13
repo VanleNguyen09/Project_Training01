@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports Page = FuntionCommon.Pagination
 
 Public Class EmpByPos
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -216,20 +217,6 @@ Public Class EmpByPos
     End Sub
 
     '------------- FUNCTIONS -------------
-    Private Sub UpdatePaginationButtons()
-        If CurrentPage = 1 Then
-            btnPrevious.Enabled = False
-        Else
-            btnPrevious.Enabled = True
-        End If
-
-        If CurrentPage = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage) Then
-            btnNext.Enabled = False
-        Else
-            btnNext.Enabled = True
-        End If
-    End Sub
-
     Private Sub LoadEmpByPosDatas()
         Dim posId As Integer = cbSearch.SelectedItem.Key
         Try
@@ -249,7 +236,6 @@ Public Class EmpByPos
 
                 'Load in datagridview
                 LoadDGV()
-                txtTotalPage.Text = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
             End Using
         Catch ex As Exception
             MsgBox($"ERROR Load_DgvEmps: {ex.Message}")
@@ -259,23 +245,22 @@ Public Class EmpByPos
     End Sub
 
     Private Sub btnPrevious_Click(sender As Object, e As EventArgs) Handles btnPrevious.Click
-        ' Move previous page
-        CurrentPage -= 1
-        LoadDGV()
-        UpdatePaginationButtons()
+        Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
+        Dim btnType = Page.ButtonType.Previous
+        Page.ClickPreviousButton(btnPrevious, btnType, totalPages, CurrentPage, Sub() LoadDGV())
     End Sub
 
     Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
-        ' Move next page
-        CurrentPage += 1
-        LoadDGV()
-        UpdatePaginationButtons()
+        Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
+        Dim btnType = Page.ButtonType.Next
+        Page.ClickNextButton(btnNext, btnType, totalPages, CurrentPage, Sub() LoadDGV())
     End Sub
 
     Private Sub LoadDGV()
         Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
         txtCurrentPage.Text = CurrentPage
-        Dim pagingDatas = FuntionCommon.Pagination.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, EmpByPosDatas)
+        txtTotalPage.Text = totalPages
+        Dim pagingDatas = Page.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, EmpByPosDatas)
         dgvEmpByPos.Rows.Clear()
 
         For i As Integer = 0 To pagingDatas.Rows.Count - 1
@@ -290,30 +275,15 @@ Public Class EmpByPos
             dgvEmpByPos.Rows.Add(New String() {stt, id, name, phone, email, birthday, posName, pos_id})
         Next
 
-        UpdatePaginationButtons()
+        Page.UpdatePaginationButtons(btnPrevious, Page.ButtonType.Previous, totalPages, CurrentPage)
+        Page.UpdatePaginationButtons(btnNext, Page.ButtonType.Next, totalPages, CurrentPage)
         dgvEmpByPos.Select()
         dgvEmpByPos.CurrentCell = Nothing
     End Sub
 
     Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
-        If e.KeyChar = Convert.ToChar(Keys.Enter) Then
-            If Not FuntionCommon.Validation.IsIntegerNumber(txtCurrentPage.Text) Then
-                MessageBox.Show(Message.Message.errorNumberType, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtCurrentPage.Text = CurrentPage
-                Exit Sub
-            End If
-
-            Dim CurrPage = CInt(txtCurrentPage.Text)
-            Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
-            If CurrPage < 1 OrElse CurrPage > totalPages Then
-                MessageBox.Show(Message.Message.errorPageNumber, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtCurrentPage.Text = CurrentPage
-                Exit Sub
-            End If
-
-            CurrentPage = CurrPage
-            LoadDGV()
-        End If
+        Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
+        Page.PressEnterKeyTxtCurrentPage(txtCurrentPage, CurrentPage, totalPages, e.KeyChar, Sub() LoadDGV())
     End Sub
 
     Private Sub dgvEmpByPos_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvEmpByPos.ColumnHeaderMouseClick

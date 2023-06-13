@@ -35,6 +35,7 @@ Partial Class EmpByPos
         Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.pos_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.grb_create = New System.Windows.Forms.GroupBox()
+        Me.btnAdd = New Guna.UI2.WinForms.Guna2Button()
         Me.cbEmpCreate = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.cbPosCreate = New System.Windows.Forms.ComboBox()
@@ -47,7 +48,6 @@ Partial Class EmpByPos
         Me.txtCurrentPage = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.txtTotalPage = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.btnAdd = New Guna.UI2.WinForms.Guna2Button()
         CType(Me.dgvEmpByPos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_create.SuspendLayout()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -177,6 +177,25 @@ Partial Class EmpByPos
         Me.grb_create.TabStop = False
         Me.grb_create.Text = "CREATE"
         '
+        'btnAdd
+        '
+        Me.btnAdd.Animated = True
+        Me.btnAdd.BorderColor = System.Drawing.Color.White
+        Me.btnAdd.BorderThickness = 2
+        Me.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnAdd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.btnAdd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.btnAdd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.btnAdd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btnAdd.FillColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnAdd.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnAdd.ForeColor = System.Drawing.Color.White
+        Me.btnAdd.Location = New System.Drawing.Point(10, 115)
+        Me.btnAdd.Name = "btnAdd"
+        Me.btnAdd.Size = New System.Drawing.Size(281, 40)
+        Me.btnAdd.TabIndex = 4
+        Me.btnAdd.Text = "ADD"
+        '
         'cbEmpCreate
         '
         Me.cbEmpCreate.Cursor = System.Windows.Forms.Cursors.Hand
@@ -254,7 +273,7 @@ Partial Class EmpByPos
         '
         'btnManagePos
         '
-        Me.btnManagePos.BackColor = System.Drawing.Color.LightCoral
+        Me.btnManagePos.BackColor = System.Drawing.Color.IndianRed
         Me.btnManagePos.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnManagePos.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnManagePos.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -359,24 +378,6 @@ Partial Class EmpByPos
         Me.txtTotalPage.SelectedText = ""
         Me.txtTotalPage.Size = New System.Drawing.Size(41, 28)
         Me.txtTotalPage.TabIndex = 7
-        '
-        'btnAdd
-        '
-        Me.btnAdd.Animated = True
-        Me.btnAdd.BorderColor = System.Drawing.Color.White
-        Me.btnAdd.BorderThickness = 2
-        Me.btnAdd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.btnAdd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.btnAdd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.btnAdd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.btnAdd.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.btnAdd.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnAdd.ForeColor = System.Drawing.Color.White
-        Me.btnAdd.Location = New System.Drawing.Point(10, 115)
-        Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(281, 40)
-        Me.btnAdd.TabIndex = 4
-        Me.btnAdd.Text = "ADD"
         '
         'EmpByPos
         '

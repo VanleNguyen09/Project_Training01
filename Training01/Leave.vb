@@ -1,5 +1,5 @@
 ﻿Imports System.Data.SqlClient
-Imports FuntionCommon
+Imports Page = FuntionCommon.Pagination
 
 Public Class Leave
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -380,7 +380,7 @@ Public Class Leave
         txtCurrentPage.Text = CurrentPage
         txtTotalPage.Text = totalPages
 
-        Dim pagingDatas = FuntionCommon.Pagination.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, LeaveDatas)
+        Dim pagingDatas = Page.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, LeaveDatas)
         dgvLeave.Rows.Clear()
 
         For i As Integer = 0 To pagingDatas.Rows.Count - 1
@@ -394,37 +394,22 @@ Public Class Leave
             dgvLeave.Rows.Add(New String() {stt, id, empId, empName, fromDate, reason, isConfirmed})
         Next
 
-        UpdatePaginationButtons()
+        Page.UpdatePaginationButtons(btnPrevious, Page.ButtonType.Previous, totalPages, CurrentPage)
+        Page.UpdatePaginationButtons(btnNext, Page.ButtonType.Next, totalPages, CurrentPage)
         dgvLeave.Select()
         dgvLeave.CurrentCell = Nothing
     End Sub
 
     Private Sub btnPrevious_Click(sender As Object, e As EventArgs) Handles btnPrevious.Click
-        ' Move previous page
-        CurrentPage -= 1
-        LoadDGV()
-        UpdatePaginationButtons()
+        Dim totalPages = Math.Ceiling(LeaveDatas.Rows.Count / RowsPerPage)
+        Dim btnType = Page.ButtonType.Previous
+        Page.ClickPreviousButton(btnPrevious, btnType, totalPages, CurrentPage, Sub() LoadDGV())
     End Sub
 
     Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
-        ' Move next page
-        CurrentPage += 1
-        LoadDGV()
-        UpdatePaginationButtons()
-    End Sub
-
-    Private Sub UpdatePaginationButtons()
-        If CurrentPage = 1 Then
-            btnPrevious.Enabled = False
-        Else
-            btnPrevious.Enabled = True
-        End If
-
-        If CurrentPage = CInt(txtTotalPage.Text) Then
-            btnNext.Enabled = False
-        Else
-            btnNext.Enabled = True
-        End If
+        Dim totalPages = Math.Ceiling(LeaveDatas.Rows.Count / RowsPerPage)
+        Dim btnType = Page.ButtonType.Next
+        Page.ClickNextButton(btnNext, btnType, totalPages, CurrentPage, Sub() LoadDGV())
     End Sub
 
     Private Sub dgvLeave_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvLeave.ColumnHeaderMouseClick
@@ -434,23 +419,7 @@ Public Class Leave
     End Sub
 
     Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
-        If e.KeyChar = Convert.ToChar(Keys.Enter) Then
-            If Not FuntionCommon.Validation.IsIntegerNumber(txtCurrentPage.Text) Then
-                MessageBox.Show(Message.Message.errorNumberType, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtCurrentPage.Text = CurrentPage
-                Exit Sub
-            End If
-
-            Dim CurrPage = CInt(txtCurrentPage.Text)
-            Dim totalPages = Math.Ceiling(dgvLeave.Rows.Count / RowsPerPage) + 1
-            If CurrPage < 1 OrElse CurrPage > totalPages Then
-                MessageBox.Show(Message.Message.errorPageNumber, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtCurrentPage.Text = CurrentPage
-                Exit Sub
-            End If
-
-            CurrentPage = CurrPage
-            LoadDGV()
-        End If
+        Dim totalPages = Math.Ceiling(LeaveDatas.Rows.Count / RowsPerPage)
+        Page.PressEnterKeyTxtCurrentPage(txtCurrentPage, CurrentPage, totalPages, e.KeyChar, Sub() LoadDGV())
     End Sub
 End Class

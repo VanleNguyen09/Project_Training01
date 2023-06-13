@@ -22,7 +22,7 @@ Partial Class SalaryEmp
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvEmps = New System.Windows.Forms.DataGridView()
         Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -47,14 +47,20 @@ Partial Class SalaryEmp
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.gbSalary = New System.Windows.Forms.GroupBox()
+        Me.gBtnDelete = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.gbtnExportExcel = New Guna.UI2.WinForms.Guna2Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.gBtnAdd = New Guna.UI2.WinForms.Guna2Button()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.txtSearchSalary = New System.Windows.Forms.TextBox()
         Me.gbEmps = New System.Windows.Forms.GroupBox()
         Me.closeApp = New System.Windows.Forms.PictureBox()
-        Me.gBtnDelete = New Guna.UI2.WinForms.Guna2GradientButton()
-        Me.gBtnAdd = New Guna.UI2.WinForms.Guna2Button()
+        Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.txtTotalPage = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.txtCurrentPage = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.btnNext = New Guna.UI2.WinForms.Guna2Button()
+        Me.btnPrevious = New Guna.UI2.WinForms.Guna2Button()
+        Me.bwLoadEmpsDatas = New System.ComponentModel.BackgroundWorker()
         CType(Me.dgvEmps, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvSalaries, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -206,9 +212,9 @@ Partial Class SalaryEmp
         'salary
         '
         Me.salary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        DataGridViewCellStyle10.NullValue = "0.00"
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.salary.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle3.NullValue = "0.00"
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.salary.DefaultCellStyle = DataGridViewCellStyle3
         Me.salary.HeaderText = "SALARY"
         Me.salary.MinimumWidth = 6
         Me.salary.Name = "salary"
@@ -309,6 +315,28 @@ Partial Class SalaryEmp
         Me.gbSalary.TabStop = False
         Me.gbSalary.Text = "SALARY'S MANAGEMENT"
         '
+        'gBtnDelete
+        '
+        Me.gBtnDelete.Animated = True
+        Me.gBtnDelete.AutoRoundedCorners = True
+        Me.gBtnDelete.BorderColor = System.Drawing.Color.White
+        Me.gBtnDelete.BorderRadius = 16
+        Me.gBtnDelete.BorderThickness = 2
+        Me.gBtnDelete.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.gBtnDelete.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gBtnDelete.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gBtnDelete.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gBtnDelete.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gBtnDelete.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gBtnDelete.FillColor2 = System.Drawing.Color.DarkMagenta
+        Me.gBtnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gBtnDelete.ForeColor = System.Drawing.Color.White
+        Me.gBtnDelete.Location = New System.Drawing.Point(444, 289)
+        Me.gBtnDelete.Name = "gBtnDelete"
+        Me.gBtnDelete.Size = New System.Drawing.Size(225, 34)
+        Me.gBtnDelete.TabIndex = 15
+        Me.gBtnDelete.Text = "DELETE"
+        '
         'gbtnExportExcel
         '
         Me.gbtnExportExcel.Animated = True
@@ -346,6 +374,27 @@ Partial Class SalaryEmp
         Me.GroupBox3.TabIndex = 8
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "CREATE SALARY"
+        '
+        'gBtnAdd
+        '
+        Me.gBtnAdd.Animated = True
+        Me.gBtnAdd.AutoRoundedCorners = True
+        Me.gBtnAdd.BorderColor = System.Drawing.Color.White
+        Me.gBtnAdd.BorderRadius = 18
+        Me.gBtnAdd.BorderThickness = 2
+        Me.gBtnAdd.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.gBtnAdd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.gBtnAdd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.gBtnAdd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.gBtnAdd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.gBtnAdd.FillColor = System.Drawing.Color.DarkViolet
+        Me.gBtnAdd.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gBtnAdd.ForeColor = System.Drawing.Color.White
+        Me.gBtnAdd.Location = New System.Drawing.Point(8, 129)
+        Me.gBtnAdd.Name = "gBtnAdd"
+        Me.gBtnAdd.Size = New System.Drawing.Size(210, 38)
+        Me.gBtnAdd.TabIndex = 11
+        Me.gBtnAdd.Text = "ADD"
         '
         'PictureBox2
         '
@@ -394,48 +443,102 @@ Partial Class SalaryEmp
         Me.closeApp.TabStop = False
         Me.closeApp.Visible = False
         '
-        'gBtnDelete
+        'Guna2HtmlLabel1
         '
-        Me.gBtnDelete.Animated = True
-        Me.gBtnDelete.AutoRoundedCorners = True
-        Me.gBtnDelete.BorderColor = System.Drawing.Color.White
-        Me.gBtnDelete.BorderRadius = 16
-        Me.gBtnDelete.BorderThickness = 2
-        Me.gBtnDelete.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.gBtnDelete.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.gBtnDelete.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.gBtnDelete.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.gBtnDelete.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.gBtnDelete.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.gBtnDelete.FillColor2 = System.Drawing.Color.DarkMagenta
-        Me.gBtnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gBtnDelete.ForeColor = System.Drawing.Color.White
-        Me.gBtnDelete.Location = New System.Drawing.Point(444, 289)
-        Me.gBtnDelete.Name = "gBtnDelete"
-        Me.gBtnDelete.Size = New System.Drawing.Size(225, 34)
-        Me.gBtnDelete.TabIndex = 15
-        Me.gBtnDelete.Text = "DELETE"
+        Me.Guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel1.ForeColor = System.Drawing.Color.White
+        Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(201, 507)
+        Me.Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
+        Me.Guna2HtmlLabel1.Size = New System.Drawing.Size(18, 18)
+        Me.Guna2HtmlLabel1.TabIndex = 17
+        Me.Guna2HtmlLabel1.Text = "Of"
         '
-        'gBtnAdd
+        'txtTotalPage
         '
-        Me.gBtnAdd.Animated = True
-        Me.gBtnAdd.AutoRoundedCorners = True
-        Me.gBtnAdd.BorderColor = System.Drawing.Color.White
-        Me.gBtnAdd.BorderRadius = 18
-        Me.gBtnAdd.BorderThickness = 2
-        Me.gBtnAdd.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.gBtnAdd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.gBtnAdd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.gBtnAdd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.gBtnAdd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.gBtnAdd.FillColor = System.Drawing.Color.DarkViolet
-        Me.gBtnAdd.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gBtnAdd.ForeColor = System.Drawing.Color.White
-        Me.gBtnAdd.Location = New System.Drawing.Point(8, 129)
-        Me.gBtnAdd.Name = "gBtnAdd"
-        Me.gBtnAdd.Size = New System.Drawing.Size(210, 38)
-        Me.gBtnAdd.TabIndex = 11
-        Me.gBtnAdd.Text = "ADD"
+        Me.txtTotalPage.Animated = True
+        Me.txtTotalPage.AutoRoundedCorners = True
+        Me.txtTotalPage.BackColor = System.Drawing.Color.Transparent
+        Me.txtTotalPage.BorderRadius = 13
+        Me.txtTotalPage.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtTotalPage.DefaultText = ""
+        Me.txtTotalPage.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.txtTotalPage.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.txtTotalPage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.txtTotalPage.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.txtTotalPage.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtTotalPage.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.txtTotalPage.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtTotalPage.Location = New System.Drawing.Point(225, 502)
+        Me.txtTotalPage.Name = "txtTotalPage"
+        Me.txtTotalPage.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.txtTotalPage.PlaceholderText = ""
+        Me.txtTotalPage.ReadOnly = True
+        Me.txtTotalPage.SelectedText = ""
+        Me.txtTotalPage.Size = New System.Drawing.Size(41, 28)
+        Me.txtTotalPage.TabIndex = 15
+        '
+        'txtCurrentPage
+        '
+        Me.txtCurrentPage.Animated = True
+        Me.txtCurrentPage.BackColor = System.Drawing.Color.Transparent
+        Me.txtCurrentPage.BorderRadius = 13
+        Me.txtCurrentPage.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtCurrentPage.DefaultText = ""
+        Me.txtCurrentPage.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.txtCurrentPage.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.txtCurrentPage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.txtCurrentPage.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.txtCurrentPage.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtCurrentPage.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.txtCurrentPage.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtCurrentPage.Location = New System.Drawing.Point(156, 502)
+        Me.txtCurrentPage.Name = "txtCurrentPage"
+        Me.txtCurrentPage.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.txtCurrentPage.PlaceholderText = ""
+        Me.txtCurrentPage.SelectedText = ""
+        Me.txtCurrentPage.Size = New System.Drawing.Size(41, 28)
+        Me.txtCurrentPage.TabIndex = 16
+        '
+        'btnNext
+        '
+        Me.btnNext.Animated = True
+        Me.btnNext.BackColor = System.Drawing.Color.Transparent
+        Me.btnNext.BorderRadius = 10
+        Me.btnNext.BorderThickness = 1
+        Me.btnNext.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.btnNext.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.btnNext.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.btnNext.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btnNext.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnNext.ForeColor = System.Drawing.Color.White
+        Me.btnNext.Location = New System.Drawing.Point(272, 501)
+        Me.btnNext.Name = "btnNext"
+        Me.btnNext.Size = New System.Drawing.Size(89, 29)
+        Me.btnNext.TabIndex = 13
+        Me.btnNext.Text = "NEXT"
+        Me.btnNext.UseTransparentBackground = True
+        '
+        'btnPrevious
+        '
+        Me.btnPrevious.Animated = True
+        Me.btnPrevious.BackColor = System.Drawing.Color.Transparent
+        Me.btnPrevious.BorderRadius = 10
+        Me.btnPrevious.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.btnPrevious.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.btnPrevious.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.btnPrevious.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btnPrevious.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnPrevious.ForeColor = System.Drawing.Color.White
+        Me.btnPrevious.Location = New System.Drawing.Point(61, 501)
+        Me.btnPrevious.Name = "btnPrevious"
+        Me.btnPrevious.Size = New System.Drawing.Size(89, 29)
+        Me.btnPrevious.TabIndex = 14
+        Me.btnPrevious.Text = "PREVIOUS"
+        Me.btnPrevious.UseTransparentBackground = True
+        '
+        'bwLoadEmpsDatas
+        '
         '
         'SalaryEmp
         '
@@ -443,7 +546,12 @@ Partial Class SalaryEmp
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1196, 509)
+        Me.ClientSize = New System.Drawing.Size(1196, 548)
+        Me.Controls.Add(Me.Guna2HtmlLabel1)
+        Me.Controls.Add(Me.txtTotalPage)
+        Me.Controls.Add(Me.txtCurrentPage)
+        Me.Controls.Add(Me.btnNext)
+        Me.Controls.Add(Me.btnPrevious)
         Me.Controls.Add(Me.closeApp)
         Me.Controls.Add(Me.gbEmps)
         Me.Controls.Add(Me.gbSalary)
@@ -501,4 +609,10 @@ Partial Class SalaryEmp
     Friend WithEvents gbtnExportExcel As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents gBtnDelete As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents gBtnAdd As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents Guna2HtmlLabel1 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents txtTotalPage As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents txtCurrentPage As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents btnNext As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnPrevious As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents bwLoadEmpsDatas As System.ComponentModel.BackgroundWorker
 End Class
