@@ -32,10 +32,9 @@ Partial Class EmpByPos
         Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.position = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.pos_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.grb_create = New System.Windows.Forms.GroupBox()
-        Me.btnAdd = New System.Windows.Forms.Button()
         Me.cbEmpCreate = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.cbPosCreate = New System.Windows.Forms.ComboBox()
@@ -43,6 +42,12 @@ Partial Class EmpByPos
         Me.btnRemove = New System.Windows.Forms.Button()
         Me.closeApp = New System.Windows.Forms.PictureBox()
         Me.btnManagePos = New System.Windows.Forms.Button()
+        Me.btnPrevious = New Guna.UI2.WinForms.Guna2Button()
+        Me.btnNext = New Guna.UI2.WinForms.Guna2Button()
+        Me.txtCurrentPage = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.txtTotalPage = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.btnAdd = New Guna.UI2.WinForms.Guna2Button()
         CType(Me.dgvEmpByPos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_create.SuspendLayout()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -63,12 +68,15 @@ Partial Class EmpByPos
         'cbSearch
         '
         Me.cbSearch.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cbSearch.DropDownHeight = 100
         Me.cbSearch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbSearch.DropDownWidth = 200
         Me.cbSearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbSearch.FormattingEnabled = True
+        Me.cbSearch.IntegralHeight = False
         Me.cbSearch.Location = New System.Drawing.Point(93, 90)
         Me.cbSearch.Name = "cbSearch"
-        Me.cbSearch.Size = New System.Drawing.Size(178, 21)
+        Me.cbSearch.Size = New System.Drawing.Size(205, 21)
         Me.cbSearch.TabIndex = 1
         '
         'Label2
@@ -87,7 +95,7 @@ Partial Class EmpByPos
         '
         Me.dgvEmpByPos.AllowUserToAddRows = False
         Me.dgvEmpByPos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvEmpByPos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.stt, Me.id, Me.emp_name, Me.phone, Me.email, Me.birthday, Me.position, Me.pos_id})
+        Me.dgvEmpByPos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.stt, Me.id, Me.emp_name, Me.phone, Me.email, Me.birthday, Me.pos_name, Me.pos_id})
         Me.dgvEmpByPos.Location = New System.Drawing.Point(24, 126)
         Me.dgvEmpByPos.Name = "dgvEmpByPos"
         Me.dgvEmpByPos.RowHeadersVisible = False
@@ -139,11 +147,11 @@ Partial Class EmpByPos
         Me.birthday.Name = "birthday"
         Me.birthday.ReadOnly = True
         '
-        'position
+        'pos_name
         '
-        Me.position.HeaderText = "POSITION"
-        Me.position.Name = "position"
-        Me.position.ReadOnly = True
+        Me.pos_name.HeaderText = "POSITION"
+        Me.pos_name.Name = "pos_name"
+        Me.pos_name.ReadOnly = True
         '
         'pos_id
         '
@@ -164,29 +172,18 @@ Partial Class EmpByPos
         Me.grb_create.ForeColor = System.Drawing.Color.White
         Me.grb_create.Location = New System.Drawing.Point(673, 164)
         Me.grb_create.Name = "grb_create"
-        Me.grb_create.Size = New System.Drawing.Size(304, 162)
+        Me.grb_create.Size = New System.Drawing.Size(304, 208)
         Me.grb_create.TabIndex = 4
         Me.grb_create.TabStop = False
         Me.grb_create.Text = "CREATE"
         '
-        'btnAdd
-        '
-        Me.btnAdd.BackColor = System.Drawing.Color.White
-        Me.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAdd.ForeColor = System.Drawing.Color.Black
-        Me.btnAdd.Location = New System.Drawing.Point(91, 108)
-        Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(200, 32)
-        Me.btnAdd.TabIndex = 3
-        Me.btnAdd.Text = "ADD"
-        Me.btnAdd.UseVisualStyleBackColor = False
-        '
         'cbEmpCreate
         '
         Me.cbEmpCreate.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cbEmpCreate.DropDownHeight = 100
         Me.cbEmpCreate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbEmpCreate.FormattingEnabled = True
+        Me.cbEmpCreate.IntegralHeight = False
         Me.cbEmpCreate.Location = New System.Drawing.Point(91, 72)
         Me.cbEmpCreate.Name = "cbEmpCreate"
         Me.cbEmpCreate.Size = New System.Drawing.Size(200, 21)
@@ -207,8 +204,10 @@ Partial Class EmpByPos
         'cbPosCreate
         '
         Me.cbPosCreate.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cbPosCreate.DropDownHeight = 100
         Me.cbPosCreate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbPosCreate.FormattingEnabled = True
+        Me.cbPosCreate.IntegralHeight = False
         Me.cbPosCreate.Location = New System.Drawing.Point(91, 35)
         Me.cbPosCreate.Name = "cbPosCreate"
         Me.cbPosCreate.Size = New System.Drawing.Size(200, 21)
@@ -228,10 +227,11 @@ Partial Class EmpByPos
         '
         'btnRemove
         '
-        Me.btnRemove.BackColor = System.Drawing.Color.White
+        Me.btnRemove.BackColor = System.Drawing.Color.IndianRed
         Me.btnRemove.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnRemove.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnRemove.ForeColor = System.Drawing.Color.Black
+        Me.btnRemove.ForeColor = System.Drawing.Color.White
         Me.btnRemove.Location = New System.Drawing.Point(673, 126)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(304, 32)
@@ -254,16 +254,129 @@ Partial Class EmpByPos
         '
         'btnManagePos
         '
-        Me.btnManagePos.BackColor = System.Drawing.Color.White
+        Me.btnManagePos.BackColor = System.Drawing.Color.LightCoral
         Me.btnManagePos.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnManagePos.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnManagePos.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnManagePos.ForeColor = System.Drawing.Color.Black
-        Me.btnManagePos.Location = New System.Drawing.Point(673, 340)
+        Me.btnManagePos.ForeColor = System.Drawing.Color.White
+        Me.btnManagePos.Location = New System.Drawing.Point(673, 378)
         Me.btnManagePos.Name = "btnManagePos"
         Me.btnManagePos.Size = New System.Drawing.Size(304, 32)
         Me.btnManagePos.TabIndex = 3
         Me.btnManagePos.Text = "MANAGE POSITION"
         Me.btnManagePos.UseVisualStyleBackColor = False
+        '
+        'btnPrevious
+        '
+        Me.btnPrevious.Animated = True
+        Me.btnPrevious.BackColor = System.Drawing.Color.Transparent
+        Me.btnPrevious.BorderRadius = 10
+        Me.btnPrevious.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.btnPrevious.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.btnPrevious.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.btnPrevious.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btnPrevious.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnPrevious.ForeColor = System.Drawing.Color.White
+        Me.btnPrevious.Location = New System.Drawing.Point(182, 381)
+        Me.btnPrevious.Name = "btnPrevious"
+        Me.btnPrevious.Size = New System.Drawing.Size(89, 29)
+        Me.btnPrevious.TabIndex = 6
+        Me.btnPrevious.Text = "PREVIOUS"
+        Me.btnPrevious.UseTransparentBackground = True
+        '
+        'btnNext
+        '
+        Me.btnNext.Animated = True
+        Me.btnNext.BackColor = System.Drawing.Color.Transparent
+        Me.btnNext.BorderRadius = 10
+        Me.btnNext.BorderThickness = 1
+        Me.btnNext.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.btnNext.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.btnNext.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.btnNext.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btnNext.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnNext.ForeColor = System.Drawing.Color.White
+        Me.btnNext.Location = New System.Drawing.Point(393, 381)
+        Me.btnNext.Name = "btnNext"
+        Me.btnNext.Size = New System.Drawing.Size(89, 29)
+        Me.btnNext.TabIndex = 6
+        Me.btnNext.Text = "NEXT"
+        Me.btnNext.UseTransparentBackground = True
+        '
+        'txtCurrentPage
+        '
+        Me.txtCurrentPage.Animated = True
+        Me.txtCurrentPage.BackColor = System.Drawing.Color.Transparent
+        Me.txtCurrentPage.BorderRadius = 13
+        Me.txtCurrentPage.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtCurrentPage.DefaultText = ""
+        Me.txtCurrentPage.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.txtCurrentPage.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.txtCurrentPage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.txtCurrentPage.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.txtCurrentPage.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtCurrentPage.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.txtCurrentPage.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtCurrentPage.Location = New System.Drawing.Point(277, 382)
+        Me.txtCurrentPage.Name = "txtCurrentPage"
+        Me.txtCurrentPage.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.txtCurrentPage.PlaceholderText = ""
+        Me.txtCurrentPage.SelectedText = ""
+        Me.txtCurrentPage.Size = New System.Drawing.Size(41, 28)
+        Me.txtCurrentPage.TabIndex = 7
+        '
+        'Guna2HtmlLabel1
+        '
+        Me.Guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel1.ForeColor = System.Drawing.Color.White
+        Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(322, 387)
+        Me.Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
+        Me.Guna2HtmlLabel1.Size = New System.Drawing.Size(18, 18)
+        Me.Guna2HtmlLabel1.TabIndex = 8
+        Me.Guna2HtmlLabel1.Text = "Of"
+        '
+        'txtTotalPage
+        '
+        Me.txtTotalPage.Animated = True
+        Me.txtTotalPage.AutoRoundedCorners = True
+        Me.txtTotalPage.BackColor = System.Drawing.Color.Transparent
+        Me.txtTotalPage.BorderRadius = 13
+        Me.txtTotalPage.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtTotalPage.DefaultText = ""
+        Me.txtTotalPage.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.txtTotalPage.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.txtTotalPage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.txtTotalPage.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.txtTotalPage.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtTotalPage.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.txtTotalPage.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtTotalPage.Location = New System.Drawing.Point(346, 382)
+        Me.txtTotalPage.Name = "txtTotalPage"
+        Me.txtTotalPage.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.txtTotalPage.PlaceholderText = ""
+        Me.txtTotalPage.ReadOnly = True
+        Me.txtTotalPage.SelectedText = ""
+        Me.txtTotalPage.Size = New System.Drawing.Size(41, 28)
+        Me.txtTotalPage.TabIndex = 7
+        '
+        'btnAdd
+        '
+        Me.btnAdd.Animated = True
+        Me.btnAdd.BorderColor = System.Drawing.Color.White
+        Me.btnAdd.BorderThickness = 2
+        Me.btnAdd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.btnAdd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.btnAdd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.btnAdd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btnAdd.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.btnAdd.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnAdd.ForeColor = System.Drawing.Color.White
+        Me.btnAdd.Location = New System.Drawing.Point(10, 115)
+        Me.btnAdd.Name = "btnAdd"
+        Me.btnAdd.Size = New System.Drawing.Size(281, 40)
+        Me.btnAdd.TabIndex = 4
+        Me.btnAdd.Text = "ADD"
         '
         'EmpByPos
         '
@@ -271,7 +384,12 @@ Partial Class EmpByPos
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1010, 395)
+        Me.ClientSize = New System.Drawing.Size(1010, 423)
+        Me.Controls.Add(Me.Guna2HtmlLabel1)
+        Me.Controls.Add(Me.txtTotalPage)
+        Me.Controls.Add(Me.txtCurrentPage)
+        Me.Controls.Add(Me.btnNext)
+        Me.Controls.Add(Me.btnPrevious)
         Me.Controls.Add(Me.closeApp)
         Me.Controls.Add(Me.btnManagePos)
         Me.Controls.Add(Me.btnRemove)
@@ -298,7 +416,6 @@ Partial Class EmpByPos
     Friend WithEvents Label2 As Label
     Friend WithEvents dgvEmpByPos As DataGridView
     Friend WithEvents grb_create As GroupBox
-    Friend WithEvents btnAdd As Button
     Friend WithEvents cbEmpCreate As ComboBox
     Friend WithEvents Label4 As Label
     Friend WithEvents cbPosCreate As ComboBox
@@ -306,12 +423,18 @@ Partial Class EmpByPos
     Friend WithEvents btnRemove As Button
     Friend WithEvents closeApp As PictureBox
     Friend WithEvents btnManagePos As Button
+    Friend WithEvents btnPrevious As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnNext As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents txtCurrentPage As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents Guna2HtmlLabel1 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents txtTotalPage As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents stt As DataGridViewTextBoxColumn
     Friend WithEvents id As DataGridViewTextBoxColumn
     Friend WithEvents emp_name As DataGridViewTextBoxColumn
     Friend WithEvents phone As DataGridViewTextBoxColumn
     Friend WithEvents email As DataGridViewTextBoxColumn
     Friend WithEvents birthday As DataGridViewTextBoxColumn
-    Friend WithEvents position As DataGridViewTextBoxColumn
+    Friend WithEvents pos_name As DataGridViewTextBoxColumn
     Friend WithEvents pos_id As DataGridViewTextBoxColumn
+    Friend WithEvents btnAdd As Guna.UI2.WinForms.Guna2Button
 End Class

@@ -1,9 +1,13 @@
 ﻿Imports System.Data.SqlClient
+Imports FuntionCommon
 
 Public Class Leave
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private DateTimeformat = DTFormat.Type.NormalDateAndHourMinusTime
     Private isClickedFindBtn = False
+    Private RowsPerPage As Integer = 7
+    Private CurrentPage As Integer = 1
+    Private LeaveDatas As New DataTable
 
     Private Sub Leave_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Settings for Combobox
@@ -12,7 +16,7 @@ Public Class Leave
         cbEmpAdd.Items.Add(New DictionaryEntry(-1, "-SELECT-"))
 
         Load_cbEmpAdd()
-        Load_DGVLeave()
+        LoadLeaveDatas()
 
         'Add Delete Buttons
         Dim btn As New DataGridViewButtonColumn
@@ -45,36 +49,6 @@ Public Class Leave
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
         Environment.Exit(0)
-    End Sub
-
-    Private Sub Load_DGVLeave()
-        Dim sql = "GetAllLeavesByWord"
-        Dim searchWord = txtSearch.Text.Trim()
-
-        Try
-            If con.State() <> 1 Then
-                con.Open()
-            End If
-
-            'load datagridview by posId
-            Using cmd As SqlCommand = New SqlCommand(sql, con)
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("@word", searchWord)
-
-                Dim reader As SqlDataReader = cmd.ExecuteReader()
-
-                dgvLeave.Rows.Clear()
-                While reader.Read
-                    dgvLeave.Rows.Add(New String() {reader("stt"), reader("id"), reader("emp_id"), reader("emp_name"), reader("from_date"), reader("reason"), reader("is_confirmed")})
-                End While
-
-                dgvLeave.CurrentCell = Nothing
-            End Using
-        Catch ex As Exception
-            MessageBox.Show(Message.Message.errorSQLQuery & $": {ex.Message}", Message.Title.error, MessageBoxButtons.OK)
-        Finally
-            con.Close()
-        End Try
     End Sub
 
     Private Sub Load_cbEmpAdd()
@@ -131,7 +105,7 @@ Public Class Leave
                     cmd.ExecuteNonQuery()
                     MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
                     'Reload Data
-                    Load_DGVLeave()
+                    LoadLeaveDatas()
 
                     'Reset
                     cbEmpAdd.SelectedIndex = 0
@@ -156,16 +130,18 @@ Public Class Leave
         dtpStartDate.ResetText()
         dtpEndDate.ResetText()
         isClickedFindBtn = False
-        Load_DGVLeave()
+        LoadLeaveDatas()
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         txtSearch.Controls("btnClearSearch").Visible = (txtSearch.Text.Length > 0)
+        CurrentPage = 1
         If isClickedFindBtn Then
             btnFindFromDate.PerformClick()
         Else
-            Load_DGVLeave()
+            LoadLeaveDatas()
         End If
+        txtSearch.Select()
     End Sub
 
     Private Sub dgvLeave_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLeave.CellContentClick
@@ -199,7 +175,7 @@ Public Class Leave
                                     If isClickedFindBtn Then
                                         btnFindFromDate.PerformClick()
                                     Else
-                                        Load_DGVLeave()
+                                        LoadLeaveDatas()
                                     End If
                                 End Using
                             Catch ex As Exception
@@ -240,7 +216,7 @@ Public Class Leave
                                     If isClickedFindBtn Then
                                         btnFindFromDate.PerformClick()
                                     Else
-                                        Load_DGVLeave()
+                                        LoadLeaveDatas()
                                     End If
                                 End Using
                             Catch ex As Exception
@@ -254,7 +230,7 @@ Public Class Leave
         End If
     End Sub
 
-    Private Sub btnExit_Click(sender As Object, e As EventArgs) 
+    Private Sub btnExit_Click(sender As Object, e As EventArgs)
         Dim dboard As New Dashboard
         Me.Hide()
         dboard.Show()
@@ -283,12 +259,11 @@ Public Class Leave
                 cmd.Parameters.AddWithValue("@e_datetime", eDate)
 
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
+                LeaveDatas.Rows.Clear()
+                LeaveDatas.Load(reader)
+                CurrentPage = 1
 
-                dgvLeave.Rows.Clear()
-                While reader.Read
-                    dgvLeave.Rows.Add(New String() {reader("stt"), reader("id"), reader("emp_id"), reader("emp_name"), reader("from_date"), reader("reason"), reader("is_confirmed")})
-                End While
-
+                LoadDGV()
                 isClickedFindBtn = True
             End Using
         Catch ex As Exception
@@ -313,7 +288,7 @@ Public Class Leave
             editLeaveForm.TempData = ValueTuple.Create(id, empId, name, fromDate, reason, isConfirmed)
             editLeaveForm.SetCallback(Sub()
                                           MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
-                                          Load_DGVLeave()
+                                          LoadLeaveDatas()
                                       End Sub)
             editLeaveForm.Show()
         End If
@@ -366,6 +341,116 @@ Public Class Leave
     Private Sub dgvLeave_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLeave.CellMouseLeave
         If e.ColumnIndex >= 0 AndAlso e.RowIndex >= 0 Then
             dgvLeave.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub LoadLeaveDatas()
+        Dim sql = "GetAllLeavesByWord"
+        Dim searchWord = txtSearch.Text.Trim()
+
+        Try
+            If con.State() <> 1 Then
+                con.Open()
+            End If
+
+            'load datagridview by posId
+            Using cmd As SqlCommand = New SqlCommand(sql, con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@word", searchWord)
+                Dim reader As SqlDataReader = cmd.ExecuteReader()
+
+                LeaveDatas.Rows.Clear()
+                LeaveDatas.Load(reader)
+
+                LoadDGV()
+            End Using
+        Catch ex As Exception
+            MessageBox.Show(Message.Message.errorSQLQuery & $": {ex.Message}", Message.Title.error, MessageBoxButtons.OK)
+        Finally
+            con.Close()
+        End Try
+    End Sub
+
+    Private Sub LoadDGV()
+        Dim totalPages = Math.Ceiling(LeaveDatas.Rows.Count / RowsPerPage)
+        If totalPages = 0 Then
+            CurrentPage = 1
+            totalPages = 1
+        End If
+        txtCurrentPage.Text = CurrentPage
+        txtTotalPage.Text = totalPages
+
+        Dim pagingDatas = FuntionCommon.Pagination.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, LeaveDatas)
+        dgvLeave.Rows.Clear()
+
+        For i As Integer = 0 To pagingDatas.Rows.Count - 1
+            Dim stt = pagingDatas.Rows(i)("stt").ToString()
+            Dim id = pagingDatas.Rows(i)("id").ToString()
+            Dim empId = pagingDatas.Rows(i)("emp_id").ToString()
+            Dim empName = pagingDatas.Rows(i)("emp_name").ToString()
+            Dim fromDate = pagingDatas.Rows(i)("from_date").ToString().Split(" ")(0) 'Only get date
+            Dim reason = pagingDatas.Rows(i)("reason").ToString()
+            Dim isConfirmed = pagingDatas.Rows(i)("is_confirmed").ToString()
+            dgvLeave.Rows.Add(New String() {stt, id, empId, empName, fromDate, reason, isConfirmed})
+        Next
+
+        UpdatePaginationButtons()
+        dgvLeave.Select()
+        dgvLeave.CurrentCell = Nothing
+    End Sub
+
+    Private Sub btnPrevious_Click(sender As Object, e As EventArgs) Handles btnPrevious.Click
+        ' Move previous page
+        CurrentPage -= 1
+        LoadDGV()
+        UpdatePaginationButtons()
+    End Sub
+
+    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
+        ' Move next page
+        CurrentPage += 1
+        LoadDGV()
+        UpdatePaginationButtons()
+    End Sub
+
+    Private Sub UpdatePaginationButtons()
+        If CurrentPage = 1 Then
+            btnPrevious.Enabled = False
+        Else
+            btnPrevious.Enabled = True
+        End If
+
+        If CurrentPage = CInt(txtTotalPage.Text) Then
+            btnNext.Enabled = False
+        Else
+            btnNext.Enabled = True
+        End If
+    End Sub
+
+    Private Sub dgvLeave_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvLeave.ColumnHeaderMouseClick
+        FuntionCommon.Sortation.SortDataTableAndPreventSttColumn(dgvLeave, LeaveDatas,
+                                                                 e.ColumnIndex, "stt")
+        LoadDGV()
+    End Sub
+
+    Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
+        If e.KeyChar = Convert.ToChar(Keys.Enter) Then
+            If Not FuntionCommon.Validation.IsIntegerNumber(txtCurrentPage.Text) Then
+                MessageBox.Show(Message.Message.errorNumberType, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                txtCurrentPage.Text = CurrentPage
+                Exit Sub
+            End If
+
+            Dim CurrPage = CInt(txtCurrentPage.Text)
+            Dim totalPages = Math.Ceiling(dgvLeave.Rows.Count / RowsPerPage) + 1
+            If CurrPage < 1 OrElse CurrPage > totalPages Then
+                MessageBox.Show(Message.Message.errorPageNumber, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                txtCurrentPage.Text = CurrentPage
+                Exit Sub
+            End If
+
+            CurrentPage = CurrPage
+            LoadDGV()
         End If
     End Sub
 End Class
