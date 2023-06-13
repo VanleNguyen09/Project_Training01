@@ -32,8 +32,9 @@ Public Class frm_EmpInDept
         cb_Department.SelectedIndex = 0
         cb_DepCreate.SelectedIndex = 0
         cb_EmpCreate.SelectedIndex = 0
+        dgv_DeptEmp.Columns("No").SortMode = DataGridViewColumnSortMode.NotSortable
         EnableAdd()
-
+        CustomElements.MovingForm(Me)
         Select_Departments()
         Select_Employees()
         LoadData()
@@ -119,7 +120,7 @@ Public Class frm_EmpInDept
             con.Close()
         End Using
 
-        Pagination.PaginateDataGridView(dgv_DeptEmp, 1)
+        Pagination.PaginateDataGridView(dgv_DeptEmp, currentPage)
 
     End Sub
     Private Sub Select_Departments()
@@ -676,15 +677,11 @@ Public Class frm_EmpInDept
     End Sub
 
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
-        Dim dashboard As New NewDashboard
         Me.Close()
-        dashboard.Show()
     End Sub
 
     Private Sub gbtn_Exit_Click(sender As Object, e As EventArgs) Handles gbtn_Exit.Click
-        Dim dashboard As New NewDashboard
         Me.Close()
-        dashboard.Show()
     End Sub
 
     Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
@@ -709,15 +706,20 @@ Public Class frm_EmpInDept
         End If
     End Sub
 
-    Private Sub lbl_Page_Click(sender As Object, e As EventArgs) Handles lbl_Page.Click
-
-    End Sub
-
     Private Sub frm_EmpInDept_MouseEnter(sender As Object, e As EventArgs) Handles MyBase.MouseEnter
         ptb_Icon.Cursor = Cursors.Hand
     End Sub
 
     Private Sub frm_EmpInDept_MouseLeave(sender As Object, e As EventArgs) Handles MyBase.MouseLeave
         ptb_Icon.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub dgv_DeptEmp_Sorted(sender As Object, e As EventArgs) Handles dgv_DeptEmp.Sorted
+        'If it is No column, sorted normal, and No is not sorted
+        If dgv_DeptEmp.SortedColumn.Name <> "No" Then
+            For i As Integer = 0 To dgv_DeptEmp.Rows.Count - 1
+                dgv_DeptEmp.Rows(i).Cells("No").Value = (i + 1).ToString()
+            Next
+        End If
     End Sub
 End Class

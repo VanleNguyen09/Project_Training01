@@ -31,8 +31,10 @@ Partial Class Login
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.closeApp = New System.Windows.Forms.PictureBox()
+        Me.ptb_TogglePassword = New System.Windows.Forms.PictureBox()
         Me.Panel1.SuspendLayout()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ptb_TogglePassword, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtEmail
@@ -138,12 +140,22 @@ Partial Class Login
         Me.closeApp.TabIndex = 8
         Me.closeApp.TabStop = False
         '
+        'ptb_TogglePassword
+        '
+        Me.ptb_TogglePassword.Location = New System.Drawing.Point(297, 177)
+        Me.ptb_TogglePassword.Name = "ptb_TogglePassword"
+        Me.ptb_TogglePassword.Size = New System.Drawing.Size(41, 30)
+        Me.ptb_TogglePassword.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ptb_TogglePassword.TabIndex = 9
+        Me.ptb_TogglePassword.TabStop = False
+        '
         'Login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.ClientSize = New System.Drawing.Size(401, 345)
+        Me.Controls.Add(Me.ptb_TogglePassword)
         Me.Controls.Add(Me.closeApp)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Panel1)
@@ -162,6 +174,7 @@ Partial Class Login
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ptb_TogglePassword, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -176,4 +189,5 @@ Partial Class Login
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents Label1 As Label
     Friend WithEvents closeApp As PictureBox
+    Friend WithEvents ptb_TogglePassword As PictureBox
 End Class

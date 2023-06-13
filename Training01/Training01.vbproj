@@ -244,6 +244,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Department.resx">
       <DependentUpon>Department.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EditLeaveForm.resx">
       <DependentUpon>EditLeaveForm.vb</DependentUpon>
@@ -325,6 +326,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\view.png" />
+    <None Include="Resources\hide.png" />
     <Content Include="Resources\mobilemenu_icon.jfif" />
     <Content Include="Resources\th.jfif" />
     <None Include="Resources\red-arrow-2-way.png" />
