@@ -35,6 +35,8 @@
         Shared employeeDuplicate As String = "Duplicate employee entry!!!"
         Shared yearInvalidError As String = "Year is invalid. Please try again!!!"
         Shared imageEmptyError As String = "Please select an image. Let's try again!!!"
+        Shared errorNumberType As String = "Content is not number! Please enter again!!!"
+        Shared errorPageNumber As String = "The number of entries cannot be less than 1 or exceed the total number of pages!"
     End Structure
 
     Public Structure Title

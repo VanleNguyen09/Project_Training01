@@ -1,11 +1,14 @@
 ﻿Imports System.Data.SqlClient
+
 Public Class EmpByPos
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
-
+    Private RowsPerPage As Integer = 10
+    Private CurrentPage As Integer = 1
+    Private EmpByPosDatas As New DataTable
     '------------- EVENTS -------------
     Private Sub cb_search_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbSearch.SelectedIndexChanged
-        Dim posId As String = cbSearch.SelectedItem.Key
-        LoadDgvEmps(posId) 'Load dataGridView for employees list
+        CurrentPage = 1
+        LoadEmpByPosDatas() 'Load dataGridView for employees list
     End Sub
 
     Private Sub Load_cbPosCreate_cbSearch()
@@ -86,7 +89,6 @@ Public Class EmpByPos
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim empId As Integer = cbEmpCreate.SelectedItem.Key
         Dim posId As Integer = cbPosCreate.SelectedItem.Key
-        Dim posIndex As Integer = cbPosCreate.SelectedIndex
 
         Dim titleMsgBox = Message.Title.error
         Dim buttons = MessageBoxButtons.OK
@@ -114,7 +116,7 @@ Public Class EmpByPos
                     MessageBox.Show(Message.Message.successfullAddPosForThisEmp, titleMsgBox, buttons)
 
                     'Reload Data
-                    ReloadDGVEmps(posId, posIndex)
+                    LoadEmpByPosDatas()
                 Catch ex As Exception
                     'If this position is existed for this employee
                     MessageBox.Show(Message.Message.existedPosForThisEmp, titleMsgBox, buttons)
@@ -175,7 +177,7 @@ Public Class EmpByPos
 
                     MessageBox.Show(Message.Message.successfullDeleteEmpPos, Message.Title.notif, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     'Reload Data
-                    LoadDgvEmps(cbSearch.SelectedItem.Key)
+                    LoadEmpByPosDatas()
                 Catch ex As Exception
                     MsgBox($"ERROR Delete: {ex.Message}")
                 Finally
@@ -201,17 +203,8 @@ Public Class EmpByPos
         Me.Close()
     End Sub
 
-    Private Sub dgvEmpByPos_Sorted(sender As Object, e As EventArgs) Handles dgvEmpByPos.Sorted
-        'If it is stt column, sorted normal 
-        If dgvEmpByPos.SortedColumn.Name <> "stt" Then
-            For i As Integer = 0 To dgvEmpByPos.Rows.Count - 1
-                dgvEmpByPos.Rows(i).Cells("stt").Value = (i + 1).ToString()
-            Next
-        End If
-    End Sub
-
     Private Sub EmpByPos_Click(sender As Object, e As EventArgs) Handles MyBase.Click
-        LoadDgvEmps(cbSearch.SelectedItem.Key)
+        LoadEmpByPosDatas()
         dgvEmpByPos.EndEdit()
         'Remove selected cell
         dgvEmpByPos.CurrentCell = Nothing
@@ -223,7 +216,22 @@ Public Class EmpByPos
     End Sub
 
     '------------- FUNCTIONS -------------
-    Private Sub LoadDgvEmps(posId As Integer)
+    Private Sub UpdatePaginationButtons()
+        If CurrentPage = 1 Then
+            btnPrevious.Enabled = False
+        Else
+            btnPrevious.Enabled = True
+        End If
+
+        If CurrentPage = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage) Then
+            btnNext.Enabled = False
+        Else
+            btnNext.Enabled = True
+        End If
+    End Sub
+
+    Private Sub LoadEmpByPosDatas()
+        Dim posId As Integer = cbSearch.SelectedItem.Key
         Try
             If con.State() <> 1 Then
                 con.Open()
@@ -236,18 +244,12 @@ Public Class EmpByPos
                 cmd.Parameters.AddWithValue("pos_id", posId)
 
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
-                dgvEmpByPos.Rows.Clear()
+                EmpByPosDatas.Rows.Clear()
+                EmpByPosDatas.Load(reader)
 
-                While reader.Read
-                    dgvEmpByPos.Rows.Add(New String() {
-                                         reader("stt").ToString(), reader("id").ToString(),
-                                         reader("name").ToString(), reader("phone").ToString(),
-                                         reader("email").ToString(), reader("birthday").ToString(),
-                                         reader("pos_name").ToString(), reader("pos_id").ToString()})
-                End While
-
-                'Remove selected cell
-                dgvEmpByPos.CurrentCell = Nothing
+                'Load in datagridview
+                LoadDGV()
+                txtTotalPage.Text = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
             End Using
         Catch ex As Exception
             MsgBox($"ERROR Load_DgvEmps: {ex.Message}")
@@ -256,12 +258,69 @@ Public Class EmpByPos
         End Try
     End Sub
 
-    Private Sub ReloadDGVEmps(posId As Integer, posIndex As Integer)
-        If (cbSearch.SelectedIndex = posIndex) Then
-            LoadDgvEmps(posId) 'Change Event doesn't run so call the function
-        Else
-            cbSearch.SelectedIndex = posIndex 'Change Event runs when cbSearch is changed 
+    Private Sub btnPrevious_Click(sender As Object, e As EventArgs) Handles btnPrevious.Click
+        ' Move previous page
+        CurrentPage -= 1
+        LoadDGV()
+        UpdatePaginationButtons()
+    End Sub
+
+    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
+        ' Move next page
+        CurrentPage += 1
+        LoadDGV()
+        UpdatePaginationButtons()
+    End Sub
+
+    Private Sub LoadDGV()
+        Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
+        txtCurrentPage.Text = CurrentPage
+        Dim pagingDatas = FuntionCommon.Pagination.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, EmpByPosDatas)
+        dgvEmpByPos.Rows.Clear()
+
+        For i As Integer = 0 To pagingDatas.Rows.Count - 1
+            Dim stt = pagingDatas.Rows(i)("stt").ToString()
+            Dim id = pagingDatas.Rows(i)("id").ToString()
+            Dim name = pagingDatas.Rows(i)("name").ToString()
+            Dim phone = pagingDatas.Rows(i)("phone").ToString()
+            Dim email = pagingDatas.Rows(i)("email").ToString()
+            Dim birthday = pagingDatas.Rows(i)("birthday").ToString().Split(" ")(0) 'Only get date
+            Dim posName = pagingDatas.Rows(i)("pos_name").ToString()
+            Dim pos_id = pagingDatas.Rows(i)("pos_id").ToString()
+            dgvEmpByPos.Rows.Add(New String() {stt, id, name, phone, email, birthday, posName, pos_id})
+        Next
+
+        UpdatePaginationButtons()
+        dgvEmpByPos.Select()
+        dgvEmpByPos.CurrentCell = Nothing
+    End Sub
+
+    Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
+        If e.KeyChar = Convert.ToChar(Keys.Enter) Then
+            If Not FuntionCommon.Validation.IsIntegerNumber(txtCurrentPage.Text) Then
+                MessageBox.Show(Message.Message.errorNumberType, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                txtCurrentPage.Text = CurrentPage
+                Exit Sub
+            End If
+
+            Dim CurrPage = CInt(txtCurrentPage.Text)
+            Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
+            If CurrPage < 1 OrElse CurrPage > totalPages Then
+                MessageBox.Show(Message.Message.errorPageNumber, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                txtCurrentPage.Text = CurrentPage
+                Exit Sub
+            End If
+
+            CurrentPage = CurrPage
+            LoadDGV()
         End If
     End Sub
 
+    Private Sub dgvEmpByPos_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvEmpByPos.ColumnHeaderMouseClick
+        Dim replaceColumnNameList As New Dictionary(Of String, String)
+        replaceColumnNameList.Add("emp_name", "name")
+        FuntionCommon.Sortation.SortDataTableAndPreventSttColumn(dgvEmpByPos, EmpByPosDatas,
+                                                                 e.ColumnIndex, "stt", replaceColumnNameList)
+        LoadDGV()
+    End Sub
 End Class
