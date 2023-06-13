@@ -1,9 +1,5 @@
-﻿Imports System.ComponentModel
-Imports System.Data.SqlClient
-
+﻿Imports System.Data.SqlClient
 Imports System.IO
-Imports Guna.UI2.WinForms
-
 Public Class frm_Employee
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
 
@@ -24,7 +20,14 @@ Public Class frm_Employee
 
     Private selectedEmployees As Selected_Employees = New Selected_Employees()
 
-    Dim currentPage As Integer = 1
+    Private currentPage As Integer = GlobalVariables.currentPage
+    Private totalPages As Integer = GlobalVariables.totalPages
+    Private pageSize As Integer = GlobalVariables.pageSize
+    Private totalRows As Integer = GlobalVariables.totalRows
+
+    Dim titleMsgBox As String = "notification"
+    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
+    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
 
     Private Sub Employee_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CustomElements.AddClearButtonInsideTextBox(txt_Search, "pbCloseSearch", Sub()
@@ -151,7 +154,6 @@ Public Class frm_Employee
 
                     MessageBox.Show("Employee has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                 End Using
-                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Finally
@@ -193,7 +195,6 @@ Public Class frm_Employee
 
                     MessageBox.Show("Employee has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                 End Using
-                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Finally
@@ -285,12 +286,12 @@ Public Class frm_Employee
         rdo_Female.Checked = False
         dtp_Birthday.Value = Date.Now()
         ptb_Employee.Image = Nothing
+        currentPage = 1
+        ptb_Next.Enabled = True
+        ptb_Previous.Enabled = False
         dgrv_Employee.ClearSelection()
     End Sub
 
-    Dim titleMsgBox As String = "notification"
-    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
-    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
     Private Sub SearchEmployeesByKeyword(ByVal keyword As String)
         If con.State <> 1 Then
             con.Open()
@@ -380,9 +381,9 @@ Public Class frm_Employee
         values.Add(EmployeeParameters.Email, email)
         values.Add(EmployeeParameters.Image, img)
 
-
         Add_Employees(values)
         ClearForm()
+        LoadData()
     End Sub
 
     Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
@@ -447,6 +448,7 @@ Public Class frm_Employee
         Update_Employee(values)
         EnableAdd()
         ClearForm()
+        LoadData()
     End Sub
 
     Private Sub dgrv_employee_cellclick(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Employee.CellClick
@@ -498,9 +500,9 @@ Public Class frm_Employee
                     Dim selectedRow As DataGridViewRow = selectedRows(i)
                     Dim id As Integer = CInt(selectedRow.Cells(employeeIdColumn.Index).Value)
                     Delete_Employee(id)
+                    ClearForm()
                 Next
                 LoadData()
-                ClearForm()
                 EnableAdd()
             Else
                 MessageBox.Show("Unable to find the employee ID column.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -568,6 +570,8 @@ Public Class frm_Employee
 
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
+        LoadData()
+
         EnableAdd()
     End Sub
 
@@ -637,30 +641,41 @@ Public Class frm_Employee
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
 
+    Private Sub UpdatePaginationPicBox()
+        If currentPage = 1 Then
+            ptb_Previous.Enabled = False
+        Else
+            ptb_Previous.Enabled = True
+        End If
+
+        If currentPage = Math.Ceiling(dgrv_Employee.Rows.Count / pageSize) Then
+            ptb_Next.Enabled = False
+        Else
+            ptb_Next.Enabled = True
+        End If
+    End Sub
+
     Private Sub ptb_Previous_Click(sender As Object, e As EventArgs) Handles ptb_Previous.Click
         If currentPage > 1 Then
             currentPage -= 1
             Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
         End If
+        UpdatePaginationPicBox()
     End Sub
 
     Private Sub ptb_Next_Click(sender As Object, e As EventArgs) Handles ptb_Next.Click
-        Dim totalRows As Integer = dgrv_Employee.Rows.Count
-        Dim pageSize As Integer = 10
-        Dim totalPages As Integer = Math.Ceiling(totalRows / pageSize)
+        totalRows = dgrv_Employee.Rows.Count
+        totalPages = Math.Ceiling(totalRows / pageSize)
 
         If currentPage < totalPages Then
             currentPage += 1
             Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
         End If
+        UpdatePaginationPicBox()
     End Sub
 
-    Private Sub dgrv_Employee_Sorted(sender As Object, e As EventArgs) Handles dgrv_Employee.Sorted
-        'If it is No column, sorted normal, and No is not sorted
-        If dgrv_Employee.SortedColumn.Name <> "No" Then
-            For i As Integer = 0 To dgrv_Employee.Rows.Count - 1
-                dgrv_Employee.Rows(i).Cells("No").Value = (i + 1).ToString()
-            Next
-        End If
+    Private Sub dgrv_Employee_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgrv_Employee.ColumnHeaderMouseClick
+        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Employee, e.ColumnIndex, "No")
+        Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
     End Sub
 End Class

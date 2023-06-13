@@ -1,12 +1,23 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
 Imports iTextSharp.text
-Imports iTextSharp.text.FontFactory
 Imports iTextSharp.text.pdf
 
 Public Class frm_Manager
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private Property DeptmangerId As Integer
+    Private currentPage As Integer = GlobalVariables.currentPage
+    Private totalPages As Integer = GlobalVariables.totalPages
+    Private pageSize As Integer = GlobalVariables.pageSize
+    Private totalRows As Integer = GlobalVariables.totalRows
+
+    Dim titleMsgBox As String = "Notification"
+    Dim titleErrorBox As String = "Error"
+    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
+    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
+    Dim errorIcons As MessageBoxIcon = MessageBoxIcon.Error
+
+    Private selectedEmpId As Integer
 
     Private Class Selected_Managers
         Public department_name As String = ""
@@ -71,7 +82,10 @@ Public Class frm_Manager
         cb_EmpCreate.Enabled = True
         dtp_ToDate.Value = Date.Now()
         dgv_DeptManager.ClearSelection()
+        ptb_Next.Enabled = True
+        ptb_Previous.Enabled = False
         grb_create.Enabled = True
+        currentPage = 1
     End Sub
 
     Private Class ComboBoxItem
@@ -316,7 +330,6 @@ Public Class frm_Manager
                     cmd.ExecuteNonQuery()
                     MessageBox.Show("Manager has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                 End Using
-                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Finally
@@ -359,7 +372,6 @@ Public Class frm_Manager
                     cmd.ExecuteNonQuery()
                     MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                 End Using
-                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Finally
@@ -450,17 +462,8 @@ Public Class frm_Manager
                 con.Close()
             End Using
         End If
+        Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
     End Sub
-
-    Dim titleMsgBox As String = "Notification"
-    Dim titleErrorBox As String = "Error"
-    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
-    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
-    Dim errorIcons As MessageBoxIcon = MessageBoxIcon.Error
-
-    Dim currentPage As Integer = 1
-
-    Private selectedEmpId As Integer
 
     Private Sub dgv_DeptManager_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgv_DeptManager.CellClick
 
@@ -579,10 +582,12 @@ Public Class frm_Manager
 
         Add_Manager(values)
         ClearForm()
+        LoadData()
     End Sub
 
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
+        LoadData()
         EnableAdd()
     End Sub
     Private Sub gbtn_Manage_Click(sender As Object, e As EventArgs) Handles gbtn_Manage.Click
@@ -607,9 +612,9 @@ Public Class frm_Manager
                         Dim emp_id As Integer = CInt(selectedRow.Cells(empIdColumn.Index).Value)
                         Dim dept_id As Integer = CInt(selectedRow.Cells(deptIdColumn.Index).Value)
                         Delete_Manager(emp_id, dept_id)
+                        ClearForm()
                     Next
                     LoadData()
-                    ClearForm()
                     EnableAdd()
                 End If
             Else
@@ -657,6 +662,7 @@ Public Class frm_Manager
 
         Update_Manager(values)
         ClearForm()
+        LoadData()
         EnableAdd()
     End Sub
 
@@ -689,92 +695,105 @@ Public Class frm_Manager
                 cmd.CommandType = CommandType.StoredProcedure
 
                 Using reader As SqlDataReader = cmd.ExecuteReader()
+                    Dim folderPath As String = ""
+                    Using dialog As New FolderBrowserDialog()
+                        If dialog.ShowDialog() = DialogResult.OK Then
+                            ' Lấy đường dẫn tới thư mục đã chọn.
+                            folderPath = dialog.SelectedPath
 
-                    ' Tạo file PDF mới
-                    Dim document As New Document()
+                            Using saveDialog As New SaveFileDialog()
+                                saveDialog.InitialDirectory = folderPath
+                                saveDialog.Filter = "PDF files (*.pdf)|*.pdf"
+                                If saveDialog.ShowDialog() = DialogResult.OK Then
+                                    ' Lấy đường dẫn tới file đã tạo.
+                                    Dim filePath As String = saveDialog.FileName
+                                    ' Tạo file PDF mới
 
-                    ' Mở tệp PDF để ghi
-                    Dim outputPath As String = "D:\Rikai_Internship_Training_.NET\Project_Training01\output.pdf"
-                    File.Create(outputPath).Close() ' Tạo một tệp mới
-                    Dim outputStream As New FileStream(outputPath, FileMode.Create)
+                                    Dim document As New Document()
 
-                    Dim writer As PdfWriter = PdfWriter.GetInstance(document, outputStream)
+                                    Dim outputStream As New FileStream(filePath, FileMode.Create)
 
-                    ' Mở tài liệu PDF
-                    document.Open()
+                                    Dim writer As PdfWriter = PdfWriter.GetInstance(document, outputStream)
 
-                    Dim fontTitle As Font = FontFactory.GetFont("Arial", 18, FontStyle.Bold, BaseColor.RED)
-                    Dim titleText As String = "Employee Salary Slip"
+                                    ' Mở tài liệu PDF
+                                    document.Open()
 
-                    Dim titleUpper As String = titleText.ToUpper()
+                                    Dim fontTitle As Font = FontFactory.GetFont("Arial", 18, FontStyle.Bold, BaseColor.RED)
+                                    Dim titleText As String = "Employee Salary Slip"
 
-                    Dim title As New Paragraph(titleUpper, fontTitle)
-                    title.Alignment = Element.ALIGN_CENTER
+                                    Dim titleUpper As String = titleText.ToUpper()
 
-                    document.Add(title)
-                    document.Add(Chunk.NEWLINE)
+                                    Dim title As New Paragraph(titleUpper, fontTitle)
+                                    title.Alignment = Element.ALIGN_CENTER
 
-                    ' Tạo font chữ tiếng Việt từ tên font
-                    Dim fontHeader As Font = FontFactory.GetFont("Arial", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12, FontStyle.Bold)
-                    Dim fontContent As Font = FontFactory.GetFont("Arial", BaseFont.IDENTITY_H, BaseFont.EMBEDDED)
+                                    document.Add(title)
+                                    document.Add(Chunk.NEWLINE)
 
-                    ' Tạo danh sách chiều rộng các cột dựa trên số lượng cột và tỷ lệ phần trăm chiều rộng mong muốn
-                    Dim columnWidths() As Single = {10, 30, 25, 45, 30, 30, 25, 25, 25, 25}
+                                    ' Tạo font chữ tiếng Việt từ tên font
+                                    Dim fontHeader As Font = FontFactory.GetFont("Arial", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12, FontStyle.Bold)
+                                    Dim fontContent As Font = FontFactory.GetFont("Arial", BaseFont.IDENTITY_H, BaseFont.EMBEDDED)
 
-                    Dim columnHeaders() As String = {"ID", "Name", "Phone", "Address", "Salary Name",
-                    "Salary", "Department", "From Date", "Position", "From Date"}
+                                    ' Tạo danh sách chiều rộng các cột dựa trên số lượng cột và tỷ lệ phần trăm chiều rộng mong muốn
+                                    Dim columnWidths() As Single = {10, 30, 25, 45, 30, 30, 25, 25, 25, 25}
 
-                    ' Tạo một bảng để chứa nội dung phiếu lương
-                    Dim table As New PdfPTable(columnWidths.Length)
+                                    Dim columnHeaders() As String = {"ID", "Name", "Phone", "Address", "Salary Name",
+                                    "Salary", "Department", "From Date", "Position", "From Date"}
 
-                    table.WidthPercentage = 100 ' Đặt tỷ lệ phần trăm chiều rộng bảng
-                    table.SetWidths(columnWidths) ' Đặt tỷ lệ phần trăm chiều rộng cho các cột
+                                    ' Tạo một bảng để chứa nội dung phiếu lương
+                                    Dim table As New PdfPTable(columnWidths.Length)
 
-                    Dim isFirstRow As Boolean = True
+                                    table.WidthPercentage = 100 ' Đặt tỷ lệ phần trăm chiều rộng bảng
+                                    table.SetWidths(columnWidths) ' Đặt tỷ lệ phần trăm chiều rộng cho các cột
 
-                    ' Thiết lập chiều cao cố định cho các ô trong bảng
-                    table.DefaultCell.FixedHeight = 30 ' Chiều cao 20 (đơn vị pixel)
+                                    Dim isFirstRow As Boolean = True
 
-                    ' Đọc dữ liệu từ SqlDataReader và thêm nội dung vào bảng
-                    While reader.Read()
-                        Dim employeeID As Integer? = If(Not reader.IsDBNull(0), reader.GetInt32(0), Nothing)
-                        Dim employeeName As String = reader.GetString(1)
-                        Dim phone As String = reader.GetString(2)
-                        Dim address As String = reader.GetString(3)
-                        Dim salaryName As String = reader.GetString(4)
-                        Dim salary As Decimal = reader.GetDecimal(5)
-                        Dim department As String = reader.GetString(6)
-                        Dim fromDateDept As DateTime = reader.GetDateTime(7)
-                        Dim postion As String = reader.GetString(8)
-                        Dim fromDatePos As DateTime = reader.GetDateTime(9)
+                                    ' Thiết lập chiều cao cố định cho các ô trong bảng
+                                    table.DefaultCell.FixedHeight = 30 ' Chiều cao 20 (đơn vị pixel)
 
-                        If isFirstRow Then
-                            ' Add column headers in the first row
-                            For Each columnHeader As String In columnHeaders
-                                Dim cell As New PdfPCell(New Phrase(columnHeader, fontHeader))
-                                table.AddCell(cell)
-                            Next
+                                    ' Đọc dữ liệu từ SqlDataReader và thêm nội dung vào bảng
+                                    While reader.Read()
+                                        Dim employeeID As Integer? = If(Not reader.IsDBNull(0), reader.GetInt32(0), Nothing)
+                                        Dim employeeName As String = reader.GetString(1)
+                                        Dim phone As String = reader.GetString(2)
+                                        Dim address As String = reader.GetString(3)
+                                        Dim salaryName As String = reader.GetString(4)
+                                        Dim salary As Decimal = reader.GetDecimal(5)
+                                        Dim department As String = reader.GetString(6)
+                                        Dim fromDateDept As DateTime = reader.GetDateTime(7)
+                                        Dim postion As String = reader.GetString(8)
+                                        Dim fromDatePos As DateTime = reader.GetDateTime(9)
 
-                            isFirstRow = False
+                                        If isFirstRow Then
+                                            ' Add column headers in the first row
+                                            For Each columnHeader As String In columnHeaders
+                                                Dim cell As New PdfPCell(New Phrase(columnHeader, fontHeader))
+                                                table.AddCell(cell)
+                                            Next
+
+                                            isFirstRow = False
+                                        End If
+
+                                        table.AddCell(New PdfPCell(New Phrase(employeeID.ToString(), fontContent)))
+                                        table.AddCell(New PdfPCell(New Phrase(employeeName, fontContent)))
+                                        table.AddCell(New PdfPCell(New Phrase(phone, fontContent)))
+                                        table.AddCell(New PdfPCell(New Phrase(address, fontContent)))
+                                        table.AddCell(New PdfPCell(New Phrase(salaryName, fontContent)))
+                                        table.AddCell(New PdfPCell(New Phrase(salary.ToString(), fontContent)))
+                                        table.AddCell(New PdfPCell(New Phrase(department, fontContent)))
+                                        table.AddCell(New PdfPCell(New Phrase(fromDateDept.ToString(), fontContent)))
+                                        table.AddCell(New PdfPCell(New Phrase(postion, fontContent)))
+                                        table.AddCell(New PdfPCell(New Phrase(fromDatePos.ToString(), fontContent)))
+                                    End While
+
+                                    ' Thêm bảng vào tài liệu PDF
+                                    document.Add(table)
+
+                                    ' Đóng tài liệu PDF
+                                    document.Close()
+                                End If
+                            End Using
                         End If
-
-                        table.AddCell(New PdfPCell(New Phrase(employeeID.ToString(), fontContent)))
-                        table.AddCell(New PdfPCell(New Phrase(employeeName, fontContent)))
-                        table.AddCell(New PdfPCell(New Phrase(phone, fontContent)))
-                        table.AddCell(New PdfPCell(New Phrase(address, fontContent)))
-                        table.AddCell(New PdfPCell(New Phrase(salaryName, fontContent)))
-                        table.AddCell(New PdfPCell(New Phrase(salary.ToString(), fontContent)))
-                        table.AddCell(New PdfPCell(New Phrase(department, fontContent)))
-                        table.AddCell(New PdfPCell(New Phrase(fromDateDept.ToString(), fontContent)))
-                        table.AddCell(New PdfPCell(New Phrase(postion, fontContent)))
-                        table.AddCell(New PdfPCell(New Phrase(fromDatePos.ToString(), fontContent)))
-                    End While
-
-                    ' Thêm bảng vào tài liệu PDF
-                    document.Add(table)
-
-                    ' Đóng tài liệu PDF
-                    document.Close()
+                    End Using
                 End Using
             End Using
             MessageBox.Show("Salary slip has been exported successfully!!!", "Notification", buttons, MessageBoxIcon.Information)
@@ -788,30 +807,42 @@ Public Class frm_Manager
     Private Sub gbtn_ExportPDF_Click(sender As Object, e As EventArgs) Handles gbtn_ExportPDF.Click
         ExportSalarySlipToPDF()
     End Sub
+
+    Private Sub UpdatePaginationPicBox()
+        If currentPage = 1 Then
+            ptb_Previous.Enabled = False
+        Else
+            ptb_Previous.Enabled = True
+        End If
+
+        If currentPage = Math.Ceiling(dgv_DeptManager.Rows.Count / pageSize) Then
+            ptb_Next.Enabled = False
+        Else
+            ptb_Next.Enabled = True
+        End If
+    End Sub
     Private Sub ptb_Previous_Click(sender As Object, e As EventArgs) Handles ptb_Previous.Click
         If currentPage > 1 Then
             currentPage -= 1
             Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
         End If
+        UpdatePaginationPicBox()
     End Sub
 
     Private Sub ptb_Next_Click(sender As Object, e As EventArgs) Handles ptb_Next.Click
-        Dim totalRows As Integer = dgv_DeptManager.Rows.Count
-        Dim pageSize As Integer = 10
-        Dim totalPages As Integer = Math.Ceiling(totalRows / pageSize)
+        totalRows = dgv_DeptManager.Rows.Count
+        totalPages = Math.Ceiling(totalRows / pageSize)
 
         If currentPage < totalPages Then
             currentPage += 1
             Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
         End If
+        UpdatePaginationPicBox()
     End Sub
 
-    Private Sub dgv_DeptManager_Sorted(sender As Object, e As EventArgs) Handles dgv_DeptManager.Sorted
-        'If it is No column, sorted normal, and No is not sorted
-        If dgv_DeptManager.SortedColumn.Name <> "No" Then
-            For i As Integer = 0 To dgv_DeptManager.Rows.Count - 1
-                dgv_DeptManager.Rows(i).Cells("No").Value = (i + 1).ToString()
-            Next
-        End If
+
+    Private Sub dgv_DeptManager_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgv_DeptManager.ColumnHeaderMouseClick
+        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptManager, e.ColumnIndex, "No")
+        Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
     End Sub
 End Class

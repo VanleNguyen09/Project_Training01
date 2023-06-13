@@ -267,7 +267,7 @@ Partial Class frm_Employee
         Me.dgrv_Employee.BackgroundColor = System.Drawing.Color.DarkGray
         Me.dgrv_Employee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgrv_Employee.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.No, Me.EmployeeID, Me.EmployeeName, Me.images, Me.phone, Me.address, Me.gender, Me.birthday, Me.email, Me.status})
-        Me.dgrv_Employee.Location = New System.Drawing.Point(12, 509)
+        Me.dgrv_Employee.Location = New System.Drawing.Point(12, 521)
         Me.dgrv_Employee.Name = "dgrv_Employee"
         Me.dgrv_Employee.RowHeadersVisible = False
         Me.dgrv_Employee.RowHeadersWidth = 51

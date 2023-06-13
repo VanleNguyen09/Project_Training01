@@ -1,11 +1,15 @@
 ﻿Imports System.Data.SqlClient
-Imports System.IO
-Imports System.Net
-Imports System.Runtime.CompilerServices
-Imports iTextSharp.text
 
 Public Class frm_Department
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
+    Dim titleMsgBox As String = "notification"
+    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
+    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
+
+    Private currentPage As Integer = GlobalVariables.currentPage
+    Private totalPages As Integer = GlobalVariables.totalPages
+    Private pageSize As Integer = GlobalVariables.pageSize
+    Private totalRows As Integer = GlobalVariables.totalRows
 
     Private Class Selected_Departments
         Public id As Integer = 0
@@ -24,8 +28,6 @@ Public Class frm_Department
         gbtn_Delete.Enabled = False
         txt_DepartmentID.Enabled = False
         GlobalVariables.lblPage = lbl_Page
-        AddHandler dgrv_Department.ColumnHeaderMouseClick, AddressOf dgrv_Department_ColumnHeaderMouseClick
-
         dgrv_Department.Columns("No").SortMode = DataGridViewColumnSortMode.NotSortable
         EnableAdd()
         LoadData()
@@ -41,9 +43,6 @@ Public Class frm_Department
         Dim number_manager As Integer = Convert.ToInt32(reader("Number_Manager").ToString())
         dgrv_Department.Rows.Add(No, id, name, status, number_emp, number_manager)
     End Sub
-
-    Private currentPage As Integer = 1 ' Trang hiện tại
-
     Public Sub LoadData()
         If con.State <> 1 Then
             con.Open()
@@ -61,10 +60,6 @@ Public Class frm_Department
             con.Close()
         End Using
 
-        ' Gọi hàm SaveInitialNoValues để lưu giá trị ban đầu của cột "No"
-        SaveInitialNoValues()
-
-        ' Gọi hàm PaginateDataGridView sau khi tải dữ liệu
         Pagination.PaginateDataGridView(dgrv_Department, currentPage)
     End Sub
 
@@ -85,12 +80,10 @@ Public Class frm_Department
         txt_Name.Text = String.Empty
         txt_DepartmentID.Text = String.Empty
         dgrv_Department.ClearSelection()
+        ptb_Next.Enabled = True
+        ptb_Previous.Enabled = False
+        currentPage = 1
     End Sub
-
-    Dim titleMsgBox As String = "notification"
-    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
-    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
-
     Private Function CheckDepartmentExit(ByVal name As String) As Boolean
         CheckDepartmentExit = False
         If con.State <> 1 Then
@@ -157,7 +150,6 @@ Public Class frm_Department
 
                     MessageBox.Show("Department has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                 End Using
-                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Finally
@@ -187,7 +179,6 @@ Public Class frm_Department
 
                     MessageBox.Show("Department has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                 End Using
-                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -237,6 +228,8 @@ Public Class frm_Department
             End Using
         Catch ex As Exception
             MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
         End Try
     End Sub
 
@@ -247,9 +240,9 @@ Public Class frm_Department
             MessageBox.Show(Message.Message.emptyDataErrorMessage, titleMsgBox, buttons, icons)
             Return
         End If
-
         Add_Department(name)
         ClearForm()
+        LoadData()
     End Sub
     Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
         Dim name As String = txt_Name.Text
@@ -263,6 +256,7 @@ Public Class frm_Department
         Update_Department(name, id)
         EnableAdd()
         ClearForm()
+        LoadData()
     End Sub
 
     Private Sub dgrv_Department_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Department.CellClick
@@ -287,9 +281,10 @@ Public Class frm_Department
                     Dim selectedRow As DataGridViewRow = selectedRows(i)
                     Dim id As Integer = CInt(selectedRow.Cells(departmentIdColumn.Index).Value)
                     Delete_Department(id)
+                    ClearForm()
                 Next
+
                 LoadData()
-                ClearForm()
                 EnableAdd()
             Else
                 MessageBox.Show("Unable to find the department ID column.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -305,6 +300,7 @@ Public Class frm_Department
     End Sub
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
+        LoadData()
         EnableAdd()
     End Sub
 
@@ -325,45 +321,40 @@ Public Class frm_Department
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
 
+    Private Sub UpdatePaginationPicBox()
+        If currentPage = 1 Then
+            ptb_Previous.Enabled = False
+        Else
+            ptb_Previous.Enabled = True
+        End If
+
+        If currentPage = Math.Ceiling(dgrv_Department.Rows.Count / pageSize) Then
+            ptb_Next.Enabled = False
+        Else
+            ptb_Next.Enabled = True
+        End If
+    End Sub
     Private Sub ptb_Previous_Click(sender As Object, e As EventArgs) Handles ptb_Previous.Click
         If currentPage > 1 Then
             currentPage -= 1
             Pagination.PaginateDataGridView(dgrv_Department, currentPage)
         End If
+        UpdatePaginationPicBox()
     End Sub
 
     Private Sub ptb_Next_Click(sender As Object, e As EventArgs) Handles ptb_Next.Click
-        Dim totalRows As Integer = dgrv_Department.Rows.Count
-        Dim pageSize As Integer = 10 ' Số dòng hiển thị trên mỗi trang
-        Dim totalPages As Integer = Math.Ceiling(totalRows / pageSize)
+        totalRows = dgrv_Department.Rows.Count
+        totalPages = Math.Ceiling(totalRows / pageSize)
 
         If currentPage < totalPages Then
             currentPage += 1
             Pagination.PaginateDataGridView(dgrv_Department, currentPage)
         End If
+        UpdatePaginationPicBox()
     End Sub
 
-    Private initialNoValues As New List(Of Integer)()
-    Private Sub SaveInitialNoValues()
-        ' Xóa dữ liệu cũ
-        initialNoValues.Clear()
-
-        For i As Integer = 0 To dgrv_Department.Rows.Count - 1
-            Dim noValue As Integer = Convert.ToInt32(dgrv_Department.Rows(i).Cells("No").Value)
-            initialNoValues.Add(noValue)
-        Next
-    End Sub
-
-    Private Sub RestoreInitialNoValues()
-        For i As Integer = 0 To dgrv_Department.Rows.Count - 1
-            dgrv_Department.Rows(i).Cells("No").Value = initialNoValues(i)
-        Next
-    End Sub
     Private Sub dgrv_Department_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgrv_Department.ColumnHeaderMouseClick
-        If dgrv_Department.Columns(e.ColumnIndex).Name <> "No" Then
-            ' Gọi hàm RestoreInitialNo sau khi thay đổi dữ liệu
-            RestoreInitialNoValues()
-        End If
-
+        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Department, e.ColumnIndex, "No")
+        Pagination.PaginateDataGridView(dgrv_Department, currentPage)
     End Sub
 End Class
