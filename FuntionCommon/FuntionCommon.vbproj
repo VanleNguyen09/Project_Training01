@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="Pagination.vb" />
     <Compile Include="Sortation.vb" />
+    <Compile Include="SortationNO.vb" />
     <Compile Include="Validation.vb" />
   </ItemGroup>
   <ItemGroup>

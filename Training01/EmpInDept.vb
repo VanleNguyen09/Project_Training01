@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Window
 
 Public Class frm_EmpInDept
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -15,7 +14,11 @@ Public Class frm_EmpInDept
     End Class
 
     Private selectedEmpDept As Selected_EmpDept = New Selected_EmpDept
-
+    Dim titleMsgBox As String = "Notification"
+    Dim titleErrorBox As String = "Error"
+    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
+    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
+    Dim errorIcons As MessageBoxIcon = MessageBoxIcon.Error
     Private Sub frm_EmpInDept_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CustomElements.AddClearButtonInsideTextBox(txt_Search, "pbCloseSearch", Sub()
                                                                                     txt_Search.Text = ""
@@ -40,6 +43,11 @@ Public Class frm_EmpInDept
         LoadData()
     End Sub
 
+    Private currentPage As Integer = GlobalVariables.currentPage
+    Private totalPages As Integer = GlobalVariables.totalPages
+    Private pageSize As Integer = GlobalVariables.pageSize
+    Private totalRows As Integer = GlobalVariables.totalRows
+
     Private Sub EnableAdd()
         gbtn_Add.Enabled = True
         gbtn_Update.Enabled = False
@@ -62,6 +70,9 @@ Public Class frm_EmpInDept
         dtp_ToDate.Value = Date.Now()
         dgv_DeptEmp.ClearSelection()
         grb_create.Enabled = True
+        ptb_Next.Enabled = True
+        ptb_Previous.Enabled = False
+        currentPage = 1
     End Sub
 
     Public Enum EmpDeptParameters
@@ -71,8 +82,6 @@ Public Class frm_EmpInDept
         toDate
         deptEmpId
     End Enum
-
-    Dim currentPage As Integer = 1
 
     Private Class ComboBoxItem
         Public displayvalue As String
@@ -155,13 +164,6 @@ Public Class frm_EmpInDept
             End Using
         End Using
     End Sub
-
-    Dim titleMsgBox As String = "Notification"
-    Dim titleErrorBox As String = "Error"
-    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
-    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
-    Dim errorIcons As MessageBoxIcon = MessageBoxIcon.Error
-
     Private Function CheckManagerExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
         CheckManagerExit = False
         If con.State <> 1 Then
@@ -322,7 +324,6 @@ Public Class frm_EmpInDept
                     cmd.ExecuteNonQuery()
                     MessageBox.Show("Employee Department has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                 End Using
-                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Finally
@@ -365,7 +366,6 @@ Public Class frm_EmpInDept
                     cmd.ExecuteNonQuery()
                     MessageBox.Show("Employee Department has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
                 End Using
-                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Finally
@@ -500,10 +500,12 @@ Public Class frm_EmpInDept
 
         Add_EmpDept(values)
         ClearForm()
+        LoadData()
     End Sub
 
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
+        LoadData()
         EnableAdd()
     End Sub
     Private Sub gbtn_Search_Click(sender As Object, e As EventArgs) Handles gbtn_Search.Click
@@ -534,9 +536,9 @@ Public Class frm_EmpInDept
                         Dim emp_id As Integer = CInt(selectedRow.Cells(empIdColumn.Index).Value)
                         Dim dept_id As Integer = CInt(selectedRow.Cells(deptIdColumn.Index).Value)
                         Delete_EmpDept(emp_id, dept_id)
+                        ClearForm()
                     Next
                     LoadData()
-                    ClearForm()
                     EnableAdd()
                 End If
             Else
@@ -586,6 +588,7 @@ Public Class frm_EmpInDept
         Update_EmpDept(values)
         EnableAdd()
         ClearForm()
+        LoadData()
     End Sub
 
     Private selectedEmpId As Integer
@@ -688,22 +691,37 @@ Public Class frm_EmpInDept
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
 
+    Private Sub UpdatePaginationPicBox()
+        If currentPage = 1 Then
+            ptb_Previous.Enabled = False
+        Else
+            ptb_Previous.Enabled = True
+        End If
+
+        If currentPage = Math.Ceiling(dgv_DeptEmp.Rows.Count / PageSize) Then
+            ptb_Next.Enabled = False
+        Else
+            ptb_Next.Enabled = True
+        End If
+    End Sub
+
     Private Sub ptb_Previous_Click(sender As Object, e As EventArgs) Handles ptb_Previous.Click
         If currentPage > 1 Then
             currentPage -= 1
             Pagination.PaginateDataGridView(dgv_DeptEmp, currentPage)
         End If
+        UpdatePaginationPicBox()
     End Sub
 
     Private Sub ptb_Next_Click(sender As Object, e As EventArgs) Handles ptb_Next.Click
-        Dim totalRows As Integer = dgv_DeptEmp.Rows.Count
-        Dim pageSize As Integer = 10
-        Dim totalPages As Integer = Math.Ceiling(totalRows / pageSize)
+        totalRows = dgv_DeptEmp.Rows.Count
+        totalPages = Math.Ceiling(totalRows / pageSize)
 
         If currentPage < totalPages Then
             currentPage += 1
             Pagination.PaginateDataGridView(dgv_DeptEmp, currentPage)
         End If
+        UpdatePaginationPicBox()
     End Sub
 
     Private Sub frm_EmpInDept_MouseEnter(sender As Object, e As EventArgs) Handles MyBase.MouseEnter
@@ -714,12 +732,8 @@ Public Class frm_EmpInDept
         ptb_Icon.Cursor = Cursors.Default
     End Sub
 
-    Private Sub dgv_DeptEmp_Sorted(sender As Object, e As EventArgs) Handles dgv_DeptEmp.Sorted
-        'If it is No column, sorted normal, and No is not sorted
-        If dgv_DeptEmp.SortedColumn.Name <> "No" Then
-            For i As Integer = 0 To dgv_DeptEmp.Rows.Count - 1
-                dgv_DeptEmp.Rows(i).Cells("No").Value = (i + 1).ToString()
-            Next
-        End If
+    Private Sub dgv_DeptEmp_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgv_DeptEmp.ColumnHeaderMouseClick
+        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptEmp, e.ColumnIndex, "No")
+        Pagination.PaginateDataGridView(dgv_DeptEmp, currentPage)
     End Sub
 End Class

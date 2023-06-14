@@ -88,6 +88,7 @@ Partial Class frm_Department
         'dgrv_Department
         '
         Me.dgrv_Department.AllowUserToAddRows = False
+        Me.dgrv_Department.AllowUserToOrderColumns = True
         Me.dgrv_Department.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgrv_Department.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.No, Me.department_id, Me.department_name, Me.status, Me.Number_Emp, Me.Number_Manager})
         Me.dgrv_Department.Location = New System.Drawing.Point(470, 66)
