@@ -3,7 +3,7 @@
 Public Class Login
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
 
-    Private isPasswordVisible As Boolean = False ' Trạng thái ban đầu của mật khẩu (ẩn)
+    Private isPasswordVisible As Boolean = False ' Initial state of the password (hidden)
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Panel1.BackColor = Color.Transparent
         LinkLabel1.BackColor = Color.Transparent
@@ -51,13 +51,10 @@ Public Class Login
             My.Settings.IsLoggedIn = True
             My.Settings.LoggedInUserEmail = email
             My.Settings.Save()
-            MessageBox.Show("Login succes. User can access to dashboard page", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show(Message.Message.loginSuccess, titleNotif, buttonOK, infoIcon)
 
             Dim dashboard As New NewDashboard()
-            dashboard.LoadUserData() ' Gọi hàm để load dữ liệu người dùng trong form Dashboard
-
-            Me.Hide() ' Ẩn form Login
-            ' Hiển thị form Dashboard
+            Me.Hide()
             dashboard.Show()
         Else
             MessageBox.Show(Message.Message.failedLoginMsg, Message.Title.notif, buttons, MessageBoxIcon.Information)
@@ -120,16 +117,15 @@ Public Class Login
     End Sub
 
     Private Sub ptb_TogglePassword_Click(sender As Object, e As EventArgs) Handles ptb_TogglePassword.Click
-        ' Đảo ngược trạng thái
+        ' Invert state
         isPasswordVisible = Not isPasswordVisible
 
-
-        ' Thực hiện thay đổi trạng thái
+        ' Make a state change
         If isPasswordVisible Then
-            txtPassword.PasswordChar = "*"
+            txtPassword.PasswordChar = ""
             ptb_TogglePassword.Image = My.Resources.view
         Else
-            txtPassword.PasswordChar = ""
+            txtPassword.PasswordChar = "*"
             ptb_TogglePassword.Image = My.Resources.hide
         End If
     End Sub

@@ -35,19 +35,6 @@ Partial Class frm_EmpInDept
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txt_Search = New System.Windows.Forms.TextBox()
         Me.dgv_DeptEmp = New System.Windows.Forms.DataGridView()
-        Me.NO = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.from_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.to_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.dept_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.deptemp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lbl_titleManager = New System.Windows.Forms.Label()
         Me.cb_Department = New System.Windows.Forms.ComboBox()
@@ -61,6 +48,19 @@ Partial Class frm_EmpInDept
         Me.gbtn_Reset = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.gbtn_Delete = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.gbtn_Search = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.NO = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.from_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.to_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.dept_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.deptemp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.grb_create.SuspendLayout()
         CType(Me.dgv_DeptEmp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_Icon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -256,104 +256,8 @@ Partial Class frm_EmpInDept
         Me.dgv_DeptEmp.RowHeadersWidth = 51
         Me.dgv_DeptEmp.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgv_DeptEmp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_DeptEmp.Size = New System.Drawing.Size(1399, 303)
+        Me.dgv_DeptEmp.Size = New System.Drawing.Size(1331, 303)
         Me.dgv_DeptEmp.TabIndex = 89
-        '
-        'NO
-        '
-        Me.NO.HeaderText = "NO"
-        Me.NO.MinimumWidth = 6
-        Me.NO.Name = "NO"
-        Me.NO.ReadOnly = True
-        Me.NO.Width = 50
-        '
-        'emp_id
-        '
-        Me.emp_id.HeaderText = "Emp ID"
-        Me.emp_id.MinimumWidth = 6
-        Me.emp_id.Name = "emp_id"
-        Me.emp_id.Visible = False
-        Me.emp_id.Width = 50
-        '
-        'emp_name
-        '
-        Me.emp_name.HeaderText = "NAME"
-        Me.emp_name.MinimumWidth = 6
-        Me.emp_name.Name = "emp_name"
-        Me.emp_name.Width = 120
-        '
-        'phone
-        '
-        Me.phone.HeaderText = "PHONE"
-        Me.phone.MinimumWidth = 6
-        Me.phone.Name = "phone"
-        Me.phone.Width = 125
-        '
-        'birthday
-        '
-        Me.birthday.HeaderText = "BIRTHDAY"
-        Me.birthday.MinimumWidth = 6
-        Me.birthday.Name = "birthday"
-        Me.birthday.Width = 125
-        '
-        'address
-        '
-        Me.address.HeaderText = "ADDRESS"
-        Me.address.MinimumWidth = 6
-        Me.address.Name = "address"
-        Me.address.Width = 180
-        '
-        'email
-        '
-        Me.email.HeaderText = "EMAIL"
-        Me.email.MinimumWidth = 6
-        Me.email.Name = "email"
-        Me.email.Width = 180
-        '
-        'department_name
-        '
-        Me.department_name.HeaderText = "Department"
-        Me.department_name.MinimumWidth = 6
-        Me.department_name.Name = "department_name"
-        Me.department_name.Width = 125
-        '
-        'from_date
-        '
-        Me.from_date.HeaderText = "From Date"
-        Me.from_date.MinimumWidth = 6
-        Me.from_date.Name = "from_date"
-        Me.from_date.Width = 125
-        '
-        'to_date
-        '
-        Me.to_date.HeaderText = "To Date"
-        Me.to_date.MinimumWidth = 6
-        Me.to_date.Name = "to_date"
-        Me.to_date.Width = 125
-        '
-        'dept_id
-        '
-        Me.dept_id.HeaderText = "Department ID"
-        Me.dept_id.MinimumWidth = 6
-        Me.dept_id.Name = "dept_id"
-        Me.dept_id.Visible = False
-        Me.dept_id.Width = 125
-        '
-        'status
-        '
-        Me.status.HeaderText = "Status"
-        Me.status.MinimumWidth = 6
-        Me.status.Name = "status"
-        Me.status.Visible = False
-        Me.status.Width = 50
-        '
-        'deptemp_id
-        '
-        Me.deptemp_id.HeaderText = "DeptEmp ID"
-        Me.deptemp_id.MinimumWidth = 6
-        Me.deptemp_id.Name = "deptemp_id"
-        Me.deptemp_id.Visible = False
-        Me.deptemp_id.Width = 125
         '
         'Label2
         '
@@ -400,7 +304,7 @@ Partial Class frm_EmpInDept
         Me.ptb_Icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ptb_Icon.ErrorImage = Nothing
         Me.ptb_Icon.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
-        Me.ptb_Icon.Location = New System.Drawing.Point(1471, 0)
+        Me.ptb_Icon.Location = New System.Drawing.Point(1369, 1)
         Me.ptb_Icon.Name = "ptb_Icon"
         Me.ptb_Icon.Size = New System.Drawing.Size(43, 40)
         Me.ptb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -587,6 +491,98 @@ Partial Class frm_EmpInDept
         Me.gbtn_Search.TabIndex = 112
         Me.gbtn_Search.Text = "SEARCH"
         '
+        'NO
+        '
+        Me.NO.HeaderText = "NO"
+        Me.NO.MinimumWidth = 6
+        Me.NO.Name = "NO"
+        Me.NO.ReadOnly = True
+        Me.NO.Width = 50
+        '
+        'emp_id
+        '
+        Me.emp_id.HeaderText = "Emp ID"
+        Me.emp_id.MinimumWidth = 6
+        Me.emp_id.Name = "emp_id"
+        Me.emp_id.Visible = False
+        Me.emp_id.Width = 50
+        '
+        'emp_name
+        '
+        Me.emp_name.HeaderText = "NAME"
+        Me.emp_name.MinimumWidth = 6
+        Me.emp_name.Name = "emp_name"
+        Me.emp_name.Width = 110
+        '
+        'phone
+        '
+        Me.phone.HeaderText = "PHONE"
+        Me.phone.MinimumWidth = 6
+        Me.phone.Name = "phone"
+        '
+        'birthday
+        '
+        Me.birthday.HeaderText = "BIRTHDAY"
+        Me.birthday.MinimumWidth = 6
+        Me.birthday.Name = "birthday"
+        '
+        'address
+        '
+        Me.address.HeaderText = "ADDRESS"
+        Me.address.MinimumWidth = 6
+        Me.address.Name = "address"
+        Me.address.Width = 160
+        '
+        'email
+        '
+        Me.email.HeaderText = "EMAIL"
+        Me.email.MinimumWidth = 6
+        Me.email.Name = "email"
+        Me.email.Width = 160
+        '
+        'department_name
+        '
+        Me.department_name.HeaderText = "Department"
+        Me.department_name.MinimumWidth = 6
+        Me.department_name.Name = "department_name"
+        Me.department_name.Width = 110
+        '
+        'from_date
+        '
+        Me.from_date.HeaderText = "From Date"
+        Me.from_date.MinimumWidth = 6
+        Me.from_date.Name = "from_date"
+        '
+        'to_date
+        '
+        Me.to_date.HeaderText = "To Date"
+        Me.to_date.MinimumWidth = 6
+        Me.to_date.Name = "to_date"
+        '
+        'dept_id
+        '
+        Me.dept_id.HeaderText = "Department ID"
+        Me.dept_id.MinimumWidth = 6
+        Me.dept_id.Name = "dept_id"
+        Me.dept_id.Visible = False
+        Me.dept_id.Width = 125
+        '
+        'status
+        '
+        Me.status.HeaderText = "Status"
+        Me.status.MinimumWidth = 6
+        Me.status.Name = "status"
+        Me.status.Visible = False
+        Me.status.Width = 50
+        '
+        'deptemp_id
+        '
+        Me.deptemp_id.HeaderText = "DeptEmp ID"
+        Me.deptemp_id.MinimumWidth = 6
+        Me.deptemp_id.Name = "deptemp_id"
+        Me.deptemp_id.Visible = False
+        Me.deptemp_id.Width = 125
+        '
         'frm_EmpInDept
         '
         Me.AllowDrop = True
@@ -594,7 +590,7 @@ Partial Class frm_EmpInDept
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1517, 916)
+        Me.ClientSize = New System.Drawing.Size(1414, 916)
         Me.Controls.Add(Me.gbtn_Search)
         Me.Controls.Add(Me.gbtn_Delete)
         Me.Controls.Add(Me.gbtn_Reset)

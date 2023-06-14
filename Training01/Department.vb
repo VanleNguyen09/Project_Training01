@@ -300,7 +300,7 @@ Public Class frm_Department
                 MessageBox.Show("Unable to find the department ID column.", titleError, buttonOK, errorIcon)
             End If
         Else
-            MessageBox.Show("Deletion canceled.", titleInfo, buttonOK, infoIcon)
+            MessageBox.Show(Message.Message.cancelDelete, titleInfo, buttonOK, infoIcon)
         End If
     End Sub
 

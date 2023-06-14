@@ -1,5 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
+Imports System.Text
+Imports System.Web.UI.WebControls
 Imports iTextSharp.text
 Imports iTextSharp.text.pdf
 
@@ -628,7 +630,7 @@ Public Class frm_Manager
                     EnableAdd()
                 End If
             Else
-                MessageBox.Show("Delete canceled.", titleInfo, buttonOK, infoIcon)
+                MessageBox.Show(Message.Message.cancelDelete, titleInfo, buttonOK, infoIcon)
             End If
         End If
     End Sub
@@ -695,6 +697,13 @@ Public Class frm_Manager
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
 
+    Private Function UTF8Encode(ByVal str As String) As String
+        Dim utf8Bytes As Byte() = Encoding.UTF8.GetBytes(str)
+        Dim encodeString As String = Encoding.UTF8.GetString(utf8Bytes)
+
+        Return encodeString
+    End Function
+
     Private Sub ExportSalarySlipToPDF()
         If con.State <> 1 Then
             con.Open()
@@ -715,23 +724,17 @@ Public Class frm_Manager
                                 saveDialog.InitialDirectory = folderPath
                                 saveDialog.Filter = "PDF files (*.pdf)|*.pdf"
                                 If saveDialog.ShowDialog() = DialogResult.OK Then
-                                    ' Lấy đường dẫn tới file đã tạo.
+                                    ' Get the path to the created file.
                                     Dim filePath As String = saveDialog.FileName
                                     Dim tempPath As String = Path.GetTempFileName() + ".pdf"
 
-                                    ' Tạo file PDF mới
-
                                     Dim document As New Document
 
-                                    'Dim document As New Document(iTextSharp.text.PageSize.A4)
                                     document.SetMargins(10, 10, 10, 10)
-
-
                                     Dim outputStream As New FileStream(tempPath, FileMode.Create)
 
                                     Dim writer As PdfWriter = PdfWriter.GetInstance(document, outputStream)
 
-                                    ' Mở tài liệu PDF
                                     document.Open()
 
                                     Dim fontTitle As Font = FontFactory.GetFont("Arial", 18, FontStyle.Bold, BaseColor.RED)
@@ -746,28 +749,28 @@ Public Class frm_Manager
                                     document.Add(title)
                                     document.Add(Chunk.NEWLINE)
 
-                                    ' Tạo font chữ tiếng Việt từ tên font
-                                    Dim fontHeader As Font = FontFactory.GetFont("Arial", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 9, FontStyle.Bold)
-                                    Dim fontContent As Font = FontFactory.GetFont("Arial", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 8)
+                                    Dim fontPath As String = "C:\Windows\Fonts\Arial.ttf"
+                                    Dim baseFont As BaseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED)
 
-                                    ' Tạo danh sách chiều rộng các cột dựa trên số lượng cột và tỷ lệ phần trăm chiều rộng mong muốn
+                                    Dim fontHeader As New Font(baseFont, 9, Font.Bold)
+                                    Dim fontContent As New Font(baseFont, 8)
+
+                                    ' Generate a list of column widths based on desired number of columns and width percentage
                                     Dim columnWidths() As Single = {20, 45, 45, 45, 45, 45, 45, 45, 45, 45}
 
                                     Dim columnHeaders() As String = {"ID", "Name", "Phone", "Address", "Salary Name",
                                     "Salary", "Department", "From Date", "Position", "From Date"}
-
-                                    ' Tạo một bảng để chứa nội dung phiếu lương
                                     Dim table As New PdfPTable(columnWidths.Length)
 
-                                    table.WidthPercentage = 100 ' Đặt tỷ lệ phần trăm chiều rộng bảng
-                                    table.SetWidths(columnWidths) ' Đặt tỷ lệ phần trăm chiều rộng cho các cột
+                                    table.WidthPercentage = 100
+                                    table.SetWidths(columnWidths)
 
                                     Dim isFirstRow As Boolean = True
 
-                                    ' Thiết lập chiều cao cố định cho các ô trong bảng
-                                    table.DefaultCell.FixedHeight = 30 ' Chiều cao 20 (đơn vị pixel)
+                                    ' Set fixed height for table cells
+                                    table.DefaultCell.FixedHeight = 30
 
-                                    ' Đọc dữ liệu từ SqlDataReader và thêm nội dung vào bảng
+                                    ' Read data from SqlDataReader and add content to table
                                     While reader.Read()
                                         Dim employeeID As Integer? = If(Not reader.IsDBNull(0), reader.GetInt32(0), Nothing)
                                         Dim employeeName As String = reader.GetString(1)
@@ -889,5 +892,9 @@ Public Class frm_Manager
     Private Sub dgv_DeptManager_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgv_DeptManager.ColumnHeaderMouseClick
         FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptManager, e.ColumnIndex, "No")
         Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
+    End Sub
+
+    Private Sub lbl_Page_Click(sender As Object, e As EventArgs) Handles lbl_Page.Click
+
     End Sub
 End Class

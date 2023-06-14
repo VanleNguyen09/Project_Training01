@@ -52,6 +52,9 @@
         Shared exportPDFSuccess As String = "Salary slip has been exported successfully!!!"
         Shared exportPDFCancel As String = "Salary slip has been canceled!!!"
         Shared cancelSavePDFSuccess As String = "Cancel save PDF file successly!!!"
+        Shared loginSuccess As String = "Login succes. User can access to dashboard page"
+        Shared logoutSuccess As String = "You logout success!!!"
+        Shared cancelDelete As String = "Deletion canceled."
     End Structure
 
     Public Structure Title

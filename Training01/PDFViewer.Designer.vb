@@ -46,7 +46,7 @@ Partial Class PDFViewer
         gbtn_Cancel.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(128, Byte), Integer))
         gbtn_Cancel.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         gbtn_Cancel.ForeColor = System.Drawing.Color.White
-        gbtn_Cancel.Location = New System.Drawing.Point(843, 44)
+        gbtn_Cancel.Location = New System.Drawing.Point(992, 44)
         gbtn_Cancel.Name = "gbtn_Cancel"
         gbtn_Cancel.Size = New System.Drawing.Size(180, 45)
         gbtn_Cancel.TabIndex = 3
@@ -75,29 +75,24 @@ Partial Class PDFViewer
         '
         'pn_Botttom
         '
-        Me.pn_Botttom.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pn_Botttom.BackColor = System.Drawing.Color.Transparent
         Me.pn_Botttom.BackgroundImage = Global.Training01.My.Resources.Resources.pngtree_simple_blue_tech_lines_background_image_206074
         Me.pn_Botttom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pn_Botttom.Controls.Add(Me.gbtn_OK)
         Me.pn_Botttom.Controls.Add(gbtn_Cancel)
-        Me.pn_Botttom.Location = New System.Drawing.Point(0, 648)
+        Me.pn_Botttom.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pn_Botttom.Location = New System.Drawing.Point(0, 742)
         Me.pn_Botttom.Name = "pn_Botttom"
-        Me.pn_Botttom.Size = New System.Drawing.Size(1416, 133)
+        Me.pn_Botttom.Size = New System.Drawing.Size(1464, 133)
         Me.pn_Botttom.TabIndex = 4
         '
         'AxAcroPDF1
         '
-        Me.AxAcroPDF1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AxAcroPDF1.Enabled = True
-        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 0)
+        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 47)
         Me.AxAcroPDF1.Name = "AxAcroPDF1"
         Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.AxAcroPDF1.Size = New System.Drawing.Size(1416, 781)
+        Me.AxAcroPDF1.Size = New System.Drawing.Size(1603, 781)
         Me.AxAcroPDF1.TabIndex = 1
         '
         'PDFViewer
@@ -106,7 +101,7 @@ Partial Class PDFViewer
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1416, 781)
+        Me.ClientSize = New System.Drawing.Size(1464, 875)
         Me.Controls.Add(Me.pn_Botttom)
         Me.Controls.Add(Me.AxAcroPDF1)
         Me.DoubleBuffered = True

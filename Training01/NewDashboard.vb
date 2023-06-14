@@ -14,6 +14,19 @@ Public Class NewDashboard
     Dim isLoggedIn = My.Settings.IsLoggedIn
     Dim loggedInUserEmail = My.Settings.LoggedInUserEmail
 
+    Dim buttonOK As MessageBoxButtons = GlobalVariables.buttonOK
+    Dim buttonYesNo As MessageBoxButtons = GlobalVariables.buttonYesNo
+    Dim warmIcon As MessageBoxIcon = GlobalVariables.warmIcon
+    Dim questionIcon As MessageBoxIcon = GlobalVariables.questionIcon
+    Dim infoIcon As MessageBoxIcon = GlobalVariables.infoIcon
+    Dim errorIcon As MessageBoxIcon = GlobalVariables.errorIcon
+
+    Dim titleSucces As String = GlobalVariables.titleSucces
+    Dim titleNotif As String = GlobalVariables.titleNotif
+    Dim titleError As String = GlobalVariables.titleError
+    Dim titleConfỉrm As String = GlobalVariables.titleConfirm
+    Dim titleInfo As String = GlobalVariables.titleInfo
+
     Private Sub EnableDoubleBuffering(panel As Panel)
         Dim doubleBufferedProperty = GetType(Control).GetProperty("DoubleBuffered", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic)
         doubleBufferedProperty.SetValue(panel, True, Nothing)
@@ -27,7 +40,6 @@ Public Class NewDashboard
         EnableDoubleBuffering(pn_Sidebar)
         EnableDoubleBuffering(pn_Content)
         Me.Controls.Add(pn_Sidebar)
-        'LoadUserData()
         SetActiveButton(btn_Dashboard)
         CountTotalEmployees()
         CountTotalDepartments()
@@ -78,7 +90,7 @@ Public Class NewDashboard
             End If
         Else
             MessageBox.Show("Please login to access dashboard page!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Me.Hide() ' Đóng form Dashboard
+            Me.Hide()
             Dim login As New Login
             login.ShowDialog()
         End If
@@ -277,15 +289,15 @@ Public Class NewDashboard
     End Function
 
     Private Sub ResetMainPanel()
-        ' Đóng form hiện tại (nếu có)
+        ' Close the current form (if any)
         If currentForm IsNot Nothing Then
             currentForm.Close()
         End If
 
-        ' Xóa các controls trong mainPanel
+        ' Remove controls in main panel
         pn_Main.Controls.Clear()
 
-        ' Hiển thị lại nội dung ban đầu (initialContentPanel) trong mainPanel
+        ' Redisplay initial content (initialContentPanel) in main panel
         pn_Main.Controls.Add(initialContentPanel)
     End Sub
 
@@ -401,12 +413,12 @@ Public Class NewDashboard
         ResetButtonColors(clickedButton)
 
         If isLoggedIn Then
-            Dim result As DialogResult = MessageBox.Show("Are you sure to log out user!!!", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            Dim result As DialogResult = MessageBox.Show("Are you sure to log out user!!!", titleConfirm, buttonYesNo, questionIcon)
 
             If result = DialogResult.Yes Then
                 My.Settings.Reset()
                 ResetFormState()
-                MessageBox.Show("You logout success!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show(Message.Message.logoutSuccess, titleNotif, buttonOK, infoIcon)
                 Dim login As New Login
                 Me.Hide()
                 login.ShowDialog()

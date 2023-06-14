@@ -553,7 +553,7 @@ Public Class frm_EmpInDept
                     EnableAdd()
                 End If
             Else
-                MessageBox.Show("Delete canceled.", titleInfo, buttonOK, infoIcon)
+                MessageBox.Show(Message.Message.cancelDelete, titleInfo, buttonOK, infoIcon)
             End If
         End If
     End Sub

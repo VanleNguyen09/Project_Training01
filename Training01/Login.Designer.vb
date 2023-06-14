@@ -142,6 +142,7 @@ Partial Class Login
         '
         'ptb_TogglePassword
         '
+        Me.ptb_TogglePassword.BackColor = System.Drawing.SystemColors.Window
         Me.ptb_TogglePassword.Location = New System.Drawing.Point(297, 177)
         Me.ptb_TogglePassword.Name = "ptb_TogglePassword"
         Me.ptb_TogglePassword.Size = New System.Drawing.Size(41, 30)

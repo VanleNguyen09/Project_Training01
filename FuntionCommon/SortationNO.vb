@@ -11,7 +11,7 @@ Public Class SortationNO
             originalNoValues(i) = i + 1
         Next
 
-        'Khôi phục lại giá trị của cột "No" sau khi sắp xếp
+        'Restore the value of column "No" after sorting
         For i As Integer = 0 To dgv.Rows.Count - 1
             dgv.Rows(i).Cells(noColumnName).Value = originalNoValues(i)
         Next
