@@ -2,14 +2,24 @@
 
 Public Class frm_Department
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
-    Dim titleMsgBox As String = "notification"
-    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
-    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
+
+    Dim buttonOK As MessageBoxButtons = GlobalVariables.buttonOK
+    Dim buttonYesNo As MessageBoxButtons = GlobalVariables.buttonYesNo
+    Dim warmIcon As MessageBoxIcon = GlobalVariables.warmIcon
+    Dim questionIcon As MessageBoxIcon = GlobalVariables.questionIcon
+    Dim infoIcon As MessageBoxIcon = GlobalVariables.infoIcon
+    Dim errorIcon As MessageBoxIcon = GlobalVariables.errorIcon
 
     Private currentPage As Integer = GlobalVariables.currentPage
     Private totalPages As Integer = GlobalVariables.totalPages
     Private pageSize As Integer = GlobalVariables.pageSize
     Private totalRows As Integer = GlobalVariables.totalRows
+
+    Dim titleSucces As String = GlobalVariables.titleSucces
+    Dim titleNotif As String = GlobalVariables.titleNotif
+    Dim titleError As String = GlobalVariables.titleError
+    Dim titleConfỉrm As String = GlobalVariables.titleConfirm
+    Dim titleInfo As String = GlobalVariables.titleInfo
 
     Private Class Selected_Departments
         Public id As Integer = 0
@@ -100,7 +110,7 @@ Public Class frm_Department
             End Using
         Catch ex As Exception
             CheckDepartmentExit = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -124,7 +134,7 @@ Public Class frm_Department
             End Using
         Catch ex As Exception
             CheckDepartmentExitForUpdate = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -134,7 +144,7 @@ Public Class frm_Department
     Public Sub Add_Department(ByVal name As String)
         Dim status As Integer = 1
         If CheckDepartmentExit(name) Then
-            MessageBox.Show(Message.Message.departmentDuplicate, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.departmentDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then
@@ -148,10 +158,10 @@ Public Class frm_Department
 
                     cmd.ExecuteNonQuery()
 
-                    MessageBox.Show("Department has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                    MessageBox.Show(Message.Message.departmentAddSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
             Catch ex As Exception
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
                 con.Close()
             End Try
@@ -162,7 +172,7 @@ Public Class frm_Department
         Dim status As Integer = 1
 
         If CheckDepartmentExitForUpdate(name, id) Then
-            MessageBox.Show(Message.Message.departmentDuplicate, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.departmentDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then
@@ -177,10 +187,10 @@ Public Class frm_Department
                     cmd.Parameters.AddWithValue("@status", status)
                     cmd.ExecuteNonQuery()
 
-                    MessageBox.Show("Department has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                    MessageBox.Show(Message.Message.departmentUpdateSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
             Catch ex As Exception
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             End Try
         End If
     End Sub
@@ -203,7 +213,7 @@ Public Class frm_Department
                         No += 1
                     End While
                 Else
-                    MessageBox.Show(Message.Message.errorInvalidSearch, titleMsgBox, buttons, icons)
+                    MessageBox.Show(Message.Message.errorInvalidSearch, titleNotif, buttonOK, warmIcon)
                     reload = True
                 End If
             End Using
@@ -227,7 +237,7 @@ Public Class frm_Department
                 cmd.ExecuteNonQuery()
             End Using
         Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -237,7 +247,7 @@ Public Class frm_Department
         Dim name As String = txt_Name.Text
 
         If String.IsNullOrEmpty(name) Then
-            MessageBox.Show(Message.Message.emptyDataErrorMessage, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.emptyDataErrorMessage, titleNotif, buttonOK, warmIcon)
             Return
         End If
         Add_Department(name)
@@ -249,7 +259,7 @@ Public Class frm_Department
         Dim id As Integer = CInt(txt_DepartmentID.Text)
 
         If String.IsNullOrEmpty(name) Then
-            MessageBox.Show(Message.Message.emptyDataErrorMessage, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.emptyDataErrorMessage, titleNotif, buttonOK, warmIcon)
             Return
         End If
 
@@ -273,10 +283,10 @@ Public Class frm_Department
     Private Sub gbtn_Delete_Click(sender As Object, e As EventArgs) Handles gbtn_Delete.Click
         Dim selectedRows As DataGridViewSelectedRowCollection = dgrv_Department.SelectedRows
 
-        If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected department? Employee involved will also be deleted", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+        If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected department? Employee involved will also be deleted", titleConfỉrm, buttonYesNo, questionIcon) = DialogResult.Yes Then
             Dim departmentIdColumn As DataGridViewColumn = dgrv_Department.Columns("department_id") ' Replace "name" with the actual column name for department ID
             If departmentIdColumn IsNot Nothing Then
-                MessageBox.Show("Department has been deleted successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                MessageBox.Show(Message.Message.departmentDeleteSuccess, titleSucces, buttonOK, infoIcon)
                 For i As Integer = 0 To selectedRows.Count - 1
                     Dim selectedRow As DataGridViewRow = selectedRows(i)
                     Dim id As Integer = CInt(selectedRow.Cells(departmentIdColumn.Index).Value)
@@ -287,10 +297,10 @@ Public Class frm_Department
                 LoadData()
                 EnableAdd()
             Else
-                MessageBox.Show("Unable to find the department ID column.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Unable to find the department ID column.", titleError, buttonOK, errorIcon)
             End If
         Else
-            MessageBox.Show("Deletion canceled.", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Deletion canceled.", titleInfo, buttonOK, infoIcon)
         End If
     End Sub
 
@@ -300,7 +310,7 @@ Public Class frm_Department
     End Sub
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
-        LoadData()
+        Pagination.PaginateDataGridView(dgrv_Department, currentPage)
         EnableAdd()
     End Sub
 
@@ -309,7 +319,7 @@ Public Class frm_Department
         If Not String.IsNullOrEmpty(keyword) Then
             SearchDepartmentsByKeyword(keyword)
         Else
-            MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.emptyDataSearchMessage, titleNotif, buttonOK, warmIcon)
         End If
     End Sub
 

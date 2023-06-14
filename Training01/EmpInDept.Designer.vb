@@ -203,6 +203,7 @@ Partial Class frm_EmpInDept
         Me.gbtn_Add.BackColor = System.Drawing.Color.Transparent
         Me.gbtn_Add.BorderRadius = 8
         Me.gbtn_Add.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Add.Cursor = System.Windows.Forms.Cursors.Hand
         Me.gbtn_Add.CustomBorderColor = System.Drawing.Color.Transparent
         Me.gbtn_Add.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.gbtn_Add.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -244,15 +245,18 @@ Partial Class frm_EmpInDept
         'dgv_DeptEmp
         '
         Me.dgv_DeptEmp.AllowUserToAddRows = False
+        Me.dgv_DeptEmp.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgv_DeptEmp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgv_DeptEmp.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NO, Me.emp_id, Me.emp_name, Me.phone, Me.birthday, Me.address, Me.email, Me.department_name, Me.from_date, Me.to_date, Me.dept_id, Me.status, Me.deptemp_id})
+        Me.dgv_DeptEmp.Cursor = System.Windows.Forms.Cursors.Default
         Me.dgv_DeptEmp.Location = New System.Drawing.Point(42, 491)
         Me.dgv_DeptEmp.Margin = New System.Windows.Forms.Padding(4)
         Me.dgv_DeptEmp.Name = "dgv_DeptEmp"
         Me.dgv_DeptEmp.RowHeadersVisible = False
         Me.dgv_DeptEmp.RowHeadersWidth = 51
+        Me.dgv_DeptEmp.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgv_DeptEmp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_DeptEmp.Size = New System.Drawing.Size(1452, 332)
+        Me.dgv_DeptEmp.Size = New System.Drawing.Size(1399, 303)
         Me.dgv_DeptEmp.TabIndex = 89
         '
         'NO
@@ -261,7 +265,7 @@ Partial Class frm_EmpInDept
         Me.NO.MinimumWidth = 6
         Me.NO.Name = "NO"
         Me.NO.ReadOnly = True
-        Me.NO.Width = 80
+        Me.NO.Width = 50
         '
         'emp_id
         '
@@ -276,7 +280,7 @@ Partial Class frm_EmpInDept
         Me.emp_name.HeaderText = "NAME"
         Me.emp_name.MinimumWidth = 6
         Me.emp_name.Name = "emp_name"
-        Me.emp_name.Width = 130
+        Me.emp_name.Width = 120
         '
         'phone
         '
@@ -290,7 +294,7 @@ Partial Class frm_EmpInDept
         Me.birthday.HeaderText = "BIRTHDAY"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
-        Me.birthday.Width = 140
+        Me.birthday.Width = 125
         '
         'address
         '
@@ -318,14 +322,14 @@ Partial Class frm_EmpInDept
         Me.from_date.HeaderText = "From Date"
         Me.from_date.MinimumWidth = 6
         Me.from_date.Name = "from_date"
-        Me.from_date.Width = 140
+        Me.from_date.Width = 125
         '
         'to_date
         '
         Me.to_date.HeaderText = "To Date"
         Me.to_date.MinimumWidth = 6
         Me.to_date.Name = "to_date"
-        Me.to_date.Width = 140
+        Me.to_date.Width = 125
         '
         'dept_id
         '
@@ -396,7 +400,7 @@ Partial Class frm_EmpInDept
         Me.ptb_Icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ptb_Icon.ErrorImage = Nothing
         Me.ptb_Icon.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
-        Me.ptb_Icon.Location = New System.Drawing.Point(1498, 2)
+        Me.ptb_Icon.Location = New System.Drawing.Point(1471, 0)
         Me.ptb_Icon.Name = "ptb_Icon"
         Me.ptb_Icon.Size = New System.Drawing.Size(43, 40)
         Me.ptb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -407,10 +411,11 @@ Partial Class frm_EmpInDept
         '
         Me.ptb_Next.BackColor = System.Drawing.Color.Transparent
         Me.ptb_Next.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Next.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ptb_Next.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Next.Image = Global.Training01.My.Resources.Resources.right_arrow__1_
         Me.ptb_Next.ImageRotate = 0!
-        Me.ptb_Next.Location = New System.Drawing.Point(782, 844)
+        Me.ptb_Next.Location = New System.Drawing.Point(779, 815)
         Me.ptb_Next.Name = "ptb_Next"
         Me.ptb_Next.Size = New System.Drawing.Size(48, 32)
         Me.ptb_Next.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -421,10 +426,11 @@ Partial Class frm_EmpInDept
         '
         Me.ptb_Previous.BackColor = System.Drawing.Color.Transparent
         Me.ptb_Previous.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Previous.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ptb_Previous.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Previous.Image = Global.Training01.My.Resources.Resources.left_arrow
         Me.ptb_Previous.ImageRotate = 0!
-        Me.ptb_Previous.Location = New System.Drawing.Point(527, 844)
+        Me.ptb_Previous.Location = New System.Drawing.Point(524, 815)
         Me.ptb_Previous.Name = "ptb_Previous"
         Me.ptb_Previous.Size = New System.Drawing.Size(48, 32)
         Me.ptb_Previous.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -437,7 +443,7 @@ Partial Class frm_EmpInDept
         Me.lbl_Page.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Page.Font = New System.Drawing.Font("Times New Roman", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Page.ForeColor = System.Drawing.Color.Azure
-        Me.lbl_Page.Location = New System.Drawing.Point(602, 844)
+        Me.lbl_Page.Location = New System.Drawing.Point(599, 815)
         Me.lbl_Page.Name = "lbl_Page"
         Me.lbl_Page.Size = New System.Drawing.Size(79, 32)
         Me.lbl_Page.TabIndex = 105
@@ -448,6 +454,7 @@ Partial Class frm_EmpInDept
         Me.gbtn_Clear.BackColor = System.Drawing.Color.Transparent
         Me.gbtn_Clear.BorderRadius = 8
         Me.gbtn_Clear.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Clear.Cursor = System.Windows.Forms.Cursors.Hand
         Me.gbtn_Clear.CustomBorderColor = System.Drawing.Color.Transparent
         Me.gbtn_Clear.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.gbtn_Clear.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -470,6 +477,7 @@ Partial Class frm_EmpInDept
         Me.gbtn_Exit.BackColor = System.Drawing.Color.Transparent
         Me.gbtn_Exit.BorderRadius = 8
         Me.gbtn_Exit.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Exit.Cursor = System.Windows.Forms.Cursors.Hand
         Me.gbtn_Exit.CustomBorderColor = System.Drawing.Color.Transparent
         Me.gbtn_Exit.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.gbtn_Exit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -492,6 +500,7 @@ Partial Class frm_EmpInDept
         Me.gbtn_Update.BackColor = System.Drawing.Color.Transparent
         Me.gbtn_Update.BorderRadius = 8
         Me.gbtn_Update.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Update.Cursor = System.Windows.Forms.Cursors.Hand
         Me.gbtn_Update.CustomBorderColor = System.Drawing.Color.Transparent
         Me.gbtn_Update.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.gbtn_Update.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -514,6 +523,7 @@ Partial Class frm_EmpInDept
         Me.gbtn_Reset.BackColor = System.Drawing.Color.Transparent
         Me.gbtn_Reset.BorderRadius = 8
         Me.gbtn_Reset.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Reset.Cursor = System.Windows.Forms.Cursors.Hand
         Me.gbtn_Reset.CustomBorderColor = System.Drawing.Color.Transparent
         Me.gbtn_Reset.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.gbtn_Reset.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -536,6 +546,7 @@ Partial Class frm_EmpInDept
         Me.gbtn_Delete.BackColor = System.Drawing.Color.Transparent
         Me.gbtn_Delete.BorderRadius = 8
         Me.gbtn_Delete.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Delete.Cursor = System.Windows.Forms.Cursors.Hand
         Me.gbtn_Delete.CustomBorderColor = System.Drawing.Color.Transparent
         Me.gbtn_Delete.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.gbtn_Delete.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -558,6 +569,7 @@ Partial Class frm_EmpInDept
         Me.gbtn_Search.BackColor = System.Drawing.Color.Transparent
         Me.gbtn_Search.BorderRadius = 8
         Me.gbtn_Search.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
+        Me.gbtn_Search.Cursor = System.Windows.Forms.Cursors.Hand
         Me.gbtn_Search.CustomBorderColor = System.Drawing.Color.Transparent
         Me.gbtn_Search.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.gbtn_Search.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -582,7 +594,7 @@ Partial Class frm_EmpInDept
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1573, 916)
+        Me.ClientSize = New System.Drawing.Size(1517, 916)
         Me.Controls.Add(Me.gbtn_Search)
         Me.Controls.Add(Me.gbtn_Delete)
         Me.Controls.Add(Me.gbtn_Reset)
@@ -600,6 +612,7 @@ Partial Class frm_EmpInDept
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.lbl_titleManager)
         Me.Controls.Add(Me.cb_Department)
+        Me.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frm_EmpInDept"
@@ -631,6 +644,17 @@ Partial Class frm_EmpInDept
     Friend WithEvents Label2 As Label
     Friend WithEvents lbl_titleManager As Label
     Friend WithEvents cb_Department As ComboBox
+    Friend WithEvents ptb_Icon As PictureBox
+    Friend WithEvents ptb_Next As Guna.UI2.WinForms.Guna2PictureBox
+    Friend WithEvents ptb_Previous As Guna.UI2.WinForms.Guna2PictureBox
+    Friend WithEvents lbl_Page As Label
+    Friend WithEvents gbtn_Add As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Clear As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Exit As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Update As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Reset As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Delete As Guna.UI2.WinForms.Guna2GradientButton
+    Friend WithEvents gbtn_Search As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents NO As DataGridViewTextBoxColumn
     Friend WithEvents emp_id As DataGridViewTextBoxColumn
     Friend WithEvents emp_name As DataGridViewTextBoxColumn
@@ -644,15 +668,4 @@ Partial Class frm_EmpInDept
     Friend WithEvents dept_id As DataGridViewTextBoxColumn
     Friend WithEvents status As DataGridViewTextBoxColumn
     Friend WithEvents deptemp_id As DataGridViewTextBoxColumn
-    Friend WithEvents ptb_Icon As PictureBox
-    Friend WithEvents ptb_Next As Guna.UI2.WinForms.Guna2PictureBox
-    Friend WithEvents ptb_Previous As Guna.UI2.WinForms.Guna2PictureBox
-    Friend WithEvents lbl_Page As Label
-    Friend WithEvents gbtn_Add As Guna.UI2.WinForms.Guna2GradientButton
-    Friend WithEvents gbtn_Clear As Guna.UI2.WinForms.Guna2GradientButton
-    Friend WithEvents gbtn_Exit As Guna.UI2.WinForms.Guna2GradientButton
-    Friend WithEvents gbtn_Update As Guna.UI2.WinForms.Guna2GradientButton
-    Friend WithEvents gbtn_Reset As Guna.UI2.WinForms.Guna2GradientButton
-    Friend WithEvents gbtn_Delete As Guna.UI2.WinForms.Guna2GradientButton
-    Friend WithEvents gbtn_Search As Guna.UI2.WinForms.Guna2GradientButton
 End Class

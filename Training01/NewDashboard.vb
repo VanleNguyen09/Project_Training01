@@ -426,5 +426,4 @@ Public Class NewDashboard
     Private Sub ptb_Icon_MouseLeave(sender As Object, e As EventArgs) Handles ptb_Icon.MouseLeave
         ptb_Icon.Cursor = Cursors.Default
     End Sub
-
 End Class

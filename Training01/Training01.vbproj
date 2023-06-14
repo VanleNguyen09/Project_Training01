@@ -201,6 +201,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pagination.vb" />
+    <Compile Include="PDFViewer.Designer.vb">
+      <DependentUpon>PDFViewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PDFViewer.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Position.Designer.vb">
       <DependentUpon>Position.vb</DependentUpon>
     </Compile>
@@ -283,6 +289,9 @@
     <EmbeddedResource Include="NewDashboard.resx">
       <DependentUpon>NewDashboard.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PDFViewer.resx">
+      <DependentUpon>PDFViewer.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Position.resx">
       <DependentUpon>Position.vb</DependentUpon>
     </EmbeddedResource>
@@ -329,6 +338,7 @@
     <None Include="Resources\view.png" />
     <None Include="Resources\hide.png" />
     <Content Include="Resources\mobilemenu_icon.jfif" />
+    <None Include="Resources\realistic-background-futuristic-style_23-2149129125.jpg" />
     <Content Include="Resources\th.jfif" />
     <None Include="Resources\red-arrow-2-way.png" />
     <None Include="Resources\pngtree-simple-blue-tech-lines-background-image_206074.jpg" />
@@ -370,7 +380,25 @@
     <None Include="Resources\close-btn.jpg" />
     <None Include="Resources\BackgroundLogin.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
       <Visible>False</Visible>
