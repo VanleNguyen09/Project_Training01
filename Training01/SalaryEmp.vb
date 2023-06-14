@@ -1,6 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Threading
-Imports OfficeFunctions = FuntionCommon.CommonOfficeFunctions
 Imports Page = FuntionCommon.Pagination
 
 Public Class SalaryEmp
@@ -482,7 +480,7 @@ Public Class SalaryEmp
                 con.Open()
             End If
 
-            Dim sql = "SELECT e.id, e.name, e.phone, e.birthday, e.email, s.salary_name, s.salary FROM Employees e 
+            Dim sql = "SELECT ROW_NUMBER() OVER(ORDER BY e.id) AS stt, e.id, e.name, e.phone, e.birthday, e.email, s.salary_name, s.salary FROM Employees e 
                         LEFT JOIN SalaryEmp s ON s.id = e.salary_emp_id AND s.status = 1 
                         WHERE e.status = 1"
             Using cmd As SqlCommand = New SqlCommand(sql, con)
@@ -498,28 +496,14 @@ Public Class SalaryEmp
             con.Close()
         End Try
 
-        Dim excelThread = New Thread(Sub() OfficeFunctions.ExportToExcel(data, Sub()
-                                                                                   ShowMessageBox(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                                                                               End Sub))
-        excelThread.SetApartmentState(ApartmentState.STA) 'Single Threaded Apartment
-        CustomElements.ShowCirProgressBar(3, New Size(200, 200))
-        Try
-            excelThread.Start()
-        Catch ex As Exception
-            MessageBox.Show("EXCEL ERROR: " & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-    End Sub
+        ' Get "birthday" date
+        For i As Integer = 0 To data.Rows.Count - 1
+            data.Rows(i)("birthday") = data.Rows(i)("birthday").ToString().Split(" ")(0)
+        Next
 
-    ''' <summary>
-    ''' This function to solve asynchronous when you create message in another thread
-    ''' </summary>
-    Private Sub ShowMessageBox(ByVal message As String, ByVal title As String, ByVal buttons As MessageBoxButtons, ByVal icon As MessageBoxIcon)
-        If Me.InvokeRequired Then
-            Me.BeginInvoke(New Action(Of String, String, MessageBoxButtons, MessageBoxIcon)(AddressOf ShowMessageBox), message, title, buttons, icon)
-            Return
-        End If
-        MessageBox.Show(Me, message, title, buttons, icon)
+        Dim excelPreview As New ExcelPreviewForm
+        excelPreview.Datas = data
+        excelPreview.Show()
     End Sub
 
     Private Sub dgvEmps_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvEmps.ColumnHeaderMouseClick
