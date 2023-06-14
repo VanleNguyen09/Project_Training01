@@ -128,8 +128,10 @@ Partial Class EditLeaveForm
         '
         'cbEmpName
         '
+        Me.cbEmpName.DropDownHeight = 100
         Me.cbEmpName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbEmpName.FormattingEnabled = True
+        Me.cbEmpName.IntegralHeight = False
         Me.cbEmpName.Location = New System.Drawing.Point(182, 113)
         Me.cbEmpName.Name = "cbEmpName"
         Me.cbEmpName.Size = New System.Drawing.Size(207, 24)

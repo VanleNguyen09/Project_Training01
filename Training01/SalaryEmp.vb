@@ -1,9 +1,15 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Threading
 Imports OfficeFunctions = FuntionCommon.CommonOfficeFunctions
+Imports Page = FuntionCommon.Pagination
 
 Public Class SalaryEmp
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
+    Private selectedRowIndexInDGVEmps As Integer = -1
+    Private RowsPerPage As Integer = 7
+    Private CurrentPage As Integer = 1
+    Private EmpsDatas As New DataTable
+    Private SortedColumnIndex As Integer = -1
 
     ''' <summary>
     ''' LOAD THIS FORM
@@ -17,17 +23,17 @@ Public Class SalaryEmp
         CustomElements.AddClearButtonInsideTextBox(txtSearchSalary, "pbClearSalarySearch", Sub()
                                                                                                txtSearchSalary.Text = ""
                                                                                            End Sub)
-        Load_DGV_Emp()
+        LoadEmpsDatas()
+        LoadDGVEmps()
         Load_DGV_SalaryEmp()
 
-        CustomElements.KeepSttColumnUnsorted(dgvEmps, "stt")
         CustomElements.KeepSttColumnUnsorted(dgvSalaries, "salary_stt")
     End Sub
 
     ''' <summary>
     ''' LOAD DATA INTO DATAGRIDVIEW EMP
     ''' </summary>
-    Private Sub Load_DGV_Emp()
+    Private Sub LoadEmpsDatas()
         Dim searchText As String = txtSearch.Text
         Try
             If con.State() <> 1 Then
@@ -40,26 +46,49 @@ Public Class SalaryEmp
                 cmd.Parameters.AddWithValue("words", searchText)
 
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
-                dgvEmps.Rows.Clear()
-
-                While reader.Read
-                    dgvEmps.Rows.Add(New String() {
-                                         reader("stt").ToString(), reader("id").ToString(),
-                                         reader("name").ToString(), reader("phone").ToString(),
-                                         reader("address").ToString(), reader("birthday").ToString().Split(" ")(0),
-                                         reader("email").ToString(), If(reader("salary_emp_id") Is DBNull.Value, -1, reader("salary_emp_id"))})
-                End While
-
-                'Remove selected cell
-                dgvEmps.CurrentCell = Nothing
-                dgvSalaries.Select()
-                dgvSalaries.CurrentCell = Nothing
+                'dgvEmps.Rows.Clear()
+                EmpsDatas.Rows.Clear()
+                EmpsDatas.Load(reader)
             End Using
         Catch ex As Exception
             MessageBox.Show("Load_DGV_Emp: " & Message.Message.errorSQLQuery & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             con.Close()
         End Try
+    End Sub
+
+    Private Sub LoadDGVEmps()
+        Dim totalPages = Math.Ceiling(EmpsDatas.Rows.Count / RowsPerPage)
+        If totalPages = 0 Then
+            CurrentPage = 1
+            totalPages = 1
+        End If
+        txtCurrentPage.Text = CurrentPage
+        txtTotalPage.Text = totalPages
+
+        Dim pagingDatas = Page.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, EmpsDatas)
+        dgvEmps.Rows.Clear()
+
+        For i As Integer = 0 To pagingDatas.Rows.Count - 1
+            Dim stt = pagingDatas.Rows(i)("stt").ToString()
+            Dim id = pagingDatas.Rows(i)("id").ToString()
+            Dim name = pagingDatas.Rows(i)("name").ToString()
+            Dim phone = pagingDatas.Rows(i)("phone").ToString()
+            Dim address = pagingDatas.Rows(i)("address").ToString()
+            Dim birthday = pagingDatas.Rows(i)("birthday").ToString().Split(" ")(0) 'Only get date
+            Dim email = pagingDatas.Rows(i)("email").ToString()
+            Dim salaryEmpId = If(pagingDatas.Rows(i)("salary_emp_id") Is DBNull.Value, -1, pagingDatas.Rows(i)("salary_emp_id"))
+
+            dgvEmps.Rows.Add(New String() {stt, id, name, phone, address, birthday, email, salaryEmpId})
+        Next
+
+        Page.UpdatePaginationButtons(btnPrevious, Page.ButtonType.Previous, totalPages, CurrentPage)
+        Page.UpdatePaginationButtons(btnNext, Page.ButtonType.Next, totalPages, CurrentPage)
+
+        'Remove selected cell
+        dgvEmps.CurrentCell = Nothing
+        dgvSalaries.Select()
+        dgvSalaries.CurrentCell = Nothing
     End Sub
 
     ''' <summary>
@@ -119,7 +148,8 @@ Public Class SalaryEmp
     ''' <param name="e"></param>
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         txtSearch.Controls("pbCloseSearch").Visible = (txtSearch.Text.Length > 0)
-        Load_DGV_Emp()
+        LoadEmpsDatas()
+        LoadDGVEmps()
         txtSearch.Select()
     End Sub
 
@@ -252,7 +282,7 @@ Public Class SalaryEmp
 
         Dim selectedRowDGVEmps As DataGridViewRow = dgvEmps.SelectedRows(0)
         Dim selectedRowDGVSalaries As DataGridViewRow = dgvSalaries.SelectedRows(0)
-        Dim selectedRowIndexInDGVEmps As Integer = selectedRowDGVEmps.Index
+        selectedRowIndexInDGVEmps = selectedRowDGVEmps.Index
         ' Get id of 2 tables
         Dim salaryEmpId As Integer = Convert.ToInt32(selectedRowDGVEmps.Cells("salary_emp_id").Value)
         Dim salaryId As Integer = Convert.ToInt32(selectedRowDGVSalaries.Cells("salary_id").Value)
@@ -280,8 +310,6 @@ Public Class SalaryEmp
                         cmd.Parameters.AddWithValue("emp_id", empId)
                         cmd.Parameters.AddWithValue("salary_id", salaryId)
                         cmd.ExecuteNonQuery()
-
-                        MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End Using
                 Catch ex As Exception
                     MessageBox.Show("btnUpdate_Click: " & Message.Message.errorSQLQuery & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -290,12 +318,9 @@ Public Class SalaryEmp
                     con.Close()
                 End Try
 
-                ' Reload again and Select again
-                Load_DGV_Emp()
-
-                dgvEmps.CurrentCell = dgvEmps.Rows(selectedRowIndexInDGVEmps).Cells(0)
-                'dgvEmps.FirstDisplayedScrollingRowIndex = selectedRowIndexInDGVEmps
-                dgvEmps_SelectionChanged(sender, e)
+                'LoadEmpsDatas()
+                CustomElements.ShowCirProgressBar(2, New Size(200, 200), Sub() MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK, MessageBoxIcon.Information))
+                bwLoadEmpsDatas.RunWorkerAsync() 'Load datagridview Async
         End Select
     End Sub
 
@@ -495,5 +520,50 @@ Public Class SalaryEmp
             Return
         End If
         MessageBox.Show(Me, message, title, buttons, icon)
+    End Sub
+
+    Private Sub dgvEmps_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvEmps.ColumnHeaderMouseClick
+        SortedColumnIndex = e.ColumnIndex 'Save sortIndex
+
+        Dim replaceColumnNameList As New Dictionary(Of String, String)
+        replaceColumnNameList.Add("emp_name", "name")
+        FuntionCommon.Sortation.SortDataTableAndPreventSttColumn(dgvEmps, EmpsDatas,
+                                                                 e.ColumnIndex, "stt", replaceColumnNameList)
+        LoadDGVEmps()
+    End Sub
+
+    Private Sub btnPrevious_Click(sender As Object, e As EventArgs) Handles btnPrevious.Click
+        Dim totalPages = Math.Ceiling(EmpsDatas.Rows.Count / RowsPerPage)
+        Dim btnType = Page.ButtonType.Previous
+        Page.ClickPreviousButton(btnPrevious, btnType, totalPages, CurrentPage, Sub() LoadDGVEmps())
+    End Sub
+
+    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
+        Dim totalPages = Math.Ceiling(EmpsDatas.Rows.Count / RowsPerPage)
+        Dim btnType = Page.ButtonType.Next
+        Page.ClickNextButton(btnNext, btnType, totalPages, CurrentPage, Sub() LoadDGVEmps())
+    End Sub
+
+    Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
+        Dim totalPages = Math.Ceiling(EmpsDatas.Rows.Count / RowsPerPage)
+        Page.PressEnterKeyTxtCurrentPage(txtCurrentPage, CurrentPage, totalPages, e.KeyChar, Sub() LoadDGVEmps())
+    End Sub
+
+    Private Sub bwLoadEmpsDatas_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwLoadEmpsDatas.DoWork
+        dgvEmps.Invoke(New MethodInvoker(Sub()
+                                             LoadEmpsDatas()
+                                             If SortedColumnIndex > -1 Then
+                                                 Dim replaceColumnNameList As New Dictionary(Of String, String)
+                                                 replaceColumnNameList.Add("emp_name", "name")
+                                                 FuntionCommon.Sortation.SortDataTableAndPreventSttColumn(dgvEmps, EmpsDatas,
+                                                                                                          SortedColumnIndex, "stt", replaceColumnNameList)
+                                             End If
+                                             LoadDGVEmps()
+                                         End Sub))
+    End Sub
+
+    Private Sub bwLoadEmpsDatas_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwLoadEmpsDatas.RunWorkerCompleted
+        dgvEmps.CurrentCell = dgvEmps.Rows(selectedRowIndexInDGVEmps).Cells(0)
+        dgvEmps_SelectionChanged(sender, e)
     End Sub
 End Class
