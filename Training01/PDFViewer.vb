@@ -63,4 +63,8 @@ Public Class PDFViewer
             Me.Close()
         End If
     End Sub
+
+    Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
+        Me.Close()
+    End Sub
 End Class
