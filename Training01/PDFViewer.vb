@@ -28,6 +28,9 @@ Public Class PDFViewer
 
     Private Sub PDFViewer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AxAcroPDF1.LoadFile(Me.tempPath)
+        AxAcroPDF1.setShowScrollbars(False)
+        'AxAcroPDF1.setZoom(100)
+
         CustomElements.MovingDashboardByPanels(Me, pn_Top)
         AxAcroPDF1.Size = Me.ClientSize
         AxAcroPDF1.Location = New Point(0, 0)

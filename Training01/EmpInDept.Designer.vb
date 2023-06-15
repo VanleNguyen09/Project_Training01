@@ -243,7 +243,7 @@ Partial Class frm_EmpInDept
         Me.dgv_DeptEmp.RowHeadersWidth = 51
         Me.dgv_DeptEmp.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgv_DeptEmp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_DeptEmp.Size = New System.Drawing.Size(1246, 295)
+        Me.dgv_DeptEmp.Size = New System.Drawing.Size(1242, 295)
         Me.dgv_DeptEmp.TabIndex = 89
         '
         'lbl_titleManager
@@ -523,14 +523,14 @@ Partial Class frm_EmpInDept
         Me.address.HeaderText = "ADDRESS"
         Me.address.MinimumWidth = 6
         Me.address.Name = "address"
-        Me.address.Width = 150
+        Me.address.Width = 140
         '
         'email
         '
         Me.email.HeaderText = "EMAIL"
         Me.email.MinimumWidth = 6
         Me.email.Name = "email"
-        Me.email.Width = 150
+        Me.email.Width = 140
         '
         'department_name
         '

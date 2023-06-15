@@ -695,6 +695,14 @@ Public Class frm_Manager
 
     Private tmpPath As String = Path.GetTempFileName() + ".pdf"
 
+    Private Function ProcessDataWithEllipsis(ByVal data As String) As String
+        If data.Length > 20 Then
+            Return data.Substring(0, 20) & "..."
+        Else
+            Return data
+        End If
+    End Function
+
     Public Function ExportSalarySlipToPDF(ByVal tmpPath As String) As String
         If con.State <> 1 Then
             con.Open()
@@ -742,6 +750,7 @@ Public Class frm_Manager
                     Dim columnHeaders() As String = {"NO", "Name", "Phone", "Address", "Salary Name",
                                    "Salary", "Department", "Position"}
                     Dim table As New PdfPTable(columnWidths.Length)
+                    table.DefaultCell.Padding = 5
 
                     table.WidthPercentage = 100
                     table.SetWidths(columnWidths)
@@ -762,10 +771,17 @@ Public Class frm_Manager
                         Dim department As String = reader.GetString(6)
                         Dim fromDateDept As DateTime = reader.GetDateTime(7)
                         Dim fromDateDeptFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(fromDateDept)
-
-                        Dim postion As String = reader.GetString(8)
+                        Dim position As String = reader.GetString(8)
                         Dim fromDatePos As DateTime = reader.GetDateTime(9)
                         Dim fromDatePosFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(fromDatePos)
+
+                        ' Process data with "..." for each column
+                        employeeName = ProcessDataWithEllipsis(employeeName)
+                        address = ProcessDataWithEllipsis(address)
+                        department = ProcessDataWithEllipsis(department)
+                        salaryName = ProcessDataWithEllipsis(salaryName)
+                        salary = ProcessDataWithEllipsis(salary)
+                        position = ProcessDataWithEllipsis(position)
 
                         If isFirstRow Then
                             ' Add column headers in the first row
@@ -805,7 +821,7 @@ Public Class frm_Manager
                         Dim departmentCell As New PdfPCell(New Phrase(department, fontContent))
                         departmentCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
                         table.AddCell(departmentCell)
-                        Dim positionCell As New PdfPCell(New Phrase(postion, fontContent))
+                        Dim positionCell As New PdfPCell(New Phrase(position, fontContent))
                         positionCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
                         table.AddCell(positionCell)
                         no += 1
