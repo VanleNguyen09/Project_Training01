@@ -2,14 +2,14 @@
 
 Public Class Pagination
     Public Shared Sub PaginateDataGridView(dataGridView As DataGridView, currentPage As Integer)
-        Dim pageSize As Integer = 10 ' Số dòng hiển thị trên mỗi trang
+        Dim pageSize As Integer = 10
         Dim totalRows As Integer = dataGridView.Rows.Count
 
-        ' Tính toán chỉ mục bắt đầu và kết thúc của dữ liệu trên trang hiện tại
+        ' Calculate start and end index of data on current page
         Dim startIndex As Integer = (currentPage - 1) * pageSize
         Dim endIndex As Integer = Math.Min(startIndex + pageSize - 1, totalRows - 1)
 
-        ' Hiển thị dữ liệu từ startRow đến endRow trên DataGridView
+        ' Display data from startRow to endRow on DataGridView
         For i As Integer = 0 To totalRows - 1
             If i >= startIndex AndAlso i <= endIndex Then
                 dataGridView.Rows(i).Visible = True
@@ -26,7 +26,6 @@ Public Class Pagination
             totalPages = Math.Ceiling(totalRows / pageSize)
         End If
 
-        ' Gọi phương thức cập nhật giá trị lblPage từ form hiện tại
         UpdateLblPage(currentPage, totalPages)
     End Sub
 

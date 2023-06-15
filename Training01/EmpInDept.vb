@@ -14,11 +14,24 @@ Public Class frm_EmpInDept
     End Class
 
     Private selectedEmpDept As Selected_EmpDept = New Selected_EmpDept
-    Dim titleMsgBox As String = "Notification"
-    Dim titleErrorBox As String = "Error"
-    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
-    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
-    Dim errorIcons As MessageBoxIcon = MessageBoxIcon.Error
+
+    Private currentPage As Integer = GlobalVariables.currentPage
+    Private totalPages As Integer = GlobalVariables.totalPages
+    Private pageSize As Integer = GlobalVariables.pageSize
+    Private totalRows As Integer = GlobalVariables.totalRows
+
+    Dim buttonOK As MessageBoxButtons = GlobalVariables.buttonOK
+    Dim buttonYesNo As MessageBoxButtons = GlobalVariables.buttonYesNo
+    Dim warmIcon As MessageBoxIcon = GlobalVariables.warmIcon
+    Dim questionIcon As MessageBoxIcon = GlobalVariables.questionIcon
+    Dim infoIcon As MessageBoxIcon = GlobalVariables.infoIcon
+    Dim errorIcon As MessageBoxIcon = GlobalVariables.errorIcon
+
+    Dim titleSucces As String = GlobalVariables.titleSucces
+    Dim titleNotif As String = GlobalVariables.titleNotif
+    Dim titleError As String = GlobalVariables.titleError
+    Dim titleConfỉrm As String = GlobalVariables.titleConfirm
+    Dim titleInfo As String = GlobalVariables.titleInfo
     Private Sub frm_EmpInDept_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CustomElements.AddClearButtonInsideTextBox(txt_Search, "pbCloseSearch", Sub()
                                                                                     txt_Search.Text = ""
@@ -42,11 +55,6 @@ Public Class frm_EmpInDept
         Select_Employees()
         LoadData()
     End Sub
-
-    Private currentPage As Integer = GlobalVariables.currentPage
-    Private totalPages As Integer = GlobalVariables.totalPages
-    Private pageSize As Integer = GlobalVariables.pageSize
-    Private totalRows As Integer = GlobalVariables.totalRows
 
     Private Sub EnableAdd()
         gbtn_Add.Enabled = True
@@ -75,7 +83,7 @@ Public Class frm_EmpInDept
         currentPage = 1
     End Sub
 
-    Public Enum EmpDeptParameters
+    Private Enum EmpDeptParameters
         empId
         deptId
         fromDate
@@ -102,15 +110,18 @@ Public Class frm_EmpInDept
         Dim phone As String = reader("phone").ToString()
         Dim address As String = reader("address").ToString()
         Dim birthday As String = reader("birthday").ToString()
+        Dim birthdayFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(birthday)
         Dim email As String = reader("email").ToString()
         Dim department_name As String = reader("department_name").ToString()
         Dim from_date As String = reader("from_date").ToString()
+        Dim fromDateFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(from_date)
         Dim to_date As String = reader("to_date").ToString()
+        Dim toDateFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(to_date)
         Dim dept_id As Integer = Convert.ToInt32(reader("dept_id").ToString())
         Dim status As Integer = Convert.ToInt32(reader("status").ToString())
         Dim deptemp_id As Integer = Convert.ToInt32(reader("deptemp_id").ToString())
 
-        dgv_DeptEmp.Rows.Add(No, id, name, phone, birthday, address, email, department_name, from_date, to_date, dept_id, status, deptemp_id)
+        dgv_DeptEmp.Rows.Add(No, id, name, phone, birthdayFormat, address, email, department_name, fromDateFormat, toDateFormat, dept_id, status, deptemp_id)
     End Sub
 
     Private Sub LoadData()
@@ -189,7 +200,7 @@ Public Class frm_EmpInDept
             End Using
         Catch ex As Exception
             CheckManagerExit = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -222,7 +233,7 @@ Public Class frm_EmpInDept
             End Using
         Catch ex As Exception
             CheckEmpDeptExit = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -256,7 +267,7 @@ Public Class frm_EmpInDept
             End Using
         Catch ex As Exception
             CheckEmpDeptExitForUpdate = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -291,7 +302,7 @@ Public Class frm_EmpInDept
             End Using
         Catch ex As Exception
             CheckEmpDeptDateBigger = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -304,10 +315,10 @@ Public Class frm_EmpInDept
         Dim deptId As Integer = CInt(values(EmpDeptParameters.deptId))
 
         If CheckManagerExit(empId, deptId) Then
-            MessageBox.Show(Message.Message.managerExitedForDepartment, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.managerExitedForDepartment, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckEmpDeptExit(empId, deptId) Then
-            MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.employeeDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then
@@ -322,10 +333,10 @@ Public Class frm_EmpInDept
                     cmd.Parameters.AddWithValue("@to_date", values(EmpDeptParameters.toDate))
                     cmd.Parameters.AddWithValue("@status", status)
                     cmd.ExecuteNonQuery()
-                    MessageBox.Show("Employee Department has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                    MessageBox.Show(Message.Message.empDeptAddSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
             Catch ex As Exception
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
                 con.Close()
             End Try
@@ -340,13 +351,13 @@ Public Class frm_EmpInDept
         Dim toDate As Date = Convert.ToDateTime(values(EmpDeptParameters.toDate))
 
         If CheckManagerExit(empId, deptId) Then
-            MessageBox.Show(Message.Message.managerExitedForDepartment, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.managerExitedForDepartment, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckEmpDeptExitForUpdate(empId, deptId, fromDate, toDate) Then
-            MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.employeeDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckEmpDeptDateBigger(empId, deptId, fromDate, toDate) Then
-            MessageBox.Show("Date is smaller than date exist in system. Can not Update. Please try again!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Date is smaller than date exist in system. Can not Update. Please try again!!!", titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then
@@ -364,10 +375,10 @@ Public Class frm_EmpInDept
 
                     cmd.Parameters.AddWithValue("@status", status)
                     cmd.ExecuteNonQuery()
-                    MessageBox.Show("Employee Department has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                    MessageBox.Show(Message.Message.empDeptUpdateSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
             Catch ex As Exception
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
                 con.Close()
             End Try
@@ -394,7 +405,7 @@ Public Class frm_EmpInDept
                         No += 1
                     End While
                 Else
-                    MessageBox.Show(Message.Message.errorInvalidSearch, titleMsgBox, buttons, icons)
+                    MessageBox.Show(Message.Message.errorInvalidSearch, titleNotif, buttonOK, warmIcon)
                     reload = True
                 End If
             End Using
@@ -420,7 +431,7 @@ Public Class frm_EmpInDept
                 cmd.ExecuteNonQuery()
             End Using
         Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -469,14 +480,14 @@ Public Class frm_EmpInDept
         Dim to_date As Date = dtp_ToDate.Value
 
         If emp_id < 0 OrElse dept_id < 0 Then
-            MessageBox.Show(Message.Message.emptyErrorMessage, titleErrorBox, buttons, errorIcons)
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleError, buttonOK, errorIcon)
             Exit Sub
         End If
 
         Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(from_date, to_date)
 
         If Not datesValid Then
-            MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
+            MessageBox.Show(Message.Message.errorInvalidDate, titleError, buttonOK, errorIcon)
             Exit Sub
         End If
 
@@ -488,7 +499,7 @@ Public Class frm_EmpInDept
         Dim toIsValid As Boolean = FuntionCommon.Validation.ValidateYear(toInputYear, currentYear)
 
         If Not fromIsValid OrElse Not toIsValid Then
-            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.yearInvalidError, titleNotif, buttonOK, warmIcon)
             Exit Sub
         End If
 
@@ -505,7 +516,7 @@ Public Class frm_EmpInDept
 
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
-        LoadData()
+        Pagination.PaginateDataGridView(dgv_DeptEmp, currentPage)
         EnableAdd()
     End Sub
     Private Sub gbtn_Search_Click(sender As Object, e As EventArgs) Handles gbtn_Search.Click
@@ -514,7 +525,7 @@ Public Class frm_EmpInDept
         If Not String.IsNullOrEmpty(keyword) Then
             SearchEmpDeptKeyword(keyword, department_id)
         Else
-            MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.emptyDataSearchMessage, titleNotif, buttonOK, warmIcon)
             cb_Department.SelectedIndex = 0
         End If
     End Sub
@@ -523,14 +534,14 @@ Public Class frm_EmpInDept
         Dim selectedRows As DataGridViewSelectedRowCollection = dgv_DeptEmp.SelectedRows
 
         If selectedRows.Count > 0 Then
-            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected employee(s)?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected employee(s)?", titleConfỉrm, buttonYesNo, questionIcon)
 
             If result = DialogResult.Yes Then
                 Dim empIdColumn As DataGridViewColumn = dgv_DeptEmp.Columns("emp_id")
                 Dim deptIdColumn As DataGridViewColumn = dgv_DeptEmp.Columns("dept_id")
 
                 If empIdColumn IsNot Nothing And deptIdColumn IsNot Nothing Then
-                    MessageBox.Show("Employee has been deleted successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                    MessageBox.Show(Message.Message.empDeptDeleteSuccess, titleSucces, buttonOK, infoIcon)
                     For i As Integer = 0 To selectedRows.Count - 1
                         Dim selectedRow As DataGridViewRow = selectedRows(i)
                         Dim emp_id As Integer = CInt(selectedRow.Cells(empIdColumn.Index).Value)
@@ -542,7 +553,7 @@ Public Class frm_EmpInDept
                     EnableAdd()
                 End If
             Else
-                MessageBox.Show("Delete canceled.", "Information", buttons, MessageBoxIcon.Information)
+                MessageBox.Show(Message.Message.cancelDelete, titleInfo, buttonOK, infoIcon)
             End If
         End If
     End Sub
@@ -554,14 +565,14 @@ Public Class frm_EmpInDept
         Dim to_date As Date = dtp_ToDate.Value
 
         If emp_id < 0 OrElse dept_id < 0 Then
-            MessageBox.Show(Message.Message.emptyErrorMessage, titleErrorBox, buttons, errorIcons)
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleNotif, buttonOK, errorIcon)
             Exit Sub
         End If
 
         Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(from_date, to_date)
 
         If Not datesValid Then
-            MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
+            MessageBox.Show(Message.Message.errorInvalidDate, titleError, buttonOK, errorIcon)
             Exit Sub
         End If
 
@@ -574,7 +585,7 @@ Public Class frm_EmpInDept
 
 
         If Not fromIsValid OrElse Not toIsValid Then
-            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.yearInvalidError, titleNotif, buttonOK, warmIcon)
             Exit Sub
         End If
 

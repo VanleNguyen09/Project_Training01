@@ -143,30 +143,28 @@ Public Class RegisterUser
     End Sub
 
     Private Sub ptb_ToggleCFPassword_Click(sender As Object, e As EventArgs) Handles ptb_ToggleCFPassword.Click
-        ' Đảo ngược trạng thái
+        ' Invert state
         isCFPasswordVisible = Not isCFPasswordVisible
 
-        ' Thực hiện thay đổi trạng thái
+        ' Make a state change
         If isCFPasswordVisible Then
-            txtConfirmPassword.PasswordChar = "*"
+            txtConfirmPassword.PasswordChar = ""
             ptb_ToggleCFPassword.Image = My.Resources.view
         Else
-            txtConfirmPassword.PasswordChar = ""
+            txtConfirmPassword.PasswordChar = "*"
             ptb_ToggleCFPassword.Image = My.Resources.hide
         End If
 
     End Sub
 
     Private Sub ptb_TogglePassword_Click(sender As Object, e As EventArgs) Handles ptb_TogglePassword.Click
-        ' Đảo ngược trạng thái
         isPasswordVisible = Not isPasswordVisible
 
-        ' Thực hiện thay đổi trạng thái
         If isPasswordVisible Then
-            txtPassword.PasswordChar = "*"
+            txtPassword.PasswordChar = ""
             ptb_TogglePassword.Image = My.Resources.view
         Else
-            txtPassword.PasswordChar = ""
+            txtPassword.PasswordChar = "*"
             ptb_TogglePassword.Image = My.Resources.hide
         End If
     End Sub

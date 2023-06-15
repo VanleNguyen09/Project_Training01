@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="CommonOfficeFunctions.vb" />
     <Compile Include="CurrencyFormat.vb" />
+    <Compile Include="FormatDateTime.vb" />
     <Compile Include="HasMD5.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

@@ -1,5 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
+Imports System.Text
+Imports System.Web.UI.WebControls
 Imports iTextSharp.text
 Imports iTextSharp.text.pdf
 
@@ -11,11 +13,18 @@ Public Class frm_Manager
     Private pageSize As Integer = GlobalVariables.pageSize
     Private totalRows As Integer = GlobalVariables.totalRows
 
-    Dim titleMsgBox As String = "Notification"
-    Dim titleErrorBox As String = "Error"
-    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
-    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
-    Dim errorIcons As MessageBoxIcon = MessageBoxIcon.Error
+    Dim buttonOK As MessageBoxButtons = GlobalVariables.buttonOK
+    Dim buttonYesNo As MessageBoxButtons = GlobalVariables.buttonYesNo
+    Dim warmIcon As MessageBoxIcon = GlobalVariables.warmIcon
+    Dim questionIcon As MessageBoxIcon = GlobalVariables.questionIcon
+    Dim infoIcon As MessageBoxIcon = GlobalVariables.infoIcon
+    Dim errorIcon As MessageBoxIcon = GlobalVariables.errorIcon
+
+    Dim titleSucces As String = GlobalVariables.titleSucces
+    Dim titleNotif As String = GlobalVariables.titleNotif
+    Dim titleError As String = GlobalVariables.titleError
+    Dim titleConfỉrm As String = GlobalVariables.titleConfirm
+    Dim titleInfo As String = GlobalVariables.titleInfo
 
     Private selectedEmpId As Integer
 
@@ -139,14 +148,17 @@ Public Class frm_Manager
         Dim phone As String = reader("phone").ToString()
         Dim address As String = reader("address").ToString()
         Dim birthday As String = reader("birthday").ToString()
+        Dim birthdayFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(birthday)
         Dim email As String = reader("email").ToString()
         Dim department_name As String = reader("department_name").ToString()
         Dim from_date As String = reader("from_date").ToString()
+        Dim fromDateFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(from_date)
         Dim to_date As String = reader("to_date").ToString()
+        Dim toDateFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(to_date)
         Dim dept_id As Integer = Convert.ToInt32(reader("dept_id").ToString())
         Dim deptmanager_id As Integer = Convert.ToInt32(reader("deptmanager_id").ToString())
         Dim status As Integer = Convert.ToInt32(reader("status").ToString())
-        dgv_DeptManager.Rows.Add(No, id, name, phone, birthday, address, email, department_name, from_date, to_date, dept_id, status, deptmanager_id)
+        dgv_DeptManager.Rows.Add(No, id, name, phone, birthdayFormat, address, email, department_name, fromDateFormat, toDateFormat, dept_id, status, deptmanager_id)
     End Sub
 
 
@@ -195,7 +207,7 @@ Public Class frm_Manager
             End Using
         Catch ex As Exception
             CheckEmpDeptExit = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -228,7 +240,7 @@ Public Class frm_Manager
             End Using
         Catch ex As Exception
             CheckManagerExit = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -262,7 +274,7 @@ Public Class frm_Manager
             End Using
         Catch ex As Exception
             CheckManagerExitForUpdate = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -297,7 +309,7 @@ Public Class frm_Manager
             End Using
         Catch ex As Exception
             CheckManagerDateBigger = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -310,10 +322,10 @@ Public Class frm_Manager
         Dim deptId As Integer = CInt(values(ManagerParameters.deptId))
 
         If CheckEmpDeptExit(empId, deptId) Then
-            MessageBox.Show(Message.Message.employeeExitedForDepartment, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.employeeExitedForDepartment, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckManagerExit(empId, deptId) Then
-            MessageBox.Show(Message.Message.managerDuplicate, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.managerDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then
@@ -328,10 +340,10 @@ Public Class frm_Manager
                     cmd.Parameters.AddWithValue("@to_date", values(ManagerParameters.toDate))
                     cmd.Parameters.AddWithValue("@status", status)
                     cmd.ExecuteNonQuery()
-                    MessageBox.Show("Manager has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                    MessageBox.Show(Message.Message.managerAddSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
             Catch ex As Exception
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
                 con.Close()
             End Try
@@ -346,13 +358,13 @@ Public Class frm_Manager
         Dim toDate As Date = Convert.ToDateTime(values(ManagerParameters.toDate))
 
         If CheckEmpDeptExit(empId, deptId) Then
-            MessageBox.Show(Message.Message.employeeExitedForDepartment, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.employeeExitedForDepartment, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckManagerExitForUpdate(empId, deptId, fromDate, toDate) Then
-            MessageBox.Show(Message.Message.managerDuplicate, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.managerDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckManagerDateBigger(empId, deptId, fromDate, toDate) Then
-            MessageBox.Show("Date is smaller than date exist in system. Please try again!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Date is smaller than date exist in system. Please try again!!!", titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then
@@ -370,10 +382,10 @@ Public Class frm_Manager
 
                     cmd.Parameters.AddWithValue("@status", status)
                     cmd.ExecuteNonQuery()
-                    MessageBox.Show("Manager has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                    MessageBox.Show(Message.Message.managerUpdateSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
             Catch ex As Exception
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
                 con.Close()
             End Try
@@ -391,7 +403,7 @@ Public Class frm_Manager
                 cmd.ExecuteNonQuery()
             End Using
         Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -418,7 +430,7 @@ Public Class frm_Manager
                         No = No + 1
                     End While
                 Else
-                    MessageBox.Show(Message.Message.errorInvalidSearch, titleMsgBox, buttons, icons)
+                    MessageBox.Show(Message.Message.errorInvalidSearch, titleNotif, buttonOK, warmIcon)
                     reload = True
                 End If
             End Using
@@ -508,7 +520,7 @@ Public Class frm_Manager
         If Not String.IsNullOrEmpty(keyword) Then
             SearchManagersByKeyword(keyword, department_id)
         Else
-            MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.emptyDataSearchMessage, titleNotif, buttonOK, warmIcon)
             cb_Department.SelectedIndex = 0
         End If
     End Sub
@@ -551,14 +563,14 @@ Public Class frm_Manager
         Dim to_date As Date = dtp_ToDate.Value
 
         If emp_id < 0 OrElse dept_id < 0 Then
-            MessageBox.Show(Message.Message.emptyErrorMessage, titleErrorBox, buttons, errorIcons)
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleError, buttonOK, errorIcon)
             Exit Sub
         End If
 
         Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(from_date, to_date)
 
         If Not datesValid Then
-            MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
+            MessageBox.Show(Message.Message.errorInvalidDate, titleError, buttonOK, errorIcon)
             Exit Sub
         End If
 
@@ -570,7 +582,7 @@ Public Class frm_Manager
         Dim toIsValid As Boolean = FuntionCommon.Validation.ValidateYear(toInputYear, currentYear)
 
         If Not fromIsValid OrElse Not toIsValid Then
-            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.yearInvalidError, titleNotif, buttonOK, warmIcon)
             Exit Sub
         End If
 
@@ -587,7 +599,7 @@ Public Class frm_Manager
 
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
-        LoadData()
+        Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
         EnableAdd()
     End Sub
     Private Sub gbtn_Manage_Click(sender As Object, e As EventArgs) Handles gbtn_Manage.Click
@@ -599,14 +611,14 @@ Public Class frm_Manager
         Dim selectedRows As DataGridViewSelectedRowCollection = dgv_DeptManager.SelectedRows
 
         If selectedRows.Count > 0 Then
-            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected manager(s)?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected manager(s)?", titleConfỉrm, buttonYesNo, questionIcon)
 
             If result = DialogResult.Yes Then
                 Dim empIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("emp_id")
                 Dim deptIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("dept_id")
 
                 If empIdColumn IsNot Nothing And deptIdColumn IsNot Nothing Then
-                    MessageBox.Show("Manager has been deleted successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                    MessageBox.Show(Message.Message.managerDeleteSuccess, titleSucces, buttonOK, infoIcon)
                     For i As Integer = 0 To selectedRows.Count - 1
                         Dim selectedRow As DataGridViewRow = selectedRows(i)
                         Dim emp_id As Integer = CInt(selectedRow.Cells(empIdColumn.Index).Value)
@@ -618,7 +630,7 @@ Public Class frm_Manager
                     EnableAdd()
                 End If
             Else
-                MessageBox.Show("Delete canceled.", "Information", buttons, MessageBoxIcon.Information)
+                MessageBox.Show(Message.Message.cancelDelete, titleInfo, buttonOK, infoIcon)
             End If
         End If
     End Sub
@@ -629,14 +641,14 @@ Public Class frm_Manager
         Dim to_date As Date = dtp_ToDate.Value
 
         If emp_id < 0 OrElse dept_id < 0 Then
-            MessageBox.Show(Message.Message.emptyErrorMessage, titleErrorBox, buttons, errorIcons)
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleError, buttonOK, errorIcon)
             Exit Sub
         End If
 
         Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(from_date, to_date)
 
         If Not datesValid Then
-            MessageBox.Show(Message.Message.errorInvalidDate, titleErrorBox, buttons, errorIcons)
+            MessageBox.Show(Message.Message.errorInvalidDate, titleError, buttonOK, errorIcon)
             Exit Sub
         End If
 
@@ -649,7 +661,7 @@ Public Class frm_Manager
 
 
         If Not fromIsValid OrElse Not toIsValid Then
-            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.yearInvalidError, titleNotif, buttonOK, warmIcon)
             Exit Sub
         End If
 
@@ -685,6 +697,13 @@ Public Class frm_Manager
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
 
+    Private Function UTF8Encode(ByVal str As String) As String
+        Dim utf8Bytes As Byte() = Encoding.UTF8.GetBytes(str)
+        Dim encodeString As String = Encoding.UTF8.GetString(utf8Bytes)
+
+        Return encodeString
+    End Function
+
     Private Sub ExportSalarySlipToPDF()
         If con.State <> 1 Then
             con.Open()
@@ -705,21 +724,22 @@ Public Class frm_Manager
                                 saveDialog.InitialDirectory = folderPath
                                 saveDialog.Filter = "PDF files (*.pdf)|*.pdf"
                                 If saveDialog.ShowDialog() = DialogResult.OK Then
-                                    ' Lấy đường dẫn tới file đã tạo.
+                                    ' Get the path to the created file.
                                     Dim filePath As String = saveDialog.FileName
-                                    ' Tạo file PDF mới
+                                    Dim tempPath As String = Path.GetTempFileName() + ".pdf"
 
-                                    Dim document As New Document()
+                                    Dim document As New Document
 
-                                    Dim outputStream As New FileStream(filePath, FileMode.Create)
+                                    document.SetMargins(10, 10, 10, 10)
+                                    Dim outputStream As New FileStream(tempPath, FileMode.Create)
 
                                     Dim writer As PdfWriter = PdfWriter.GetInstance(document, outputStream)
 
-                                    ' Mở tài liệu PDF
                                     document.Open()
 
                                     Dim fontTitle As Font = FontFactory.GetFont("Arial", 18, FontStyle.Bold, BaseColor.RED)
                                     Dim titleText As String = "Employee Salary Slip"
+                                    Dim cellPaddingTop As Single = 5
 
                                     Dim titleUpper As String = titleText.ToUpper()
 
@@ -729,28 +749,28 @@ Public Class frm_Manager
                                     document.Add(title)
                                     document.Add(Chunk.NEWLINE)
 
-                                    ' Tạo font chữ tiếng Việt từ tên font
-                                    Dim fontHeader As Font = FontFactory.GetFont("Arial", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12, FontStyle.Bold)
-                                    Dim fontContent As Font = FontFactory.GetFont("Arial", BaseFont.IDENTITY_H, BaseFont.EMBEDDED)
+                                    Dim fontPath As String = "C:\Windows\Fonts\Arial.ttf"
+                                    Dim baseFont As BaseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED)
 
-                                    ' Tạo danh sách chiều rộng các cột dựa trên số lượng cột và tỷ lệ phần trăm chiều rộng mong muốn
-                                    Dim columnWidths() As Single = {10, 30, 25, 45, 30, 30, 25, 25, 25, 25}
+                                    Dim fontHeader As New Font(baseFont, 9, Font.Bold)
+                                    Dim fontContent As New Font(baseFont, 8)
+
+                                    ' Generate a list of column widths based on desired number of columns and width percentage
+                                    Dim columnWidths() As Single = {20, 45, 45, 45, 45, 45, 45, 45, 45, 45}
 
                                     Dim columnHeaders() As String = {"ID", "Name", "Phone", "Address", "Salary Name",
                                     "Salary", "Department", "From Date", "Position", "From Date"}
-
-                                    ' Tạo một bảng để chứa nội dung phiếu lương
                                     Dim table As New PdfPTable(columnWidths.Length)
 
-                                    table.WidthPercentage = 100 ' Đặt tỷ lệ phần trăm chiều rộng bảng
-                                    table.SetWidths(columnWidths) ' Đặt tỷ lệ phần trăm chiều rộng cho các cột
+                                    table.WidthPercentage = 100
+                                    table.SetWidths(columnWidths)
 
                                     Dim isFirstRow As Boolean = True
 
-                                    ' Thiết lập chiều cao cố định cho các ô trong bảng
-                                    table.DefaultCell.FixedHeight = 30 ' Chiều cao 20 (đơn vị pixel)
+                                    ' Set fixed height for table cells
+                                    table.DefaultCell.FixedHeight = 30
 
-                                    ' Đọc dữ liệu từ SqlDataReader và thêm nội dung vào bảng
+                                    ' Read data from SqlDataReader and add content to table
                                     While reader.Read()
                                         Dim employeeID As Integer? = If(Not reader.IsDBNull(0), reader.GetInt32(0), Nothing)
                                         Dim employeeName As String = reader.GetString(1)
@@ -760,45 +780,73 @@ Public Class frm_Manager
                                         Dim salary As Decimal = reader.GetDecimal(5)
                                         Dim department As String = reader.GetString(6)
                                         Dim fromDateDept As DateTime = reader.GetDateTime(7)
+                                        Dim fromDateDeptFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(fromDateDept)
+
                                         Dim postion As String = reader.GetString(8)
                                         Dim fromDatePos As DateTime = reader.GetDateTime(9)
+                                        Dim fromDatePosFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(fromDatePos)
 
                                         If isFirstRow Then
                                             ' Add column headers in the first row
                                             For Each columnHeader As String In columnHeaders
                                                 Dim cell As New PdfPCell(New Phrase(columnHeader, fontHeader))
+                                                cell.BackgroundColor = BaseColor.LIGHT_GRAY
+                                                cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+                                                cell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                                                cell.FixedHeight = 30
+
                                                 table.AddCell(cell)
                                             Next
 
                                             isFirstRow = False
                                         End If
 
-                                        table.AddCell(New PdfPCell(New Phrase(employeeID.ToString(), fontContent)))
-                                        table.AddCell(New PdfPCell(New Phrase(employeeName, fontContent)))
-                                        table.AddCell(New PdfPCell(New Phrase(phone, fontContent)))
-                                        table.AddCell(New PdfPCell(New Phrase(address, fontContent)))
-                                        table.AddCell(New PdfPCell(New Phrase(salaryName, fontContent)))
-                                        table.AddCell(New PdfPCell(New Phrase(salary.ToString(), fontContent)))
-                                        table.AddCell(New PdfPCell(New Phrase(department, fontContent)))
-                                        table.AddCell(New PdfPCell(New Phrase(fromDateDept.ToString(), fontContent)))
-                                        table.AddCell(New PdfPCell(New Phrase(postion, fontContent)))
-                                        table.AddCell(New PdfPCell(New Phrase(fromDatePos.ToString(), fontContent)))
+                                        Dim employeeIDCell As New PdfPCell(New Phrase(employeeID.ToString(), fontContent))
+                                        employeeIDCell.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+                                        employeeIDCell.VerticalAlignment = PdfPCell.ALIGN_CENTER
+                                        employeeIDCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                                        table.AddCell(employeeIDCell)
+                                        Dim employeeNameCell As New PdfPCell(New PdfPCell(New Phrase(employeeName, fontContent)))
+                                        employeeNameCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                                        table.AddCell(employeeNameCell)
+                                        Dim phoneCell As New PdfPCell(New PdfPCell(New Phrase(phone, fontContent)))
+                                        phoneCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                                        table.AddCell(phoneCell)
+                                        Dim addressCell As New PdfPCell(New PdfPCell(New Phrase(address, fontContent)))
+                                        addressCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                                        table.AddCell(addressCell)
+                                        Dim salaryNameCell As New PdfPCell(New Phrase(salaryName, fontContent))
+                                        salaryNameCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                                        table.AddCell(salaryNameCell)
+                                        Dim salaryCell As New PdfPCell(New Phrase(salary, fontContent))
+                                        salaryCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                                        table.AddCell(salaryCell)
+                                        Dim departmentCell As New PdfPCell(New Phrase(department, fontContent))
+                                        departmentCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                                        table.AddCell(departmentCell)
+                                        Dim fromDateDeptFormatCell As New PdfPCell(New Phrase(fromDateDeptFormat.ToString(), fontContent))
+                                        fromDateDeptFormatCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                                        table.AddCell(fromDateDeptFormatCell)
+                                        Dim positionCell As New PdfPCell(New Phrase(postion, fontContent))
+                                        positionCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                                        table.AddCell(positionCell)
+                                        Dim fromDatePosFormatCell As New PdfPCell(New Phrase(fromDatePosFormat.ToString(), fontContent))
+                                        fromDatePosFormatCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                                        table.AddCell(fromDatePosFormatCell)
                                     End While
-
-                                    ' Thêm bảng vào tài liệu PDF
                                     document.Add(table)
-
-                                    ' Đóng tài liệu PDF
                                     document.Close()
+
+                                    PDFViewer.SetData(tempPath, filePath)
+                                    PDFViewer.Show()
                                 End If
                             End Using
                         End If
                     End Using
                 End Using
             End Using
-            MessageBox.Show("Salary slip has been exported successfully!!!", "Notification", buttons, MessageBoxIcon.Information)
         Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -844,5 +892,9 @@ Public Class frm_Manager
     Private Sub dgv_DeptManager_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgv_DeptManager.ColumnHeaderMouseClick
         FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptManager, e.ColumnIndex, "No")
         Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
+    End Sub
+
+    Private Sub lbl_Page_Click(sender As Object, e As EventArgs) Handles lbl_Page.Click
+
     End Sub
 End Class

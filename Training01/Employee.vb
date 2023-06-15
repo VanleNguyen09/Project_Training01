@@ -3,6 +3,26 @@ Imports System.IO
 Public Class frm_Employee
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
 
+    Private selectedEmployees As Selected_Employees = New Selected_Employees()
+
+    Private currentPage As Integer = GlobalVariables.currentPage
+    Private totalPages As Integer = GlobalVariables.totalPages
+    Private pageSize As Integer = GlobalVariables.pageSize
+    Private totalRows As Integer = GlobalVariables.totalRows
+
+    Dim buttonOK As MessageBoxButtons = GlobalVariables.buttonOK
+    Dim buttonYesNo As MessageBoxButtons = GlobalVariables.buttonYesNo
+    Dim warmIcon As MessageBoxIcon = GlobalVariables.warmIcon
+    Dim questionIcon As MessageBoxIcon = GlobalVariables.questionIcon
+    Dim infoIcon As MessageBoxIcon = GlobalVariables.infoIcon
+    Dim errorIcon As MessageBoxIcon = GlobalVariables.errorIcon
+
+    Dim titleSucces As String = GlobalVariables.titleSucces
+    Dim titleNotif As String = GlobalVariables.titleNotif
+    Dim titleError As String = GlobalVariables.titleError
+    Dim titleConfỉrm As String = GlobalVariables.titleConfirm
+    Dim titleInfo As String = GlobalVariables.titleInfo
+
     Private Class Selected_Employees
         Public id As Integer = 0
         Public name As String = ""
@@ -17,18 +37,6 @@ Public Class frm_Employee
         End Sub
 
     End Class
-
-    Private selectedEmployees As Selected_Employees = New Selected_Employees()
-
-    Private currentPage As Integer = GlobalVariables.currentPage
-    Private totalPages As Integer = GlobalVariables.totalPages
-    Private pageSize As Integer = GlobalVariables.pageSize
-    Private totalRows As Integer = GlobalVariables.totalRows
-
-    Dim titleMsgBox As String = "notification"
-    Dim buttons As MessageBoxButtons = MessageBoxButtons.OK
-    Dim icons As MessageBoxIcon = MessageBoxIcon.Warning
-
     Private Sub Employee_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CustomElements.AddClearButtonInsideTextBox(txt_Search, "pbCloseSearch", Sub()
                                                                                     txt_Search.Text = ""
@@ -47,7 +55,7 @@ Public Class frm_Employee
         LoadData()
     End Sub
 
-    Public Enum EmployeeParameters
+    Private Enum EmployeeParameters
         Name
         Phone
         Address
@@ -84,7 +92,7 @@ Public Class frm_Employee
             End Using
         Catch ex As Exception
             CheckEmployeeExit = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
@@ -118,20 +126,20 @@ Public Class frm_Employee
             End Using
         Catch ex As Exception
             CheckEmployeeExitForUpdate = False
-            MessageBox.Show("error: " + ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
         Return CheckEmployeeExitForUpdate
     End Function
 
-    Public Sub Add_Employees(ByVal values As Dictionary(Of EmployeeParameters, Object))
+    Private Sub Add_Employees(ByVal values As Dictionary(Of EmployeeParameters, Object))
         Dim status As Integer = 1
         Dim name As String = values(EmployeeParameters.Name)
         Dim phone As String = values(EmployeeParameters.Phone)
 
         If CheckEmployeeExit(name, phone) Then
-            MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.employeeDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then
@@ -152,10 +160,10 @@ Public Class frm_Employee
                     cmd.Parameters.AddWithValue("@status", status)
                     cmd.ExecuteNonQuery()
 
-                    MessageBox.Show("Employee has been added successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                    MessageBox.Show(Message.Message.employeeAddSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
             Catch ex As Exception
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
                 con.Close()
             End Try
@@ -163,15 +171,14 @@ Public Class frm_Employee
 
     End Sub
 
-    Public Sub Update_Employee(ByVal values As Dictionary(Of EmployeeParameters, Object))
+    Private Sub Update_Employee(ByVal values As Dictionary(Of EmployeeParameters, Object))
         Dim status As Integer = 1
         Dim name As String = values(EmployeeParameters.Name)
         Dim phone As String = values(EmployeeParameters.Phone)
         Dim id As Integer = CInt(values(EmployeeParameters.Id))
 
-
         If CheckEmployeeExitForUpdate(name, phone, id) Then
-            MessageBox.Show(Message.Message.employeeDuplicate, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.employeeDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then
@@ -193,17 +200,17 @@ Public Class frm_Employee
                     cmd.Parameters.AddWithValue("@status", status)
                     cmd.ExecuteNonQuery()
 
-                    MessageBox.Show("Employee has been updated successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                    MessageBox.Show(Message.Message.employeeUpdateSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
             Catch ex As Exception
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
                 con.Close()
             End Try
         End If
     End Sub
 
-    Public Sub Delete_Employee(ByVal id As Integer)
+    Private Sub Delete_Employee(ByVal id As Integer)
         If con.State <> 1 Then
             con.Open()
         End If
@@ -215,13 +222,13 @@ Public Class frm_Employee
 
             End Using
         Catch ex As Exception
-            MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
         Finally
             con.Close()
         End Try
     End Sub
 
-    Public Sub ShowEmployee(ByVal No As Integer, ByVal reader As SqlDataReader)
+    Private Sub ShowEmployee(ByVal No As Integer, ByVal reader As SqlDataReader)
         Dim id As Integer = Convert.ToInt32(reader("id").ToString())
         Dim name As String = reader("name").ToString()
         Dim img As Image = Nothing
@@ -243,11 +250,12 @@ Public Class frm_Employee
         Dim address As String = reader("address").ToString()
         Dim gender As String = reader("gender").ToString()
         Dim birthday As String = reader("birthday").ToString()
+        Dim birthdayFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(birthday)
         Dim email As String = reader("email").ToString()
         Dim status As Integer = Convert.ToInt32(reader("status").ToString())
-        dgrv_Employee.Rows.Add(No, id, name, img, phone, address, gender, birthday, email, status)
+        dgrv_Employee.Rows.Add(No, id, name, img, phone, address, gender, birthdayFormat, email, status)
     End Sub
-    Public Sub LoadData()
+    Private Sub LoadData()
         If con.State <> 1 Then
             con.Open()
         End If
@@ -309,7 +317,7 @@ Public Class frm_Employee
                         No += 1
                     End While
                 Else
-                    MessageBox.Show(Message.Message.errorInvalidSearch, titleMsgBox, buttons, icons)
+                    MessageBox.Show(Message.Message.errorInvalidSearch, titleNotif, buttonOK, warmIcon)
                     reload = True
                 End If
             End Using
@@ -342,17 +350,17 @@ Public Class frm_Employee
             String.IsNullOrEmpty(address) OrElse
             String.IsNullOrEmpty(gender) OrElse
             String.IsNullOrEmpty(email) Then
-            MessageBox.Show(Message.Message.emptyDataErrorMessage, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.emptyDataErrorMessage, titleNotif, buttonOK, errorIcon)
             Return
         End If
 
         If Not FuntionCommon.Validation.IsEmail(email) Then
-            MessageBox.Show(Message.Message.emailInvalidMessage, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.emailInvalidMessage, titleNotif, buttonOK, errorIcon)
             Exit Sub
         End If
 
         If Not FuntionCommon.Validation.ValidatePhone(phone) Then
-            MessageBox.Show(Message.Message.phoneInvalidMessage, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.phoneInvalidMessage, titleNotif, buttonOK, errorIcon)
             Exit Sub
         End If
 
@@ -362,13 +370,13 @@ Public Class frm_Employee
         Dim isValid As Boolean = FuntionCommon.Validation.ValidateYear(inputYear, currentYear)
 
         If Not isValid Then
-            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.yearInvalidError, titleNotif, buttonOK, errorIcon)
             Exit Sub
         End If
 
         Dim img As Byte() = ImageToByte(ptb_Employee.Image)
         If imageSelected = False Then
-            MessageBox.Show(Message.Message.imageEmptyError, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.imageEmptyError, titleNotif, buttonOK, errorIcon)
             Exit Sub
         End If
 
@@ -408,17 +416,17 @@ Public Class frm_Employee
                 String.IsNullOrEmpty(address) OrElse
                 String.IsNullOrEmpty(gender) OrElse
                 String.IsNullOrEmpty(email) Then
-            MessageBox.Show(Message.Message.emptyDataErrorMessage, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.emptyDataErrorMessage, titleNotif, buttonOK, errorIcon)
             Return
         End If
 
         If Not FuntionCommon.Validation.IsEmail(email) Then
-            MessageBox.Show(Message.Message.emailInvalidMessage, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.emailInvalidMessage, titleNotif, buttonOK, errorIcon)
             Exit Sub
         End If
 
         If Not FuntionCommon.Validation.ValidatePhone(phone) Then
-            MessageBox.Show(Message.Message.phoneInvalidMessage, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.phoneInvalidMessage, titleNotif, buttonOK, errorIcon)
             Exit Sub
         End If
 
@@ -428,7 +436,7 @@ Public Class frm_Employee
         Dim isValid As Boolean = FuntionCommon.Validation.ValidateYear(inputYear, currentYear)
 
         If Not isValid Then
-            MessageBox.Show(Message.Message.yearInvalidError, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.yearInvalidError, titleNotif, buttonOK, errorIcon)
             Exit Sub
         End If
 
@@ -491,11 +499,11 @@ Public Class frm_Employee
 
     Private Sub gbtn_Delete_Click(sender As Object, e As EventArgs) Handles gbtn_Delete.Click
         Dim selectedRows As DataGridViewSelectedRowCollection = dgrv_Employee.SelectedRows
-        Dim employeeIdColumn As DataGridViewColumn = dgrv_Employee.Columns("EmployeeID") ' Replace "name" with the actual column name for department ID
+        Dim employeeIdColumn As DataGridViewColumn = dgrv_Employee.Columns("EmployeeID")
 
-        If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected employee?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+        If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected employee?", titleConfỉrm, buttonYesNo, questionIcon) = DialogResult.Yes Then
             If employeeIdColumn IsNot Nothing Then
-                MessageBox.Show("Employee has been deleted successfully!!!", "Success", buttons, MessageBoxIcon.Information)
+                MessageBox.Show(Message.Message.employeeDeleteSuccess, titleSucces, buttonOK, infoIcon)
                 For i As Integer = 0 To selectedRows.Count - 1
                     Dim selectedRow As DataGridViewRow = selectedRows(i)
                     Dim id As Integer = CInt(selectedRow.Cells(employeeIdColumn.Index).Value)
@@ -505,10 +513,10 @@ Public Class frm_Employee
                 LoadData()
                 EnableAdd()
             Else
-                MessageBox.Show("Unable to find the employee ID column.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Unable to find the employee ID column.", titleError, buttonOK, errorIcon)
             End If
         Else
-            MessageBox.Show("Deletion canceled.", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show(Message.Message.cancelDelete, titleInfo, buttonOK, infoIcon)
         End If
     End Sub
 
@@ -549,7 +557,7 @@ Public Class frm_Employee
         If Not String.IsNullOrEmpty(keyword) Then
             SearchEmployeesByKeyword(keyword)
         Else
-            MessageBox.Show(Message.Message.emptyDataSearchMessage, titleMsgBox, buttons, icons)
+            MessageBox.Show(Message.Message.emptyDataSearchMessage, titleNotif, buttonOK, warmIcon)
         End If
     End Sub
     Private Sub gbtn_Reset_Click(sender As Object, e As EventArgs) Handles gbtn_Reset.Click
@@ -570,8 +578,7 @@ Public Class frm_Employee
 
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
-        LoadData()
-
+        Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
         EnableAdd()
     End Sub
 

@@ -30,18 +30,18 @@ Partial Class RegisterUser
         Me.lblFullName = New System.Windows.Forms.Label()
         Me.txtFullName = New System.Windows.Forms.TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.ptb_ToggleCFPassword = New System.Windows.Forms.PictureBox()
+        Me.ptb_TogglePassword = New System.Windows.Forms.PictureBox()
         Me.txtConfirmPassword = New System.Windows.Forms.TextBox()
         Me.lblCPassword = New System.Windows.Forms.Label()
         Me.btnConfirm = New System.Windows.Forms.Button()
         Me.btnExit = New System.Windows.Forms.Button()
         Me.btnReset = New System.Windows.Forms.Button()
         Me.closeApp = New System.Windows.Forms.PictureBox()
-        Me.ptb_TogglePassword = New System.Windows.Forms.PictureBox()
-        Me.ptb_ToggleCFPassword = New System.Windows.Forms.PictureBox()
         Me.Panel1.SuspendLayout()
-        CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ptb_TogglePassword, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_ToggleCFPassword, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ptb_TogglePassword, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -73,7 +73,7 @@ Partial Class RegisterUser
         '
         Me.txtEmail.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtEmail.Location = New System.Drawing.Point(196, 33)
-        Me.txtEmail.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtEmail.Margin = New System.Windows.Forms.Padding(4)
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Size = New System.Drawing.Size(365, 26)
         Me.txtEmail.TabIndex = 0
@@ -94,7 +94,7 @@ Partial Class RegisterUser
         '
         Me.txtPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPassword.Location = New System.Drawing.Point(196, 167)
-        Me.txtPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtPassword.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPassword.Size = New System.Drawing.Size(365, 26)
@@ -117,7 +117,7 @@ Partial Class RegisterUser
         '
         Me.txtFullName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFullName.Location = New System.Drawing.Point(196, 101)
-        Me.txtFullName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtFullName.Margin = New System.Windows.Forms.Padding(4)
         Me.txtFullName.Name = "txtFullName"
         Me.txtFullName.Size = New System.Drawing.Size(365, 26)
         Me.txtFullName.TabIndex = 1
@@ -136,16 +136,36 @@ Partial Class RegisterUser
         Me.Panel1.Controls.Add(Me.txtEmail)
         Me.Panel1.Controls.Add(Me.lblEmail)
         Me.Panel1.Location = New System.Drawing.Point(16, 101)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(583, 284)
         Me.Panel1.TabIndex = 3
+        '
+        'ptb_ToggleCFPassword
+        '
+        Me.ptb_ToggleCFPassword.BackColor = System.Drawing.SystemColors.Window
+        Me.ptb_ToggleCFPassword.Location = New System.Drawing.Point(502, 228)
+        Me.ptb_ToggleCFPassword.Name = "ptb_ToggleCFPassword"
+        Me.ptb_ToggleCFPassword.Size = New System.Drawing.Size(41, 26)
+        Me.ptb_ToggleCFPassword.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ptb_ToggleCFPassword.TabIndex = 11
+        Me.ptb_ToggleCFPassword.TabStop = False
+        '
+        'ptb_TogglePassword
+        '
+        Me.ptb_TogglePassword.BackColor = System.Drawing.SystemColors.Window
+        Me.ptb_TogglePassword.Location = New System.Drawing.Point(502, 167)
+        Me.ptb_TogglePassword.Name = "ptb_TogglePassword"
+        Me.ptb_TogglePassword.Size = New System.Drawing.Size(41, 26)
+        Me.ptb_TogglePassword.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ptb_TogglePassword.TabIndex = 10
+        Me.ptb_TogglePassword.TabStop = False
         '
         'txtConfirmPassword
         '
         Me.txtConfirmPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtConfirmPassword.Location = New System.Drawing.Point(196, 228)
-        Me.txtConfirmPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtConfirmPassword.Margin = New System.Windows.Forms.Padding(4)
         Me.txtConfirmPassword.Name = "txtConfirmPassword"
         Me.txtConfirmPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtConfirmPassword.Size = New System.Drawing.Size(365, 26)
@@ -171,7 +191,7 @@ Partial Class RegisterUser
         Me.btnConfirm.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnConfirm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.btnConfirm.Location = New System.Drawing.Point(16, 406)
-        Me.btnConfirm.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnConfirm.Margin = New System.Windows.Forms.Padding(4)
         Me.btnConfirm.Name = "btnConfirm"
         Me.btnConfirm.Size = New System.Drawing.Size(157, 37)
         Me.btnConfirm.TabIndex = 4
@@ -185,7 +205,7 @@ Partial Class RegisterUser
         Me.btnExit.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnExit.ForeColor = System.Drawing.Color.Black
         Me.btnExit.Location = New System.Drawing.Point(443, 406)
-        Me.btnExit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnExit.Margin = New System.Windows.Forms.Padding(4)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(157, 37)
         Me.btnExit.TabIndex = 6
@@ -199,7 +219,7 @@ Partial Class RegisterUser
         Me.btnReset.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnReset.ForeColor = System.Drawing.Color.Black
         Me.btnReset.Location = New System.Drawing.Point(232, 406)
-        Me.btnReset.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnReset.Margin = New System.Windows.Forms.Padding(4)
         Me.btnReset.Name = "btnReset"
         Me.btnReset.Size = New System.Drawing.Size(157, 37)
         Me.btnReset.TabIndex = 5
@@ -214,31 +234,11 @@ Partial Class RegisterUser
         Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
         Me.closeApp.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
         Me.closeApp.Location = New System.Drawing.Point(569, -1)
-        Me.closeApp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.closeApp.Margin = New System.Windows.Forms.Padding(4)
         Me.closeApp.Name = "closeApp"
         Me.closeApp.Size = New System.Drawing.Size(47, 42)
         Me.closeApp.TabIndex = 7
         Me.closeApp.TabStop = False
-        '
-        'ptb_TogglePassword
-        '
-        Me.ptb_TogglePassword.BackColor = System.Drawing.SystemColors.Control
-        Me.ptb_TogglePassword.Location = New System.Drawing.Point(502, 161)
-        Me.ptb_TogglePassword.Name = "ptb_TogglePassword"
-        Me.ptb_TogglePassword.Size = New System.Drawing.Size(41, 32)
-        Me.ptb_TogglePassword.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.ptb_TogglePassword.TabIndex = 10
-        Me.ptb_TogglePassword.TabStop = False
-        '
-        'ptb_ToggleCFPassword
-        '
-        Me.ptb_ToggleCFPassword.BackColor = System.Drawing.SystemColors.Control
-        Me.ptb_ToggleCFPassword.Location = New System.Drawing.Point(502, 224)
-        Me.ptb_ToggleCFPassword.Name = "ptb_ToggleCFPassword"
-        Me.ptb_ToggleCFPassword.Size = New System.Drawing.Size(41, 30)
-        Me.ptb_ToggleCFPassword.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.ptb_ToggleCFPassword.TabIndex = 11
-        Me.ptb_ToggleCFPassword.TabStop = False
         '
         'RegisterUser
         '
@@ -255,15 +255,15 @@ Partial Class RegisterUser
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.KeyPreview = True
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "RegisterUser"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "RegisterUser"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        CType(Me.closeApp, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ptb_TogglePassword, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ptb_ToggleCFPassword, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ptb_TogglePassword, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.closeApp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
