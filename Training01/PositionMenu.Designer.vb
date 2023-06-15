@@ -36,7 +36,7 @@ Partial Class PositionMenu
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(88, 83)
+        Me.Label1.Location = New System.Drawing.Point(287, 150)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(245, 31)
         Me.Label1.TabIndex = 0
@@ -46,7 +46,7 @@ Partial Class PositionMenu
         '
         Me.btnEmployee.BackColor = System.Drawing.Color.White
         Me.btnEmployee.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnEmployee.Location = New System.Drawing.Point(64, 142)
+        Me.btnEmployee.Location = New System.Drawing.Point(265, 236)
         Me.btnEmployee.Margin = New System.Windows.Forms.Padding(0)
         Me.btnEmployee.Name = "btnEmployee"
         Me.btnEmployee.Size = New System.Drawing.Size(291, 39)
@@ -58,7 +58,7 @@ Partial Class PositionMenu
         '
         Me.btnPosition.BackColor = System.Drawing.Color.White
         Me.btnPosition.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPosition.Location = New System.Drawing.Point(64, 209)
+        Me.btnPosition.Location = New System.Drawing.Point(265, 320)
         Me.btnPosition.Margin = New System.Windows.Forms.Padding(0)
         Me.btnPosition.Name = "btnPosition"
         Me.btnPosition.Size = New System.Drawing.Size(291, 39)
@@ -71,7 +71,7 @@ Partial Class PositionMenu
         Me.closeApp.BackColor = System.Drawing.Color.Transparent
         Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
         Me.closeApp.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
-        Me.closeApp.Location = New System.Drawing.Point(390, 0)
+        Me.closeApp.Location = New System.Drawing.Point(791, 0)
         Me.closeApp.Name = "closeApp"
         Me.closeApp.Size = New System.Drawing.Size(33, 32)
         Me.closeApp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -83,7 +83,7 @@ Partial Class PositionMenu
         '
         Me.btnExit.BackColor = System.Drawing.Color.White
         Me.btnExit.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnExit.Location = New System.Drawing.Point(64, 270)
+        Me.btnExit.Location = New System.Drawing.Point(265, 397)
         Me.btnExit.Margin = New System.Windows.Forms.Padding(0)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(291, 39)
@@ -98,7 +98,7 @@ Partial Class PositionMenu
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(421, 344)
+        Me.ClientSize = New System.Drawing.Size(825, 550)
         Me.Controls.Add(Me.closeApp)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.btnPosition)

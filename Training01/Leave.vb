@@ -1,11 +1,14 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.ComponentModel
+Imports System.Data.SqlClient
+Imports Org.BouncyCastle.Asn1.Pkcs
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports Page = FuntionCommon.Pagination
 
 Public Class Leave
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private DateTimeformat = DTFormat.Type.NormalDateAndHourMinusTime
     Private isClickedFindBtn = False
-    Private RowsPerPage As Integer = 7
+    Private RowsPerPage As Integer = 8
     Private CurrentPage As Integer = 1
     Private LeaveDatas As New DataTable
 
@@ -16,7 +19,8 @@ Public Class Leave
         cbEmpAdd.Items.Add(New DictionaryEntry(-1, "-SELECT-"))
 
         Load_cbEmpAdd()
-        LoadLeaveDatas()
+        'LoadLeaveDatas()
+        LoadDataAsync()
 
         'Add Delete Buttons
         Dim btn As New DataGridViewButtonColumn
@@ -58,7 +62,7 @@ Public Class Leave
             End If
 
             'Load Employees Data To Combobox
-            Dim Sql = "Select * from Employees"
+            Dim Sql = "Select id, name from Employees"
             Using cmd As SqlCommand = New SqlCommand(Sql, con)
                 cmd.CommandType = CommandType.Text
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
@@ -285,7 +289,9 @@ Public Class Leave
             Dim reason As String = row.Cells("reason").Value.ToString()
             Dim isConfirmed As Integer = row.Cells("is_confirmed").Value
 
-            editLeaveForm.TempData = ValueTuple.Create(id, empId, name, fromDate, reason, isConfirmed)
+            Dim tempList As New List(Of Object)
+            tempList.AddRange({id, empId, name, fromDate, reason, isConfirmed})
+            editLeaveForm.TempData = tempList
             editLeaveForm.SetCallback(Sub()
                                           MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
                                           LoadLeaveDatas()
@@ -413,7 +419,7 @@ Public Class Leave
     End Sub
 
     Private Sub dgvLeave_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvLeave.ColumnHeaderMouseClick
-        FuntionCommon.Sortation.SortDataTableAndPreventSttColumn(dgvLeave, LeaveDatas,
+        FuntionCommon.Sortation.SortDataTableAndPreventNoColumn(dgvLeave, LeaveDatas,
                                                                  e.ColumnIndex, "stt")
         LoadDGV()
     End Sub
@@ -421,5 +427,24 @@ Public Class Leave
     Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
         Dim totalPages = Math.Ceiling(LeaveDatas.Rows.Count / RowsPerPage)
         Page.PressEnterKeyTxtCurrentPage(txtCurrentPage, CurrentPage, totalPages, e.KeyChar, Sub() LoadDGV())
+    End Sub
+
+    Private Sub LoadDataAsync()
+        ProgressBarLoad.Visible = True
+
+        Dim bgw As New BackgroundWorker()
+
+        AddHandler bgw.DoWork, AddressOf LoadData
+        AddHandler bgw.RunWorkerCompleted, AddressOf LoadDataCompleted
+
+        bgw.RunWorkerAsync()
+    End Sub
+
+    Private Sub LoadData(sender As Object, e As DoWorkEventArgs)
+        dgvLeave.Invoke(Sub() LoadLeaveDatas())
+    End Sub
+
+    Private Sub LoadDataCompleted(sender As Object, e As RunWorkerCompletedEventArgs)
+        ProgressBarLoad.Visible = False
     End Sub
 End Class

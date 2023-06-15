@@ -56,10 +56,7 @@ Partial Class SalaryEmp
         Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.salary_emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvEmps, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvSalaries, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -77,7 +74,7 @@ Partial Class SalaryEmp
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(403, 26)
+        Me.Label1.Location = New System.Drawing.Point(351, 26)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(394, 39)
         Me.Label1.TabIndex = 0
@@ -87,7 +84,7 @@ Partial Class SalaryEmp
         '
         Me.dgvEmps.AllowUserToAddRows = False
         Me.dgvEmps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvEmps.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.stt, Me.id, Me.emp_name, Me.phone, Me.address, Me.birthday, Me.email, Me.salary_emp_id})
+        Me.dgvEmps.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.stt, Me.id, Me.emp_name, Me.birthday, Me.salary_emp_id})
         Me.dgvEmps.GridColor = System.Drawing.SystemColors.AppWorkspace
         Me.dgvEmps.Location = New System.Drawing.Point(14, 55)
         Me.dgvEmps.MultiSelect = False
@@ -96,7 +93,7 @@ Partial Class SalaryEmp
         Me.dgvEmps.RowHeadersWidth = 51
         Me.dgvEmps.RowTemplate.Height = 40
         Me.dgvEmps.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvEmps.Size = New System.Drawing.Size(363, 304)
+        Me.dgvEmps.Size = New System.Drawing.Size(235, 304)
         Me.dgvEmps.TabIndex = 3
         '
         'dgvSalaries
@@ -139,7 +136,6 @@ Partial Class SalaryEmp
         Me.salary_name.MinimumWidth = 6
         Me.salary_name.Name = "salary_name"
         Me.salary_name.ReadOnly = True
-        Me.salary_name.Width = 120
         '
         'salary
         '
@@ -169,9 +165,9 @@ Partial Class SalaryEmp
         Me.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnUpdate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUpdate.ForeColor = System.Drawing.Color.White
-        Me.btnUpdate.Location = New System.Drawing.Point(410, 293)
+        Me.btnUpdate.Location = New System.Drawing.Point(282, 292)
         Me.btnUpdate.Name = "btnUpdate"
-        Me.btnUpdate.Size = New System.Drawing.Size(85, 33)
+        Me.btnUpdate.Size = New System.Drawing.Size(70, 33)
         Me.btnUpdate.TabIndex = 4
         Me.btnUpdate.Text = "UPDATE"
         Me.btnUpdate.UseVisualStyleBackColor = False
@@ -189,14 +185,14 @@ Partial Class SalaryEmp
         '
         Me.txtSalaryName.Location = New System.Drawing.Point(9, 41)
         Me.txtSalaryName.Name = "txtSalaryName"
-        Me.txtSalaryName.Size = New System.Drawing.Size(209, 20)
+        Me.txtSalaryName.Size = New System.Drawing.Size(189, 20)
         Me.txtSalaryName.TabIndex = 9
         '
         'txtSalary
         '
         Me.txtSalary.Location = New System.Drawing.Point(10, 91)
         Me.txtSalary.Name = "txtSalary"
-        Me.txtSalary.Size = New System.Drawing.Size(209, 20)
+        Me.txtSalary.Size = New System.Drawing.Size(188, 20)
         Me.txtSalary.TabIndex = 10
         '
         'Label3
@@ -214,7 +210,7 @@ Partial Class SalaryEmp
         Me.txtSearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSearch.Location = New System.Drawing.Point(14, 28)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(335, 20)
+        Me.txtSearch.Size = New System.Drawing.Size(205, 20)
         Me.txtSearch.TabIndex = 2
         '
         'PictureBox1
@@ -223,7 +219,7 @@ Partial Class SalaryEmp
         Me.PictureBox1.BackgroundImage = Global.Training01.My.Resources.Resources.search_icon
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.PictureBox1.Image = Global.Training01.My.Resources.Resources.search_icon
-        Me.PictureBox1.Location = New System.Drawing.Point(355, 28)
+        Me.PictureBox1.Location = New System.Drawing.Point(225, 28)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(22, 20)
         Me.PictureBox1.TabIndex = 9
@@ -240,9 +236,9 @@ Partial Class SalaryEmp
         Me.gbSalary.Controls.Add(Me.dgvSalaries)
         Me.gbSalary.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbSalary.ForeColor = System.Drawing.Color.White
-        Me.gbSalary.Location = New System.Drawing.Point(501, 108)
+        Me.gbSalary.Location = New System.Drawing.Point(358, 108)
         Me.gbSalary.Name = "gbSalary"
-        Me.gbSalary.Size = New System.Drawing.Size(687, 373)
+        Me.gbSalary.Size = New System.Drawing.Size(665, 373)
         Me.gbSalary.TabIndex = 5
         Me.gbSalary.TabStop = False
         Me.gbSalary.Text = "SALARY'S MANAGEMENT"
@@ -252,7 +248,7 @@ Partial Class SalaryEmp
         Me.gBtnDelete.Animated = True
         Me.gBtnDelete.AutoRoundedCorners = True
         Me.gBtnDelete.BorderColor = System.Drawing.Color.White
-        Me.gBtnDelete.BorderRadius = 16
+        Me.gBtnDelete.BorderRadius = 17
         Me.gBtnDelete.BorderThickness = 2
         Me.gBtnDelete.Cursor = System.Windows.Forms.Cursors.Hand
         Me.gBtnDelete.DisabledState.BorderColor = System.Drawing.Color.DarkGray
@@ -263,9 +259,9 @@ Partial Class SalaryEmp
         Me.gBtnDelete.FillColor2 = System.Drawing.Color.DarkMagenta
         Me.gBtnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gBtnDelete.ForeColor = System.Drawing.Color.White
-        Me.gBtnDelete.Location = New System.Drawing.Point(444, 280)
+        Me.gBtnDelete.Location = New System.Drawing.Point(444, 277)
         Me.gBtnDelete.Name = "gBtnDelete"
-        Me.gBtnDelete.Size = New System.Drawing.Size(227, 34)
+        Me.gBtnDelete.Size = New System.Drawing.Size(208, 37)
         Me.gBtnDelete.TabIndex = 15
         Me.gBtnDelete.Text = "DELETE"
         '
@@ -286,7 +282,7 @@ Partial Class SalaryEmp
         Me.gbtnExportExcel.Image = Global.Training01.My.Resources.Resources.download_icon
         Me.gbtnExportExcel.Location = New System.Drawing.Point(444, 320)
         Me.gbtnExportExcel.Name = "gbtnExportExcel"
-        Me.gbtnExportExcel.Size = New System.Drawing.Size(227, 39)
+        Me.gbtnExportExcel.Size = New System.Drawing.Size(208, 39)
         Me.gbtnExportExcel.TabIndex = 14
         Me.gbtnExportExcel.Text = "EXPORT EXCEL"
         Me.gbtnExportExcel.UseTransparentBackground = True
@@ -302,7 +298,7 @@ Partial Class SalaryEmp
         Me.GroupBox3.ForeColor = System.Drawing.Color.White
         Me.GroupBox3.Location = New System.Drawing.Point(444, 55)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(227, 179)
+        Me.GroupBox3.Size = New System.Drawing.Size(208, 179)
         Me.GroupBox3.TabIndex = 8
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "CREATE SALARY"
@@ -324,7 +320,7 @@ Partial Class SalaryEmp
         Me.gBtnAdd.ForeColor = System.Drawing.Color.White
         Me.gBtnAdd.Location = New System.Drawing.Point(8, 129)
         Me.gBtnAdd.Name = "gBtnAdd"
-        Me.gBtnAdd.Size = New System.Drawing.Size(210, 38)
+        Me.gBtnAdd.Size = New System.Drawing.Size(190, 38)
         Me.gBtnAdd.TabIndex = 11
         Me.gBtnAdd.Text = "ADD"
         '
@@ -357,7 +353,7 @@ Partial Class SalaryEmp
         Me.gbEmps.ForeColor = System.Drawing.Color.White
         Me.gbEmps.Location = New System.Drawing.Point(12, 108)
         Me.gbEmps.Name = "gbEmps"
-        Me.gbEmps.Size = New System.Drawing.Size(392, 373)
+        Me.gbEmps.Size = New System.Drawing.Size(264, 373)
         Me.gbEmps.TabIndex = 1
         Me.gbEmps.TabStop = False
         Me.gbEmps.Text = "EMPLOYEE'S LIST"
@@ -368,7 +364,7 @@ Partial Class SalaryEmp
         Me.closeApp.BackgroundImage = Global.Training01.My.Resources.Resources.blue_exit_icon_16
         Me.closeApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.closeApp.Location = New System.Drawing.Point(1151, 1)
+        Me.closeApp.Location = New System.Drawing.Point(994, 4)
         Me.closeApp.Name = "closeApp"
         Me.closeApp.Size = New System.Drawing.Size(37, 36)
         Me.closeApp.TabIndex = 12
@@ -380,7 +376,7 @@ Partial Class SalaryEmp
         Me.Guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Guna2HtmlLabel1.ForeColor = System.Drawing.Color.White
-        Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(201, 493)
+        Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(132, 493)
         Me.Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
         Me.Guna2HtmlLabel1.Size = New System.Drawing.Size(18, 18)
         Me.Guna2HtmlLabel1.TabIndex = 17
@@ -401,7 +397,7 @@ Partial Class SalaryEmp
         Me.txtTotalPage.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtTotalPage.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.txtTotalPage.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtTotalPage.Location = New System.Drawing.Point(225, 488)
+        Me.txtTotalPage.Location = New System.Drawing.Point(156, 488)
         Me.txtTotalPage.Name = "txtTotalPage"
         Me.txtTotalPage.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.txtTotalPage.PlaceholderText = ""
@@ -424,7 +420,7 @@ Partial Class SalaryEmp
         Me.txtCurrentPage.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtCurrentPage.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.txtCurrentPage.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtCurrentPage.Location = New System.Drawing.Point(156, 488)
+        Me.txtCurrentPage.Location = New System.Drawing.Point(87, 488)
         Me.txtCurrentPage.Name = "txtCurrentPage"
         Me.txtCurrentPage.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.txtCurrentPage.PlaceholderText = ""
@@ -444,9 +440,9 @@ Partial Class SalaryEmp
         Me.btnNext.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.btnNext.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnNext.ForeColor = System.Drawing.Color.White
-        Me.btnNext.Location = New System.Drawing.Point(272, 487)
+        Me.btnNext.Location = New System.Drawing.Point(203, 487)
         Me.btnNext.Name = "btnNext"
-        Me.btnNext.Size = New System.Drawing.Size(89, 29)
+        Me.btnNext.Size = New System.Drawing.Size(59, 29)
         Me.btnNext.TabIndex = 13
         Me.btnNext.Text = "NEXT"
         Me.btnNext.UseTransparentBackground = True
@@ -462,11 +458,11 @@ Partial Class SalaryEmp
         Me.btnPrevious.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.btnPrevious.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnPrevious.ForeColor = System.Drawing.Color.White
-        Me.btnPrevious.Location = New System.Drawing.Point(61, 487)
+        Me.btnPrevious.Location = New System.Drawing.Point(26, 487)
         Me.btnPrevious.Name = "btnPrevious"
-        Me.btnPrevious.Size = New System.Drawing.Size(89, 29)
+        Me.btnPrevious.Size = New System.Drawing.Size(55, 29)
         Me.btnPrevious.TabIndex = 14
-        Me.btnPrevious.Text = "PREVIOUS"
+        Me.btnPrevious.Text = "PRE"
         Me.btnPrevious.UseTransparentBackground = True
         '
         'bwLoadEmpsDatas
@@ -496,41 +492,14 @@ Partial Class SalaryEmp
         Me.emp_name.MinimumWidth = 6
         Me.emp_name.Name = "emp_name"
         Me.emp_name.ReadOnly = True
-        Me.emp_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'phone
-        '
-        Me.phone.HeaderText = "PHONE"
-        Me.phone.MinimumWidth = 6
-        Me.phone.Name = "phone"
-        Me.phone.ReadOnly = True
-        Me.phone.Visible = False
-        Me.phone.Width = 125
-        '
-        'address
-        '
-        Me.address.HeaderText = "ADDRESS"
-        Me.address.MinimumWidth = 6
-        Me.address.Name = "address"
-        Me.address.ReadOnly = True
-        Me.address.Visible = False
-        Me.address.Width = 125
         '
         'birthday
         '
+        Me.birthday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.birthday.HeaderText = "BIRTHDAY"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
         Me.birthday.ReadOnly = True
-        Me.birthday.Width = 90
-        '
-        'email
-        '
-        Me.email.HeaderText = "EMAIL"
-        Me.email.MinimumWidth = 6
-        Me.email.Name = "email"
-        Me.email.ReadOnly = True
-        Me.email.Width = 130
         '
         'salary_emp_id
         '
@@ -547,7 +516,7 @@ Partial Class SalaryEmp
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1196, 522)
+        Me.ClientSize = New System.Drawing.Size(1036, 522)
         Me.Controls.Add(Me.Guna2HtmlLabel1)
         Me.Controls.Add(Me.txtTotalPage)
         Me.Controls.Add(Me.txtCurrentPage)
@@ -594,11 +563,6 @@ Partial Class SalaryEmp
     Friend WithEvents gbEmps As GroupBox
     Friend WithEvents closeApp As PictureBox
     Friend WithEvents PictureBox2 As PictureBox
-    Friend WithEvents salary_stt As DataGridViewTextBoxColumn
-    Friend WithEvents salary_id As DataGridViewTextBoxColumn
-    Friend WithEvents salary_name As DataGridViewTextBoxColumn
-    Friend WithEvents salary As DataGridViewTextBoxColumn
-    Friend WithEvents salary_number As DataGridViewTextBoxColumn
     Friend WithEvents gbtnExportExcel As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents gBtnDelete As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents gBtnAdd As Guna.UI2.WinForms.Guna2Button
@@ -608,12 +572,14 @@ Partial Class SalaryEmp
     Friend WithEvents btnNext As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnPrevious As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents bwLoadEmpsDatas As System.ComponentModel.BackgroundWorker
+    Friend WithEvents salary_stt As DataGridViewTextBoxColumn
+    Friend WithEvents salary_id As DataGridViewTextBoxColumn
+    Friend WithEvents salary_name As DataGridViewTextBoxColumn
+    Friend WithEvents salary As DataGridViewTextBoxColumn
+    Friend WithEvents salary_number As DataGridViewTextBoxColumn
     Friend WithEvents stt As DataGridViewTextBoxColumn
     Friend WithEvents id As DataGridViewTextBoxColumn
     Friend WithEvents emp_name As DataGridViewTextBoxColumn
-    Friend WithEvents phone As DataGridViewTextBoxColumn
-    Friend WithEvents address As DataGridViewTextBoxColumn
     Friend WithEvents birthday As DataGridViewTextBoxColumn
-    Friend WithEvents email As DataGridViewTextBoxColumn
     Friend WithEvents salary_emp_id As DataGridViewTextBoxColumn
 End Class

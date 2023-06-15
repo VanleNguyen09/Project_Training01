@@ -25,7 +25,7 @@ Public Class SalaryEmp
         LoadDGVEmps()
         Load_DGV_SalaryEmp()
 
-        CustomElements.KeepSttColumnUnsorted(dgvSalaries, "salary_stt")
+        CustomElements.KeepNoColumnUnsorted(dgvSalaries, "salary_stt")
     End Sub
 
     ''' <summary>
@@ -38,9 +38,15 @@ Public Class SalaryEmp
                 con.Open()
             End If
 
-            Dim sql = "GetAllEmployeesByWords"
+            Dim sql = "SELECT ROW_NUMBER() OVER (ORDER BY id) as stt, id, name, birthday, salary_emp_id 
+                        FROM Employees
+	                    WHERE status = 1 
+	                    AND (name LIKE '%' + @words + '%' 
+	                    OR id LIKE '%' + @words + '%' 
+	                    OR phone LIKE '%' + @words + '%'
+	                    OR address LIKE '%' + @words + '%')"
             Using cmd As SqlCommand = New SqlCommand(sql, con)
-                cmd.CommandType = CommandType.StoredProcedure
+                'cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("words", searchText)
 
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
@@ -71,13 +77,10 @@ Public Class SalaryEmp
             Dim stt = pagingDatas.Rows(i)("stt").ToString()
             Dim id = pagingDatas.Rows(i)("id").ToString()
             Dim name = pagingDatas.Rows(i)("name").ToString()
-            Dim phone = pagingDatas.Rows(i)("phone").ToString()
-            Dim address = pagingDatas.Rows(i)("address").ToString()
             Dim birthday = pagingDatas.Rows(i)("birthday").ToString().Split(" ")(0) 'Only get date
-            Dim email = pagingDatas.Rows(i)("email").ToString()
             Dim salaryEmpId = If(pagingDatas.Rows(i)("salary_emp_id") Is DBNull.Value, -1, pagingDatas.Rows(i)("salary_emp_id"))
 
-            dgvEmps.Rows.Add(New String() {stt, id, name, phone, address, birthday, email, salaryEmpId})
+            dgvEmps.Rows.Add(New String() {stt, id, name, birthday, salaryEmpId})
         Next
 
         Page.UpdatePaginationButtons(btnPrevious, Page.ButtonType.Previous, totalPages, CurrentPage)
@@ -511,7 +514,7 @@ Public Class SalaryEmp
 
         Dim replaceColumnNameList As New Dictionary(Of String, String)
         replaceColumnNameList.Add("emp_name", "name")
-        FuntionCommon.Sortation.SortDataTableAndPreventSttColumn(dgvEmps, EmpsDatas,
+        FuntionCommon.Sortation.SortDataTableAndPreventNoColumn(dgvEmps, EmpsDatas,
                                                                  e.ColumnIndex, "stt", replaceColumnNameList)
         LoadDGVEmps()
     End Sub
@@ -539,7 +542,7 @@ Public Class SalaryEmp
                                              If SortedColumnIndex > -1 Then
                                                  Dim replaceColumnNameList As New Dictionary(Of String, String)
                                                  replaceColumnNameList.Add("emp_name", "name")
-                                                 FuntionCommon.Sortation.SortDataTableAndPreventSttColumn(dgvEmps, EmpsDatas,
+                                                 FuntionCommon.Sortation.SortDataTableAndPreventNoColumn(dgvEmps, EmpsDatas,
                                                                                                           SortedColumnIndex, "stt", replaceColumnNameList)
                                              End If
                                              LoadDGVEmps()

@@ -184,34 +184,37 @@ Partial Class ExcelPreviewForm
         'stt
         '
         Me.stt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.stt.FillWeight = 125.7073!
-        Me.stt.HeaderText = "STT"
+        Me.stt.FillWeight = 203.0457!
+        Me.stt.HeaderText = "NO"
         Me.stt.Name = "stt"
         Me.stt.ReadOnly = True
         Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.stt.Width = 35
+        Me.stt.Width = 40
         '
         'id
         '
         Me.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.id.FillWeight = 142.132!
+        Me.id.FillWeight = 187.1013!
         Me.id.HeaderText = "ID"
         Me.id.Name = "id"
         Me.id.ReadOnly = True
         Me.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        Me.id.Width = 40
+        Me.id.Width = 50
         '
         'emp_name
         '
-        Me.emp_name.FillWeight = 88.69346!
+        Me.emp_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.emp_name.FillWeight = 304.2209!
         Me.emp_name.HeaderText = "NAME"
         Me.emp_name.Name = "emp_name"
         Me.emp_name.ReadOnly = True
         Me.emp_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.emp_name.Width = 110
         '
         'phone
         '
-        Me.phone.FillWeight = 88.69346!
+        Me.phone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.phone.FillWeight = 7.227337!
         Me.phone.HeaderText = "PHONE"
         Me.phone.Name = "phone"
         Me.phone.ReadOnly = True
@@ -219,7 +222,8 @@ Partial Class ExcelPreviewForm
         '
         'birthday
         '
-        Me.birthday.FillWeight = 88.69346!
+        Me.birthday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.birthday.FillWeight = 14.56762!
         Me.birthday.HeaderText = "BIRTHDAY"
         Me.birthday.Name = "birthday"
         Me.birthday.ReadOnly = True
@@ -227,15 +231,18 @@ Partial Class ExcelPreviewForm
         '
         'email
         '
-        Me.email.FillWeight = 88.69346!
+        Me.email.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.email.FillWeight = 0.1072623!
         Me.email.HeaderText = "EMAIL"
         Me.email.Name = "email"
         Me.email.ReadOnly = True
         Me.email.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.email.Width = 140
         '
         'salary_name
         '
-        Me.salary_name.FillWeight = 88.69346!
+        Me.salary_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.salary_name.FillWeight = 27.66169!
         Me.salary_name.HeaderText = "SALARY NAME"
         Me.salary_name.Name = "salary_name"
         Me.salary_name.ReadOnly = True
@@ -243,7 +250,8 @@ Partial Class ExcelPreviewForm
         '
         'salary
         '
-        Me.salary.FillWeight = 88.69346!
+        Me.salary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.salary.FillWeight = 56.06833!
         Me.salary.HeaderText = "SALARY"
         Me.salary.Name = "salary"
         Me.salary.ReadOnly = True

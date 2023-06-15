@@ -4,9 +4,8 @@ Public Class EditLeaveForm
     Public Delegate Sub MyCallbackDelegate()
     Private myCallback As MyCallbackDelegate
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
-    'id, emp_id, name, from_date, reason
-    Public Property TempData() As ValueTuple(Of Integer, Integer, String, Date, String, Integer)
-
+    'id, emp_id, name, from_date, reason, isConfirmed
+    Public Property TempData() As List(Of Object)
     Public Sub SetCallback(callback As MyCallbackDelegate)
         myCallback = callback
     End Sub
@@ -22,7 +21,7 @@ Public Class EditLeaveForm
         cbEmpName.DisplayMember = "Value"
         cbEmpName.ValueMember = "Key"
 
-        If (TempData.Item6 = 1) Then
+        If (TempData(5) = 1) Then
             cbEmpName.Enabled = False
             dtpFromDate.Enabled = False
             rtxtReason.Enabled = False
@@ -101,11 +100,11 @@ Public Class EditLeaveForm
     End Sub
 
     Private Sub ResetData()
-        Dim empId As Integer = TempData.Item2
-        Dim empName As String = TempData.Item3
+        Dim empId As Integer = TempData(1)
+        Dim empName As String = TempData(2)
         Dim index As Integer = cbEmpName.FindStringExact(empId & " - " & empName)
 
-        lbIdValue.Text = TempData.Item1
+        lbIdValue.Text = TempData(0)
         lbEmpIdValue.Text = empId
 
         If index >= 0 Then
@@ -114,8 +113,8 @@ Public Class EditLeaveForm
             cbEmpName.Text = empId & empName
         End If
 
-        dtpFromDate.Value = TempData.Item4
-        rtxtReason.Text = TempData.Item5
+        dtpFromDate.Value = TempData(3)
+        rtxtReason.Text = TempData(4)
     End Sub
 
     Private Sub rtxtReason_TextChanged(sender As Object, e As EventArgs) Handles rtxtReason.TextChanged
@@ -123,9 +122,9 @@ Public Class EditLeaveForm
     End Sub
 
     Private Sub EnableOrDisableSaveButton()
-        If lbEmpIdValue.Text = TempData.Item2.ToString() AndAlso
-           dtpFromDate.Value = TempData.Item4 AndAlso
-           rtxtReason.Text.Trim() = TempData.Item5 Then
+        If lbEmpIdValue.Text = TempData(1).ToString() AndAlso
+           dtpFromDate.Value = TempData(3) AndAlso
+           rtxtReason.Text.Trim() = TempData(4) Then
             btnSave.Enabled = False 'Disable Save button
         Else
             btnSave.Enabled = True 'Enable Save button
