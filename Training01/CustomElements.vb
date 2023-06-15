@@ -178,6 +178,9 @@
                                  End If
                              End Sub
 
+        AddHandler dashboard.MouseDown, mouseDownEvent
+        AddHandler dashboard.MouseMove, mouseMoveEvent
+
         If Not header Is Nothing Then
             AddHandler header.MouseDown, mouseDownEvent
             AddHandler header.MouseMove, mouseMoveEvent

@@ -17,6 +17,7 @@ GO
 -- =============================================
 -- Author:		Dat
 -- Create date: 29/5/2023
+-- Update date: 14/6/2023
 -- Description:	Get all employees by words
 -- =============================================
 CREATE OR ALTER PROCEDURE GetAllEmployeesByWords
@@ -30,9 +31,9 @@ BEGIN
     -- Insert statements for procedure here
 	SELECT ROW_NUMBER() OVER (ORDER BY id) as stt, * FROM Employees
 	WHERE status = 1 
-	AND name LIKE '%' + @words + '%' 
+	AND (name LIKE '%' + @words + '%' 
 	OR id LIKE '%' + @words + '%' 
 	OR phone LIKE '%' + @words + '%'
-	OR address LIKE '%' + @words + '%'
+	OR address LIKE '%' + @words + '%')
 END
 GO
