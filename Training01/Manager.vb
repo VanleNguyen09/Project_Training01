@@ -893,8 +893,4 @@ Public Class frm_Manager
         FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptManager, e.ColumnIndex, "No")
         Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
     End Sub
-
-    Private Sub lbl_Page_Click(sender As Object, e As EventArgs) Handles lbl_Page.Click
-
-    End Sub
 End Class
