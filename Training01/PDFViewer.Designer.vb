@@ -26,15 +26,15 @@ Partial Class PDFViewer
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PDFViewer))
         Me.gbtn_OK = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.pn_Botttom = New System.Windows.Forms.Panel()
-        Me.AxAcroPDF1 = New AxAcroPDFLib.AxAcroPDF()
         Me.closeApp = New System.Windows.Forms.PictureBox()
         Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.pn_Top = New System.Windows.Forms.Panel()
+        Me.AxAcroPDF1 = New AxAcroPDFLib.AxAcroPDF()
         gbtn_Cancel = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.pn_Botttom.SuspendLayout()
-        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
+        Me.pn_Top.SuspendLayout()
+        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'gbtn_Cancel
@@ -90,15 +90,6 @@ Partial Class PDFViewer
         Me.pn_Botttom.Size = New System.Drawing.Size(1464, 133)
         Me.pn_Botttom.TabIndex = 4
         '
-        'AxAcroPDF1
-        '
-        Me.AxAcroPDF1.Enabled = True
-        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 91)
-        Me.AxAcroPDF1.Name = "AxAcroPDF1"
-        Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.AxAcroPDF1.Size = New System.Drawing.Size(1464, 566)
-        Me.AxAcroPDF1.TabIndex = 1
-        '
         'closeApp
         '
         Me.closeApp.BackColor = System.Drawing.Color.Transparent
@@ -123,15 +114,26 @@ Partial Class PDFViewer
         Me.Guna2HtmlLabel1.TabIndex = 6
         Me.Guna2HtmlLabel1.Text = "PDF PREVIEW"
         '
-        'Panel1
+        'pn_Top
         '
-        Me.Panel1.BackColor = System.Drawing.Color.Transparent
-        Me.Panel1.Controls.Add(Me.Guna2HtmlLabel1)
-        Me.Panel1.Controls.Add(Me.closeApp)
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1464, 70)
-        Me.Panel1.TabIndex = 7
+        Me.pn_Top.BackColor = System.Drawing.Color.Transparent
+        Me.pn_Top.Controls.Add(Me.Guna2HtmlLabel1)
+        Me.pn_Top.Controls.Add(Me.closeApp)
+        Me.pn_Top.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pn_Top.Location = New System.Drawing.Point(0, 0)
+        Me.pn_Top.Name = "pn_Top"
+        Me.pn_Top.Size = New System.Drawing.Size(1464, 70)
+        Me.pn_Top.TabIndex = 7
+        '
+        'AxAcroPDF1
+        '
+        Me.AxAcroPDF1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.AxAcroPDF1.Enabled = True
+        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 0)
+        Me.AxAcroPDF1.Name = "AxAcroPDF1"
+        Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.AxAcroPDF1.Size = New System.Drawing.Size(1464, 875)
+        Me.AxAcroPDF1.TabIndex = 1
         '
         'PDFViewer
         '
@@ -140,7 +142,7 @@ Partial Class PDFViewer
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1464, 875)
-        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.pn_Top)
         Me.Controls.Add(Me.pn_Botttom)
         Me.Controls.Add(Me.AxAcroPDF1)
         Me.DoubleBuffered = True
@@ -149,10 +151,10 @@ Partial Class PDFViewer
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "PDFViewer"
         Me.pn_Botttom.ResumeLayout(False)
-        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
+        Me.pn_Top.ResumeLayout(False)
+        Me.pn_Top.PerformLayout()
+        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -161,5 +163,5 @@ Partial Class PDFViewer
     Friend WithEvents AxAcroPDF1 As AxAcroPDFLib.AxAcroPDF
     Friend WithEvents closeApp As PictureBox
     Friend WithEvents Guna2HtmlLabel1 As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents Panel1 As Panel
+    Friend WithEvents pn_Top As Panel
 End Class

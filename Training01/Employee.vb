@@ -1,5 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
+Imports Guna.UI2.WinForms
+
 Public Class frm_Employee
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
 
@@ -582,6 +584,10 @@ Public Class frm_Employee
         EnableAdd()
     End Sub
 
+    Private Sub gbtn_EmpDept_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
     Private Sub txt_Name_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_Name.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
@@ -635,11 +641,6 @@ Public Class frm_Employee
         End If
     End Sub
 
-    Private Sub gbtn_EmpDept_Click(sender As Object, e As EventArgs) Handles gbtn_EmpDept.Click
-        Dim empDept As New frm_EmpInDept
-        empDept.Show()
-    End Sub
-
     Private Sub frm_Employee_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         dgrv_Employee.ClearSelection()
     End Sub
@@ -684,5 +685,15 @@ Public Class frm_Employee
     Private Sub dgrv_Employee_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgrv_Employee.ColumnHeaderMouseClick
         FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Employee, e.ColumnIndex, "No")
         Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
+    End Sub
+
+    Private Sub btn_EmpDept_Click(sender As Object, e As EventArgs) Handles btn_EmpDept.Click
+        Me.Close()
+        NewDashboard.ShowFormInMainPanel(frm_EmpInDept)
+        Dim clickedButton As Button = CType(sender, Button)
+        NewDashboard.ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        NewDashboard.currentSelection = "Employee In Department"
+        NewDashboard.UpdateTitleLabel()
+        NewDashboard.ResetButtonColors(clickedButton)
     End Sub
 End Class

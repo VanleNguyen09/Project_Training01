@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports Guna.UI2.WinForms
 
 Public Class frm_EmpInDept
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -690,12 +691,18 @@ Public Class frm_EmpInDept
         dgv_DeptEmp.ClearSelection()
     End Sub
 
-    Private Sub ptb_Icon_Click(sender As Object, e As EventArgs) Handles ptb_Icon.Click
+    Private Sub ptb_Icon_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 
-    Private Sub gbtn_Exit_Click(sender As Object, e As EventArgs) Handles gbtn_Exit.Click
+    Private Sub btn_Exit_Click(sender As Object, e As EventArgs) Handles btn_Exit.Click
         Me.Close()
+        NewDashboard.ShowFormInMainPanel(frm_Employee)
+        Dim clickedButton As Button = CType(sender, Button)
+        NewDashboard.ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        NewDashboard.currentSelection = "Employee"
+        NewDashboard.UpdateTitleLabel()
+        NewDashboard.ResetButtonColors(clickedButton)
     End Sub
 
     Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
@@ -733,14 +740,6 @@ Public Class frm_EmpInDept
             Pagination.PaginateDataGridView(dgv_DeptEmp, currentPage)
         End If
         UpdatePaginationPicBox()
-    End Sub
-
-    Private Sub frm_EmpInDept_MouseEnter(sender As Object, e As EventArgs) Handles MyBase.MouseEnter
-        ptb_Icon.Cursor = Cursors.Hand
-    End Sub
-
-    Private Sub frm_EmpInDept_MouseLeave(sender As Object, e As EventArgs) Handles MyBase.MouseLeave
-        ptb_Icon.Cursor = Cursors.Default
     End Sub
 
     Private Sub dgv_DeptEmp_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgv_DeptEmp.ColumnHeaderMouseClick

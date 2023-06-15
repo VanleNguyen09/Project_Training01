@@ -26,6 +26,19 @@ Partial Class frm_Manager
         Me.lbl_titleManager = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dgv_DeptManager = New System.Windows.Forms.DataGridView()
+        Me.NO = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.from_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.to_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.dept_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.deptmanager_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txt_Search = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.grb_create = New System.Windows.Forms.GroupBox()
@@ -43,28 +56,16 @@ Partial Class frm_Manager
         Me.gbtn_Reset = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.gbtn_Update = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.gbtn_ExportPDF = New Guna.UI2.WinForms.Guna2GradientButton()
-        Me.gbtn_Manage = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.gbtn_Search = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.ptb_Next = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.ptb_Previous = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.lbl_Page = New System.Windows.Forms.Label()
-        Me.NO = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.address = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.from_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.to_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.dept_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.deptmanager_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.grb_Search = New System.Windows.Forms.GroupBox()
         CType(Me.dgv_DeptManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_create.SuspendLayout()
         CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grb_Search.SuspendLayout()
         Me.SuspendLayout()
         '
         'cb_Department
@@ -75,7 +76,7 @@ Partial Class frm_Manager
         Me.cb_Department.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cb_Department.FormattingEnabled = True
         Me.cb_Department.IntegralHeight = False
-        Me.cb_Department.Location = New System.Drawing.Point(137, 109)
+        Me.cb_Department.Location = New System.Drawing.Point(138, 23)
         Me.cb_Department.Name = "cb_Department"
         Me.cb_Department.Size = New System.Drawing.Size(229, 30)
         Me.cb_Department.TabIndex = 54
@@ -99,7 +100,7 @@ Partial Class frm_Manager
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Linen
-        Me.Label2.Location = New System.Drawing.Point(13, 113)
+        Me.Label2.Location = New System.Drawing.Point(7, 27)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(107, 20)
@@ -112,20 +113,116 @@ Partial Class frm_Manager
         Me.dgv_DeptManager.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgv_DeptManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgv_DeptManager.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NO, Me.emp_id, Me.emp_name, Me.phone, Me.birthday, Me.address, Me.email, Me.department_name, Me.from_date, Me.to_date, Me.dept_id, Me.status, Me.deptmanager_id})
-        Me.dgv_DeptManager.Location = New System.Drawing.Point(17, 485)
+        Me.dgv_DeptManager.Location = New System.Drawing.Point(17, 357)
         Me.dgv_DeptManager.Margin = New System.Windows.Forms.Padding(4)
         Me.dgv_DeptManager.Name = "dgv_DeptManager"
         Me.dgv_DeptManager.RowHeadersVisible = False
         Me.dgv_DeptManager.RowHeadersWidth = 51
         Me.dgv_DeptManager.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgv_DeptManager.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_DeptManager.Size = New System.Drawing.Size(1246, 304)
+        Me.dgv_DeptManager.Size = New System.Drawing.Size(1246, 295)
         Me.dgv_DeptManager.TabIndex = 70
+        '
+        'NO
+        '
+        Me.NO.HeaderText = "NO"
+        Me.NO.MinimumWidth = 6
+        Me.NO.Name = "NO"
+        Me.NO.ReadOnly = True
+        Me.NO.Width = 40
+        '
+        'emp_id
+        '
+        Me.emp_id.HeaderText = "Emp ID"
+        Me.emp_id.MinimumWidth = 6
+        Me.emp_id.Name = "emp_id"
+        Me.emp_id.Visible = False
+        Me.emp_id.Width = 50
+        '
+        'emp_name
+        '
+        Me.emp_name.HeaderText = "NAME"
+        Me.emp_name.MinimumWidth = 6
+        Me.emp_name.Name = "emp_name"
+        Me.emp_name.Width = 110
+        '
+        'phone
+        '
+        Me.phone.HeaderText = "PHONE"
+        Me.phone.MinimumWidth = 6
+        Me.phone.Name = "phone"
+        Me.phone.Width = 125
+        '
+        'birthday
+        '
+        Me.birthday.HeaderText = "BIRTHDAY"
+        Me.birthday.MinimumWidth = 6
+        Me.birthday.Name = "birthday"
+        Me.birthday.Width = 125
+        '
+        'address
+        '
+        Me.address.HeaderText = "ADDRESS"
+        Me.address.MinimumWidth = 6
+        Me.address.Name = "address"
+        Me.address.Width = 150
+        '
+        'email
+        '
+        Me.email.HeaderText = "EMAIL"
+        Me.email.MinimumWidth = 6
+        Me.email.Name = "email"
+        Me.email.Width = 150
+        '
+        'department_name
+        '
+        Me.department_name.HeaderText = "Department"
+        Me.department_name.MinimumWidth = 6
+        Me.department_name.Name = "department_name"
+        Me.department_name.Width = 125
+        '
+        'from_date
+        '
+        Me.from_date.HeaderText = "From Date"
+        Me.from_date.MinimumWidth = 6
+        Me.from_date.Name = "from_date"
+        Me.from_date.Width = 125
+        '
+        'to_date
+        '
+        Me.to_date.HeaderText = "To Date"
+        Me.to_date.MinimumWidth = 6
+        Me.to_date.Name = "to_date"
+        Me.to_date.Width = 125
+        '
+        'dept_id
+        '
+        Me.dept_id.HeaderText = "Department ID"
+        Me.dept_id.MinimumWidth = 6
+        Me.dept_id.Name = "dept_id"
+        Me.dept_id.Visible = False
+        Me.dept_id.Width = 125
+        '
+        'status
+        '
+        Me.status.HeaderText = "Status"
+        Me.status.MinimumWidth = 6
+        Me.status.Name = "status"
+        Me.status.Visible = False
+        Me.status.Width = 125
+        '
+        'deptmanager_id
+        '
+        Me.deptmanager_id.HeaderText = "DeptManager ID"
+        Me.deptmanager_id.MinimumWidth = 6
+        Me.deptmanager_id.Name = "deptmanager_id"
+        Me.deptmanager_id.Visible = False
+        Me.deptmanager_id.Width = 125
         '
         'txt_Search
         '
         Me.txt_Search.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Search.Location = New System.Drawing.Point(136, 56)
+        Me.txt_Search.Location = New System.Drawing.Point(137, 67)
         Me.txt_Search.Name = "txt_Search"
         Me.txt_Search.Size = New System.Drawing.Size(230, 30)
         Me.txt_Search.TabIndex = 77
@@ -136,7 +233,7 @@ Partial Class frm_Manager
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.Linen
-        Me.Label6.Location = New System.Drawing.Point(13, 56)
+        Me.Label6.Location = New System.Drawing.Point(7, 67)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(68, 20)
@@ -157,7 +254,7 @@ Partial Class frm_Manager
         Me.grb_create.Controls.Add(Me.Label3)
         Me.grb_create.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grb_create.ForeColor = System.Drawing.Color.Linen
-        Me.grb_create.Location = New System.Drawing.Point(13, 157)
+        Me.grb_create.Location = New System.Drawing.Point(17, 52)
         Me.grb_create.Margin = New System.Windows.Forms.Padding(4)
         Me.grb_create.Name = "grb_create"
         Me.grb_create.Padding = New System.Windows.Forms.Padding(4)
@@ -180,9 +277,9 @@ Partial Class frm_Manager
         Me.gbtn_Add.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.gbtn_Add.FillColor = System.Drawing.Color.Azure
         Me.gbtn_Add.FillColor2 = System.Drawing.Color.Aquamarine
-        Me.gbtn_Add.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Add.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Add.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Add.Location = New System.Drawing.Point(121, 236)
+        Me.gbtn_Add.Location = New System.Drawing.Point(119, 241)
         Me.gbtn_Add.Name = "gbtn_Add"
         Me.gbtn_Add.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Add.Size = New System.Drawing.Size(267, 39)
@@ -197,7 +294,7 @@ Partial Class frm_Manager
         Me.dtp_ToDate.CustomFormat = "dd/MM/yyyy"
         Me.dtp_ToDate.Font = New System.Drawing.Font("Times New Roman", 13.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtp_ToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtp_ToDate.Location = New System.Drawing.Point(121, 197)
+        Me.dtp_ToDate.Location = New System.Drawing.Point(119, 191)
         Me.dtp_ToDate.Name = "dtp_ToDate"
         Me.dtp_ToDate.Size = New System.Drawing.Size(267, 33)
         Me.dtp_ToDate.TabIndex = 74
@@ -211,7 +308,7 @@ Partial Class frm_Manager
         Me.dtp_FromDate.CustomFormat = "dd/MM/yyyy"
         Me.dtp_FromDate.Font = New System.Drawing.Font("Times New Roman", 13.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtp_FromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtp_FromDate.Location = New System.Drawing.Point(119, 144)
+        Me.dtp_FromDate.Location = New System.Drawing.Point(119, 140)
         Me.dtp_FromDate.Name = "dtp_FromDate"
         Me.dtp_FromDate.Size = New System.Drawing.Size(267, 33)
         Me.dtp_FromDate.TabIndex = 73
@@ -310,12 +407,12 @@ Partial Class frm_Manager
         Me.gbtn_Clear.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.gbtn_Clear.FillColor = System.Drawing.Color.Azure
         Me.gbtn_Clear.FillColor2 = System.Drawing.Color.Aquamarine
-        Me.gbtn_Clear.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Clear.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Clear.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Clear.Location = New System.Drawing.Point(483, 228)
+        Me.gbtn_Clear.Location = New System.Drawing.Point(606, 63)
         Me.gbtn_Clear.Name = "gbtn_Clear"
         Me.gbtn_Clear.PressedColor = System.Drawing.Color.Transparent
-        Me.gbtn_Clear.Size = New System.Drawing.Size(203, 39)
+        Me.gbtn_Clear.Size = New System.Drawing.Size(125, 39)
         Me.gbtn_Clear.TabIndex = 104
         Me.gbtn_Clear.Text = "CLEAR"
         '
@@ -333,12 +430,12 @@ Partial Class frm_Manager
         Me.gbtn_Delete.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.gbtn_Delete.FillColor = System.Drawing.Color.Azure
         Me.gbtn_Delete.FillColor2 = System.Drawing.Color.Aquamarine
-        Me.gbtn_Delete.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Delete.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Delete.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Delete.Location = New System.Drawing.Point(709, 228)
+        Me.gbtn_Delete.Location = New System.Drawing.Point(469, 63)
         Me.gbtn_Delete.Name = "gbtn_Delete"
         Me.gbtn_Delete.PressedColor = System.Drawing.Color.Transparent
-        Me.gbtn_Delete.Size = New System.Drawing.Size(203, 39)
+        Me.gbtn_Delete.Size = New System.Drawing.Size(115, 39)
         Me.gbtn_Delete.TabIndex = 105
         Me.gbtn_Delete.Text = "REMOVE"
         '
@@ -356,12 +453,12 @@ Partial Class frm_Manager
         Me.gbtn_Reset.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.gbtn_Reset.FillColor = System.Drawing.Color.Azure
         Me.gbtn_Reset.FillColor2 = System.Drawing.Color.Aquamarine
-        Me.gbtn_Reset.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Reset.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Reset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Reset.Location = New System.Drawing.Point(483, 282)
+        Me.gbtn_Reset.Location = New System.Drawing.Point(606, 117)
         Me.gbtn_Reset.Name = "gbtn_Reset"
         Me.gbtn_Reset.PressedColor = System.Drawing.Color.Transparent
-        Me.gbtn_Reset.Size = New System.Drawing.Size(203, 39)
+        Me.gbtn_Reset.Size = New System.Drawing.Size(125, 39)
         Me.gbtn_Reset.TabIndex = 106
         Me.gbtn_Reset.Text = "RESET"
         '
@@ -379,12 +476,12 @@ Partial Class frm_Manager
         Me.gbtn_Update.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.gbtn_Update.FillColor = System.Drawing.Color.Azure
         Me.gbtn_Update.FillColor2 = System.Drawing.Color.Aquamarine
-        Me.gbtn_Update.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Update.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Update.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Update.Location = New System.Drawing.Point(709, 282)
+        Me.gbtn_Update.Location = New System.Drawing.Point(469, 117)
         Me.gbtn_Update.Name = "gbtn_Update"
         Me.gbtn_Update.PressedColor = System.Drawing.Color.Transparent
-        Me.gbtn_Update.Size = New System.Drawing.Size(203, 39)
+        Me.gbtn_Update.Size = New System.Drawing.Size(115, 39)
         Me.gbtn_Update.TabIndex = 107
         Me.gbtn_Update.Text = "UPDATE"
         '
@@ -402,37 +499,14 @@ Partial Class frm_Manager
         Me.gbtn_ExportPDF.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.gbtn_ExportPDF.FillColor = System.Drawing.Color.Azure
         Me.gbtn_ExportPDF.FillColor2 = System.Drawing.Color.Aquamarine
-        Me.gbtn_ExportPDF.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_ExportPDF.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_ExportPDF.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_ExportPDF.Location = New System.Drawing.Point(483, 335)
+        Me.gbtn_ExportPDF.Location = New System.Drawing.Point(753, 63)
         Me.gbtn_ExportPDF.Name = "gbtn_ExportPDF"
         Me.gbtn_ExportPDF.PressedColor = System.Drawing.Color.Transparent
-        Me.gbtn_ExportPDF.Size = New System.Drawing.Size(203, 39)
+        Me.gbtn_ExportPDF.Size = New System.Drawing.Size(157, 39)
         Me.gbtn_ExportPDF.TabIndex = 108
         Me.gbtn_ExportPDF.Text = "EXPORT PDF"
-        '
-        'gbtn_Manage
-        '
-        Me.gbtn_Manage.BackColor = System.Drawing.Color.Transparent
-        Me.gbtn_Manage.BorderRadius = 8
-        Me.gbtn_Manage.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom
-        Me.gbtn_Manage.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.gbtn_Manage.CustomBorderColor = System.Drawing.Color.Transparent
-        Me.gbtn_Manage.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.gbtn_Manage.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.gbtn_Manage.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.gbtn_Manage.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.gbtn_Manage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.gbtn_Manage.FillColor = System.Drawing.Color.Azure
-        Me.gbtn_Manage.FillColor2 = System.Drawing.Color.Aquamarine
-        Me.gbtn_Manage.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gbtn_Manage.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Manage.Location = New System.Drawing.Point(483, 167)
-        Me.gbtn_Manage.Name = "gbtn_Manage"
-        Me.gbtn_Manage.PressedColor = System.Drawing.Color.Transparent
-        Me.gbtn_Manage.Size = New System.Drawing.Size(429, 39)
-        Me.gbtn_Manage.TabIndex = 109
-        Me.gbtn_Manage.Text = "MANAGE DEPARTMENT"
         '
         'gbtn_Search
         '
@@ -448,12 +522,12 @@ Partial Class frm_Manager
         Me.gbtn_Search.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.gbtn_Search.FillColor = System.Drawing.Color.Azure
         Me.gbtn_Search.FillColor2 = System.Drawing.Color.Aquamarine
-        Me.gbtn_Search.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbtn_Search.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Search.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Search.Location = New System.Drawing.Point(397, 81)
+        Me.gbtn_Search.Location = New System.Drawing.Point(404, 23)
         Me.gbtn_Search.Name = "gbtn_Search"
         Me.gbtn_Search.PressedColor = System.Drawing.Color.Transparent
-        Me.gbtn_Search.Size = New System.Drawing.Size(289, 39)
+        Me.gbtn_Search.Size = New System.Drawing.Size(119, 39)
         Me.gbtn_Search.TabIndex = 110
         Me.gbtn_Search.Text = "SEARCH"
         '
@@ -464,9 +538,9 @@ Partial Class frm_Manager
         Me.ptb_Next.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Next.Image = Global.Training01.My.Resources.Resources.right_arrow__1_
         Me.ptb_Next.ImageRotate = 0!
-        Me.ptb_Next.Location = New System.Drawing.Point(726, 808)
+        Me.ptb_Next.Location = New System.Drawing.Point(769, 667)
         Me.ptb_Next.Name = "ptb_Next"
-        Me.ptb_Next.Size = New System.Drawing.Size(48, 32)
+        Me.ptb_Next.Size = New System.Drawing.Size(25, 25)
         Me.ptb_Next.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.ptb_Next.TabIndex = 113
         Me.ptb_Next.TabStop = False
@@ -478,9 +552,9 @@ Partial Class frm_Manager
         Me.ptb_Previous.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Previous.Image = Global.Training01.My.Resources.Resources.left_arrow
         Me.ptb_Previous.ImageRotate = 0!
-        Me.ptb_Previous.Location = New System.Drawing.Point(471, 808)
+        Me.ptb_Previous.Location = New System.Drawing.Point(559, 667)
         Me.ptb_Previous.Name = "ptb_Previous"
-        Me.ptb_Previous.Size = New System.Drawing.Size(48, 32)
+        Me.ptb_Previous.Size = New System.Drawing.Size(25, 25)
         Me.ptb_Previous.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.ptb_Previous.TabIndex = 112
         Me.ptb_Previous.TabStop = False
@@ -489,104 +563,30 @@ Partial Class frm_Manager
         '
         Me.lbl_Page.AutoSize = True
         Me.lbl_Page.BackColor = System.Drawing.Color.Transparent
-        Me.lbl_Page.Font = New System.Drawing.Font("Times New Roman", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Page.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Page.ForeColor = System.Drawing.Color.Azure
-        Me.lbl_Page.Location = New System.Drawing.Point(556, 808)
+        Me.lbl_Page.Location = New System.Drawing.Point(620, 669)
         Me.lbl_Page.Name = "lbl_Page"
-        Me.lbl_Page.Size = New System.Drawing.Size(79, 32)
+        Me.lbl_Page.Size = New System.Drawing.Size(57, 23)
         Me.lbl_Page.TabIndex = 111
         Me.lbl_Page.Text = "Page "
         '
-        'NO
+        'grb_Search
         '
-        Me.NO.HeaderText = "NO"
-        Me.NO.MinimumWidth = 6
-        Me.NO.Name = "NO"
-        Me.NO.ReadOnly = True
-        Me.NO.Width = 40
-        '
-        'emp_id
-        '
-        Me.emp_id.HeaderText = "Emp ID"
-        Me.emp_id.MinimumWidth = 6
-        Me.emp_id.Name = "emp_id"
-        Me.emp_id.Visible = False
-        Me.emp_id.Width = 50
-        '
-        'emp_name
-        '
-        Me.emp_name.HeaderText = "NAME"
-        Me.emp_name.MinimumWidth = 6
-        Me.emp_name.Name = "emp_name"
-        Me.emp_name.Width = 110
-        '
-        'phone
-        '
-        Me.phone.HeaderText = "PHONE"
-        Me.phone.MinimumWidth = 6
-        Me.phone.Name = "phone"
-        '
-        'birthday
-        '
-        Me.birthday.HeaderText = "BIRTHDAY"
-        Me.birthday.MinimumWidth = 6
-        Me.birthday.Name = "birthday"
-        '
-        'address
-        '
-        Me.address.HeaderText = "ADDRESS"
-        Me.address.MinimumWidth = 6
-        Me.address.Name = "address"
-        Me.address.Width = 150
-        '
-        'email
-        '
-        Me.email.HeaderText = "EMAIL"
-        Me.email.MinimumWidth = 6
-        Me.email.Name = "email"
-        Me.email.Width = 150
-        '
-        'department_name
-        '
-        Me.department_name.HeaderText = "Department"
-        Me.department_name.MinimumWidth = 6
-        Me.department_name.Name = "department_name"
-        '
-        'from_date
-        '
-        Me.from_date.HeaderText = "From Date"
-        Me.from_date.MinimumWidth = 6
-        Me.from_date.Name = "from_date"
-        '
-        'to_date
-        '
-        Me.to_date.HeaderText = "To Date"
-        Me.to_date.MinimumWidth = 6
-        Me.to_date.Name = "to_date"
-        '
-        'dept_id
-        '
-        Me.dept_id.HeaderText = "Department ID"
-        Me.dept_id.MinimumWidth = 6
-        Me.dept_id.Name = "dept_id"
-        Me.dept_id.Visible = False
-        Me.dept_id.Width = 125
-        '
-        'status
-        '
-        Me.status.HeaderText = "Status"
-        Me.status.MinimumWidth = 6
-        Me.status.Name = "status"
-        Me.status.Visible = False
-        Me.status.Width = 125
-        '
-        'deptmanager_id
-        '
-        Me.deptmanager_id.HeaderText = "DeptManager ID"
-        Me.deptmanager_id.MinimumWidth = 6
-        Me.deptmanager_id.Name = "deptmanager_id"
-        Me.deptmanager_id.Visible = False
-        Me.deptmanager_id.Width = 125
+        Me.grb_Search.BackColor = System.Drawing.Color.Transparent
+        Me.grb_Search.Controls.Add(Me.txt_Search)
+        Me.grb_Search.Controls.Add(Me.Label2)
+        Me.grb_Search.Controls.Add(Me.Label6)
+        Me.grb_Search.Controls.Add(Me.cb_Department)
+        Me.grb_Search.Controls.Add(Me.gbtn_Search)
+        Me.grb_Search.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grb_Search.ForeColor = System.Drawing.Color.Linen
+        Me.grb_Search.Location = New System.Drawing.Point(469, 179)
+        Me.grb_Search.Name = "grb_Search"
+        Me.grb_Search.Size = New System.Drawing.Size(542, 116)
+        Me.grb_Search.TabIndex = 114
+        Me.grb_Search.TabStop = False
+        Me.grb_Search.Text = "SEARCH"
         '
         'frm_Manager
         '
@@ -595,24 +595,19 @@ Partial Class frm_Manager
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1328, 880)
+        Me.ClientSize = New System.Drawing.Size(1283, 713)
+        Me.Controls.Add(Me.grb_Search)
         Me.Controls.Add(Me.ptb_Next)
         Me.Controls.Add(Me.ptb_Previous)
         Me.Controls.Add(Me.lbl_Page)
-        Me.Controls.Add(Me.gbtn_Search)
-        Me.Controls.Add(Me.gbtn_Manage)
         Me.Controls.Add(Me.gbtn_ExportPDF)
         Me.Controls.Add(Me.gbtn_Update)
         Me.Controls.Add(Me.gbtn_Reset)
         Me.Controls.Add(Me.gbtn_Delete)
         Me.Controls.Add(Me.gbtn_Clear)
         Me.Controls.Add(Me.grb_create)
-        Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.txt_Search)
         Me.Controls.Add(Me.dgv_DeptManager)
-        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.lbl_titleManager)
-        Me.Controls.Add(Me.cb_Department)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frm_Manager"
@@ -622,6 +617,8 @@ Partial Class frm_Manager
         Me.grb_create.PerformLayout()
         CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grb_Search.ResumeLayout(False)
+        Me.grb_Search.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -648,7 +645,6 @@ Partial Class frm_Manager
     Friend WithEvents gbtn_Reset As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents gbtn_Update As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents gbtn_ExportPDF As Guna.UI2.WinForms.Guna2GradientButton
-    Friend WithEvents gbtn_Manage As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents gbtn_Search As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents ptb_Next As Guna.UI2.WinForms.Guna2PictureBox
     Friend WithEvents ptb_Previous As Guna.UI2.WinForms.Guna2PictureBox
@@ -666,4 +662,5 @@ Partial Class frm_Manager
     Friend WithEvents dept_id As DataGridViewTextBoxColumn
     Friend WithEvents status As DataGridViewTextBoxColumn
     Friend WithEvents deptmanager_id As DataGridViewTextBoxColumn
+    Friend WithEvents grb_Search As GroupBox
 End Class

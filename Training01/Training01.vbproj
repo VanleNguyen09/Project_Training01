@@ -322,6 +322,15 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Fonts\ARIAL.TTF" />
+    <None Include="Fonts\ARIALBD.TTF" />
+    <None Include="Fonts\ARIALBI.TTF" />
+    <None Include="Fonts\ARIALI.TTF" />
+    <None Include="Fonts\ARIALN.TTF" />
+    <None Include="Fonts\ARIALNB.TTF" />
+    <None Include="Fonts\ARIALNBI.TTF" />
+    <None Include="Fonts\ARIALNI.TTF" />
+    <None Include="Fonts\ARIBLK.TTF" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -438,5 +447,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
