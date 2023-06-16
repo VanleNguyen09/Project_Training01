@@ -543,12 +543,12 @@ Partial Class NewDashboard
         '
         Me.lbl_Title.AutoSize = True
         Me.lbl_Title.BackColor = System.Drawing.Color.Transparent
-        Me.lbl_Title.Font = New System.Drawing.Font("Vladimir Script", 16.2!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Title.Font = New System.Drawing.Font("Times New Roman", 16.2!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Title.ForeColor = System.Drawing.Color.Aquamarine
         Me.lbl_Title.Location = New System.Drawing.Point(19, 34)
         Me.lbl_Title.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_Title.Name = "lbl_Title"
-        Me.lbl_Title.Size = New System.Drawing.Size(239, 34)
+        Me.lbl_Title.Size = New System.Drawing.Size(276, 32)
         Me.lbl_Title.TabIndex = 0
         Me.lbl_Title.Text = "EmployeeManagement"
         '
@@ -573,6 +573,7 @@ Partial Class NewDashboard
         Me.pn_Sidebar.Controls.Add(Me.PictureBox3)
         Me.pn_Sidebar.Controls.Add(Me.btn_Dashboard)
         Me.pn_Sidebar.Controls.Add(Me.PictureBox2)
+        Me.pn_Sidebar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.pn_Sidebar.Dock = System.Windows.Forms.DockStyle.Left
         Me.pn_Sidebar.ForeColor = System.Drawing.Color.Transparent
         Me.pn_Sidebar.Location = New System.Drawing.Point(0, 0)
@@ -584,6 +585,7 @@ Partial Class NewDashboard
         'btn_Signout
         '
         Me.btn_Signout.BackColor = System.Drawing.Color.Transparent
+        Me.btn_Signout.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_Signout.FlatAppearance.BorderSize = 0
         Me.btn_Signout.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Signout.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -614,6 +616,7 @@ Partial Class NewDashboard
         'btn_Leave
         '
         Me.btn_Leave.BackColor = System.Drawing.Color.Transparent
+        Me.btn_Leave.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_Leave.FlatAppearance.BorderSize = 0
         Me.btn_Leave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Leave.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -644,6 +647,7 @@ Partial Class NewDashboard
         'btn_Salary
         '
         Me.btn_Salary.BackColor = System.Drawing.Color.Transparent
+        Me.btn_Salary.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_Salary.FlatAppearance.BorderSize = 0
         Me.btn_Salary.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Salary.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -673,6 +677,7 @@ Partial Class NewDashboard
         'btn_Position
         '
         Me.btn_Position.BackColor = System.Drawing.Color.Transparent
+        Me.btn_Position.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_Position.FlatAppearance.BorderSize = 0
         Me.btn_Position.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Position.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -701,6 +706,7 @@ Partial Class NewDashboard
         'btn_Manager
         '
         Me.btn_Manager.BackColor = System.Drawing.Color.Transparent
+        Me.btn_Manager.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_Manager.FlatAppearance.BorderSize = 0
         Me.btn_Manager.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Manager.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -731,6 +737,7 @@ Partial Class NewDashboard
         'btn_Department
         '
         Me.btn_Department.BackColor = System.Drawing.Color.Transparent
+        Me.btn_Department.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_Department.FlatAppearance.BorderSize = 0
         Me.btn_Department.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Department.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -760,6 +767,7 @@ Partial Class NewDashboard
         'btn_Employee
         '
         Me.btn_Employee.BackColor = System.Drawing.Color.Transparent
+        Me.btn_Employee.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_Employee.FlatAppearance.BorderSize = 0
         Me.btn_Employee.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Employee.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -789,6 +797,7 @@ Partial Class NewDashboard
         'btn_Dashboard
         '
         Me.btn_Dashboard.BackColor = System.Drawing.Color.Transparent
+        Me.btn_Dashboard.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_Dashboard.FlatAppearance.BorderSize = 0
         Me.btn_Dashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Dashboard.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

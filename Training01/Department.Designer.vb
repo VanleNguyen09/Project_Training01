@@ -22,8 +22,8 @@ Partial Class frm_Department
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.lbl_TitleDepartment = New System.Windows.Forms.Label()
         Me.txt_Name = New System.Windows.Forms.TextBox()
         Me.lbl_Name = New System.Windows.Forms.Label()
@@ -99,7 +99,7 @@ Partial Class frm_Department
         Me.dgrv_Department.RowTemplate.Height = 24
         Me.dgrv_Department.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgrv_Department.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgrv_Department.Size = New System.Drawing.Size(655, 324)
+        Me.dgrv_Department.Size = New System.Drawing.Size(655, 320)
         Me.dgrv_Department.TabIndex = 52
         '
         'No
@@ -112,8 +112,8 @@ Partial Class frm_Department
         '
         'department_id
         '
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.department_id.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.department_id.DefaultCellStyle = DataGridViewCellStyle11
         Me.department_id.HeaderText = "DepartmentID"
         Me.department_id.MinimumWidth = 6
         Me.department_id.Name = "department_id"
@@ -123,8 +123,8 @@ Partial Class frm_Department
         '
         'department_name
         '
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.department_name.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.department_name.DefaultCellStyle = DataGridViewCellStyle12
         Me.department_name.HeaderText = "Department Name"
         Me.department_name.MinimumWidth = 6
         Me.department_name.Name = "department_name"
@@ -335,12 +335,13 @@ Partial Class frm_Department
         '
         Me.ptb_Next.BackColor = System.Drawing.Color.Transparent
         Me.ptb_Next.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Next.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ptb_Next.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Next.Image = Global.Training01.My.Resources.Resources.right_arrow__1_
         Me.ptb_Next.ImageRotate = 0!
-        Me.ptb_Next.Location = New System.Drawing.Point(908, 405)
+        Me.ptb_Next.Location = New System.Drawing.Point(870, 407)
         Me.ptb_Next.Name = "ptb_Next"
-        Me.ptb_Next.Size = New System.Drawing.Size(48, 32)
+        Me.ptb_Next.Size = New System.Drawing.Size(25, 25)
         Me.ptb_Next.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.ptb_Next.TabIndex = 119
         Me.ptb_Next.TabStop = False
@@ -349,12 +350,13 @@ Partial Class frm_Department
         '
         Me.ptb_Previous.BackColor = System.Drawing.Color.Transparent
         Me.ptb_Previous.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Previous.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ptb_Previous.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Previous.Image = Global.Training01.My.Resources.Resources.left_arrow
         Me.ptb_Previous.ImageRotate = 0!
-        Me.ptb_Previous.Location = New System.Drawing.Point(653, 405)
+        Me.ptb_Previous.Location = New System.Drawing.Point(679, 407)
         Me.ptb_Previous.Name = "ptb_Previous"
-        Me.ptb_Previous.Size = New System.Drawing.Size(48, 32)
+        Me.ptb_Previous.Size = New System.Drawing.Size(25, 25)
         Me.ptb_Previous.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.ptb_Previous.TabIndex = 118
         Me.ptb_Previous.TabStop = False
@@ -363,11 +365,11 @@ Partial Class frm_Department
         '
         Me.lbl_Page.AutoSize = True
         Me.lbl_Page.BackColor = System.Drawing.Color.Transparent
-        Me.lbl_Page.Font = New System.Drawing.Font("Times New Roman", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Page.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Page.ForeColor = System.Drawing.Color.Azure
-        Me.lbl_Page.Location = New System.Drawing.Point(724, 405)
+        Me.lbl_Page.Location = New System.Drawing.Point(726, 409)
         Me.lbl_Page.Name = "lbl_Page"
-        Me.lbl_Page.Size = New System.Drawing.Size(79, 32)
+        Me.lbl_Page.Size = New System.Drawing.Size(57, 23)
         Me.lbl_Page.TabIndex = 117
         Me.lbl_Page.Text = "Page "
         '

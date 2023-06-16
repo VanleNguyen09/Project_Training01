@@ -26,15 +26,15 @@ Partial Class PDFViewer
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PDFViewer))
         Me.gbtn_OK = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.pn_Botttom = New System.Windows.Forms.Panel()
-        Me.AxAcroPDF1 = New AxAcroPDFLib.AxAcroPDF()
         Me.closeApp = New System.Windows.Forms.PictureBox()
-        Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.pn_Top = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.AxAcroPDF1 = New AxAcroPDFLib.AxAcroPDF()
         gbtn_Cancel = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.pn_Botttom.SuspendLayout()
-        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
+        Me.pn_Top.SuspendLayout()
+        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'gbtn_Cancel
@@ -51,9 +51,9 @@ Partial Class PDFViewer
         gbtn_Cancel.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(128, Byte), Integer))
         gbtn_Cancel.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         gbtn_Cancel.ForeColor = System.Drawing.Color.White
-        gbtn_Cancel.Location = New System.Drawing.Point(992, 44)
+        gbtn_Cancel.Location = New System.Drawing.Point(1279, 44)
         gbtn_Cancel.Name = "gbtn_Cancel"
-        gbtn_Cancel.Size = New System.Drawing.Size(180, 45)
+        gbtn_Cancel.Size = New System.Drawing.Size(173, 45)
         gbtn_Cancel.TabIndex = 3
         gbtn_Cancel.Text = "CANCEL"
         AddHandler gbtn_Cancel.Click, AddressOf Me.gbtn_Cancel_Click
@@ -72,16 +72,15 @@ Partial Class PDFViewer
         Me.gbtn_OK.FillColor2 = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.gbtn_OK.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_OK.ForeColor = System.Drawing.Color.White
-        Me.gbtn_OK.Location = New System.Drawing.Point(373, 44)
+        Me.gbtn_OK.Location = New System.Drawing.Point(1061, 44)
         Me.gbtn_OK.Name = "gbtn_OK"
-        Me.gbtn_OK.Size = New System.Drawing.Size(180, 45)
+        Me.gbtn_OK.Size = New System.Drawing.Size(186, 45)
         Me.gbtn_OK.TabIndex = 2
         Me.gbtn_OK.Text = "OK"
         '
         'pn_Botttom
         '
         Me.pn_Botttom.BackColor = System.Drawing.Color.Transparent
-        Me.pn_Botttom.BackgroundImage = Global.Training01.My.Resources.Resources.pngtree_simple_blue_tech_lines_background_image_206074
         Me.pn_Botttom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pn_Botttom.Controls.Add(Me.gbtn_OK)
         Me.pn_Botttom.Controls.Add(gbtn_Cancel)
@@ -89,15 +88,6 @@ Partial Class PDFViewer
         Me.pn_Botttom.Name = "pn_Botttom"
         Me.pn_Botttom.Size = New System.Drawing.Size(1464, 133)
         Me.pn_Botttom.TabIndex = 4
-        '
-        'AxAcroPDF1
-        '
-        Me.AxAcroPDF1.Enabled = True
-        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 91)
-        Me.AxAcroPDF1.Name = "AxAcroPDF1"
-        Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.AxAcroPDF1.Size = New System.Drawing.Size(1464, 566)
-        Me.AxAcroPDF1.TabIndex = 1
         '
         'closeApp
         '
@@ -112,26 +102,36 @@ Partial Class PDFViewer
         Me.closeApp.TabIndex = 5
         Me.closeApp.TabStop = False
         '
-        'Guna2HtmlLabel1
+        'pn_Top
         '
-        Me.Guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent
-        Me.Guna2HtmlLabel1.Font = New System.Drawing.Font("Viner Hand ITC", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Guna2HtmlLabel1.ForeColor = System.Drawing.Color.MistyRose
-        Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(12, 12)
-        Me.Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
-        Me.Guna2HtmlLabel1.Size = New System.Drawing.Size(209, 46)
-        Me.Guna2HtmlLabel1.TabIndex = 6
-        Me.Guna2HtmlLabel1.Text = "PDF PREVIEW"
+        Me.pn_Top.BackColor = System.Drawing.Color.Transparent
+        Me.pn_Top.Controls.Add(Me.Label1)
+        Me.pn_Top.Controls.Add(Me.closeApp)
+        Me.pn_Top.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pn_Top.Location = New System.Drawing.Point(0, 0)
+        Me.pn_Top.Name = "pn_Top"
+        Me.pn_Top.Size = New System.Drawing.Size(1464, 70)
+        Me.pn_Top.TabIndex = 7
         '
-        'Panel1
+        'Label1
         '
-        Me.Panel1.BackColor = System.Drawing.Color.Transparent
-        Me.Panel1.Controls.Add(Me.Guna2HtmlLabel1)
-        Me.Panel1.Controls.Add(Me.closeApp)
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1464, 70)
-        Me.Panel1.TabIndex = 7
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Times New Roman", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.MistyRose
+        Me.Label1.Location = New System.Drawing.Point(12, 18)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(210, 32)
+        Me.Label1.TabIndex = 7
+        Me.Label1.Text = "PDF PREVIEW"
+        '
+        'AxAcroPDF1
+        '
+        Me.AxAcroPDF1.Enabled = True
+        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 64)
+        Me.AxAcroPDF1.Name = "AxAcroPDF1"
+        Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.AxAcroPDF1.Size = New System.Drawing.Size(1464, 600)
+        Me.AxAcroPDF1.TabIndex = 1
         '
         'PDFViewer
         '
@@ -140,7 +140,7 @@ Partial Class PDFViewer
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1464, 875)
-        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.pn_Top)
         Me.Controls.Add(Me.pn_Botttom)
         Me.Controls.Add(Me.AxAcroPDF1)
         Me.DoubleBuffered = True
@@ -149,17 +149,17 @@ Partial Class PDFViewer
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "PDFViewer"
         Me.pn_Botttom.ResumeLayout(False)
-        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
+        Me.pn_Top.ResumeLayout(False)
+        Me.pn_Top.PerformLayout()
+        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents gbtn_OK As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents pn_Botttom As Panel
-    Friend WithEvents AxAcroPDF1 As AxAcroPDFLib.AxAcroPDF
     Friend WithEvents closeApp As PictureBox
-    Friend WithEvents Guna2HtmlLabel1 As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents Panel1 As Panel
+    Friend WithEvents pn_Top As Panel
+    Friend WithEvents Label1 As Label
+    Friend WithEvents AxAcroPDF1 As AxAcroPDFLib.AxAcroPDF
 End Class

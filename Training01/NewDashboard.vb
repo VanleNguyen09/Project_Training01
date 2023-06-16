@@ -59,8 +59,8 @@ Public Class NewDashboard
 
     Private selectedButton As Button
 
-    Private currentSelection As String = ""
-    Private Sub UpdateTitleLabel()
+    Public currentSelection As String = ""
+    Public Sub UpdateTitleLabel()
         If String.IsNullOrEmpty(currentSelection) Then
             lbl_Title.Text = initialLabel
         Else
@@ -301,7 +301,7 @@ Public Class NewDashboard
         pn_Main.Controls.Add(initialContentPanel)
     End Sub
 
-    Private Sub ShowFormInMainPanel(ByVal formToShow As Form)
+    Public Sub ShowFormInMainPanel(ByVal formToShow As Form)
         If currentForm IsNot formToShow Then
             ' Close currentForm
             If currentForm IsNot Nothing Then
@@ -323,12 +323,12 @@ Public Class NewDashboard
         End If
     End Sub
 
-    Private Sub ChangeButtonColor(ByVal button As Button, ByVal backColor As Color, ByVal foreColor As Color)
+    Public Sub ChangeButtonColor(ByVal button As Button, ByVal backColor As Color, ByVal foreColor As Color)
         button.BackColor = backColor
         button.ForeColor = foreColor
     End Sub
 
-    Private Sub ResetButtonColors(ByVal clickedButton As Button)
+    Public Sub ResetButtonColors(ByVal clickedButton As Button)
         For Each btn As Button In pn_Sidebar.Controls.OfType(Of Button)()
             If btn IsNot clickedButton Then
                 btn.BackColor = SystemColors.Control
