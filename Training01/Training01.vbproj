@@ -114,6 +114,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonLoading.Designer.vb">
+      <DependentUpon>CommonLoading.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CommonLoading.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CustomElements.vb" />
     <Compile Include="Dashboard.Designer.vb">
       <DependentUpon>Dashboard.vb</DependentUpon>
@@ -231,22 +237,10 @@
     <Compile Include="PositionMenu.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Register.Designer.vb">
-      <DependentUpon>Register.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Register.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="RegisterUser.Designer.vb">
       <DependentUpon>RegisterUser.vb</DependentUpon>
     </Compile>
     <Compile Include="RegisterUser.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Salary.Designer.vb">
-      <DependentUpon>Salary.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Salary.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SalaryEmp.Designer.vb">
@@ -257,6 +251,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CommonLoading.resx">
+      <DependentUpon>CommonLoading.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.vb</DependentUpon>
     </EmbeddedResource>
@@ -313,14 +310,8 @@
     <EmbeddedResource Include="PositionMenu.resx">
       <DependentUpon>PositionMenu.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Register.resx">
-      <DependentUpon>Register.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="RegisterUser.resx">
       <DependentUpon>RegisterUser.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Salary.resx">
-      <DependentUpon>Salary.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SalaryEmp.resx">
       <DependentUpon>SalaryEmp.vb</DependentUpon>
@@ -361,6 +352,7 @@
   <ItemGroup>
     <None Include="Resources\view.png" />
     <None Include="Resources\hide.png" />
+    <None Include="Resources\heroimg.png" />
     <Content Include="Resources\mobilemenu_icon.jfif" />
     <None Include="Resources\realistic-background-futuristic-style_23-2149129125.jpg" />
     <Content Include="Resources\th.jfif" />

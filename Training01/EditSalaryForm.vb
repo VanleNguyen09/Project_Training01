@@ -5,20 +5,17 @@ Public Class EditSalaryForm
     Private myCallback As MyCallbackDelegate
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     'id, name, salary
-    Public Property TempData() As ValueTuple(Of Integer, String, Decimal)
+    Public Property TempData As Object()
 
-    Public Sub SetCallback(callback As MyCallbackDelegate)
-        myCallback = callback
-    End Sub
-
+#Region "EVENTS"
     Private Sub EditSalaryForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If TempData.Item1 = -1 Then
+        If TempData(0) = -1 Then
             txtName.Enabled = False
             txtSalary.Enabled = False
         End If
-        txtId.Text = TempData.Item1
-        txtName.Text = TempData.Item2
-        txtSalary.Text = TempData.Item3
+        txtId.Text = TempData(0)
+        txtName.Text = TempData(1)
+        txtSalary.Text = TempData(2)
         CustomElements.MovingForm(Me)
     End Sub
 
@@ -28,14 +25,6 @@ Public Class EditSalaryForm
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
-    End Sub
-
-    Private Sub EnOrDisableBtnSave()
-        If txtName.Text.Trim() = TempData.Item2.ToString() AndAlso txtSalary.Text.Trim() = TempData.Item3.ToString() Then
-            btnSave.Enabled = False
-        Else
-            btnSave.Enabled = True
-        End If
     End Sub
 
     Private Sub txtName_TextChanged(sender As Object, e As EventArgs) Handles txtName.TextChanged
@@ -119,4 +108,19 @@ Public Class EditSalaryForm
             btnSave.PerformClick()
         End If
     End Sub
+#End Region
+
+#Region "FUNCTIONS"
+    Public Sub SetCallback(callback As MyCallbackDelegate)
+        myCallback = callback
+    End Sub
+
+    Private Sub EnOrDisableBtnSave()
+        If txtName.Text.Trim() = TempData(1).ToString() AndAlso txtSalary.Text.Trim() = TempData(2).ToString() Then
+            btnSave.Enabled = False
+        Else
+            btnSave.Enabled = True
+        End If
+    End Sub
+#End Region
 End Class

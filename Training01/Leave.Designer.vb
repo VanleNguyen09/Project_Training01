@@ -22,7 +22,7 @@ Partial Class Leave
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtSearch = New System.Windows.Forms.TextBox()
@@ -55,7 +55,6 @@ Partial Class Leave
         Me.txtCurrentPage = New Guna.UI2.WinForms.Guna2TextBox()
         Me.btnNext = New Guna.UI2.WinForms.Guna2Button()
         Me.btnPrevious = New Guna.UI2.WinForms.Guna2Button()
-        Me.ProgressBarLoad = New System.Windows.Forms.ProgressBar()
         CType(Me.dgvLeave, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gb_create.SuspendLayout()
         Me.gb_actions.SuspendLayout()
@@ -111,6 +110,7 @@ Partial Class Leave
         Me.dgvLeave.AllowUserToDeleteRows = False
         Me.dgvLeave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvLeave.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.stt, Me.id, Me.emp_id, Me.emp_name, Me.from_date, Me.reason, Me.is_confirmed})
+        Me.dgvLeave.GridColor = System.Drawing.SystemColors.ActiveCaption
         Me.dgvLeave.Location = New System.Drawing.Point(12, 119)
         Me.dgvLeave.MultiSelect = False
         Me.dgvLeave.Name = "dgvLeave"
@@ -173,9 +173,9 @@ Partial Class Leave
         '
         'is_confirmed
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White
-        Me.is_confirmed.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White
+        Me.is_confirmed.DefaultCellStyle = DataGridViewCellStyle6
         Me.is_confirmed.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.is_confirmed.HeaderText = "IS CONFIRMED"
         Me.is_confirmed.MinimumWidth = 6
@@ -441,22 +441,12 @@ Partial Class Leave
         Me.btnPrevious.Text = "PREVIOUS"
         Me.btnPrevious.UseTransparentBackground = True
         '
-        'ProgressBarLoad
-        '
-        Me.ProgressBarLoad.Location = New System.Drawing.Point(77, 64)
-        Me.ProgressBarLoad.Name = "ProgressBarLoad"
-        Me.ProgressBarLoad.Size = New System.Drawing.Size(782, 23)
-        Me.ProgressBarLoad.TabIndex = 23
-        Me.ProgressBarLoad.Visible = False
-        '
         'Leave
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(983, 484)
-        Me.Controls.Add(Me.ProgressBarLoad)
         Me.Controls.Add(Me.Guna2HtmlLabel1)
         Me.Controls.Add(Me.txtTotalPage)
         Me.Controls.Add(Me.txtCurrentPage)
@@ -474,6 +464,7 @@ Partial Class Leave
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Leave"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -520,5 +511,4 @@ Partial Class Leave
     Friend WithEvents from_date As DataGridViewTextBoxColumn
     Friend WithEvents reason As DataGridViewTextBoxColumn
     Friend WithEvents is_confirmed As DataGridViewButtonColumn
-    Friend WithEvents ProgressBarLoad As ProgressBar
 End Class

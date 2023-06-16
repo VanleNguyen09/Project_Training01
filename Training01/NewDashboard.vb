@@ -1,4 +1,6 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Runtime.InteropServices
+
 Public Class NewDashboard
 
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -301,6 +303,17 @@ Public Class NewDashboard
         pn_Main.Controls.Add(initialContentPanel)
     End Sub
 
+    Private Const WS_CHILD As Integer = &H40000000
+    Private Const WS_CLIPSIBLINGS As Integer = &H4000000
+
+    <DllImport("user32.dll")>
+    Private Shared Function SetWindowLong(hWnd As IntPtr, nIndex As Integer, dwNewLong As Integer) As Integer
+    End Function
+
+    <DllImport("user32.dll")>
+    Private Shared Function SetWindowPos(hWnd As IntPtr, hWndInsertAfter As IntPtr, x As Integer, y As Integer, cx As Integer, cy As Integer, uFlags As UInteger) As Boolean
+    End Function
+
     Public Sub ShowFormInMainPanel(ByVal formToShow As Form)
         If currentForm IsNot formToShow Then
             ' Close currentForm
@@ -316,6 +329,11 @@ Public Class NewDashboard
             formToShow.AutoScroll = True
             pn_Main.Controls.Clear()
             pn_Main.Controls.Add(formToShow)
+
+            ' Set WS_CHILD và WS_CLIPSIBLINGS to Prevent override UI
+            Dim style As Integer = SetWindowLong(formToShow.Handle, -16, WS_CHILD Or WS_CLIPSIBLINGS)
+            SetWindowPos(formToShow.Handle, IntPtr.Zero, 0, 0, 0, 0, &H10 Or &H20 Or &H1 Or &H2)
+
             formToShow.Show()
 
             ' Update curentForm

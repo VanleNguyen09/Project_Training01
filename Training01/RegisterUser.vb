@@ -2,9 +2,13 @@
 
 Public Class RegisterUser
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
+
+#Region "EVENTS"
     Private Sub RegisterUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtEmail.Select()
         CustomElements.MovingForm(Me)
+        ptb_TogglePassword.Image = My.Resources.hide
+        ptb_ToggleCFPassword.Image = My.Resources.hide
     End Sub
     Private isPasswordVisible As Boolean = False ' Trạng thái ban đầu của mật khẩu (ẩn)
     Private isCFPasswordVisible As Boolean = False ' Trạng thái ban đầu của mật khẩu (ẩn)
@@ -13,8 +17,6 @@ Public Class RegisterUser
         txtEmail.Text = Nothing
         txtFullName.Text = Nothing
         txtPassword.Text = Nothing
-        ptb_TogglePassword.Image = My.Resources.hide
-        ptb_ToggleCFPassword.Image = My.Resources.hide
         txtConfirmPassword.Text = Nothing
     End Sub
 
@@ -131,10 +133,6 @@ Public Class RegisterUser
         End Using
     End Sub
 
-    Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
-        Environment.Exit(0)
-    End Sub
-
     Private Sub RegisterUser_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
         If e.KeyChar = Convert.ToChar(Keys.Enter) Then
             SendKeys.Send("{TAB}")
@@ -168,4 +166,9 @@ Public Class RegisterUser
             ptb_TogglePassword.Image = My.Resources.hide
         End If
     End Sub
+
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        btnExit.PerformClick()
+    End Sub
+#End Region
 End Class

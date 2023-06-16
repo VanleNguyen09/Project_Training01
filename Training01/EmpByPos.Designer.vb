@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class EmpByPos
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,12 +20,20 @@ Partial Class EmpByPos
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.lbl_title = New System.Windows.Forms.Label()
         Me.cbSearch = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dgvEmpByPos = New System.Windows.Forms.DataGridView()
+        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pos_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.grb_create = New System.Windows.Forms.GroupBox()
         Me.btnAdd = New Guna.UI2.WinForms.Guna2Button()
         Me.cbEmpCreate = New System.Windows.Forms.ComboBox()
@@ -40,14 +48,7 @@ Partial Class EmpByPos
         Me.txtCurrentPage = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.txtTotalPage = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.pos_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.progressBar = New Guna.UI2.WinForms.Guna2CircleProgressBar()
         CType(Me.dgvEmpByPos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_create.SuspendLayout()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -102,6 +103,69 @@ Partial Class EmpByPos
         Me.dgvEmpByPos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvEmpByPos.Size = New System.Drawing.Size(643, 246)
         Me.dgvEmpByPos.TabIndex = 3
+        '
+        'stt
+        '
+        Me.stt.HeaderText = "NO"
+        Me.stt.Name = "stt"
+        Me.stt.ReadOnly = True
+        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.stt.Width = 70
+        '
+        'id
+        '
+        Me.id.HeaderText = "ID"
+        Me.id.Name = "id"
+        Me.id.ReadOnly = True
+        Me.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.id.Visible = False
+        Me.id.Width = 70
+        '
+        'emp_name
+        '
+        Me.emp_name.HeaderText = "NAME"
+        Me.emp_name.Name = "emp_name"
+        Me.emp_name.ReadOnly = True
+        Me.emp_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.emp_name.Width = 120
+        '
+        'phone
+        '
+        Me.phone.HeaderText = "PHONE"
+        Me.phone.Name = "phone"
+        Me.phone.ReadOnly = True
+        Me.phone.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.phone.Width = 110
+        '
+        'email
+        '
+        Me.email.HeaderText = "EMAIL"
+        Me.email.Name = "email"
+        Me.email.ReadOnly = True
+        Me.email.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.email.Width = 140
+        '
+        'birthday
+        '
+        Me.birthday.HeaderText = "BIRTHDAY"
+        Me.birthday.Name = "birthday"
+        Me.birthday.ReadOnly = True
+        Me.birthday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        '
+        'pos_name
+        '
+        Me.pos_name.HeaderText = "POSITION"
+        Me.pos_name.Name = "pos_name"
+        Me.pos_name.ReadOnly = True
+        Me.pos_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        '
+        'pos_id
+        '
+        Me.pos_id.HeaderText = "PositionId"
+        Me.pos_id.Name = "pos_id"
+        Me.pos_id.ReadOnly = True
+        Me.pos_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.pos_id.Visible = False
         '
         'grb_create
         '
@@ -213,6 +277,7 @@ Partial Class EmpByPos
         Me.closeApp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.closeApp.TabIndex = 5
         Me.closeApp.TabStop = False
+        Me.closeApp.Visible = False
         '
         'btnManagePos
         '
@@ -322,68 +387,20 @@ Partial Class EmpByPos
         Me.txtTotalPage.Size = New System.Drawing.Size(41, 28)
         Me.txtTotalPage.TabIndex = 7
         '
-        'stt
+        'progressBar
         '
-        Me.stt.HeaderText = "NO"
-        Me.stt.Name = "stt"
-        Me.stt.ReadOnly = True
-        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.stt.Width = 70
-        '
-        'id
-        '
-        Me.id.HeaderText = "ID"
-        Me.id.Name = "id"
-        Me.id.ReadOnly = True
-        Me.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.id.Visible = False
-        Me.id.Width = 70
-        '
-        'emp_name
-        '
-        Me.emp_name.HeaderText = "NAME"
-        Me.emp_name.Name = "emp_name"
-        Me.emp_name.ReadOnly = True
-        Me.emp_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        Me.emp_name.Width = 120
-        '
-        'phone
-        '
-        Me.phone.HeaderText = "PHONE"
-        Me.phone.Name = "phone"
-        Me.phone.ReadOnly = True
-        Me.phone.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        Me.phone.Width = 110
-        '
-        'email
-        '
-        Me.email.HeaderText = "EMAIL"
-        Me.email.Name = "email"
-        Me.email.ReadOnly = True
-        Me.email.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        Me.email.Width = 140
-        '
-        'birthday
-        '
-        Me.birthday.HeaderText = "BIRTHDAY"
-        Me.birthday.Name = "birthday"
-        Me.birthday.ReadOnly = True
-        Me.birthday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        '
-        'pos_name
-        '
-        Me.pos_name.HeaderText = "POSITION"
-        Me.pos_name.Name = "pos_name"
-        Me.pos_name.ReadOnly = True
-        Me.pos_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        '
-        'pos_id
-        '
-        Me.pos_id.HeaderText = "PositionId"
-        Me.pos_id.Name = "pos_id"
-        Me.pos_id.ReadOnly = True
-        Me.pos_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        Me.pos_id.Visible = False
+        Me.progressBar.BackColor = System.Drawing.Color.Transparent
+        Me.progressBar.FillColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(218, Byte), Integer), CType(CType(223, Byte), Integer))
+        Me.progressBar.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.progressBar.ForeColor = System.Drawing.Color.White
+        Me.progressBar.Location = New System.Drawing.Point(435, 175)
+        Me.progressBar.Minimum = 0
+        Me.progressBar.Name = "progressBar"
+        Me.progressBar.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
+        Me.progressBar.Size = New System.Drawing.Size(130, 130)
+        Me.progressBar.TabIndex = 9
+        Me.progressBar.Text = "Guna2CircleProgressBar1"
+        Me.progressBar.Visible = False
         '
         'EmpByPos
         '
@@ -392,6 +409,7 @@ Partial Class EmpByPos
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1010, 423)
+        Me.Controls.Add(Me.progressBar)
         Me.Controls.Add(Me.Guna2HtmlLabel1)
         Me.Controls.Add(Me.txtTotalPage)
         Me.Controls.Add(Me.txtCurrentPage)
@@ -405,6 +423,7 @@ Partial Class EmpByPos
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.cbSearch)
         Me.Controls.Add(Me.lbl_title)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "EmpByPos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -444,4 +463,5 @@ Partial Class EmpByPos
     Friend WithEvents birthday As DataGridViewTextBoxColumn
     Friend WithEvents pos_name As DataGridViewTextBoxColumn
     Friend WithEvents pos_id As DataGridViewTextBoxColumn
+    Friend WithEvents progressBar As Guna.UI2.WinForms.Guna2CircleProgressBar
 End Class

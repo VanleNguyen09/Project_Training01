@@ -4,14 +4,10 @@ Public Class EditLeaveForm
     Public Delegate Sub MyCallbackDelegate()
     Private myCallback As MyCallbackDelegate
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
-    'id, emp_id, name, from_date, reason, isConfirmed
-    Public Property TempData() As List(Of Object)
-    Public Sub SetCallback(callback As MyCallbackDelegate)
-        myCallback = callback
-    End Sub
-
     Private daTFormat As String = DTFormat.Type.NormalDateAndHourMinusTime
+    Public Property TempData() As List(Of Object) 'id, emp_id, name, from_date, reason, isConfirmed
 
+#Region "EVENTS"
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles closeApp.Click
         Me.Hide()
     End Sub
@@ -20,6 +16,14 @@ Public Class EditLeaveForm
         'Settings for Combobox
         cbEmpName.DisplayMember = "Value"
         cbEmpName.ValueMember = "Key"
+
+        Dim loadingForm As New CommonLoading()
+        FuntionCommon.AsyncLoad.AsyncLoadCBB(cbEmpName, Sub()
+                                                            Load_cbEmpName()
+                                                            ResetData()
+                                                            loadingForm.Hide()
+                                                        End Sub)
+        loadingForm.ShowDialog()
 
         If (TempData(5) = 1) Then
             cbEmpName.Enabled = False
@@ -30,13 +34,11 @@ Public Class EditLeaveForm
             btnConfirm.Visible = False
         End If
 
-        Load_cbEmpName()
-        ResetData()
-
         'Set Format
         dtpFromDate.Format = DateTimePickerFormat.Custom
         dtpFromDate.CustomFormat = daTFormat
         CustomElements.MovingForm(Me)
+        'Load_cbEmpName()
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
@@ -99,36 +101,8 @@ Public Class EditLeaveForm
         ResetData()
     End Sub
 
-    Private Sub ResetData()
-        Dim empId As Integer = TempData(1)
-        Dim empName As String = TempData(2)
-        Dim index As Integer = cbEmpName.FindStringExact(empId & " - " & empName)
-
-        lbIdValue.Text = TempData(0)
-        lbEmpIdValue.Text = empId
-
-        If index >= 0 Then
-            cbEmpName.SelectedIndex = index
-        Else
-            cbEmpName.Text = empId & empName
-        End If
-
-        dtpFromDate.Value = TempData(3)
-        rtxtReason.Text = TempData(4)
-    End Sub
-
     Private Sub rtxtReason_TextChanged(sender As Object, e As EventArgs) Handles rtxtReason.TextChanged
         EnableOrDisableSaveButton()
-    End Sub
-
-    Private Sub EnableOrDisableSaveButton()
-        If lbEmpIdValue.Text = TempData(1).ToString() AndAlso
-           dtpFromDate.Value = TempData(3) AndAlso
-           rtxtReason.Text.Trim() = TempData(4) Then
-            btnSave.Enabled = False 'Disable Save button
-        Else
-            btnSave.Enabled = True 'Enable Save button
-        End If
     End Sub
 
     Private Sub cbEmpName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbEmpName.SelectedIndexChanged
@@ -142,29 +116,6 @@ Public Class EditLeaveForm
 
     Private Sub lbEmpIdValue_Click(sender As Object, e As EventArgs) Handles lbEmpIdValue.Click
         cbEmpName.Select() 'Focus
-    End Sub
-
-    Private Sub Load_cbEmpName()
-        Try
-            If con.State() <> 1 Then
-                con.Open()
-            End If
-
-            'Load Employees Data To Combobox
-            Dim Sql = "Select * from Employees"
-            Using cmd As SqlCommand = New SqlCommand(Sql, con)
-                cmd.CommandType = CommandType.Text
-                Dim reader As SqlDataReader = cmd.ExecuteReader()
-
-                While reader.Read
-                    cbEmpName.Items.Add(New DictionaryEntry(CInt(reader("id").ToString()), reader("id").ToString() & " - " & reader("name").ToString()))
-                End While
-            End Using
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, Message.Title.error, MessageBoxButtons.OK)
-        Finally
-            con.Close()
-        End Try
     End Sub
 
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
@@ -201,4 +152,62 @@ Public Class EditLeaveForm
                 End Try
         End Select
     End Sub
+#End Region
+
+#Region "FUNCTIONS"
+    Public Sub SetCallback(callback As MyCallbackDelegate)
+        myCallback = callback
+    End Sub
+
+    Private Sub ResetData()
+        Dim empId As Integer = TempData(1)
+        Dim empName As String = TempData(2)
+        Dim index As Integer = cbEmpName.FindStringExact(empId & " - " & empName)
+
+        lbIdValue.Text = TempData(0)
+        lbEmpIdValue.Text = empId
+
+        If index >= 0 Then
+            cbEmpName.SelectedIndex = index
+        Else
+            cbEmpName.Text = empId & empName
+        End If
+
+        dtpFromDate.Value = TempData(3)
+        rtxtReason.Text = TempData(4)
+    End Sub
+
+    Private Sub EnableOrDisableSaveButton()
+        If lbEmpIdValue.Text = TempData(1).ToString() AndAlso
+           dtpFromDate.Value = TempData(3) AndAlso
+           rtxtReason.Text.Trim() = TempData(4) Then
+            btnSave.Enabled = False 'Disable Save button
+        Else
+            btnSave.Enabled = True 'Enable Save button
+        End If
+    End Sub
+
+    Private Sub Load_cbEmpName()
+        Try
+            If con.State() <> 1 Then
+                con.Open()
+            End If
+
+            'Load Employees Data To Combobox
+            Dim Sql = "Select id, name from Employees"
+            Using cmd As SqlCommand = New SqlCommand(Sql, con)
+                cmd.CommandType = CommandType.Text
+                Dim reader As SqlDataReader = cmd.ExecuteReader()
+
+                While reader.Read
+                    cbEmpName.Items.Add(New DictionaryEntry(CInt(reader("id").ToString()), reader("id").ToString() & " - " & reader("name").ToString()))
+                End While
+            End Using
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, Message.Title.error, MessageBoxButtons.OK)
+        Finally
+            con.Close()
+        End Try
+    End Sub
+#End Region
 End Class

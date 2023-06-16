@@ -4,7 +4,7 @@ Imports OfficeFunctions = FuntionCommon.CommonOfficeFunctions
 Public Class ExcelPreviewForm
     Private CallBack As Action(Of String)
     Public Property Datas As DataTable
-
+#Region "EVENTS"
     Private Sub ExcelPreviewForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Settings datagridview - datatable datasource about columns 
         dgv.Columns("stt").DataPropertyName = "stt"
@@ -42,22 +42,6 @@ Public Class ExcelPreviewForm
             Case DialogResult.No
                 Exit Sub
         End Select
-
-    End Sub
-
-    Private Sub ShowDialogOpenExcel(ByVal addressFile As String)
-        'Fix Cross-thread operation not valid
-        If Me.InvokeRequired Then
-            Me.Invoke(Sub()
-                          Dim result = MessageBox.Show(Me, "Do you want to open this file excel?", Message.Title.notif, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                          Select Case result
-                              Case DialogResult.Yes
-                                  Process.Start(addressFile)
-                          End Select
-                      End Sub)
-        Else
-            MessageBox.Show("Your message here!")
-        End If
     End Sub
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
@@ -84,4 +68,22 @@ Public Class ExcelPreviewForm
             FuntionCommon.Sortation.SortDGVAndPreventNoColumn(dgv, Datas, sortedColumnIndex, "stt", replaceColumnNameList)
         End If
     End Sub
+#End Region
+
+#Region "FUNCTIONS"
+    Private Sub ShowDialogOpenExcel(ByVal addressFile As String)
+        'Fix Cross-thread operation not valid
+        If Me.InvokeRequired Then
+            Me.Invoke(Sub()
+                          Dim result = MessageBox.Show(Me, "Do you want to open this file excel?", Message.Title.notif, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                          Select Case result
+                              Case DialogResult.Yes
+                                  Process.Start(addressFile)
+                          End Select
+                      End Sub)
+        Else
+            MessageBox.Show("Your message here!")
+        End If
+    End Sub
+#End Region
 End Class

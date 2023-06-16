@@ -10,7 +10,7 @@ Public Class EmpByPos
     Private SortedColumnIndex As Integer = -1
     Private SortedDirection As Forms.SortOrder = Forms.SortOrder.None
 
-    '------------- EVENTS -------------
+#Region "EVENTS"
     Private Sub cb_search_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbSearch.SelectedIndexChanged
         CurrentPage = 1
         'Settings Datagridview
@@ -22,7 +22,7 @@ Public Class EmpByPos
         dgvEmpByPos.Columns("birthday").DataPropertyName = "birthday"
         dgvEmpByPos.Columns("pos_name").DataPropertyName = "pos_name"
         dgvEmpByPos.Columns("pos_id").DataPropertyName = "pos_id"
-        LoadEmpByPosDatas() 'Load dataGridView for employees list
+        LoadDataAsync()
     End Sub
 
     Private Sub Load_cbPosCreate_cbSearch()
@@ -32,9 +32,8 @@ Public Class EmpByPos
             End If
 
             'Load Position Data To Combobox
-            Dim sql = "GetAllPositions"
+            Dim sql = "SELECT id, name FROM Position WHERE status = 1"
             Using cmd As SqlCommand = New SqlCommand(sql, con)
-                cmd.CommandType = CommandType.StoredProcedure
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
 
                 While reader.Read
@@ -57,13 +56,12 @@ Public Class EmpByPos
             End If
 
             'Load Employees Data To Combobox
-            Dim Sql = "GetAllEmployees"
+            Dim Sql = "SELECT id, name FROM dbo.Employees WHERE status = 1"
             Using cmd As SqlCommand = New SqlCommand(Sql, con)
-                cmd.CommandType = CommandType.StoredProcedure
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
 
                 While reader.Read
-                    cbEmpCreate.Items.Add(New DictionaryEntry(CInt(reader("id").ToString()), reader("name").ToString()))
+                    cbEmpCreate.Items.Add(New DictionaryEntry(CInt(reader("id").ToString()), reader("id").ToString() & " - " & reader("name").ToString()))
                 End While
             End Using
         Catch ex As Exception
@@ -97,7 +95,6 @@ Public Class EmpByPos
 
         'Remove selected cell
         dgvEmpByPos.CurrentCell = Nothing
-        CustomElements.MovingForm(Me)
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -130,7 +127,8 @@ Public Class EmpByPos
                     MessageBox.Show(Message.Message.successfullAddPosForThisEmp, titleMsgBox, buttons)
 
                     'Reload Data
-                    LoadEmpByPosDatas()
+                    'LoadEmpByPosDatas()
+                    LoadDataAsync()
                 Catch ex As Exception
                     'If this position is existed for this employee
                     MessageBox.Show(Message.Message.existedPosForThisEmp, titleMsgBox, buttons)
@@ -191,7 +189,8 @@ Public Class EmpByPos
 
                     MessageBox.Show(Message.Message.successfullDeleteEmpPos, Message.Title.notif, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     'Reload Data
-                    LoadEmpByPosDatas()
+                    'LoadEmpByPosDatas()
+                    LoadDataAsync()
                 Catch ex As Exception
                     MsgBox($"ERROR Delete: {ex.Message}")
                 Finally
@@ -208,9 +207,13 @@ Public Class EmpByPos
     End Sub
 
     Private Sub btnManagePos_Click(sender As Object, e As EventArgs) Handles btnManagePos.Click
-        Me.Hide()
-        Dim managePos As New Position
-        managePos.Show()
+        Me.Close()
+        NewDashboard.ShowFormInMainPanel(Position)
+        Dim clickedButton As Button = CType(sender, Button)
+        NewDashboard.ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        NewDashboard.currentSelection = "Positions"
+        NewDashboard.UpdateTitleLabel()
+        NewDashboard.ResetButtonColors(clickedButton)
     End Sub
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
@@ -218,7 +221,7 @@ Public Class EmpByPos
     End Sub
 
     Private Sub EmpByPos_Click(sender As Object, e As EventArgs) Handles MyBase.Click
-        LoadEmpByPosDatas()
+        LoadDataAsync()
         dgvEmpByPos.EndEdit()
         'Remove selected cell
         dgvEmpByPos.CurrentCell = Nothing
@@ -228,8 +231,40 @@ Public Class EmpByPos
             column.HeaderCell.SortGlyphDirection = Nothing
         Next
     End Sub
+    Private Sub btnPrevious_Click(sender As Object, e As EventArgs) Handles btnPrevious.Click
+        Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
+        Dim btnType = Page.ButtonType.Previous
+        Page.ClickPreviousButton(btnPrevious, btnType, totalPages, CurrentPage, Sub() LoadDGV())
+    End Sub
 
-    '------------- FUNCTIONS -------------
+    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
+        Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
+        Dim btnType = Page.ButtonType.Next
+        Page.ClickNextButton(btnNext, btnType, totalPages, CurrentPage, Sub() LoadDGV())
+    End Sub
+
+    Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
+        Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
+        Page.PressEnterKeyTxtCurrentPage(txtCurrentPage, CurrentPage, totalPages, e.KeyChar, Sub() LoadDGV())
+    End Sub
+
+    Private Sub dgvEmpByPos_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvEmpByPos.ColumnHeaderMouseClick
+        Dim sortedColumnIndex = e.ColumnIndex
+        Dim dgvColumn = dgvEmpByPos.Columns(sortedColumnIndex)
+
+        If e.ColumnIndex <> 0 AndAlso e.Button = MouseButtons.Left AndAlso dgvColumn.SortMode <> DataGridViewColumnSortMode.NotSortable Then
+            Dim replaceColumnNameList As New Dictionary(Of String, String)
+            replaceColumnNameList.Add("emp_name", "name")
+
+            'Datas will change when sorted
+            FuntionCommon.Sortation.SortDGVAndPreventNoColumn(dgvEmpByPos, EmpByPosDatas, sortedColumnIndex, "stt", replaceColumnNameList, Sub() LoadDGV())
+            Me.SortedColumnIndex = sortedColumnIndex
+            Me.SortedDirection = dgvEmpByPos.Columns(sortedColumnIndex).HeaderCell.SortGlyphDirection
+        End If
+    End Sub
+#End Region
+
+#Region "FUNCTIONS"
     Private Sub LoadEmpByPosDatas()
         Dim posId As Integer = cbSearch.SelectedItem.Key
         Try
@@ -262,18 +297,6 @@ Public Class EmpByPos
         End Try
     End Sub
 
-    Private Sub btnPrevious_Click(sender As Object, e As EventArgs) Handles btnPrevious.Click
-        Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
-        Dim btnType = Page.ButtonType.Previous
-        Page.ClickPreviousButton(btnPrevious, btnType, totalPages, CurrentPage, Sub() LoadDGV())
-    End Sub
-
-    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
-        Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
-        Dim btnType = Page.ButtonType.Next
-        Page.ClickNextButton(btnNext, btnType, totalPages, CurrentPage, Sub() LoadDGV())
-    End Sub
-
     Private Sub LoadDGV()
         Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
         txtCurrentPage.Text = CurrentPage
@@ -290,24 +313,8 @@ Public Class EmpByPos
         dgvEmpByPos.Select()
         dgvEmpByPos.CurrentCell = Nothing
     End Sub
-
-    Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
-        Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
-        Page.PressEnterKeyTxtCurrentPage(txtCurrentPage, CurrentPage, totalPages, e.KeyChar, Sub() LoadDGV())
+    Private Sub LoadDataAsync()
+        FuntionCommon.AsyncLoad.AsyncLoadDGV(dgvEmpByPos, Sub() LoadEmpByPosDatas())
     End Sub
-
-    Private Sub dgvEmpByPos_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvEmpByPos.ColumnHeaderMouseClick
-        Dim sortedColumnIndex = e.ColumnIndex
-        Dim dgvColumn = dgvEmpByPos.Columns(sortedColumnIndex)
-
-        If e.ColumnIndex <> 0 AndAlso e.Button = MouseButtons.Left AndAlso dgvColumn.SortMode <> DataGridViewColumnSortMode.NotSortable Then
-            Dim replaceColumnNameList As New Dictionary(Of String, String)
-            replaceColumnNameList.Add("emp_name", "name")
-
-            'Datas will change when sorted
-            FuntionCommon.Sortation.SortDGVAndPreventNoColumn(dgvEmpByPos, EmpByPosDatas, sortedColumnIndex, "stt", replaceColumnNameList, Sub() LoadDGV())
-            Me.SortedColumnIndex = sortedColumnIndex
-            Me.SortedDirection = dgvEmpByPos.Columns(sortedColumnIndex).HeaderCell.SortGlyphDirection
-        End If
-    End Sub
+#End Region
 End Class
