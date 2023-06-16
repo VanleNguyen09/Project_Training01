@@ -40,7 +40,12 @@ Public Class frm_Department
         GlobalVariables.lblPage = lbl_Page
         dgrv_Department.Columns("No").SortMode = DataGridViewColumnSortMode.NotSortable
         EnableAdd()
+        dgrv_Department.Rows.Clear()
         LoadData()
+    End Sub
+
+    Private Sub frm_Department_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        dgrv_Department.ClearSelection()
     End Sub
 
     Private selectedDepartment As Selected_Departments = New Selected_Departments()
@@ -323,10 +328,6 @@ Public Class frm_Department
         End If
     End Sub
 
-    Private Sub frm_Department_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        dgrv_Department.ClearSelection()
-    End Sub
-
     Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
@@ -366,5 +367,13 @@ Public Class frm_Department
     Private Sub dgrv_Department_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgrv_Department.ColumnHeaderMouseClick
         FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Department, e.ColumnIndex, "No")
         Pagination.PaginateDataGridView(dgrv_Department, currentPage)
+    End Sub
+
+    Private Sub dgrv_Department_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Department.CellMouseEnter
+        If (e.ColumnIndex = 6 OrElse e.ColumnIndex = 7) AndAlso e.RowIndex >= 0 Then
+            ' Set the pointer type to hand when hovering the mouse over the cell
+        Else
+            dgrv_Department.Cursor = Cursors.Default
+        End If
     End Sub
 End Class

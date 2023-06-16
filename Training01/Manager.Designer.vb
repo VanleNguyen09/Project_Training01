@@ -25,7 +25,6 @@ Partial Class frm_Manager
         Me.cb_Department = New System.Windows.Forms.ComboBox()
         Me.lbl_titleManager = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.dgv_DeptManager = New System.Windows.Forms.DataGridView()
         Me.txt_Search = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.grb_create = New System.Windows.Forms.GroupBox()
@@ -48,6 +47,7 @@ Partial Class frm_Manager
         Me.ptb_Previous = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.lbl_Page = New System.Windows.Forms.Label()
         Me.grb_Search = New System.Windows.Forms.GroupBox()
+        Me.dgv_DeptManager = New System.Windows.Forms.DataGridView()
         Me.NO = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -61,11 +61,11 @@ Partial Class frm_Manager
         Me.dept_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.deptmanager_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        CType(Me.dgv_DeptManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_create.SuspendLayout()
         CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_Search.SuspendLayout()
+        CType(Me.dgv_DeptManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cb_Department
@@ -106,22 +106,6 @@ Partial Class frm_Manager
         Me.Label2.Size = New System.Drawing.Size(107, 20)
         Me.Label2.TabIndex = 69
         Me.Label2.Text = "Department"
-        '
-        'dgv_DeptManager
-        '
-        Me.dgv_DeptManager.AllowUserToAddRows = False
-        Me.dgv_DeptManager.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgv_DeptManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_DeptManager.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NO, Me.emp_id, Me.emp_name, Me.phone, Me.birthday, Me.address, Me.email, Me.department_name, Me.from_date, Me.to_date, Me.dept_id, Me.status, Me.deptmanager_id})
-        Me.dgv_DeptManager.Location = New System.Drawing.Point(17, 357)
-        Me.dgv_DeptManager.Margin = New System.Windows.Forms.Padding(4)
-        Me.dgv_DeptManager.Name = "dgv_DeptManager"
-        Me.dgv_DeptManager.RowHeadersVisible = False
-        Me.dgv_DeptManager.RowHeadersWidth = 51
-        Me.dgv_DeptManager.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.dgv_DeptManager.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_DeptManager.Size = New System.Drawing.Size(1240, 297)
-        Me.dgv_DeptManager.TabIndex = 70
         '
         'txt_Search
         '
@@ -439,6 +423,7 @@ Partial Class frm_Manager
         '
         Me.ptb_Next.BackColor = System.Drawing.Color.Transparent
         Me.ptb_Next.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Next.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ptb_Next.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Next.Image = Global.Training01.My.Resources.Resources.right_arrow__1_
         Me.ptb_Next.ImageRotate = 0!
@@ -453,6 +438,7 @@ Partial Class frm_Manager
         '
         Me.ptb_Previous.BackColor = System.Drawing.Color.Transparent
         Me.ptb_Previous.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Previous.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ptb_Previous.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Previous.Image = Global.Training01.My.Resources.Resources.left_arrow
         Me.ptb_Previous.ImageRotate = 0!
@@ -492,6 +478,22 @@ Partial Class frm_Manager
         Me.grb_Search.TabStop = False
         Me.grb_Search.Text = "SEARCH"
         '
+        'dgv_DeptManager
+        '
+        Me.dgv_DeptManager.AllowUserToAddRows = False
+        Me.dgv_DeptManager.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgv_DeptManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgv_DeptManager.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NO, Me.emp_id, Me.emp_name, Me.phone, Me.birthday, Me.address, Me.email, Me.department_name, Me.from_date, Me.to_date, Me.dept_id, Me.status, Me.deptmanager_id})
+        Me.dgv_DeptManager.Location = New System.Drawing.Point(17, 357)
+        Me.dgv_DeptManager.Margin = New System.Windows.Forms.Padding(4)
+        Me.dgv_DeptManager.Name = "dgv_DeptManager"
+        Me.dgv_DeptManager.RowHeadersVisible = False
+        Me.dgv_DeptManager.RowHeadersWidth = 51
+        Me.dgv_DeptManager.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.dgv_DeptManager.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgv_DeptManager.Size = New System.Drawing.Size(1240, 297)
+        Me.dgv_DeptManager.TabIndex = 70
+        '
         'NO
         '
         Me.NO.HeaderText = "NO"
@@ -520,12 +522,14 @@ Partial Class frm_Manager
         Me.phone.HeaderText = "PHONE"
         Me.phone.MinimumWidth = 6
         Me.phone.Name = "phone"
+        Me.phone.Width = 125
         '
         'birthday
         '
         Me.birthday.HeaderText = "BIRTHDAY"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
+        Me.birthday.Width = 125
         '
         'address
         '
@@ -546,18 +550,21 @@ Partial Class frm_Manager
         Me.department_name.HeaderText = "Department"
         Me.department_name.MinimumWidth = 6
         Me.department_name.Name = "department_name"
+        Me.department_name.Width = 125
         '
         'from_date
         '
         Me.from_date.HeaderText = "From Date"
         Me.from_date.MinimumWidth = 6
         Me.from_date.Name = "from_date"
+        Me.from_date.Width = 125
         '
         'to_date
         '
         Me.to_date.HeaderText = "To Date"
         Me.to_date.MinimumWidth = 6
         Me.to_date.Name = "to_date"
+        Me.to_date.Width = 125
         '
         'dept_id
         '
@@ -607,13 +614,13 @@ Partial Class frm_Manager
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frm_Manager"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        CType(Me.dgv_DeptManager, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grb_create.ResumeLayout(False)
         Me.grb_create.PerformLayout()
         CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grb_Search.ResumeLayout(False)
         Me.grb_Search.PerformLayout()
+        CType(Me.dgv_DeptManager, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -622,7 +629,6 @@ Partial Class frm_Manager
     Friend WithEvents cb_Department As ComboBox
     Friend WithEvents lbl_titleManager As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents dgv_DeptManager As DataGridView
     Friend WithEvents txt_Search As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents grb_create As GroupBox
@@ -645,6 +651,7 @@ Partial Class frm_Manager
     Friend WithEvents ptb_Previous As Guna.UI2.WinForms.Guna2PictureBox
     Friend WithEvents lbl_Page As Label
     Friend WithEvents grb_Search As GroupBox
+    Friend WithEvents dgv_DeptManager As DataGridView
     Friend WithEvents NO As DataGridViewTextBoxColumn
     Friend WithEvents emp_id As DataGridViewTextBoxColumn
     Friend WithEvents emp_name As DataGridViewTextBoxColumn

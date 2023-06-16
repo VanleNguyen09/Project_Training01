@@ -1,10 +1,8 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.ComponentModel
+Imports System.Data.SqlClient
 Imports System.IO
-Imports System.Text
-Imports System.Web.UI.WebControls
 Imports iTextSharp.text
 Imports iTextSharp.text.pdf
-Imports iTextSharp.xmp.impl.xpath
 
 Public Class frm_Manager
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -38,6 +36,20 @@ Public Class frm_Manager
         End Sub
     End Class
 
+    'Public Class Manager
+    '    Public Property Emp_id As Integer
+    '    Public Property Emp_name As String
+    '    Public Property Phone As String
+    '    Public Property Address As String
+    '    Public Property Birthday As Date
+    '    Public Property Email As String
+    '    Public Property Department As String
+    '    Public Property FromDate As Date
+
+    '    Public Property ToDate As Date
+    'End Class
+
+
     Private selectedManagers As Selected_Managers = New Selected_Managers()
 
     Private Sub frm_Manager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -58,10 +70,51 @@ Public Class frm_Manager
         cb_EmpCreate.SelectedIndex = 0
         dgv_DeptManager.Columns("No").SortMode = DataGridViewColumnSortMode.NotSortable
         EnableAdd()
+        dgv_DeptManager.Rows.Clear()
+        LoadData()
+        '' Thiết lập các sự kiện cho background worker
+        'bgw_Manager.WorkerReportsProgress = False
+        'bgw_Manager.WorkerSupportsCancellation = False
+
+        '' Bắt đầu thực hiện công việc tải dữ liệu trong background worker
+        'bgw_Manager.RunWorkerAsync()
         Select_Departments()
         Select_Employees()
-        LoadData()
     End Sub
+
+    Private Sub frm_Manager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        dgv_DeptManager.ClearSelection()
+    End Sub
+
+    'Private Sub bgw_Manager_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgw_Manager.RunWorkerCompleted
+    '    ' Lấy danh sách dữ liệu từ kết quả của BackgroundWorker
+    '    Dim data As List(Of Manager) = DirectCast(e.Result, List(Of Manager))
+    '    UpdateDataGridView(data)
+    'End Sub
+
+    'Private Sub bgw_Manager_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgw_Manager.DoWork
+    '    LoadData()
+    'End Sub
+
+    'Private Sub UpdateDataGridView(data As List(Of Manager))
+    '    ' Xóa tất cả các dòng hiện tại trong DataGridView
+    '    dgv_DeptManager.Rows.Clear()
+
+    '    ' Đổ dữ liệu vào DataGridView từ danh sách data
+    '    For Each item As Manager In data
+    '        ' Thêm một dòng mới vào DataGridView và gán giá trị cho từng cột
+    '        Dim rowIndex As Integer = dgv_DeptManager.Rows.Add()
+    '        dgv_DeptManager.Rows(rowIndex).Cells("emp_id").Value = item.Emp_id
+    '        dgv_DeptManager.Rows(rowIndex).Cells("emp_name").Value = item.Emp_name
+    '        dgv_DeptManager.Rows(rowIndex).Cells("phone").Value = item.Phone
+    '        dgv_DeptManager.Rows(rowIndex).Cells("birthday").Value = item.Birthday
+    '        dgv_DeptManager.Rows(rowIndex).Cells("address").Value = item.Address
+    '        dgv_DeptManager.Rows(rowIndex).Cells("email").Value = item.Email
+    '        dgv_DeptManager.Rows(rowIndex).Cells("department_name").Value = item.Department
+    '        dgv_DeptManager.Rows(rowIndex).Cells("from_date").Value = item.FromDate
+    '        dgv_DeptManager.Rows(rowIndex).Cells("to_date").Value = item.to
+    '    Next
+    'End Sub
 
     Public Enum ManagerParameters
         empId
@@ -162,7 +215,6 @@ Public Class frm_Manager
         dgv_DeptManager.Rows.Add(No, id, name, phone, birthdayFormat, address, email, department_name, fromDateFormat, toDateFormat, dept_id, status, deptmanager_id)
     End Sub
 
-
     Private Sub LoadData()
         If con.State() <> 1 Then
             con.Open()
@@ -248,7 +300,7 @@ Public Class frm_Manager
         Return CheckManagerExit
     End Function
 
-    Private Function CheckManagerExitForUpdate(ByVal emp_id As Integer, ByVal dept_id As Integer, ByVal from_date As Date, ByVal to_date As Date) As Boolean
+    Private Function CheckManagerExitForUpdate(ByVal emp_id As Integer, ByVal dept_id As Integer, ByVal id As Integer) As Boolean
         CheckManagerExitForUpdate = False
         If con.State <> 1 Then
             con.Open()
@@ -258,8 +310,7 @@ Public Class frm_Manager
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@emp_id", emp_id)
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
-                cmd.Parameters.AddWithValue("@from_date", from_date)
-                cmd.Parameters.AddWithValue("@to_date", to_date)
+                cmd.Parameters.AddWithValue("@id", id)
                 cmd.ExecuteNonQuery()
 
                 Dim isExited As Integer = 0
@@ -355,13 +406,14 @@ Public Class frm_Manager
         Dim status As Integer = 1
         Dim empId As Integer = CInt(values(ManagerParameters.empId))
         Dim deptId As Integer = CInt(values(ManagerParameters.deptId))
+        Dim id As Integer = CInt(values(ManagerParameters.deptManagerId))
         Dim fromDate As Date = Convert.ToDateTime(values(ManagerParameters.fromDate))
         Dim toDate As Date = Convert.ToDateTime(values(ManagerParameters.toDate))
 
         If CheckEmpDeptExit(empId, deptId) Then
             MessageBox.Show(Message.Message.employeeExitedForDepartment, titleNotif, buttonOK, warmIcon)
             Exit Sub
-        ElseIf CheckManagerExitForUpdate(empId, deptId, fromDate, toDate) Then
+        ElseIf CheckManagerExitForUpdate(empId, deptId, id) Then
             MessageBox.Show(Message.Message.managerDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckManagerDateBigger(empId, deptId, fromDate, toDate) Then
@@ -685,9 +737,6 @@ Public Class frm_Manager
         dtp_ToDate.Value = selectedManagers.to_date
         DeptmangerId = selectedManagers.deptmanager_id
     End Sub
-    Private Sub frm_Manager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        dgv_DeptManager.ClearSelection()
-    End Sub
 
     Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
@@ -702,7 +751,6 @@ Public Class frm_Manager
             Return data
         End If
     End Function
-
     Public Function ExportSalarySlipToPDF(ByVal tmpPath As String) As String
         If con.State <> 1 Then
             con.Open()
@@ -715,7 +763,7 @@ Public Class frm_Manager
                 Using reader As SqlDataReader = cmd.ExecuteReader()
                     Dim document As New Document
 
-                    document.SetMargins(10, 10, 10, 10)
+                    document.SetMargins(10, 10, 40, 40)
                     Dim outputStream As New FileStream(tmpPath, FileMode.Create)
 
                     Dim writer As PdfWriter = PdfWriter.GetInstance(document, outputStream)
@@ -724,15 +772,15 @@ Public Class frm_Manager
 
                     Dim fontTitle As Font = FontFactory.GetFont("Arial", 18, FontStyle.Bold, BaseColor.RED)
                     Dim titleText As String = "Employee Salary Slip"
-                    Dim cellPaddingTop As Single = 5
 
                     Dim titleUpper As String = titleText.ToUpper()
 
                     Dim title As New Paragraph(titleUpper, fontTitle)
                     title.Alignment = Element.ALIGN_CENTER
+                    title.SpacingAfter = 30 ' Remove spacing after the title
 
                     document.Add(title)
-                    document.Add(Chunk.NEWLINE)
+                    'document.Add(Chunk.NEWLINE)
                     Dim pathFont = Application.StartupPath
 
                     pathFont = pathFont.Replace("\bin\Debug", String.Empty)
@@ -751,6 +799,7 @@ Public Class frm_Manager
                                    "Salary", "Department", "Position"}
                     Dim table As New PdfPTable(columnWidths.Length)
                     table.DefaultCell.Padding = 5
+                    table.SpacingBefore = 0 ' Remove spacing before the table
 
                     table.WidthPercentage = 100
                     table.SetWidths(columnWidths)
@@ -881,5 +930,14 @@ Public Class frm_Manager
     Private Sub dgv_DeptManager_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgv_DeptManager.ColumnHeaderMouseClick
         FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptManager, e.ColumnIndex, "No")
         Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
+    End Sub
+
+    Private Sub dgv_DeptManager_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgv_DeptManager.CellMouseEnter
+        If (e.ColumnIndex = 6 OrElse e.ColumnIndex = 7) AndAlso e.RowIndex >= 0 Then
+            ' Set the pointer type to hand when hovering the mouse over the cell 
+            dgv_DeptManager.Cursor = Cursors.Hand
+        Else
+            dgv_DeptManager.Cursor = Cursors.Default
+        End If
     End Sub
 End Class

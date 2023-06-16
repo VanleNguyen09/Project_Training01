@@ -51,7 +51,6 @@ Public Class Login
             My.Settings.IsLoggedIn = True
             My.Settings.LoggedInUserEmail = email
             My.Settings.Save()
-            MessageBox.Show(Message.Message.loginSuccess, titleNotif, buttonOK, infoIcon)
 
             Dim dashboard As New NewDashboard()
             Me.Hide()

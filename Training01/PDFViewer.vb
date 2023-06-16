@@ -29,7 +29,6 @@ Public Class PDFViewer
     Private Sub PDFViewer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AxAcroPDF1.LoadFile(Me.tempPath)
         AxAcroPDF1.setShowScrollbars(False)
-        'AxAcroPDF1.setZoom(100)
 
         CustomElements.MovingDashboardByPanels(Me, pn_Top)
         AxAcroPDF1.Size = Me.ClientSize
@@ -66,20 +65,13 @@ Public Class PDFViewer
     Private Sub gbtn_OK_Click(sender As Object, e As EventArgs) Handles gbtn_OK.Click
         Dim result As DialogResult = MessageBox.Show("Are you sure you want to save PDF file??", "Confirmation", buttonYesNo, questionIcon)
         If result = DialogResult.Yes Then
-            MessageBox.Show(Message.Message.exportPDFSuccess, titleInfo, buttonOK, infoIcon)
             SavePDFPreview()
             Me.Close()
-        Else
-            MessageBox.Show(Message.Message.exportPDFCancel, titleInfo, buttonOK, infoIcon)
         End If
     End Sub
 
     Private Sub gbtn_Cancel_Click(sender As Object, e As EventArgs)
-        Dim result As DialogResult = MessageBox.Show("Are you sure you want to Cancel save PDF file??", "Confirmation", buttonYesNo, questionIcon)
-        If result = DialogResult.Yes Then
-            MessageBox.Show(Message.Message.cancelSavePDFSuccess, titleInfo, buttonOK, infoIcon)
-            Me.Close()
-        End If
+        Me.Close()
     End Sub
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click

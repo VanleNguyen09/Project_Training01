@@ -84,9 +84,10 @@ Partial Class PDFViewer
         Me.pn_Botttom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pn_Botttom.Controls.Add(Me.gbtn_OK)
         Me.pn_Botttom.Controls.Add(gbtn_Cancel)
-        Me.pn_Botttom.Location = New System.Drawing.Point(0, 742)
+        Me.pn_Botttom.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pn_Botttom.Location = New System.Drawing.Point(0, 776)
         Me.pn_Botttom.Name = "pn_Botttom"
-        Me.pn_Botttom.Size = New System.Drawing.Size(1464, 133)
+        Me.pn_Botttom.Size = New System.Drawing.Size(1464, 119)
         Me.pn_Botttom.TabIndex = 4
         '
         'closeApp
@@ -126,11 +127,12 @@ Partial Class PDFViewer
         '
         'AxAcroPDF1
         '
+        Me.AxAcroPDF1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.AxAcroPDF1.Enabled = True
-        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 64)
+        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 0)
         Me.AxAcroPDF1.Name = "AxAcroPDF1"
         Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.AxAcroPDF1.Size = New System.Drawing.Size(1464, 600)
+        Me.AxAcroPDF1.Size = New System.Drawing.Size(1464, 895)
         Me.AxAcroPDF1.TabIndex = 1
         '
         'PDFViewer
@@ -139,7 +141,7 @@ Partial Class PDFViewer
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1464, 875)
+        Me.ClientSize = New System.Drawing.Size(1464, 895)
         Me.Controls.Add(Me.pn_Top)
         Me.Controls.Add(Me.pn_Botttom)
         Me.Controls.Add(Me.AxAcroPDF1)

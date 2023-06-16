@@ -52,9 +52,14 @@ Public Class frm_Employee
         rdo_Male.Checked = True
         rdo_Female.Checked = False
         EnableAdd()
+        dgrv_Employee.Rows.Clear()
+        LoadData()
         txt_EmployeeID.Enabled = False
         dgrv_Employee.ClearSelection()
-        LoadData()
+    End Sub
+
+    Private Sub frm_Employee_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        dgrv_Employee.ClearSelection()
     End Sub
 
     Private Enum EmployeeParameters
@@ -342,7 +347,6 @@ Public Class frm_Employee
             gender = "Male"
         Else
             gender = "Female"
-            MsgBox("your gender is" & gender)
         End If
         Dim birthday As Date = dtp_Birthday.Value
         Dim email As String = txt_Email.Text.Trim()
@@ -407,7 +411,6 @@ Public Class frm_Employee
             gender = "Male"
         Else
             gender = "Female"
-            MsgBox("your gender is" & gender)
         End If
         Dim birthday As Date = dtp_Birthday.Value
         Dim email As String = txt_Email.Text.Trim()
@@ -641,10 +644,6 @@ Public Class frm_Employee
         End If
     End Sub
 
-    Private Sub frm_Employee_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        dgrv_Employee.ClearSelection()
-    End Sub
-
     Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
@@ -690,10 +689,20 @@ Public Class frm_Employee
     Private Sub btn_EmpDept_Click(sender As Object, e As EventArgs) Handles btn_EmpDept.Click
         Me.Close()
         NewDashboard.ShowFormInMainPanel(frm_EmpInDept)
-        Dim clickedButton As Button = CType(sender, Button)
-        NewDashboard.ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
         NewDashboard.currentSelection = "Employee In Department"
         NewDashboard.UpdateTitleLabel()
-        NewDashboard.ResetButtonColors(clickedButton)
+    End Sub
+
+    Private Sub dgrv_Employee_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Employee.CellMouseEnter
+        If (e.ColumnIndex = 6 OrElse e.ColumnIndex = 7) AndAlso e.RowIndex >= 0 Then
+            ' Set the pointer type to hand when hovering the mouse over the cell 
+            dgrv_Employee.Cursor = Cursors.Hand
+        Else
+            dgrv_Employee.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub bgw_Employee_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs)
+
     End Sub
 End Class
