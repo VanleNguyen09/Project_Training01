@@ -192,4 +192,11 @@ Public Class Position
         End If
     End Sub
 
+    Private Sub dgvPositions_SortCompare(sender As Object, e As DataGridViewSortCompareEventArgs) Handles dgvPositions.SortCompare
+        'Sort numeric type
+        If dgvPositions.Columns(e.Column.Index).Name = "emp_num" Then
+            e.SortResult = Integer.Parse(e.CellValue1.ToString()).CompareTo(Integer.Parse(e.CellValue2.ToString()))
+            e.Handled = True 'pass by the default sorting
+        End If
+    End Sub
 End Class

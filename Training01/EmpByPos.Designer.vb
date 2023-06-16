@@ -26,14 +26,6 @@ Partial Class EmpByPos
         Me.cbSearch = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dgvEmpByPos = New System.Windows.Forms.DataGridView()
-        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.pos_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.grb_create = New System.Windows.Forms.GroupBox()
         Me.btnAdd = New Guna.UI2.WinForms.Guna2Button()
         Me.cbEmpCreate = New System.Windows.Forms.ComboBox()
@@ -48,6 +40,14 @@ Partial Class EmpByPos
         Me.txtCurrentPage = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.txtTotalPage = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pos_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvEmpByPos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_create.SuspendLayout()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -102,63 +102,6 @@ Partial Class EmpByPos
         Me.dgvEmpByPos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvEmpByPos.Size = New System.Drawing.Size(643, 246)
         Me.dgvEmpByPos.TabIndex = 3
-        '
-        'stt
-        '
-        Me.stt.HeaderText = "STT"
-        Me.stt.Name = "stt"
-        Me.stt.ReadOnly = True
-        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        Me.stt.Width = 70
-        '
-        'id
-        '
-        Me.id.HeaderText = "ID"
-        Me.id.Name = "id"
-        Me.id.ReadOnly = True
-        Me.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.id.Visible = False
-        Me.id.Width = 70
-        '
-        'emp_name
-        '
-        Me.emp_name.HeaderText = "NAME"
-        Me.emp_name.Name = "emp_name"
-        Me.emp_name.ReadOnly = True
-        Me.emp_name.Width = 120
-        '
-        'phone
-        '
-        Me.phone.HeaderText = "PHONE"
-        Me.phone.Name = "phone"
-        Me.phone.ReadOnly = True
-        Me.phone.Width = 110
-        '
-        'email
-        '
-        Me.email.HeaderText = "EMAIL"
-        Me.email.Name = "email"
-        Me.email.ReadOnly = True
-        Me.email.Width = 140
-        '
-        'birthday
-        '
-        Me.birthday.HeaderText = "BIRTHDAY"
-        Me.birthday.Name = "birthday"
-        Me.birthday.ReadOnly = True
-        '
-        'pos_name
-        '
-        Me.pos_name.HeaderText = "POSITION"
-        Me.pos_name.Name = "pos_name"
-        Me.pos_name.ReadOnly = True
-        '
-        'pos_id
-        '
-        Me.pos_id.HeaderText = "PositionId"
-        Me.pos_id.Name = "pos_id"
-        Me.pos_id.ReadOnly = True
-        Me.pos_id.Visible = False
         '
         'grb_create
         '
@@ -379,6 +322,69 @@ Partial Class EmpByPos
         Me.txtTotalPage.Size = New System.Drawing.Size(41, 28)
         Me.txtTotalPage.TabIndex = 7
         '
+        'stt
+        '
+        Me.stt.HeaderText = "NO"
+        Me.stt.Name = "stt"
+        Me.stt.ReadOnly = True
+        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.stt.Width = 70
+        '
+        'id
+        '
+        Me.id.HeaderText = "ID"
+        Me.id.Name = "id"
+        Me.id.ReadOnly = True
+        Me.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.id.Visible = False
+        Me.id.Width = 70
+        '
+        'emp_name
+        '
+        Me.emp_name.HeaderText = "NAME"
+        Me.emp_name.Name = "emp_name"
+        Me.emp_name.ReadOnly = True
+        Me.emp_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.emp_name.Width = 120
+        '
+        'phone
+        '
+        Me.phone.HeaderText = "PHONE"
+        Me.phone.Name = "phone"
+        Me.phone.ReadOnly = True
+        Me.phone.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.phone.Width = 110
+        '
+        'email
+        '
+        Me.email.HeaderText = "EMAIL"
+        Me.email.Name = "email"
+        Me.email.ReadOnly = True
+        Me.email.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.email.Width = 140
+        '
+        'birthday
+        '
+        Me.birthday.HeaderText = "BIRTHDAY"
+        Me.birthday.Name = "birthday"
+        Me.birthday.ReadOnly = True
+        Me.birthday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        '
+        'pos_name
+        '
+        Me.pos_name.HeaderText = "POSITION"
+        Me.pos_name.Name = "pos_name"
+        Me.pos_name.ReadOnly = True
+        Me.pos_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        '
+        'pos_id
+        '
+        Me.pos_id.HeaderText = "PositionId"
+        Me.pos_id.Name = "pos_id"
+        Me.pos_id.ReadOnly = True
+        Me.pos_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.pos_id.Visible = False
+        '
         'EmpByPos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -429,6 +435,7 @@ Partial Class EmpByPos
     Friend WithEvents txtCurrentPage As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel1 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents txtTotalPage As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents btnAdd As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents stt As DataGridViewTextBoxColumn
     Friend WithEvents id As DataGridViewTextBoxColumn
     Friend WithEvents emp_name As DataGridViewTextBoxColumn
@@ -437,5 +444,4 @@ Partial Class EmpByPos
     Friend WithEvents birthday As DataGridViewTextBoxColumn
     Friend WithEvents pos_name As DataGridViewTextBoxColumn
     Friend WithEvents pos_id As DataGridViewTextBoxColumn
-    Friend WithEvents btnAdd As Guna.UI2.WinForms.Guna2Button
 End Class

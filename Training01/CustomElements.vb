@@ -1,4 +1,28 @@
-﻿Public Class CustomElements
+﻿Imports Org.BouncyCastle.Asn1.X509
+
+Public Class CustomElements
+
+    ''' <summary>
+    ''' Add Sorted DGV Events and Prevent sort no column
+    ''' Conditions: Datagridview.datasource = datatable
+    ''' Author: DatRikai
+    ''' Created Date: 15/06/2023
+    ''' </summary>
+    ''' <param name="dgv"></param>
+    ''' <param name="Datas"></param>
+    ''' <param name="noColumnName"></param>
+    ''' <param name="replaceColumnNameList"></param>
+    Public Shared Sub AddSortedDGVEvents(dgv As DataGridView, Datas As DataTable, ByVal noColumnName As String, Optional ByVal replaceColumnNameList As Dictionary(Of String, String) = Nothing)
+        AddHandler dgv.ColumnHeaderMouseClick, Sub(sender As Object, e As DataGridViewCellMouseEventArgs)
+                                                   Dim sortedColumnIndex = e.ColumnIndex
+                                                   Dim dgvColumn = dgv.Columns(sortedColumnIndex)
+
+                                                   If e.ColumnIndex <> 0 AndAlso e.Button = MouseButtons.Left AndAlso dgvColumn.SortMode <> DataGridViewColumnSortMode.NotSortable Then
+                                                       'Datas will change when sorted
+                                                       FuntionCommon.Sortation.SortDGVAndPreventNoColumn(dgv, Datas, sortedColumnIndex, noColumnName, replaceColumnNameList)
+                                                   End If
+                                               End Sub
+    End Sub
     ''' <summary>
     ''' Rounded Button
     ''' Author: Dat
@@ -68,7 +92,7 @@
                                End Sub
     End Sub
 
-    Public Shared Sub KeepSttColumnUnsorted(ByRef dgv As DataGridView, ByVal nameColumn As String)
+    Public Shared Sub KeepNoColumnUnsorted(ByRef dgv As DataGridView, ByVal nameColumn As String)
         Dim tempDgv As DataGridView = dgv
         AddHandler dgv.Sorted, Sub()
                                    'If it is stt column, sorted normal 

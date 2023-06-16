@@ -1,14 +1,27 @@
 ﻿Imports System.Data.SqlClient
 Imports Page = FuntionCommon.Pagination
+Imports Forms = System.Windows.Forms
 
 Public Class EmpByPos
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private RowsPerPage As Integer = 10
     Private CurrentPage As Integer = 1
     Private EmpByPosDatas As New DataTable
+    Private SortedColumnIndex As Integer = -1
+    Private SortedDirection As Forms.SortOrder = Forms.SortOrder.None
+
     '------------- EVENTS -------------
     Private Sub cb_search_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbSearch.SelectedIndexChanged
         CurrentPage = 1
+        'Settings Datagridview
+        dgvEmpByPos.Columns("stt").DataPropertyName = "stt"
+        dgvEmpByPos.Columns("id").DataPropertyName = "id"
+        dgvEmpByPos.Columns("emp_name").DataPropertyName = "name"
+        dgvEmpByPos.Columns("phone").DataPropertyName = "phone"
+        dgvEmpByPos.Columns("email").DataPropertyName = "email"
+        dgvEmpByPos.Columns("birthday").DataPropertyName = "birthday"
+        dgvEmpByPos.Columns("pos_name").DataPropertyName = "pos_name"
+        dgvEmpByPos.Columns("pos_id").DataPropertyName = "pos_id"
         LoadEmpByPosDatas() 'Load dataGridView for employees list
     End Sub
 
@@ -234,6 +247,11 @@ Public Class EmpByPos
                 EmpByPosDatas.Rows.Clear()
                 EmpByPosDatas.Load(reader)
 
+                ' Get "birthday" date
+                For i As Integer = 0 To EmpByPosDatas.Rows.Count - 1
+                    EmpByPosDatas.Rows(i)("birthday") = EmpByPosDatas.Rows(i)("birthday").ToString().Split(" ")(0)
+                Next
+
                 'Load in datagridview
                 LoadDGV()
             End Using
@@ -261,19 +279,11 @@ Public Class EmpByPos
         txtCurrentPage.Text = CurrentPage
         txtTotalPage.Text = totalPages
         Dim pagingDatas = Page.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, EmpByPosDatas)
-        dgvEmpByPos.Rows.Clear()
+        dgvEmpByPos.DataSource = pagingDatas
 
-        For i As Integer = 0 To pagingDatas.Rows.Count - 1
-            Dim stt = pagingDatas.Rows(i)("stt").ToString()
-            Dim id = pagingDatas.Rows(i)("id").ToString()
-            Dim name = pagingDatas.Rows(i)("name").ToString()
-            Dim phone = pagingDatas.Rows(i)("phone").ToString()
-            Dim email = pagingDatas.Rows(i)("email").ToString()
-            Dim birthday = pagingDatas.Rows(i)("birthday").ToString().Split(" ")(0) 'Only get date
-            Dim posName = pagingDatas.Rows(i)("pos_name").ToString()
-            Dim pos_id = pagingDatas.Rows(i)("pos_id").ToString()
-            dgvEmpByPos.Rows.Add(New String() {stt, id, name, phone, email, birthday, posName, pos_id})
-        Next
+        If SortedColumnIndex > -1 Then
+            dgvEmpByPos.Columns(SortedColumnIndex).HeaderCell.SortGlyphDirection = Me.SortedDirection
+        End If
 
         Page.UpdatePaginationButtons(btnPrevious, Page.ButtonType.Previous, totalPages, CurrentPage)
         Page.UpdatePaginationButtons(btnNext, Page.ButtonType.Next, totalPages, CurrentPage)
@@ -287,10 +297,17 @@ Public Class EmpByPos
     End Sub
 
     Private Sub dgvEmpByPos_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvEmpByPos.ColumnHeaderMouseClick
-        Dim replaceColumnNameList As New Dictionary(Of String, String)
-        replaceColumnNameList.Add("emp_name", "name")
-        FuntionCommon.Sortation.SortDataTableAndPreventSttColumn(dgvEmpByPos, EmpByPosDatas,
-                                                                 e.ColumnIndex, "stt", replaceColumnNameList)
-        LoadDGV()
+        Dim sortedColumnIndex = e.ColumnIndex
+        Dim dgvColumn = dgvEmpByPos.Columns(sortedColumnIndex)
+
+        If e.ColumnIndex <> 0 AndAlso e.Button = MouseButtons.Left AndAlso dgvColumn.SortMode <> DataGridViewColumnSortMode.NotSortable Then
+            Dim replaceColumnNameList As New Dictionary(Of String, String)
+            replaceColumnNameList.Add("emp_name", "name")
+
+            'Datas will change when sorted
+            FuntionCommon.Sortation.SortDGVAndPreventNoColumn(dgvEmpByPos, EmpByPosDatas, sortedColumnIndex, "stt", replaceColumnNameList, Sub() LoadDGV())
+            Me.SortedColumnIndex = sortedColumnIndex
+            Me.SortedDirection = dgvEmpByPos.Columns(sortedColumnIndex).HeaderCell.SortGlyphDirection
+        End If
     End Sub
 End Class

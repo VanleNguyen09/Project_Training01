@@ -55,6 +55,7 @@ Partial Class Leave
         Me.txtCurrentPage = New Guna.UI2.WinForms.Guna2TextBox()
         Me.btnNext = New Guna.UI2.WinForms.Guna2Button()
         Me.btnPrevious = New Guna.UI2.WinForms.Guna2Button()
+        Me.ProgressBarLoad = New System.Windows.Forms.ProgressBar()
         CType(Me.dgvLeave, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gb_create.SuspendLayout()
         Me.gb_actions.SuspendLayout()
@@ -440,6 +441,14 @@ Partial Class Leave
         Me.btnPrevious.Text = "PREVIOUS"
         Me.btnPrevious.UseTransparentBackground = True
         '
+        'ProgressBarLoad
+        '
+        Me.ProgressBarLoad.Location = New System.Drawing.Point(77, 64)
+        Me.ProgressBarLoad.Name = "ProgressBarLoad"
+        Me.ProgressBarLoad.Size = New System.Drawing.Size(782, 23)
+        Me.ProgressBarLoad.TabIndex = 23
+        Me.ProgressBarLoad.Visible = False
+        '
         'Leave
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -447,6 +456,7 @@ Partial Class Leave
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(983, 484)
+        Me.Controls.Add(Me.ProgressBarLoad)
         Me.Controls.Add(Me.Guna2HtmlLabel1)
         Me.Controls.Add(Me.txtTotalPage)
         Me.Controls.Add(Me.txtCurrentPage)
@@ -510,4 +520,5 @@ Partial Class Leave
     Friend WithEvents from_date As DataGridViewTextBoxColumn
     Friend WithEvents reason As DataGridViewTextBoxColumn
     Friend WithEvents is_confirmed As DataGridViewButtonColumn
+    Friend WithEvents ProgressBarLoad As ProgressBar
 End Class

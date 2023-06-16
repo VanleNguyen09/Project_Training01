@@ -6,7 +6,17 @@ Public Class ExcelPreviewForm
     Public Property Datas As DataTable
 
     Private Sub ExcelPreviewForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LoadDGV()
+        'Settings datagridview - datatable datasource about columns 
+        dgv.Columns("stt").DataPropertyName = "stt"
+        dgv.Columns("id").DataPropertyName = "id"
+        dgv.Columns("emp_name").DataPropertyName = "name"
+        dgv.Columns("phone").DataPropertyName = "phone"
+        dgv.Columns("birthday").DataPropertyName = "birthday"
+        dgv.Columns("email").DataPropertyName = "email"
+        dgv.Columns("salary_name").DataPropertyName = "salary_name"
+        dgv.Columns("salary").DataPropertyName = "salary"
+
+        dgv.DataSource = Datas
         CustomElements.MovingDashboardByPanels(Me, pnHeader)
     End Sub
 
@@ -15,18 +25,16 @@ Public Class ExcelPreviewForm
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        'Callback.Invoke()
         Dim result = MessageBox.Show("Do you want to confirm saving?", Message.Title.notif, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         Select Case result
             Case DialogResult.Yes
-                'Me.Close()
                 CallBack = AddressOf ShowDialogOpenExcel
                 Dim excelThread = New Thread(Sub() OfficeFunctions.ExportToExcel(Datas, CallBack))
                 excelThread.SetApartmentState(ApartmentState.STA) 'Single Threaded Apartment
-                CustomElements.ShowCirProgressBar(3, New Size(200, 200))
                 Try
                     excelThread.Start()
+                    CustomElements.ShowCirProgressBar(7, New Size(200, 200))
                 Catch ex As Exception
                     MessageBox.Show("EXCEL ERROR: " & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
@@ -64,46 +72,16 @@ Public Class ExcelPreviewForm
         closeApp.BackColor = Color.Transparent
     End Sub
 
-    Private Sub dgv_Sorted(sender As Object, e As EventArgs) Handles dgv.Sorted
-
-    End Sub
-
     Private Sub dgv_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgv.ColumnHeaderMouseClick
-        Dim columnIndex = e.ColumnIndex
-        Dim dgvColumn = dgv.Columns(columnIndex)
+        Dim sortedColumnIndex = e.ColumnIndex
+        Dim dgvColumn = dgv.Columns(sortedColumnIndex)
 
         If e.ColumnIndex <> 0 AndAlso e.Button = MouseButtons.Left AndAlso dgvColumn.SortMode <> DataGridViewColumnSortMode.NotSortable Then
             Dim replaceColumnNameList As New Dictionary(Of String, String)
             replaceColumnNameList.Add("emp_name", "name")
-            Dim sortedColumnIndex = columnIndex
-            Dim sortedDirection = dgv.Columns(sortedColumnIndex).HeaderCell.SortGlyphDirection
-
-            If sortedDirection = SortOrder.None OrElse sortedDirection = SortOrder.Descending Then
-                sortedDirection = SortOrder.Ascending
-            ElseIf sortedDirection = SortOrder.Ascending Then
-                sortedDirection = SortOrder.Descending
-            End If
-
-            dgv.Columns(sortedColumnIndex).HeaderCell.SortGlyphDirection = sortedDirection
 
             'Datas will change when sorted
-            FuntionCommon.Sortation.SortDataTableAndPreventSttColumn(dgv, Datas,
-                                                                     sortedColumnIndex, "stt", replaceColumnNameList)
-            LoadDGV()
-            dgv.Columns(sortedColumnIndex).HeaderCell.SortGlyphDirection = sortedDirection
+            FuntionCommon.Sortation.SortDGVAndPreventNoColumn(dgv, Datas, sortedColumnIndex, "stt", replaceColumnNameList)
         End If
-    End Sub
-
-    Private Sub LoadDGV()
-        dgv.Columns("stt").DataPropertyName = "stt"
-        dgv.Columns("id").DataPropertyName = "id"
-        dgv.Columns("emp_name").DataPropertyName = "name"
-        dgv.Columns("phone").DataPropertyName = "phone"
-        dgv.Columns("birthday").DataPropertyName = "birthday"
-        dgv.Columns("email").DataPropertyName = "email"
-        dgv.Columns("salary_name").DataPropertyName = "salary_name"
-        dgv.Columns("salary").DataPropertyName = "salary"
-
-        dgv.DataSource = Datas
     End Sub
 End Class
