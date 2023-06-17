@@ -688,12 +688,10 @@ Public Class frm_Employee
     End Sub
 
     Private Sub btn_EmpDept_Click(sender As Object, e As EventArgs) Handles btn_EmpDept.Click
-        Me.Close()
+        NewDashboard.LoadUserData()
         NewDashboard.ShowFormInMainPanel(frm_EmpInDept)
-        Dim clickedButton As Button = CType(sender, Button)
-        NewDashboard.ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
         NewDashboard.currentSelection = "Employee In Department"
         NewDashboard.UpdateTitleLabel()
-        NewDashboard.ResetButtonColors(clickedButton)
+        Me.Close()
     End Sub
 End Class
