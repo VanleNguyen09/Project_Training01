@@ -22,7 +22,7 @@ Partial Class Position
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvPositions = New System.Windows.Forms.DataGridView()
         Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -93,9 +93,9 @@ Partial Class Position
         'emp_num
         '
         Me.emp_num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        DataGridViewCellStyle1.Format = "N0"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.emp_num.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Format = "N0"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.emp_num.DefaultCellStyle = DataGridViewCellStyle2
         Me.emp_num.HeaderText = "Number of People"
         Me.emp_num.Name = "emp_num"
         Me.emp_num.ReadOnly = True
@@ -168,6 +168,7 @@ Partial Class Position
         Me.appClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.appClose.TabIndex = 5
         Me.appClose.TabStop = False
+        Me.appClose.Visible = False
         '
         'Label3
         '

@@ -207,11 +207,13 @@ Public Class EmpByPos
     End Sub
 
     Private Sub btnManagePos_Click(sender As Object, e As EventArgs) Handles btnManagePos.Click
-        NewDashboard.LoadUserData()
+        Me.Close()
         NewDashboard.ShowFormInMainPanel(Position)
+        Dim clickedButton As Button = CType(sender, Button)
+        NewDashboard.ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
         NewDashboard.currentSelection = "Positions"
         NewDashboard.UpdateTitleLabel()
-        Me.Close()
+        NewDashboard.ResetButtonColors(clickedButton)
     End Sub
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click

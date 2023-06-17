@@ -188,7 +188,7 @@ Partial Class ExcelPreviewForm
         Me.stt.HeaderText = "NO"
         Me.stt.Name = "stt"
         Me.stt.ReadOnly = True
-        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.stt.Width = 40
         '
         'id
