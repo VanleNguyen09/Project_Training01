@@ -26,13 +26,16 @@ Public Class PDFViewer
         Me.Location = New Point(left, top)
     End Sub
 
+    Public Sub setViewRect(ByVal left As Single, ByVal top As Single, ByVal width As Single, ByVal height As Single)
+    End Sub
+
     Private Sub PDFViewer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AxAcroPDF1.LoadFile(Me.tempPath)
         AxAcroPDF1.setShowScrollbars(False)
-
         CustomElements.MovingDashboardByPanels(Me, pn_Top)
         AxAcroPDF1.Size = Me.ClientSize
         AxAcroPDF1.Location = New Point(0, 0)
+        AxAcroPDF1.setView("FitW")
         CenterForm()
     End Sub
     Private Sub SavePDFPreview()

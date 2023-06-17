@@ -1,5 +1,3 @@
-
-
 USE [EmployeeManagement]
 GO
 SET ANSI_NULLS ON

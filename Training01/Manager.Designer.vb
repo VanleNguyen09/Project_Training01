@@ -522,14 +522,14 @@ Partial Class frm_Manager
         Me.phone.HeaderText = "PHONE"
         Me.phone.MinimumWidth = 6
         Me.phone.Name = "phone"
-        Me.phone.Width = 125
+        Me.phone.Width = 95
         '
         'birthday
         '
         Me.birthday.HeaderText = "BIRTHDAY"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
-        Me.birthday.Width = 125
+        Me.birthday.Width = 105
         '
         'address
         '
@@ -550,21 +550,21 @@ Partial Class frm_Manager
         Me.department_name.HeaderText = "Department"
         Me.department_name.MinimumWidth = 6
         Me.department_name.Name = "department_name"
-        Me.department_name.Width = 125
+        Me.department_name.Width = 95
         '
         'from_date
         '
         Me.from_date.HeaderText = "From Date"
         Me.from_date.MinimumWidth = 6
         Me.from_date.Name = "from_date"
-        Me.from_date.Width = 125
+        Me.from_date.Width = 105
         '
         'to_date
         '
         Me.to_date.HeaderText = "To Date"
         Me.to_date.MinimumWidth = 6
         Me.to_date.Name = "to_date"
-        Me.to_date.Width = 125
+        Me.to_date.Width = 105
         '
         'dept_id
         '

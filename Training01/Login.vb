@@ -45,16 +45,14 @@ Public Class Login
             Exit Sub
         End If
 
-
         'Switch to Dashboard if CheckLogin is successful
         If CheckLogin(email, pass) Then
             My.Settings.IsLoggedIn = True
             My.Settings.LoggedInUserEmail = email
             My.Settings.Save()
 
-            Dim dashboard As New NewDashboard()
             Me.Hide()
-            dashboard.Show()
+            NewDashboard.Show()
         Else
             MessageBox.Show(Message.Message.failedLoginMsg, Message.Title.notif, buttons, MessageBoxIcon.Information)
         End If

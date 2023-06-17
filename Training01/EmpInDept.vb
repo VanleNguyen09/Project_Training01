@@ -110,7 +110,7 @@ Public Class frm_EmpInDept
             Return displayvalue
         End Function
     End Class
-    Public Sub ShowEmployeeDept(ByVal No As Integer, ByVal reader As SqlDataReader)
+    Private Sub ShowEmployeeDept(ByVal No As Integer, ByVal reader As SqlDataReader)
         Dim id As Integer = Convert.ToInt32(reader("id").ToString())
         Dim name As String = reader("name").ToString()
         Dim phone As String = reader("phone").ToString()
@@ -340,6 +340,8 @@ Public Class frm_EmpInDept
                     cmd.ExecuteNonQuery()
                     MessageBox.Show(Message.Message.empDeptAddSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
+                ClearForm()
+                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -383,6 +385,9 @@ Public Class frm_EmpInDept
                     cmd.ExecuteNonQuery()
                     MessageBox.Show(Message.Message.empDeptUpdateSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
+                ClearForm()
+                LoadData()
+                EnableAdd()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -516,8 +521,6 @@ Public Class frm_EmpInDept
         values.Add(EmpDeptParameters.toDate, to_date)
 
         Add_EmpDept(values)
-        ClearForm()
-        LoadData()
     End Sub
 
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
@@ -563,7 +566,6 @@ Public Class frm_EmpInDept
             End If
         End If
     End Sub
-
     Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
         Dim dept_id As Integer = CInt(cb_DepCreate.SelectedItem.hiddenvalue)
         Dim emp_id As Integer = CInt(cb_EmpCreate.SelectedItem.hiddenvalue)
@@ -603,9 +605,6 @@ Public Class frm_EmpInDept
         values.Add(EmpDeptParameters.deptEmpId, DeptEmpId)
 
         Update_EmpDept(values)
-        EnableAdd()
-        ClearForm()
-        LoadData()
     End Sub
 
     Private selectedEmpId As Integer
@@ -741,7 +740,7 @@ Public Class frm_EmpInDept
     End Sub
 
     Private Sub dgv_DeptEmp_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgv_DeptEmp.ColumnHeaderMouseClick
-        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptEmp, e.ColumnIndex, "No")
+        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptEmp, "No")
         Pagination.PaginateDataGridView(dgv_DeptEmp, currentPage)
     End Sub
 

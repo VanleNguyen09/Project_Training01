@@ -92,14 +92,14 @@ Partial Class frm_Department
         Me.dgrv_Department.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgrv_Department.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgrv_Department.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.No, Me.department_id, Me.department_name, Me.status, Me.Number_Emp, Me.Number_Manager})
-        Me.dgrv_Department.Location = New System.Drawing.Point(470, 66)
+        Me.dgrv_Department.Location = New System.Drawing.Point(444, 71)
         Me.dgrv_Department.Name = "dgrv_Department"
         Me.dgrv_Department.RowHeadersVisible = False
         Me.dgrv_Department.RowHeadersWidth = 51
         Me.dgrv_Department.RowTemplate.Height = 24
         Me.dgrv_Department.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgrv_Department.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgrv_Department.Size = New System.Drawing.Size(655, 297)
+        Me.dgrv_Department.Size = New System.Drawing.Size(655, 320)
         Me.dgrv_Department.TabIndex = 52
         '
         'No
@@ -339,7 +339,7 @@ Partial Class frm_Department
         Me.ptb_Next.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Next.Image = Global.Training01.My.Resources.Resources.right_arrow__1_
         Me.ptb_Next.ImageRotate = 0!
-        Me.ptb_Next.Location = New System.Drawing.Point(870, 387)
+        Me.ptb_Next.Location = New System.Drawing.Point(872, 397)
         Me.ptb_Next.Name = "ptb_Next"
         Me.ptb_Next.Size = New System.Drawing.Size(25, 25)
         Me.ptb_Next.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -354,7 +354,7 @@ Partial Class frm_Department
         Me.ptb_Previous.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Previous.Image = Global.Training01.My.Resources.Resources.left_arrow
         Me.ptb_Previous.ImageRotate = 0!
-        Me.ptb_Previous.Location = New System.Drawing.Point(679, 387)
+        Me.ptb_Previous.Location = New System.Drawing.Point(681, 397)
         Me.ptb_Previous.Name = "ptb_Previous"
         Me.ptb_Previous.Size = New System.Drawing.Size(25, 25)
         Me.ptb_Previous.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -367,7 +367,7 @@ Partial Class frm_Department
         Me.lbl_Page.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Page.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Page.ForeColor = System.Drawing.Color.Azure
-        Me.lbl_Page.Location = New System.Drawing.Point(726, 389)
+        Me.lbl_Page.Location = New System.Drawing.Point(728, 399)
         Me.lbl_Page.Name = "lbl_Page"
         Me.lbl_Page.Size = New System.Drawing.Size(57, 23)
         Me.lbl_Page.TabIndex = 117
@@ -381,7 +381,7 @@ Partial Class frm_Department
         Me.BackColor = System.Drawing.Color.Linen
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1164, 467)
+        Me.ClientSize = New System.Drawing.Size(1123, 467)
         Me.Controls.Add(Me.ptb_Next)
         Me.Controls.Add(Me.ptb_Previous)
         Me.Controls.Add(Me.lbl_Page)

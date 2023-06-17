@@ -16,7 +16,7 @@ Public Class Pagination
                 dataGridView.Rows(i).Visible = False
             End If
         Next
-
+        
         Dim totalPages As Integer
 
         If totalRows = 0 Then

@@ -169,6 +169,8 @@ Public Class frm_Employee
 
                     MessageBox.Show(Message.Message.employeeAddSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
+                ClearForm()
+                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -208,7 +210,11 @@ Public Class frm_Employee
                     cmd.ExecuteNonQuery()
 
                     MessageBox.Show(Message.Message.employeeUpdateSuccess, titleSucces, buttonOK, infoIcon)
+
                 End Using
+                ClearForm()
+                LoadData()
+                EnableAdd()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -396,8 +402,6 @@ Public Class frm_Employee
         values.Add(EmployeeParameters.Image, img)
 
         Add_Employees(values)
-        ClearForm()
-        LoadData()
     End Sub
 
     Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
@@ -459,9 +463,6 @@ Public Class frm_Employee
         values.Add(EmployeeParameters.Id, id)
 
         Update_Employee(values)
-        EnableAdd()
-        ClearForm()
-        LoadData()
     End Sub
 
     Private Sub dgrv_employee_cellclick(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Employee.CellClick
@@ -544,7 +545,7 @@ Public Class frm_Employee
         End If
     End Sub
 
-    Public Function ImageToByte(ByVal img As Image) As Byte()
+    Private Function ImageToByte(ByVal img As Image) As Byte()
         If img Is Nothing Then
             Return New Byte(-1) {}
         End If
@@ -682,15 +683,16 @@ Public Class frm_Employee
     End Sub
 
     Private Sub dgrv_Employee_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgrv_Employee.ColumnHeaderMouseClick
-        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Employee, e.ColumnIndex, "No")
+        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Employee, "No")
         Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
     End Sub
 
     Private Sub btn_EmpDept_Click(sender As Object, e As EventArgs) Handles btn_EmpDept.Click
-        Me.Close()
+        NewDashboard.LoadUserData()
         NewDashboard.ShowFormInMainPanel(frm_EmpInDept)
         NewDashboard.currentSelection = "Employee In Department"
         NewDashboard.UpdateTitleLabel()
+        Me.Close()
     End Sub
 
     Private Sub dgrv_Employee_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Employee.CellMouseEnter
@@ -702,7 +704,23 @@ Public Class frm_Employee
         End If
     End Sub
 
-    Private Sub bgw_Employee_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs)
+    Private Sub txt_Name_TextChanged(sender As Object, e As EventArgs) Handles txt_Name.TextChanged
+        Dim invalidChars As String = "!@#$%^&*()_+<>?:{}|~`"
+        Dim meaningfulValues As String() = {"test", "Text1", "Text2"}
 
+        Dim newText As String = ""
+
+        For Each c As Char In txt_Name.Text
+            If Not invalidChars.Contains(c) Then
+                newText &= c
+            End If
+        Next
+
+        If String.IsNullOrWhiteSpace(newText) Then
+            newText = meaningfulValues(Math.Min(meaningfulValues.Length - 1, txt_Name.Text.Length))
+        End If
+
+        txt_Name.Text = newText
+        txt_Name.SelectionStart = newText.Length ' Đảm bảo con trỏ văn bản không bị thay đổi
     End Sub
 End Class

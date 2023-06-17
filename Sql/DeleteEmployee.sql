@@ -17,5 +17,8 @@ BEGIN
 	UPDATE dbo.Dept_manager
 	SET status = 0
 	WHERE emp_id = @id
+	UPDATE dbo.Emp_Pos
+	SET status = 0
+	WHERE emp_id = @id
 END
 GO

@@ -36,20 +36,6 @@ Public Class frm_Manager
         End Sub
     End Class
 
-    'Public Class Manager
-    '    Public Property Emp_id As Integer
-    '    Public Property Emp_name As String
-    '    Public Property Phone As String
-    '    Public Property Address As String
-    '    Public Property Birthday As Date
-    '    Public Property Email As String
-    '    Public Property Department As String
-    '    Public Property FromDate As Date
-
-    '    Public Property ToDate As Date
-    'End Class
-
-
     Private selectedManagers As Selected_Managers = New Selected_Managers()
 
     Private Sub frm_Manager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -72,12 +58,6 @@ Public Class frm_Manager
         EnableAdd()
         dgv_DeptManager.Rows.Clear()
         LoadData()
-        '' Thiết lập các sự kiện cho background worker
-        'bgw_Manager.WorkerReportsProgress = False
-        'bgw_Manager.WorkerSupportsCancellation = False
-
-        '' Bắt đầu thực hiện công việc tải dữ liệu trong background worker
-        'bgw_Manager.RunWorkerAsync()
         Select_Departments()
         Select_Employees()
     End Sub
@@ -85,38 +65,7 @@ Public Class frm_Manager
     Private Sub frm_Manager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         dgv_DeptManager.ClearSelection()
     End Sub
-
-    'Private Sub bgw_Manager_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgw_Manager.RunWorkerCompleted
-    '    ' Lấy danh sách dữ liệu từ kết quả của BackgroundWorker
-    '    Dim data As List(Of Manager) = DirectCast(e.Result, List(Of Manager))
-    '    UpdateDataGridView(data)
-    'End Sub
-
-    'Private Sub bgw_Manager_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgw_Manager.DoWork
-    '    LoadData()
-    'End Sub
-
-    'Private Sub UpdateDataGridView(data As List(Of Manager))
-    '    ' Xóa tất cả các dòng hiện tại trong DataGridView
-    '    dgv_DeptManager.Rows.Clear()
-
-    '    ' Đổ dữ liệu vào DataGridView từ danh sách data
-    '    For Each item As Manager In data
-    '        ' Thêm một dòng mới vào DataGridView và gán giá trị cho từng cột
-    '        Dim rowIndex As Integer = dgv_DeptManager.Rows.Add()
-    '        dgv_DeptManager.Rows(rowIndex).Cells("emp_id").Value = item.Emp_id
-    '        dgv_DeptManager.Rows(rowIndex).Cells("emp_name").Value = item.Emp_name
-    '        dgv_DeptManager.Rows(rowIndex).Cells("phone").Value = item.Phone
-    '        dgv_DeptManager.Rows(rowIndex).Cells("birthday").Value = item.Birthday
-    '        dgv_DeptManager.Rows(rowIndex).Cells("address").Value = item.Address
-    '        dgv_DeptManager.Rows(rowIndex).Cells("email").Value = item.Email
-    '        dgv_DeptManager.Rows(rowIndex).Cells("department_name").Value = item.Department
-    '        dgv_DeptManager.Rows(rowIndex).Cells("from_date").Value = item.FromDate
-    '        dgv_DeptManager.Rows(rowIndex).Cells("to_date").Value = item.to
-    '    Next
-    'End Sub
-
-    Public Enum ManagerParameters
+    Private Enum ManagerParameters
         empId
         deptId
         fromDate
@@ -130,7 +79,6 @@ Public Class frm_Manager
         gbtn_Delete.Enabled = False
         gbtn_Reset.Enabled = False
     End Sub
-
     Private Sub DisableAdd()
         gbtn_Add.Enabled = False
         gbtn_Update.Enabled = True
@@ -159,7 +107,6 @@ Public Class frm_Manager
             Me.displayvalue = displayvalue
             Me.hiddenvalue = hiddenvalue
         End Sub
-
         Public Overrides Function tostring() As String
             Return displayvalue
         End Function
@@ -196,7 +143,7 @@ Public Class frm_Manager
             End Using
         End Using
     End Sub
-    Public Sub ShowEmployeeManager(ByVal No As Integer, ByVal reader As SqlDataReader)
+    Private Sub ShowEmployeeManager(ByVal No As Integer, ByVal reader As SqlDataReader)
         Dim id As Integer = Convert.ToInt32(reader("id").ToString())
         Dim name As String = reader("name").ToString()
         Dim phone As String = reader("phone").ToString()
@@ -394,6 +341,8 @@ Public Class frm_Manager
                     cmd.ExecuteNonQuery()
                     MessageBox.Show(Message.Message.managerAddSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
+                ClearForm()
+                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -437,6 +386,9 @@ Public Class frm_Manager
                     cmd.ExecuteNonQuery()
                     MessageBox.Show(Message.Message.managerUpdateSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
+                ClearForm()
+                LoadData()
+                EnableAdd()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -646,8 +598,6 @@ Public Class frm_Manager
         values.Add(ManagerParameters.toDate, to_date)
 
         Add_Manager(values)
-        ClearForm()
-        LoadData()
     End Sub
 
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
@@ -721,9 +671,6 @@ Public Class frm_Manager
         values.Add(ManagerParameters.deptManagerId, DeptmangerId)
 
         Update_Manager(values)
-        ClearForm()
-        LoadData()
-        EnableAdd()
     End Sub
 
     Private Sub gbtn_Reset_Click(sender As Object, e As EventArgs) Handles gbtn_Reset.Click
@@ -751,7 +698,7 @@ Public Class frm_Manager
             Return data
         End If
     End Function
-    Public Function ExportSalarySlipToPDF(ByVal tmpPath As String) As String
+    Private Function ExportSalarySlipToPDF(ByVal tmpPath As String) As String
         If con.State <> 1 Then
             con.Open()
         End If
@@ -780,7 +727,6 @@ Public Class frm_Manager
                     title.SpacingAfter = 30 ' Remove spacing after the title
 
                     document.Add(title)
-                    'document.Add(Chunk.NEWLINE)
                     Dim pathFont = Application.StartupPath
 
                     pathFont = pathFont.Replace("\bin\Debug", String.Empty)
@@ -889,9 +835,9 @@ Public Class frm_Manager
 
     Private Sub gbtn_ExportPDF_Click(sender As Object, e As EventArgs) Handles gbtn_ExportPDF.Click
         Dim tempPath As String = ExportSalarySlipToPDF(tmpPath)
-        Dim previewPDF As New PDFViewer()
-        previewPDF.SetData(tempPath)
-        previewPDF.Show()
+        'Dim previewPDF As New PDFViewer()
+        PDFViewer.SetData(tempPath)
+        PDFViewer.Show()
     End Sub
 
     Private Sub UpdatePaginationPicBox()
@@ -925,10 +871,8 @@ Public Class frm_Manager
         End If
         UpdatePaginationPicBox()
     End Sub
-
-
     Private Sub dgv_DeptManager_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgv_DeptManager.ColumnHeaderMouseClick
-        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptManager, e.ColumnIndex, "No")
+        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptManager, "No")
         Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
     End Sub
 
