@@ -91,13 +91,11 @@ Public Class Position
     End Sub
 
     Private Sub btnEmpByPos_Click(sender As Object, e As EventArgs) Handles btnEmpByPos.Click
-        Me.Close()
+        NewDashboard.LoadUserData()
         NewDashboard.ShowFormInMainPanel(EmpByPos)
-        Dim clickedButton As Button = CType(sender, Button)
-        NewDashboard.ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-        NewDashboard.currentSelection = "Employee In Positions"
+        NewDashboard.currentSelection = "Employees In Positions"
         NewDashboard.UpdateTitleLabel()
-        NewDashboard.ResetButtonColors(clickedButton)
+        Me.Close()
     End Sub
 
     Private isProcessing As Boolean = False ' Flag check DataGridView is handling EditCell Event

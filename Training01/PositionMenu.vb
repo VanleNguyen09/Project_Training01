@@ -8,23 +8,19 @@
     End Sub
 
     Private Sub btnEmployee_Click(sender As Object, e As EventArgs) Handles btnEmployee.Click
-        Me.Close()
+        NewDashboard.LoadUserData()
         NewDashboard.ShowFormInMainPanel(EmpByPos)
-        Dim clickedButton As Button = CType(sender, Button)
-        NewDashboard.ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-        NewDashboard.currentSelection = "Employee In Positions"
+        NewDashboard.currentSelection = "Employees In Positions"
         NewDashboard.UpdateTitleLabel()
-        NewDashboard.ResetButtonColors(clickedButton)
+        Me.Close()
     End Sub
 
     Private Sub btnPosition_Click(sender As Object, e As EventArgs) Handles btnPosition.Click
-        Me.Close()
+        NewDashboard.LoadUserData()
         NewDashboard.ShowFormInMainPanel(Position)
-        Dim clickedButton As Button = CType(sender, Button)
-        NewDashboard.ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
         NewDashboard.currentSelection = "Positions"
         NewDashboard.UpdateTitleLabel()
-        NewDashboard.ResetButtonColors(clickedButton)
+        Me.Close()
     End Sub
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click

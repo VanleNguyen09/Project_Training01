@@ -1,4 +1,5 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Data.Common
+Imports System.Data.SqlClient
 
 Public Class RegisterUser
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -98,27 +99,36 @@ Public Class RegisterUser
         Dim procedureSql As String = "GetUserByEmail"
 
         'Get user to check email is existed?
-        Using cmd As SqlCommand = New SqlCommand(procedureSql, con)
-            cmd.CommandType = CommandType.StoredProcedure
-            cmd.Parameters.AddWithValue("email", email)
+        Try
+            Using cmd As SqlCommand = New SqlCommand(procedureSql, con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("email", email)
 
-            Dim reader As SqlDataReader = cmd.ExecuteReader()
+                Dim reader As SqlDataReader = cmd.ExecuteReader()
 
-            If reader.Read Then
-                MessageBox.Show(Message.Message.registeredEmailMsg, titleMsgBox, buttons)
-            Else
-                reader.Close()
-                procedureSql = "AddUser"
+                If reader.Read Then
+                    MessageBox.Show(Message.Message.registeredEmailMsg, titleMsgBox, buttons)
+                    Exit Sub
+                End If
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("ERROR: " & ex.Message)
+        Finally
+            con.Close()
+        End Try
 
-                'Add User to database
-                Using subCommand As SqlCommand = New SqlCommand(procedureSql, con)
-                    subCommand.CommandType = CommandType.StoredProcedure
-                    subCommand.Parameters.AddWithValue("email", email)
-                    subCommand.Parameters.AddWithValue("full_name", fullName)
-                    subCommand.Parameters.AddWithValue("password", FuntionCommon.HasMD5.GetHash(password))
+        If con.State() <> 1 Then
+            con.Open()
+        End If
 
-                    Dim subReader As SqlDataReader = subCommand.ExecuteReader()
-                End Using
+        procedureSql = "AddUser"
+        Try
+            Using cmd As SqlCommand = New SqlCommand(procedureSql, con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("email", email)
+                cmd.Parameters.AddWithValue("full_name", fullName)
+                cmd.Parameters.AddWithValue("password", FuntionCommon.HasMD5.GetHash(password))
+                cmd.ExecuteNonQuery()
 
                 Dim result As DialogResult = MessageBox.Show(Message.Message.successfulregisterMsg, Message.Title.success, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 If result = DialogResult.OK Then
@@ -127,10 +137,13 @@ Public Class RegisterUser
                     login.txtEmail.Text = email
                     Me.Hide()
                     login.Show()
-                    con.Close()
                 End If
-            End If
-        End Using
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("ERROR: " & ex.Message)
+        Finally
+            con.Close()
+        End Try
     End Sub
 
     Private Sub RegisterUser_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
