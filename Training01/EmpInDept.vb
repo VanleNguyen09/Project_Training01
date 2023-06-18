@@ -365,7 +365,7 @@ Public Class frm_EmpInDept
             MessageBox.Show(Message.Message.employeeDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckEmpDeptDateBigger(empId, deptId, fromDate, toDate) Then
-            MessageBox.Show("Date is smaller than date exist in system. Can not Update. Please try again!!!", titleNotif, buttonOK, warmIcon)
+            MessageBox.Show(Message.Message.dateSmallerValid, titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then

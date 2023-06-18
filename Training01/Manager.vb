@@ -359,6 +359,7 @@ Public Class frm_Manager
         Dim fromDate As Date = Convert.ToDateTime(values(ManagerParameters.fromDate))
         Dim toDate As Date = Convert.ToDateTime(values(ManagerParameters.toDate))
 
+        Console.WriteLine(String.Format("{0}, {1}, {2}, {3}", empId, deptId, fromDate, toDate))
         If CheckEmpDeptExit(empId, deptId) Then
             MessageBox.Show(Message.Message.employeeExitedForDepartment, titleNotif, buttonOK, warmIcon)
             Exit Sub
@@ -366,7 +367,7 @@ Public Class frm_Manager
             MessageBox.Show(Message.Message.managerDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckManagerDateBigger(empId, deptId, fromDate, toDate) Then
-            MessageBox.Show("Date is smaller than date exist in system. Please try again!!!", titleNotif, buttonOK, warmIcon)
+            MessageBox.Show(Message.Message.dateSmallerValid, titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then

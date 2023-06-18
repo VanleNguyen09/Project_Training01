@@ -274,7 +274,6 @@ Public Class frm_Department
 
         Update_Department(name, id)
     End Sub
-
     Private Sub dgrv_Department_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Department.CellClick
         If e.RowIndex >= 0 Then
             DisableAdd()
@@ -364,12 +363,18 @@ Public Class frm_Department
         End If
         UpdatePaginationPicBox()
     End Sub
-
     Private Sub dgrv_Department_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgrv_Department.ColumnHeaderMouseClick
         FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Department, "No")
         Pagination.PaginateDataGridView(dgrv_Department, currentPage)
-    End Sub
 
+        'Dim count As Integer = 0
+        'For i As Integer = 0 To dgrv_Department.Rows.Count - 1
+        '    If dgrv_Department.Rows(i).Visible Then
+        '        count += 1
+        '    End If
+        'Next
+        'Console.WriteLine(count)
+    End Sub
     Private Sub dgrv_Department_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Department.CellMouseEnter
         If (e.ColumnIndex = 6 OrElse e.ColumnIndex = 7) AndAlso e.RowIndex >= 0 Then
             ' Set the pointer type to hand when hovering the mouse over the cell

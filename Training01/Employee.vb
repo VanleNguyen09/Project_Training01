@@ -703,24 +703,4 @@ Public Class frm_Employee
             dgrv_Employee.Cursor = Cursors.Default
         End If
     End Sub
-
-    Private Sub txt_Name_TextChanged(sender As Object, e As EventArgs) Handles txt_Name.TextChanged
-        Dim invalidChars As String = "!@#$%^&*()_+<>?:{}|~`"
-        Dim meaningfulValues As String() = {"test", "Text1", "Text2"}
-
-        Dim newText As String = ""
-
-        For Each c As Char In txt_Name.Text
-            If Not invalidChars.Contains(c) Then
-                newText &= c
-            End If
-        Next
-
-        If String.IsNullOrWhiteSpace(newText) Then
-            newText = meaningfulValues(Math.Min(meaningfulValues.Length - 1, txt_Name.Text.Length))
-        End If
-
-        txt_Name.Text = newText
-        txt_Name.SelectionStart = newText.Length ' Đảm bảo con trỏ văn bản không bị thay đổi
-    End Sub
 End Class
