@@ -40,12 +40,17 @@ Public Class frm_Department
         GlobalVariables.lblPage = lbl_Page
         dgrv_Department.Columns("No").SortMode = DataGridViewColumnSortMode.NotSortable
         EnableAdd()
+        dgrv_Department.Rows.Clear()
         LoadData()
+    End Sub
+
+    Private Sub frm_Department_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        dgrv_Department.ClearSelection()
     End Sub
 
     Private selectedDepartment As Selected_Departments = New Selected_Departments()
 
-    Public Sub ShowDepartment(ByVal No As Integer, ByVal reader As SqlDataReader)
+    Private Sub ShowDepartment(ByVal No As Integer, ByVal reader As SqlDataReader)
         Dim id As Integer = Convert.ToInt32(reader("id").ToString())
         Dim name As String = reader("name").ToString()
         Dim status As Integer = Convert.ToInt32(reader("status").ToString())
@@ -53,7 +58,7 @@ Public Class frm_Department
         Dim number_manager As Integer = Convert.ToInt32(reader("Number_Manager").ToString())
         dgrv_Department.Rows.Add(No, id, name, status, number_emp, number_manager)
     End Sub
-    Public Sub LoadData()
+    Private Sub LoadData()
         If con.State <> 1 Then
             con.Open()
         End If
@@ -141,7 +146,7 @@ Public Class frm_Department
         Return CheckDepartmentExitForUpdate
     End Function
 
-    Public Sub Add_Department(ByVal name As String)
+    Private Sub Add_Department(ByVal name As String)
         Dim status As Integer = 1
         If CheckDepartmentExit(name) Then
             MessageBox.Show(Message.Message.departmentDuplicate, titleNotif, buttonOK, warmIcon)
@@ -160,6 +165,8 @@ Public Class frm_Department
 
                     MessageBox.Show(Message.Message.departmentAddSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
+                ClearForm()
+                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -168,7 +175,7 @@ Public Class frm_Department
         End If
     End Sub
 
-    Public Sub Update_Department(ByVal name As String, ByVal id As Integer)
+    Private Sub Update_Department(ByVal name As String, ByVal id As Integer)
         Dim status As Integer = 1
 
         If CheckDepartmentExitForUpdate(name, id) Then
@@ -189,6 +196,9 @@ Public Class frm_Department
 
                     MessageBox.Show(Message.Message.departmentUpdateSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
+                ClearForm()
+                LoadData()
+                EnableAdd()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             End Try
@@ -225,7 +235,7 @@ Public Class frm_Department
         End If
     End Sub
 
-    Public Sub Delete_Department(ByVal id As Integer)
+    Private Sub Delete_Department(ByVal id As Integer)
         If con.State <> 1 Then
             con.Open()
         End If
@@ -250,9 +260,8 @@ Public Class frm_Department
             MessageBox.Show(Message.Message.emptyDataErrorMessage, titleNotif, buttonOK, warmIcon)
             Return
         End If
+
         Add_Department(name)
-        ClearForm()
-        LoadData()
     End Sub
     Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
         Dim name As String = txt_Name.Text
@@ -264,11 +273,7 @@ Public Class frm_Department
         End If
 
         Update_Department(name, id)
-        EnableAdd()
-        ClearForm()
-        LoadData()
     End Sub
-
     Private Sub dgrv_Department_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Department.CellClick
         If e.RowIndex >= 0 Then
             DisableAdd()
@@ -323,10 +328,6 @@ Public Class frm_Department
         End If
     End Sub
 
-    Private Sub frm_Department_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        dgrv_Department.ClearSelection()
-    End Sub
-
     Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
@@ -362,9 +363,23 @@ Public Class frm_Department
         End If
         UpdatePaginationPicBox()
     End Sub
-
     Private Sub dgrv_Department_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgrv_Department.ColumnHeaderMouseClick
-        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Department, e.ColumnIndex, "No")
+        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Department, "No")
         Pagination.PaginateDataGridView(dgrv_Department, currentPage)
+
+        'Dim count As Integer = 0
+        'For i As Integer = 0 To dgrv_Department.Rows.Count - 1
+        '    If dgrv_Department.Rows(i).Visible Then
+        '        count += 1
+        '    End If
+        'Next
+        'Console.WriteLine(count)
+    End Sub
+    Private Sub dgrv_Department_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Department.CellMouseEnter
+        If (e.ColumnIndex = 6 OrElse e.ColumnIndex = 7) AndAlso e.RowIndex >= 0 Then
+            ' Set the pointer type to hand when hovering the mouse over the cell
+        Else
+            dgrv_Department.Cursor = Cursors.Default
+        End If
     End Sub
 End Class

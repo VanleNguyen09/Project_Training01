@@ -1,4 +1,3 @@
-
 USE [EmployeeManagement]
 GO
 SET ANSI_NULLS ON
@@ -10,6 +9,6 @@ AS
 BEGIN
 	SELECT * FROM dbo.Employees
 	WHERE status = 1
-	ORDER BY id
+	ORDER BY id	DESC	
 END
 GO

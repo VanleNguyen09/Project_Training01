@@ -2,8 +2,7 @@
 Imports System.Windows.Forms
 
 Public Class SortationNO
-    Public Shared Sub SortAndPreventNoColumnSorting(ByRef dgv As DataGridView, ByVal sortedColumnIndex As Integer, ByVal noColumnName As String)
-        Dim columnName As String = dgv.Columns(sortedColumnIndex).Name
+    Public Shared Sub SortAndPreventNoColumnSorting(ByRef dgv As DataGridView, ByVal noColumnName As String)
 
         Dim originalNoValues As Integer() = New Integer(dgv.Rows.Count - 1) {}
 

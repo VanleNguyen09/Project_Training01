@@ -51,10 +51,15 @@ Public Class frm_EmpInDept
         cb_EmpCreate.SelectedIndex = 0
         dgv_DeptEmp.Columns("No").SortMode = DataGridViewColumnSortMode.NotSortable
         EnableAdd()
-        CustomElements.MovingForm(Me)
+        dgv_DeptEmp.Rows.Clear()
+        LoadData()
         Select_Departments()
         Select_Employees()
-        LoadData()
+    End Sub
+
+    Private Sub frm_EmpInDept_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        dgv_DeptEmp.ClearSelection()
+        'LoadData()
     End Sub
 
     Private Sub EnableAdd()
@@ -105,7 +110,7 @@ Public Class frm_EmpInDept
             Return displayvalue
         End Function
     End Class
-    Public Sub ShowEmployeeDept(ByVal No As Integer, ByVal reader As SqlDataReader)
+    Private Sub ShowEmployeeDept(ByVal No As Integer, ByVal reader As SqlDataReader)
         Dim id As Integer = Convert.ToInt32(reader("id").ToString())
         Dim name As String = reader("name").ToString()
         Dim phone As String = reader("phone").ToString()
@@ -241,7 +246,7 @@ Public Class frm_EmpInDept
         Return CheckEmpDeptExit
     End Function
 
-    Private Function CheckEmpDeptExitForUpdate(ByVal emp_id As Integer, ByVal dept_id As Integer, ByVal from_date As Date, ByVal to_date As Date) As Boolean
+    Private Function CheckEmpDeptExitForUpdate(ByVal emp_id As Integer, ByVal dept_id As Integer, ByVal id As Integer) As Boolean
         CheckEmpDeptExitForUpdate = False
         If con.State <> 1 Then
             con.Open()
@@ -251,8 +256,7 @@ Public Class frm_EmpInDept
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@emp_id", emp_id)
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
-                cmd.Parameters.AddWithValue("@from_date", from_date)
-                cmd.Parameters.AddWithValue("@to_date", to_date)
+                cmd.Parameters.AddWithValue("@id", id)
                 cmd.ExecuteNonQuery()
 
                 Dim isExited As Integer = 0
@@ -336,6 +340,8 @@ Public Class frm_EmpInDept
                     cmd.ExecuteNonQuery()
                     MessageBox.Show(Message.Message.empDeptAddSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
+                ClearForm()
+                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -350,15 +356,16 @@ Public Class frm_EmpInDept
         Dim deptId As Integer = CInt(values(EmpDeptParameters.deptId))
         Dim fromDate As Date = Convert.ToDateTime(values(EmpDeptParameters.fromDate))
         Dim toDate As Date = Convert.ToDateTime(values(EmpDeptParameters.toDate))
+        Dim id As Integer = CInt(values(EmpDeptParameters.deptEmpId))
 
         If CheckManagerExit(empId, deptId) Then
             MessageBox.Show(Message.Message.managerExitedForDepartment, titleNotif, buttonOK, warmIcon)
             Exit Sub
-        ElseIf CheckEmpDeptExitForUpdate(empId, deptId, fromDate, toDate) Then
+        ElseIf CheckEmpDeptExitForUpdate(empId, deptId, id) Then
             MessageBox.Show(Message.Message.employeeDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckEmpDeptDateBigger(empId, deptId, fromDate, toDate) Then
-            MessageBox.Show("Date is smaller than date exist in system. Can not Update. Please try again!!!", titleNotif, buttonOK, warmIcon)
+            MessageBox.Show(Message.Message.dateSmallerValid, titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then
@@ -378,6 +385,9 @@ Public Class frm_EmpInDept
                     cmd.ExecuteNonQuery()
                     MessageBox.Show(Message.Message.empDeptUpdateSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
+                ClearForm()
+                LoadData()
+                EnableAdd()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -511,8 +521,6 @@ Public Class frm_EmpInDept
         values.Add(EmpDeptParameters.toDate, to_date)
 
         Add_EmpDept(values)
-        ClearForm()
-        LoadData()
     End Sub
 
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
@@ -558,7 +566,6 @@ Public Class frm_EmpInDept
             End If
         End If
     End Sub
-
     Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
         Dim dept_id As Integer = CInt(cb_DepCreate.SelectedItem.hiddenvalue)
         Dim emp_id As Integer = CInt(cb_EmpCreate.SelectedItem.hiddenvalue)
@@ -598,9 +605,6 @@ Public Class frm_EmpInDept
         values.Add(EmpDeptParameters.deptEmpId, DeptEmpId)
 
         Update_EmpDept(values)
-        EnableAdd()
-        ClearForm()
-        LoadData()
     End Sub
 
     Private selectedEmpId As Integer
@@ -687,10 +691,6 @@ Public Class frm_EmpInDept
         End If
     End Sub
 
-    Private Sub frm_EmpInDept_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        dgv_DeptEmp.ClearSelection()
-    End Sub
-
     Private Sub ptb_Icon_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
@@ -698,11 +698,8 @@ Public Class frm_EmpInDept
     Private Sub btn_Exit_Click(sender As Object, e As EventArgs) Handles btn_Exit.Click
         Me.Close()
         NewDashboard.ShowFormInMainPanel(frm_Employee)
-        Dim clickedButton As Button = CType(sender, Button)
-        NewDashboard.ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
         NewDashboard.currentSelection = "Employee"
         NewDashboard.UpdateTitleLabel()
-        NewDashboard.ResetButtonColors(clickedButton)
     End Sub
 
     Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
@@ -743,7 +740,16 @@ Public Class frm_EmpInDept
     End Sub
 
     Private Sub dgv_DeptEmp_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgv_DeptEmp.ColumnHeaderMouseClick
-        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptEmp, e.ColumnIndex, "No")
+        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptEmp, "No")
         Pagination.PaginateDataGridView(dgv_DeptEmp, currentPage)
+    End Sub
+
+    Private Sub dgv_DeptEmp_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgv_DeptEmp.CellMouseEnter
+        If (e.ColumnIndex = 6 OrElse e.ColumnIndex = 7) AndAlso e.RowIndex >= 0 Then
+            ' Set the pointer type to hand when hovering the mouse over the cell
+            dgv_DeptEmp.Cursor = Cursors.Hand
+        Else
+            dgv_DeptEmp.Cursor = Cursors.Default
+        End If
     End Sub
 End Class

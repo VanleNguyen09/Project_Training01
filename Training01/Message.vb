@@ -55,6 +55,7 @@
         Shared loginSuccess As String = "Login succes. User can access to dashboard page"
         Shared logoutSuccess As String = "You logout success!!!"
         Shared cancelDelete As String = "Deletion canceled."
+        Shared dateSmallerValid As String = "Date is smaller than date exist in system. Please try again!!!"
     End Structure
 
     Public Structure Title
