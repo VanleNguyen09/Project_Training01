@@ -42,7 +42,7 @@ Partial Class EditSalaryForm
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.ForeColor = System.Drawing.Color.IndianRed
         Me.Label1.Location = New System.Drawing.Point(80, 35)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(253, 25)
@@ -148,7 +148,7 @@ Partial Class EditSalaryForm
         Me.closeApp.BackgroundImage = Global.Training01.My.Resources.Resources.blue_exit_icon_16
         Me.closeApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.closeApp.Location = New System.Drawing.Point(386, 0)
+        Me.closeApp.Location = New System.Drawing.Point(379, 0)
         Me.closeApp.Name = "closeApp"
         Me.closeApp.Size = New System.Drawing.Size(36, 31)
         Me.closeApp.TabIndex = 7
@@ -156,7 +156,7 @@ Partial Class EditSalaryForm
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.Color.Transparent
+        Me.Panel1.BackColor = System.Drawing.Color.IndianRed
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.Label5)
         Me.Panel1.Controls.Add(Me.txtSalary)
@@ -167,21 +167,22 @@ Partial Class EditSalaryForm
         Me.Panel1.ForeColor = System.Drawing.Color.White
         Me.Panel1.Location = New System.Drawing.Point(28, 77)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(358, 193)
+        Me.Panel1.Size = New System.Drawing.Size(358, 205)
         Me.Panel1.TabIndex = 1
         '
         'EditSalaryForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
+        Me.BackColor = System.Drawing.Color.OldLace
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(421, 341)
+        Me.ClientSize = New System.Drawing.Size(415, 341)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.closeApp)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.Label1)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "EditSalaryForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

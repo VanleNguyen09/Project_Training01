@@ -59,7 +59,7 @@ Partial Class EditLeaveForm
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.ForeColor = System.Drawing.Color.Tomato
         Me.Label1.Location = New System.Drawing.Point(159, 20)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(317, 31)
@@ -155,7 +155,7 @@ Partial Class EditLeaveForm
         '
         'gbInformation
         '
-        Me.gbInformation.BackColor = System.Drawing.Color.Transparent
+        Me.gbInformation.BackColor = System.Drawing.Color.Tomato
         Me.gbInformation.Controls.Add(Me.rtxtReason)
         Me.gbInformation.Controls.Add(Me.dtpFromDate)
         Me.gbInformation.Controls.Add(Me.cbEmpName)
@@ -249,7 +249,7 @@ Partial Class EditLeaveForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
+        Me.BackColor = System.Drawing.Color.OldLace
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(618, 492)
         Me.Controls.Add(Me.btnConfirm)
@@ -258,6 +258,7 @@ Partial Class EditLeaveForm
         Me.Controls.Add(Me.gbInformation)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.closeApp)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "EditLeaveForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

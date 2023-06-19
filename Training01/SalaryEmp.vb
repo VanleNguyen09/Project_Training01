@@ -9,11 +9,7 @@ Public Class SalaryEmp
     Private EmpsDatas As New DataTable
     Private SortedColumnIndex As Integer = -1
 
-    ''' <summary>
-    ''' LOAD THIS FORM
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
+#Region "EVENTS"
     Private Sub SalaryEmp_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CustomElements.AddClearButtonInsideTextBox(txtSearch, "pbCloseSearch", Sub()
                                                                                    txtSearch.Text = ""
@@ -23,118 +19,11 @@ Public Class SalaryEmp
                                                                                            End Sub)
         LoadEmpsDatas()
         LoadDGVEmps()
-        Load_DGV_SalaryEmp()
+        LoadDGVSalaryEmpAsync()
 
         CustomElements.KeepNoColumnUnsorted(dgvSalaries, "salary_stt")
     End Sub
 
-    ''' <summary>
-    ''' LOAD DATA INTO DATAGRIDVIEW EMP
-    ''' </summary>
-    Private Sub LoadEmpsDatas()
-        Dim searchText As String = txtSearch.Text
-        Try
-            If con.State() <> 1 Then
-                con.Open()
-            End If
-
-            Dim sql = "SELECT ROW_NUMBER() OVER (ORDER BY id) as stt, id, name, birthday, salary_emp_id 
-                        FROM Employees
-	                    WHERE status = 1 
-	                    AND (name LIKE '%' + @words + '%' 
-	                    OR id LIKE '%' + @words + '%' 
-	                    OR phone LIKE '%' + @words + '%'
-	                    OR address LIKE '%' + @words + '%')"
-            Using cmd As SqlCommand = New SqlCommand(sql, con)
-                'cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("words", searchText)
-
-                Dim reader As SqlDataReader = cmd.ExecuteReader()
-                'dgvEmps.Rows.Clear()
-                EmpsDatas.Rows.Clear()
-                EmpsDatas.Load(reader)
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Load_DGV_Emp: " & Message.Message.errorSQLQuery & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            con.Close()
-        End Try
-    End Sub
-
-    Private Sub LoadDGVEmps()
-        Dim totalPages = Math.Ceiling(EmpsDatas.Rows.Count / RowsPerPage)
-        If totalPages = 0 Then
-            CurrentPage = 1
-            totalPages = 1
-        End If
-        txtCurrentPage.Text = CurrentPage
-        txtTotalPage.Text = totalPages
-
-        Dim pagingDatas = Page.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, EmpsDatas)
-        dgvEmps.Rows.Clear()
-
-        For i As Integer = 0 To pagingDatas.Rows.Count - 1
-            Dim stt = pagingDatas.Rows(i)("stt").ToString()
-            Dim id = pagingDatas.Rows(i)("id").ToString()
-            Dim name = pagingDatas.Rows(i)("name").ToString()
-            Dim birthday = pagingDatas.Rows(i)("birthday").ToString().Split(" ")(0) 'Only get date
-            Dim salaryEmpId = If(pagingDatas.Rows(i)("salary_emp_id") Is DBNull.Value, -1, pagingDatas.Rows(i)("salary_emp_id"))
-
-            dgvEmps.Rows.Add(New String() {stt, id, name, birthday, salaryEmpId})
-        Next
-
-        Page.UpdatePaginationButtons(btnPrevious, Page.ButtonType.Previous, totalPages, CurrentPage)
-        Page.UpdatePaginationButtons(btnNext, Page.ButtonType.Next, totalPages, CurrentPage)
-
-        'Remove selected cell
-        dgvEmps.CurrentCell = Nothing
-        dgvSalaries.Select()
-        dgvSalaries.CurrentCell = Nothing
-    End Sub
-
-    ''' <summary>
-    ''' LOAD DATA INTO DATAGRIDVIEW SALARY EMP
-    ''' </summary>
-    Private Sub Load_DGV_SalaryEmp()
-        Dim searchText As String = txtSearchSalary.Text
-        Try
-            If con.State() <> 1 Then
-                con.Open()
-            End If
-
-            Dim sql = "GetAllSalariesByWords"
-            Using cmd As SqlCommand = New SqlCommand(sql, con)
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("words", searchText)
-
-                Dim reader As SqlDataReader = cmd.ExecuteReader()
-                dgvSalaries.Rows.Clear()
-
-                While reader.Read
-                    dgvSalaries.Rows.Add({reader("stt").ToString(), reader("salary_id").ToString(),
-                                         reader("salary_name").ToString(), reader("salary").ToString(),
-                                         reader("salary").ToString()})
-                End While
-
-                'Remove selected cell
-                dgvEmps.Select()
-                dgvEmps.CurrentCell = Nothing
-
-                dgvSalaries.Select()
-                dgvSalaries.CurrentCell = Nothing
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Load_DGV_SalaryEmp: " & Message.Message.errorSQLQuery & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            con.Close()
-        End Try
-    End Sub
-
-    ''' <summary>
-    ''' ROW PREPARE PAINT 
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
     Private Sub dgvEmps_RowPrePaint(sender As Object, e As DataGridViewRowPrePaintEventArgs) Handles dgvEmps.RowPrePaint
         ' Set color for all rows of Datagridview (Because they has white color of groupbox)
         For Each cell As DataGridViewCell In dgvEmps.Rows(e.RowIndex).Cells
@@ -142,23 +31,11 @@ Public Class SalaryEmp
         Next
     End Sub
 
-    ''' <summary>
-    ''' CHANGED SEARCH TEXTBOX EVENT
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         txtSearch.Controls("pbCloseSearch").Visible = (txtSearch.Text.Length > 0)
-        LoadEmpsDatas()
-        LoadDGVEmps()
-        txtSearch.Select()
+        LoadEmpsDatasAndDGVAsync()
     End Sub
 
-    ''' <summary>
-    ''' CLOSE APP
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
         Environment.Exit(0)
     End Sub
@@ -220,7 +97,6 @@ Public Class SalaryEmp
         Load_DGV_SalaryEmp()
         txtSalaryName.Text = ""
         txtSalary.Text = ""
-        dgvEmps_SelectionChanged(sender, e)
     End Sub
 
     ''' <summary>
@@ -320,7 +196,7 @@ Public Class SalaryEmp
                 End Try
 
                 'LoadEmpsDatas()
-                CustomElements.ShowCirProgressBar(2, New Size(200, 200), Sub() MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK, MessageBoxIcon.Information))
+                CustomElements.ShowCirProgressBar(1, New Size(200, 200), Sub() MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK, MessageBoxIcon.Information))
                 bwLoadEmpsDatas.RunWorkerAsync() 'Load datagridview Async
         End Select
     End Sub
@@ -397,8 +273,7 @@ Public Class SalaryEmp
                     MessageBox.Show(Message.Message.successfullDeleteEmpPos, Message.Title.notif, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     'Reload Data
-                    'Load_DGV_Emp()
-                    Load_DGV_SalaryEmp()
+                    LoadDGVSalaryEmpAsync()
                 Catch ex As Exception
                     MsgBox($"ERROR: {ex.Message}")
                 Finally
@@ -415,8 +290,9 @@ Public Class SalaryEmp
             Dim id As Integer = Convert.ToInt32(row.Cells("salary_id").Value)
             Dim salaryName As String = row.Cells("salary_name").Value.ToString()
             Dim salary As Decimal = row.Cells("salary_number").Value
+            Dim tempList As Object() = {id, salaryName, salary}
 
-            editSalaryForm.TempData = ValueTuple.Create(id, salaryName, salary)
+            editSalaryForm.TempData = tempList
             editSalaryForm.SetCallback(Sub()
                                            MessageBox.Show(Message.Message.successfully, Message.Title.success, MessageBoxButtons.OK)
                                            Load_DGV_SalaryEmp()
@@ -510,7 +386,7 @@ Public Class SalaryEmp
     End Sub
 
     Private Sub dgvEmps_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvEmps.ColumnHeaderMouseClick
-        SortedColumnIndex = e.ColumnIndex 'Save sortIndex
+        SortedColumnIndex = e.ColumnIndex
 
         Dim replaceColumnNameList As New Dictionary(Of String, String)
         replaceColumnNameList.Add("emp_name", "name")
@@ -553,4 +429,120 @@ Public Class SalaryEmp
         dgvEmps.CurrentCell = dgvEmps.Rows(selectedRowIndexInDGVEmps).Cells(0)
         dgvEmps_SelectionChanged(sender, e)
     End Sub
+#End Region
+
+#Region "FUNCTIONS"
+    ''' <summary>
+    ''' LOAD DATA INTO DATAGRIDVIEW EMP
+    ''' </summary>
+    Private Sub LoadEmpsDatas()
+        Dim searchText As String = txtSearch.Text
+        Try
+            If con.State() <> 1 Then
+                con.Open()
+            End If
+
+            Dim sql = "SELECT ROW_NUMBER() OVER (ORDER BY id) as stt, id, name, birthday, salary_emp_id 
+                        FROM Employees
+	                    WHERE status = 1 
+	                    AND (name LIKE '%' + @words + '%' 
+	                    OR id LIKE '%' + @words + '%' 
+	                    OR phone LIKE '%' + @words + '%'
+	                    OR address LIKE '%' + @words + '%')"
+            Using cmd As SqlCommand = New SqlCommand(sql, con)
+                cmd.Parameters.AddWithValue("words", searchText)
+
+                Dim reader As SqlDataReader = cmd.ExecuteReader()
+                EmpsDatas.Rows.Clear()
+                EmpsDatas.Load(reader)
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Load_DGV_Emp: " & Message.Message.errorSQLQuery & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
+        End Try
+    End Sub
+
+    Private Sub LoadDGVEmps()
+        Dim totalPages = Math.Ceiling(EmpsDatas.Rows.Count / RowsPerPage)
+        If totalPages = 0 Then
+            CurrentPage = 1
+            totalPages = 1
+        End If
+        txtCurrentPage.Text = CurrentPage
+        txtTotalPage.Text = totalPages
+
+        Dim pagingDatas = Page.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, EmpsDatas)
+        dgvEmps.Rows.Clear()
+
+        For i As Integer = 0 To pagingDatas.Rows.Count - 1
+            Dim stt = pagingDatas.Rows(i)("stt").ToString()
+            Dim id = pagingDatas.Rows(i)("id").ToString()
+            Dim name = pagingDatas.Rows(i)("name").ToString()
+            Dim birthday = pagingDatas.Rows(i)("birthday").ToString().Split(" ")(0) 'Only get date
+            Dim salaryEmpId = If(pagingDatas.Rows(i)("salary_emp_id") Is DBNull.Value, -1, pagingDatas.Rows(i)("salary_emp_id"))
+
+            dgvEmps.Rows.Add(New String() {stt, id, name, birthday, salaryEmpId})
+        Next
+
+        Page.UpdatePaginationButtons(btnPrevious, Page.ButtonType.Previous, totalPages, CurrentPage)
+        Page.UpdatePaginationButtons(btnNext, Page.ButtonType.Next, totalPages, CurrentPage)
+
+        'Remove selected cell
+        dgvEmps.CurrentCell = Nothing
+        dgvSalaries.Select()
+        dgvSalaries.CurrentCell = Nothing
+    End Sub
+
+    ''' <summary>
+    ''' LOAD DATA INTO DATAGRIDVIEW SALARY EMP
+    ''' </summary>
+    Private Sub Load_DGV_SalaryEmp()
+        Dim searchText As String = txtSearchSalary.Text
+        Try
+            If con.State() <> 1 Then
+                con.Open()
+            End If
+
+            Dim sql = "GetAllSalariesByWords"
+            Using cmd As SqlCommand = New SqlCommand(sql, con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("words", searchText)
+
+                Dim reader As SqlDataReader = cmd.ExecuteReader()
+                dgvSalaries.Rows.Clear()
+
+                While reader.Read
+                    dgvSalaries.Rows.Add({reader("stt").ToString(), reader("salary_id").ToString(),
+                                         reader("salary_name").ToString(), reader("salary").ToString(),
+                                         reader("salary").ToString()})
+                End While
+
+                'Remove selected cell
+                dgvEmps.Select()
+                dgvEmps.CurrentCell = Nothing
+
+                dgvSalaries.Select()
+                dgvSalaries.CurrentCell = Nothing
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Load_DGV_SalaryEmp: " & Message.Message.errorSQLQuery & ex.Message, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
+        End Try
+    End Sub
+
+    Private Sub LoadEmpsDatasAndDGVAsync()
+        FuntionCommon.AsyncLoad.AsyncLoadDGV(dgvEmps, Sub()
+                                                          LoadEmpsDatas()
+                                                          LoadDGVEmps()
+                                                          txtSearch.Select()
+                                                      End Sub, ProgressBarLoad)
+    End Sub
+
+    Private Sub LoadDGVSalaryEmpAsync()
+        FuntionCommon.AsyncLoad.AsyncLoadDGV(dgvSalaries, Sub() Load_DGV_SalaryEmp())
+    End Sub
+#End Region
+
 End Class

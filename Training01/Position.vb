@@ -3,7 +3,7 @@
 Public Class Position
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
     Private beforeEdit As ValueTuple(Of Integer, String)
-
+#Region "EVENTS"
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles appClose.Click
         Me.Close()
     End Sub
@@ -25,37 +25,6 @@ Public Class Position
         btn.Name = "btnDelete"
         btn.UseColumnTextForButtonValue = True
         dgvPositions.Columns.Insert(dgvPositions.Columns.Count, btn)
-        CustomElements.MovingForm(Me)
-    End Sub
-
-    Private Sub Load_DGVPosition()
-        Try
-            If con.State() <> 1 Then
-                con.Open()
-            End If
-
-            Dim sql = "SearchAllPositions"
-            Using cmd As SqlCommand = New SqlCommand(sql, con)
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.Parameters.AddWithValue("text", txtSearch.Text.Trim())
-                Dim reader As SqlDataReader = cmd.ExecuteReader()
-
-                dgvPositions.Rows.Clear()
-                While reader.Read
-                    dgvPositions.Rows.Add({reader("stt").ToString(),
-                                          reader("id").ToString(),
-                                          reader("name").ToString(),
-                                          reader("emp_num").ToString()})
-                End While
-
-                'Remove selected cell
-                dgvPositions.CurrentCell = Nothing
-            End Using
-        Catch ex As Exception
-            MsgBox($"ERROR Load DGVPosition: {ex.Message}")
-        Finally
-            con.Close()
-        End Try
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
@@ -122,9 +91,11 @@ Public Class Position
     End Sub
 
     Private Sub btnEmpByPos_Click(sender As Object, e As EventArgs) Handles btnEmpByPos.Click
-        Dim empByPos As New EmpByPos
-        empByPos.Show()
-        Me.Hide()
+        NewDashboard.LoadUserData()
+        NewDashboard.ShowFormInMainPanel(EmpByPos)
+        NewDashboard.currentSelection = "Employees In Positions"
+        NewDashboard.UpdateTitleLabel()
+        Me.Close()
     End Sub
 
     Private isProcessing As Boolean = False ' Flag check DataGridView is handling EditCell Event
@@ -199,4 +170,37 @@ Public Class Position
             e.Handled = True 'pass by the default sorting
         End If
     End Sub
+#End Region
+
+#Region "FUNCTIONS"
+    Private Sub Load_DGVPosition()
+        Try
+            If con.State() <> 1 Then
+                con.Open()
+            End If
+
+            Dim sql = "SearchAllPositions"
+            Using cmd As SqlCommand = New SqlCommand(sql, con)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("text", txtSearch.Text.Trim())
+                Dim reader As SqlDataReader = cmd.ExecuteReader()
+
+                dgvPositions.Rows.Clear()
+                While reader.Read
+                    dgvPositions.Rows.Add({reader("stt").ToString(),
+                                          reader("id").ToString(),
+                                          reader("name").ToString(),
+                                          reader("emp_num").ToString()})
+                End While
+
+                'Remove selected cell
+                dgvPositions.CurrentCell = Nothing
+            End Using
+        Catch ex As Exception
+            MsgBox($"ERROR Load DGVPosition: {ex.Message}")
+        Finally
+            con.Close()
+        End Try
+    End Sub
+#End Region
 End Class

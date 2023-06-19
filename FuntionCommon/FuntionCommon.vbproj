@@ -71,6 +71,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncLoad.vb" />
     <Compile Include="CommonOfficeFunctions.vb" />
     <Compile Include="CurrencyFormat.vb" />
     <Compile Include="FormatDateTime.vb" />

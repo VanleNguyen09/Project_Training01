@@ -104,6 +104,7 @@ Partial Class PositionMenu
         Me.Controls.Add(Me.btnPosition)
         Me.Controls.Add(Me.btnEmployee)
         Me.Controls.Add(Me.Label1)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "PositionMenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

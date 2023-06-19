@@ -22,7 +22,7 @@ Partial Class Leave
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtSearch = New System.Windows.Forms.TextBox()
@@ -55,7 +55,6 @@ Partial Class Leave
         Me.txtCurrentPage = New Guna.UI2.WinForms.Guna2TextBox()
         Me.btnNext = New Guna.UI2.WinForms.Guna2Button()
         Me.btnPrevious = New Guna.UI2.WinForms.Guna2Button()
-        Me.ProgressBarLoad = New System.Windows.Forms.ProgressBar()
         CType(Me.dgvLeave, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gb_create.SuspendLayout()
         Me.gb_actions.SuspendLayout()
@@ -111,6 +110,7 @@ Partial Class Leave
         Me.dgvLeave.AllowUserToDeleteRows = False
         Me.dgvLeave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvLeave.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.stt, Me.id, Me.emp_id, Me.emp_name, Me.from_date, Me.reason, Me.is_confirmed})
+        Me.dgvLeave.GridColor = System.Drawing.SystemColors.ActiveCaption
         Me.dgvLeave.Location = New System.Drawing.Point(12, 119)
         Me.dgvLeave.MultiSelect = False
         Me.dgvLeave.Name = "dgvLeave"
@@ -173,9 +173,9 @@ Partial Class Leave
         '
         'is_confirmed
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White
-        Me.is_confirmed.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        Me.is_confirmed.DefaultCellStyle = DataGridViewCellStyle1
         Me.is_confirmed.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.is_confirmed.HeaderText = "IS CONFIRMED"
         Me.is_confirmed.MinimumWidth = 6
@@ -199,7 +199,7 @@ Partial Class Leave
         Me.gb_create.Location = New System.Drawing.Point(691, 119)
         Me.gb_create.Name = "gb_create"
         Me.gb_create.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.gb_create.Size = New System.Drawing.Size(275, 223)
+        Me.gb_create.Size = New System.Drawing.Size(261, 223)
         Me.gb_create.TabIndex = 9
         Me.gb_create.TabStop = False
         Me.gb_create.Text = "CREATE"
@@ -211,7 +211,7 @@ Partial Class Leave
         Me.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnAdd.Location = New System.Drawing.Point(11, 184)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(250, 27)
+        Me.btnAdd.Size = New System.Drawing.Size(241, 27)
         Me.btnAdd.TabIndex = 16
         Me.btnAdd.Text = "ADD"
         Me.btnAdd.UseVisualStyleBackColor = False
@@ -220,7 +220,7 @@ Partial Class Leave
         '
         Me.rtxtReason.Location = New System.Drawing.Point(75, 100)
         Me.rtxtReason.Name = "rtxtReason"
-        Me.rtxtReason.Size = New System.Drawing.Size(186, 78)
+        Me.rtxtReason.Size = New System.Drawing.Size(177, 78)
         Me.rtxtReason.TabIndex = 15
         Me.rtxtReason.Text = ""
         '
@@ -228,7 +228,7 @@ Partial Class Leave
         '
         Me.dtpFromDate.Location = New System.Drawing.Point(75, 65)
         Me.dtpFromDate.Name = "dtpFromDate"
-        Me.dtpFromDate.Size = New System.Drawing.Size(186, 20)
+        Me.dtpFromDate.Size = New System.Drawing.Size(177, 20)
         Me.dtpFromDate.TabIndex = 13
         '
         'Label6
@@ -266,7 +266,7 @@ Partial Class Leave
         Me.cbEmpAdd.ItemHeight = 13
         Me.cbEmpAdd.Location = New System.Drawing.Point(75, 31)
         Me.cbEmpAdd.Name = "cbEmpAdd"
-        Me.cbEmpAdd.Size = New System.Drawing.Size(186, 21)
+        Me.cbEmpAdd.Size = New System.Drawing.Size(177, 21)
         Me.cbEmpAdd.TabIndex = 11
         '
         'gb_actions
@@ -277,7 +277,7 @@ Partial Class Leave
         Me.gb_actions.ForeColor = System.Drawing.Color.White
         Me.gb_actions.Location = New System.Drawing.Point(691, 348)
         Me.gb_actions.Name = "gb_actions"
-        Me.gb_actions.Size = New System.Drawing.Size(275, 89)
+        Me.gb_actions.Size = New System.Drawing.Size(261, 89)
         Me.gb_actions.TabIndex = 17
         Me.gb_actions.TabStop = False
         Me.gb_actions.Text = "ACTIONS"
@@ -289,7 +289,7 @@ Partial Class Leave
         Me.btnReload.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnReload.Location = New System.Drawing.Point(11, 19)
         Me.btnReload.Name = "btnReload"
-        Me.btnReload.Size = New System.Drawing.Size(250, 52)
+        Me.btnReload.Size = New System.Drawing.Size(241, 52)
         Me.btnReload.TabIndex = 18
         Me.btnReload.Text = "RELOAD ALL"
         Me.btnReload.UseVisualStyleBackColor = False
@@ -299,7 +299,7 @@ Partial Class Leave
         Me.closeApp.BackColor = System.Drawing.Color.Transparent
         Me.closeApp.Cursor = System.Windows.Forms.Cursors.Hand
         Me.closeApp.Image = Global.Training01.My.Resources.Resources.blue_exit_icon_16
-        Me.closeApp.Location = New System.Drawing.Point(942, 0)
+        Me.closeApp.Location = New System.Drawing.Point(912, 0)
         Me.closeApp.Name = "closeApp"
         Me.closeApp.Size = New System.Drawing.Size(40, 35)
         Me.closeApp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -323,7 +323,7 @@ Partial Class Leave
         Me.btnFindFromDate.ForeColor = System.Drawing.Color.White
         Me.btnFindFromDate.Location = New System.Drawing.Point(865, 95)
         Me.btnFindFromDate.Name = "btnFindFromDate"
-        Me.btnFindFromDate.Size = New System.Drawing.Size(101, 21)
+        Me.btnFindFromDate.Size = New System.Drawing.Size(87, 21)
         Me.btnFindFromDate.TabIndex = 7
         Me.btnFindFromDate.Text = "FIND"
         Me.btnFindFromDate.UseVisualStyleBackColor = False
@@ -441,22 +441,12 @@ Partial Class Leave
         Me.btnPrevious.Text = "PREVIOUS"
         Me.btnPrevious.UseTransparentBackground = True
         '
-        'ProgressBarLoad
-        '
-        Me.ProgressBarLoad.Location = New System.Drawing.Point(77, 64)
-        Me.ProgressBarLoad.Name = "ProgressBarLoad"
-        Me.ProgressBarLoad.Size = New System.Drawing.Size(782, 23)
-        Me.ProgressBarLoad.TabIndex = 23
-        Me.ProgressBarLoad.Visible = False
-        '
         'Leave
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(983, 484)
-        Me.Controls.Add(Me.ProgressBarLoad)
+        Me.ClientSize = New System.Drawing.Size(964, 484)
         Me.Controls.Add(Me.Guna2HtmlLabel1)
         Me.Controls.Add(Me.txtTotalPage)
         Me.Controls.Add(Me.txtCurrentPage)
@@ -474,6 +464,7 @@ Partial Class Leave
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Leave"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -520,5 +511,4 @@ Partial Class Leave
     Friend WithEvents from_date As DataGridViewTextBoxColumn
     Friend WithEvents reason As DataGridViewTextBoxColumn
     Friend WithEvents is_confirmed As DataGridViewButtonColumn
-    Friend WithEvents ProgressBarLoad As ProgressBar
 End Class

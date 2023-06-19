@@ -1,7 +1,5 @@
 ﻿Imports System.ComponentModel
 Imports System.Data.SqlClient
-Imports Org.BouncyCastle.Asn1.Pkcs
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports Page = FuntionCommon.Pagination
 
 Public Class Leave
@@ -11,16 +9,22 @@ Public Class Leave
     Private RowsPerPage As Integer = 8
     Private CurrentPage As Integer = 1
     Private LeaveDatas As New DataTable
-
+#Region "EVENTS"
     Private Sub Leave_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Settings for Combobox
         cbEmpAdd.DisplayMember = "Value"
         cbEmpAdd.ValueMember = "Key"
         cbEmpAdd.Items.Add(New DictionaryEntry(-1, "-SELECT-"))
 
-        Load_cbEmpAdd()
-        'LoadLeaveDatas()
-        LoadDataAsync()
+        Dim loading As New CommonLoading()
+        FuntionCommon.AsyncLoad.AsyncLoadCBB(cbEmpAdd, Sub()
+                                                           Load_cbEmpAdd()
+                                                       End Sub)
+        FuntionCommon.AsyncLoad.AsyncLoadDGV(dgvLeave, Sub()
+                                                           LoadLeaveDatas()
+                                                           loading.Hide()
+                                                       End Sub)
+        loading.ShowDialog()
 
         'Add Delete Buttons
         Dim btn As New DataGridViewButtonColumn
@@ -49,33 +53,11 @@ Public Class Leave
         CustomElements.AddClearButtonInsideTextBox(txtSearch, "btnClearSearch", Sub()
                                                                                     txtSearch.Text = ""
                                                                                 End Sub)
+
     End Sub
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
         Environment.Exit(0)
-    End Sub
-
-    Private Sub Load_cbEmpAdd()
-        Try
-            If con.State() <> 1 Then
-                con.Open()
-            End If
-
-            'Load Employees Data To Combobox
-            Dim Sql = "Select id, name from Employees"
-            Using cmd As SqlCommand = New SqlCommand(Sql, con)
-                cmd.CommandType = CommandType.Text
-                Dim reader As SqlDataReader = cmd.ExecuteReader()
-
-                While reader.Read
-                    cbEmpAdd.Items.Add(New DictionaryEntry(CInt(reader("id")), reader("id") & " - " & reader("name").ToString()))
-                End While
-            End Using
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, Message.Title.error, MessageBoxButtons.OK)
-        Finally
-            con.Close()
-        End Try
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -350,6 +332,54 @@ Public Class Leave
         End If
     End Sub
 
+    Private Sub btnPrevious_Click(sender As Object, e As EventArgs) Handles btnPrevious.Click
+        Dim totalPages = Math.Ceiling(LeaveDatas.Rows.Count / RowsPerPage)
+        Dim btnType = Page.ButtonType.Previous
+        Page.ClickPreviousButton(btnPrevious, btnType, totalPages, CurrentPage, Sub() LoadDGV())
+    End Sub
+
+    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
+        Dim totalPages = Math.Ceiling(LeaveDatas.Rows.Count / RowsPerPage)
+        Dim btnType = Page.ButtonType.Next
+        Page.ClickNextButton(btnNext, btnType, totalPages, CurrentPage, Sub() LoadDGV())
+    End Sub
+
+    Private Sub dgvLeave_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvLeave.ColumnHeaderMouseClick
+        FuntionCommon.Sortation.SortDataTableAndPreventNoColumn(dgvLeave, LeaveDatas,
+                                                                 e.ColumnIndex, "stt")
+        LoadDGV()
+    End Sub
+
+    Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
+        Dim totalPages = Math.Ceiling(LeaveDatas.Rows.Count / RowsPerPage)
+        Page.PressEnterKeyTxtCurrentPage(txtCurrentPage, CurrentPage, totalPages, e.KeyChar, Sub() LoadDGV())
+    End Sub
+#End Region
+
+#Region "FUNCTIONS"
+    Private Sub Load_cbEmpAdd()
+        Try
+            If con.State() <> 1 Then
+                con.Open()
+            End If
+
+            'Load Employees Data To Combobox
+            Dim Sql = "Select id, name from Employees"
+            Using cmd As SqlCommand = New SqlCommand(Sql, con)
+                cmd.CommandType = CommandType.Text
+                Dim reader As SqlDataReader = cmd.ExecuteReader()
+
+                While reader.Read
+                    cbEmpAdd.Items.Add(New DictionaryEntry(CInt(reader("id")), reader("id") & " - " & reader("name").ToString()))
+                End While
+            End Using
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, Message.Title.error, MessageBoxButtons.OK)
+        Finally
+            con.Close()
+        End Try
+    End Sub
+
     Private Sub LoadLeaveDatas()
         Dim sql = "GetAllLeavesByWord"
         Dim searchWord = txtSearch.Text.Trim()
@@ -405,46 +435,5 @@ Public Class Leave
         dgvLeave.Select()
         dgvLeave.CurrentCell = Nothing
     End Sub
-
-    Private Sub btnPrevious_Click(sender As Object, e As EventArgs) Handles btnPrevious.Click
-        Dim totalPages = Math.Ceiling(LeaveDatas.Rows.Count / RowsPerPage)
-        Dim btnType = Page.ButtonType.Previous
-        Page.ClickPreviousButton(btnPrevious, btnType, totalPages, CurrentPage, Sub() LoadDGV())
-    End Sub
-
-    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
-        Dim totalPages = Math.Ceiling(LeaveDatas.Rows.Count / RowsPerPage)
-        Dim btnType = Page.ButtonType.Next
-        Page.ClickNextButton(btnNext, btnType, totalPages, CurrentPage, Sub() LoadDGV())
-    End Sub
-
-    Private Sub dgvLeave_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvLeave.ColumnHeaderMouseClick
-        FuntionCommon.Sortation.SortDataTableAndPreventNoColumn(dgvLeave, LeaveDatas,
-                                                                 e.ColumnIndex, "stt")
-        LoadDGV()
-    End Sub
-
-    Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
-        Dim totalPages = Math.Ceiling(LeaveDatas.Rows.Count / RowsPerPage)
-        Page.PressEnterKeyTxtCurrentPage(txtCurrentPage, CurrentPage, totalPages, e.KeyChar, Sub() LoadDGV())
-    End Sub
-
-    Private Sub LoadDataAsync()
-        ProgressBarLoad.Visible = True
-
-        Dim bgw As New BackgroundWorker()
-
-        AddHandler bgw.DoWork, AddressOf LoadData
-        AddHandler bgw.RunWorkerCompleted, AddressOf LoadDataCompleted
-
-        bgw.RunWorkerAsync()
-    End Sub
-
-    Private Sub LoadData(sender As Object, e As DoWorkEventArgs)
-        dgvLeave.Invoke(Sub() LoadLeaveDatas())
-    End Sub
-
-    Private Sub LoadDataCompleted(sender As Object, e As RunWorkerCompletedEventArgs)
-        ProgressBarLoad.Visible = False
-    End Sub
+#End Region
 End Class
