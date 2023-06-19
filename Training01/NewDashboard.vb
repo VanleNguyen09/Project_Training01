@@ -55,40 +55,7 @@ Public Class NewDashboard
             '    login.ShowDialog()
         End If
     End Sub
-    Public Sub ShowFormInMainPanel(ByVal formToShow As Form)
-        If currentForm IsNot formToShow Then
-            ' Close currentForm
-            If currentForm IsNot Nothing Then
-                currentForm.Close()
-            End If
 
-            ' Display formToShow in pn_Main
-            formToShow.TopLevel = False
-            formToShow.TopMost = True
-            formToShow.FormBorderStyle = FormBorderStyle.None
-            formToShow.Dock = DockStyle.Fill
-            formToShow.AutoScroll = True
-            pn_Main.Controls.Clear()
-            pn_Main.Controls.Add(formToShow)
-            formToShow.Show()
-            Console.WriteLine(formToShow)
-
-            ' Update curentForm
-            currentForm = formToShow
-        End If
-    End Sub
-    Public Sub ChangeButtonColor(ByVal button As Button, ByVal backColor As Color, ByVal foreColor As Color)
-        button.BackColor = backColor
-        button.ForeColor = foreColor
-    End Sub
-    Public Sub ResetButtonColors(ByVal clickedButton As Button)
-        For Each btn As Button In pn_Sidebar.Controls.OfType(Of Button)()
-            If btn IsNot clickedButton Then
-                btn.BackColor = SystemColors.Control
-                btn.ForeColor = SystemColors.ControlText
-            End If
-        Next
-    End Sub
     Private Sub EnableDoubleBuffering(panel As Panel)
         Dim doubleBufferedProperty = GetType(Control).GetProperty("DoubleBuffered", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic)
         doubleBufferedProperty.SetValue(panel, True, Nothing)

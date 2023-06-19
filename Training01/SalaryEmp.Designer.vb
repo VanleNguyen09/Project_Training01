@@ -22,14 +22,9 @@ Partial Class SalaryEmp
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvEmps = New System.Windows.Forms.DataGridView()
-        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.salary_emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgvSalaries = New System.Windows.Forms.DataGridView()
         Me.btnUpdate = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -54,6 +49,11 @@ Partial Class SalaryEmp
         Me.btnNext = New Guna.UI2.WinForms.Guna2Button()
         Me.btnPrevious = New Guna.UI2.WinForms.Guna2Button()
         Me.bwLoadEmpsDatas = New System.ComponentModel.BackgroundWorker()
+        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.salary_emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.salary_stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.salary_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.salary_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -96,48 +96,6 @@ Partial Class SalaryEmp
         Me.dgvEmps.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvEmps.Size = New System.Drawing.Size(235, 304)
         Me.dgvEmps.TabIndex = 3
-        '
-        'stt
-        '
-        Me.stt.HeaderText = "STT"
-        Me.stt.MinimumWidth = 6
-        Me.stt.Name = "stt"
-        Me.stt.ReadOnly = True
-        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.stt.Width = 40
-        '
-        'id
-        '
-        Me.id.HeaderText = "ID"
-        Me.id.MinimumWidth = 6
-        Me.id.Name = "id"
-        Me.id.ReadOnly = True
-        Me.id.Visible = False
-        Me.id.Width = 125
-        '
-        'emp_name
-        '
-        Me.emp_name.HeaderText = "NAME"
-        Me.emp_name.MinimumWidth = 6
-        Me.emp_name.Name = "emp_name"
-        Me.emp_name.ReadOnly = True
-        '
-        'birthday
-        '
-        Me.birthday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.birthday.HeaderText = "BIRTHDAY"
-        Me.birthday.MinimumWidth = 6
-        Me.birthday.Name = "birthday"
-        Me.birthday.ReadOnly = True
-        '
-        'salary_emp_id
-        '
-        Me.salary_emp_id.HeaderText = "SalaryId"
-        Me.salary_emp_id.MinimumWidth = 6
-        Me.salary_emp_id.Name = "salary_emp_id"
-        Me.salary_emp_id.ReadOnly = True
-        Me.salary_emp_id.Visible = False
-        Me.salary_emp_id.Width = 125
         '
         'dgvSalaries
         '
@@ -483,9 +441,51 @@ Partial Class SalaryEmp
         'bwLoadEmpsDatas
         '
         '
+        'stt
+        '
+        Me.stt.HeaderText = "NO"
+        Me.stt.MinimumWidth = 6
+        Me.stt.Name = "stt"
+        Me.stt.ReadOnly = True
+        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.stt.Width = 40
+        '
+        'id
+        '
+        Me.id.HeaderText = "ID"
+        Me.id.MinimumWidth = 6
+        Me.id.Name = "id"
+        Me.id.ReadOnly = True
+        Me.id.Visible = False
+        Me.id.Width = 125
+        '
+        'emp_name
+        '
+        Me.emp_name.HeaderText = "NAME"
+        Me.emp_name.MinimumWidth = 6
+        Me.emp_name.Name = "emp_name"
+        Me.emp_name.ReadOnly = True
+        '
+        'birthday
+        '
+        Me.birthday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.birthday.HeaderText = "BIRTHDAY"
+        Me.birthday.MinimumWidth = 6
+        Me.birthday.Name = "birthday"
+        Me.birthday.ReadOnly = True
+        '
+        'salary_emp_id
+        '
+        Me.salary_emp_id.HeaderText = "SalaryId"
+        Me.salary_emp_id.MinimumWidth = 6
+        Me.salary_emp_id.Name = "salary_emp_id"
+        Me.salary_emp_id.ReadOnly = True
+        Me.salary_emp_id.Visible = False
+        Me.salary_emp_id.Width = 125
+        '
         'salary_stt
         '
-        Me.salary_stt.HeaderText = "STT"
+        Me.salary_stt.HeaderText = "NO"
         Me.salary_stt.MinimumWidth = 6
         Me.salary_stt.Name = "salary_stt"
         Me.salary_stt.ReadOnly = True
@@ -512,9 +512,9 @@ Partial Class SalaryEmp
         'salary
         '
         Me.salary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        DataGridViewCellStyle3.NullValue = "0.00"
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.salary.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.NullValue = "0.00"
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.salary.DefaultCellStyle = DataGridViewCellStyle1
         Me.salary.HeaderText = "SALARY"
         Me.salary.MinimumWidth = 6
         Me.salary.Name = "salary"
@@ -591,12 +591,12 @@ Partial Class SalaryEmp
     Friend WithEvents btnNext As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnPrevious As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents bwLoadEmpsDatas As System.ComponentModel.BackgroundWorker
+    Friend WithEvents ProgressBarLoad As Guna.UI2.WinForms.Guna2CircleProgressBar
     Friend WithEvents stt As DataGridViewTextBoxColumn
     Friend WithEvents id As DataGridViewTextBoxColumn
     Friend WithEvents emp_name As DataGridViewTextBoxColumn
     Friend WithEvents birthday As DataGridViewTextBoxColumn
     Friend WithEvents salary_emp_id As DataGridViewTextBoxColumn
-    Friend WithEvents ProgressBarLoad As Guna.UI2.WinForms.Guna2CircleProgressBar
     Friend WithEvents salary_stt As DataGridViewTextBoxColumn
     Friend WithEvents salary_id As DataGridViewTextBoxColumn
     Friend WithEvents salary_name As DataGridViewTextBoxColumn

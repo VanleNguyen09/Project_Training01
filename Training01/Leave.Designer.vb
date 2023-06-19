@@ -28,13 +28,6 @@ Partial Class Leave
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.dgvLeave = New System.Windows.Forms.DataGridView()
-        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.from_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.reason = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.is_confirmed = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.gb_create = New System.Windows.Forms.GroupBox()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.rtxtReason = New System.Windows.Forms.RichTextBox()
@@ -55,6 +48,13 @@ Partial Class Leave
         Me.txtCurrentPage = New Guna.UI2.WinForms.Guna2TextBox()
         Me.btnNext = New Guna.UI2.WinForms.Guna2Button()
         Me.btnPrevious = New Guna.UI2.WinForms.Guna2Button()
+        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.from_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.reason = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.is_confirmed = New System.Windows.Forms.DataGridViewButtonColumn()
         CType(Me.dgvLeave, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gb_create.SuspendLayout()
         Me.gb_actions.SuspendLayout()
@@ -120,69 +120,6 @@ Partial Class Leave
         Me.dgvLeave.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvLeave.Size = New System.Drawing.Size(673, 319)
         Me.dgvLeave.TabIndex = 8
-        '
-        'stt
-        '
-        Me.stt.HeaderText = "STT"
-        Me.stt.MinimumWidth = 6
-        Me.stt.Name = "stt"
-        Me.stt.ReadOnly = True
-        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.stt.Width = 60
-        '
-        'id
-        '
-        Me.id.HeaderText = "ID"
-        Me.id.MinimumWidth = 6
-        Me.id.Name = "id"
-        Me.id.ReadOnly = True
-        Me.id.Visible = False
-        Me.id.Width = 60
-        '
-        'emp_id
-        '
-        Me.emp_id.HeaderText = "ID EMP"
-        Me.emp_id.MinimumWidth = 6
-        Me.emp_id.Name = "emp_id"
-        Me.emp_id.ReadOnly = True
-        Me.emp_id.Width = 60
-        '
-        'emp_name
-        '
-        Me.emp_name.HeaderText = "NAME"
-        Me.emp_name.MinimumWidth = 6
-        Me.emp_name.Name = "emp_name"
-        Me.emp_name.ReadOnly = True
-        Me.emp_name.Width = 125
-        '
-        'from_date
-        '
-        Me.from_date.HeaderText = "FROM DATE"
-        Me.from_date.MinimumWidth = 6
-        Me.from_date.Name = "from_date"
-        Me.from_date.ReadOnly = True
-        Me.from_date.Width = 95
-        '
-        'reason
-        '
-        Me.reason.HeaderText = "REASON"
-        Me.reason.MinimumWidth = 6
-        Me.reason.Name = "reason"
-        Me.reason.ReadOnly = True
-        Me.reason.Width = 110
-        '
-        'is_confirmed
-        '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-        Me.is_confirmed.DefaultCellStyle = DataGridViewCellStyle1
-        Me.is_confirmed.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.is_confirmed.HeaderText = "IS CONFIRMED"
-        Me.is_confirmed.MinimumWidth = 6
-        Me.is_confirmed.Name = "is_confirmed"
-        Me.is_confirmed.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.is_confirmed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.is_confirmed.Width = 120
         '
         'gb_create
         '
@@ -440,6 +377,69 @@ Partial Class Leave
         Me.btnPrevious.TabIndex = 19
         Me.btnPrevious.Text = "PREVIOUS"
         Me.btnPrevious.UseTransparentBackground = True
+        '
+        'stt
+        '
+        Me.stt.HeaderText = "NO"
+        Me.stt.MinimumWidth = 6
+        Me.stt.Name = "stt"
+        Me.stt.ReadOnly = True
+        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.stt.Width = 60
+        '
+        'id
+        '
+        Me.id.HeaderText = "ID"
+        Me.id.MinimumWidth = 6
+        Me.id.Name = "id"
+        Me.id.ReadOnly = True
+        Me.id.Visible = False
+        Me.id.Width = 60
+        '
+        'emp_id
+        '
+        Me.emp_id.HeaderText = "ID EMP"
+        Me.emp_id.MinimumWidth = 6
+        Me.emp_id.Name = "emp_id"
+        Me.emp_id.ReadOnly = True
+        Me.emp_id.Width = 60
+        '
+        'emp_name
+        '
+        Me.emp_name.HeaderText = "NAME"
+        Me.emp_name.MinimumWidth = 6
+        Me.emp_name.Name = "emp_name"
+        Me.emp_name.ReadOnly = True
+        Me.emp_name.Width = 125
+        '
+        'from_date
+        '
+        Me.from_date.HeaderText = "FROM DATE"
+        Me.from_date.MinimumWidth = 6
+        Me.from_date.Name = "from_date"
+        Me.from_date.ReadOnly = True
+        Me.from_date.Width = 95
+        '
+        'reason
+        '
+        Me.reason.HeaderText = "REASON"
+        Me.reason.MinimumWidth = 6
+        Me.reason.Name = "reason"
+        Me.reason.ReadOnly = True
+        Me.reason.Width = 110
+        '
+        'is_confirmed
+        '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        Me.is_confirmed.DefaultCellStyle = DataGridViewCellStyle1
+        Me.is_confirmed.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.is_confirmed.HeaderText = "IS CONFIRMED"
+        Me.is_confirmed.MinimumWidth = 6
+        Me.is_confirmed.Name = "is_confirmed"
+        Me.is_confirmed.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.is_confirmed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.is_confirmed.Width = 120
         '
         'Leave
         '
