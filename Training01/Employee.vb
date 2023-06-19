@@ -52,9 +52,14 @@ Public Class frm_Employee
         rdo_Male.Checked = True
         rdo_Female.Checked = False
         EnableAdd()
+        dgrv_Employee.Rows.Clear()
+        LoadData()
         txt_EmployeeID.Enabled = False
         dgrv_Employee.ClearSelection()
-        LoadData()
+    End Sub
+
+    Private Sub frm_Employee_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        dgrv_Employee.ClearSelection()
     End Sub
 
     Private Enum EmployeeParameters
@@ -164,6 +169,8 @@ Public Class frm_Employee
 
                     MessageBox.Show(Message.Message.employeeAddSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
+                ClearForm()
+                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -203,7 +210,11 @@ Public Class frm_Employee
                     cmd.ExecuteNonQuery()
 
                     MessageBox.Show(Message.Message.employeeUpdateSuccess, titleSucces, buttonOK, infoIcon)
+
                 End Using
+                ClearForm()
+                LoadData()
+                EnableAdd()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -342,7 +353,6 @@ Public Class frm_Employee
             gender = "Male"
         Else
             gender = "Female"
-            MsgBox("your gender is" & gender)
         End If
         Dim birthday As Date = dtp_Birthday.Value
         Dim email As String = txt_Email.Text.Trim()
@@ -392,8 +402,6 @@ Public Class frm_Employee
         values.Add(EmployeeParameters.Image, img)
 
         Add_Employees(values)
-        ClearForm()
-        LoadData()
     End Sub
 
     Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
@@ -407,7 +415,6 @@ Public Class frm_Employee
             gender = "Male"
         Else
             gender = "Female"
-            MsgBox("your gender is" & gender)
         End If
         Dim birthday As Date = dtp_Birthday.Value
         Dim email As String = txt_Email.Text.Trim()
@@ -456,9 +463,6 @@ Public Class frm_Employee
         values.Add(EmployeeParameters.Id, id)
 
         Update_Employee(values)
-        EnableAdd()
-        ClearForm()
-        LoadData()
     End Sub
 
     Private Sub dgrv_employee_cellclick(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Employee.CellClick
@@ -541,7 +545,7 @@ Public Class frm_Employee
         End If
     End Sub
 
-    Public Function ImageToByte(ByVal img As Image) As Byte()
+    Private Function ImageToByte(ByVal img As Image) As Byte()
         If img Is Nothing Then
             Return New Byte(-1) {}
         End If
@@ -641,10 +645,6 @@ Public Class frm_Employee
         End If
     End Sub
 
-    Private Sub frm_Employee_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        dgrv_Employee.ClearSelection()
-    End Sub
-
     Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
         txt_Search.Controls("pbCloseSearch").Visible = (txt_Search.Text.Length > 0)
     End Sub
@@ -683,7 +683,7 @@ Public Class frm_Employee
     End Sub
 
     Private Sub dgrv_Employee_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgrv_Employee.ColumnHeaderMouseClick
-        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Employee, e.ColumnIndex, "No")
+        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Employee, "No")
         Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
     End Sub
 
@@ -693,5 +693,14 @@ Public Class frm_Employee
         NewDashboard.currentSelection = "Employee In Department"
         NewDashboard.UpdateTitleLabel()
         Me.Close()
+    End Sub
+
+    Private Sub dgrv_Employee_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Employee.CellMouseEnter
+        If (e.ColumnIndex = 6 OrElse e.ColumnIndex = 7) AndAlso e.RowIndex >= 0 Then
+            ' Set the pointer type to hand when hovering the mouse over the cell 
+            dgrv_Employee.Cursor = Cursors.Hand
+        Else
+            dgrv_Employee.Cursor = Cursors.Default
+        End If
     End Sub
 End Class

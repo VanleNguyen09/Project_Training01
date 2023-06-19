@@ -20,7 +20,7 @@ BEGIN
 	ON d.dept_id = a.id AND d.status = 1
 	WHERE a.status = 1
 	GROUP BY a.id, a.name, a.status
-	ORDER BY a.id
+	ORDER BY a.id DESC
 END
 GO
 

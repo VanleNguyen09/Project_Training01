@@ -130,7 +130,7 @@ Partial Class NewDashboard
         Me.pn_Main.Location = New System.Drawing.Point(259, 87)
         Me.pn_Main.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.pn_Main.Name = "pn_Main"
-        Me.pn_Main.Size = New System.Drawing.Size(1302, 701)
+        Me.pn_Main.Size = New System.Drawing.Size(1293, 701)
         Me.pn_Main.TabIndex = 21
         '
         'pn_Content
@@ -146,7 +146,7 @@ Partial Class NewDashboard
         Me.pn_Content.Controls.Add(Me.pn_Employee)
         Me.pn_Content.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pn_Content.ForeColor = System.Drawing.Color.Transparent
-        Me.pn_Content.Location = New System.Drawing.Point(111, 55)
+        Me.pn_Content.Location = New System.Drawing.Point(59, 46)
         Me.pn_Content.Margin = New System.Windows.Forms.Padding(4)
         Me.pn_Content.Name = "pn_Content"
         Me.pn_Content.Size = New System.Drawing.Size(1169, 588)
@@ -497,7 +497,7 @@ Partial Class NewDashboard
         Me.pn_Header.Location = New System.Drawing.Point(259, 0)
         Me.pn_Header.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.pn_Header.Name = "pn_Header"
-        Me.pn_Header.Size = New System.Drawing.Size(1302, 87)
+        Me.pn_Header.Size = New System.Drawing.Size(1293, 87)
         Me.pn_Header.TabIndex = 18
         '
         'lbl_UserName
@@ -851,7 +851,7 @@ Partial Class NewDashboard
         Me.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange
         Me.BackColor = System.Drawing.Color.YellowGreen
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1561, 788)
+        Me.ClientSize = New System.Drawing.Size(1552, 788)
         Me.Controls.Add(Me.pn_Main)
         Me.Controls.Add(Me.pn_Header)
         Me.Controls.Add(Me.pn_Sidebar)

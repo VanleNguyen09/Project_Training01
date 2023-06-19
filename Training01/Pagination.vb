@@ -1,5 +1,4 @@
 ﻿Imports Org.BouncyCastle.Math.EC
-
 Public Class Pagination
     Public Shared Sub PaginateDataGridView(dataGridView As DataGridView, currentPage As Integer)
         Dim pageSize As Integer = 10

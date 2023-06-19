@@ -1,10 +1,8 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.ComponentModel
+Imports System.Data.SqlClient
 Imports System.IO
-Imports System.Text
-Imports System.Web.UI.WebControls
 Imports iTextSharp.text
 Imports iTextSharp.text.pdf
-Imports iTextSharp.xmp.impl.xpath
 
 Public Class frm_Manager
     Private con As SqlConnection = New SqlConnection(Connection.ConnectSQL.GetConnectionString())
@@ -58,12 +56,16 @@ Public Class frm_Manager
         cb_EmpCreate.SelectedIndex = 0
         dgv_DeptManager.Columns("No").SortMode = DataGridViewColumnSortMode.NotSortable
         EnableAdd()
+        dgv_DeptManager.Rows.Clear()
+        LoadData()
         Select_Departments()
         Select_Employees()
-        LoadData()
     End Sub
 
-    Public Enum ManagerParameters
+    Private Sub frm_Manager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        dgv_DeptManager.ClearSelection()
+    End Sub
+    Private Enum ManagerParameters
         empId
         deptId
         fromDate
@@ -77,7 +79,6 @@ Public Class frm_Manager
         gbtn_Delete.Enabled = False
         gbtn_Reset.Enabled = False
     End Sub
-
     Private Sub DisableAdd()
         gbtn_Add.Enabled = False
         gbtn_Update.Enabled = True
@@ -106,7 +107,6 @@ Public Class frm_Manager
             Me.displayvalue = displayvalue
             Me.hiddenvalue = hiddenvalue
         End Sub
-
         Public Overrides Function tostring() As String
             Return displayvalue
         End Function
@@ -143,7 +143,7 @@ Public Class frm_Manager
             End Using
         End Using
     End Sub
-    Public Sub ShowEmployeeManager(ByVal No As Integer, ByVal reader As SqlDataReader)
+    Private Sub ShowEmployeeManager(ByVal No As Integer, ByVal reader As SqlDataReader)
         Dim id As Integer = Convert.ToInt32(reader("id").ToString())
         Dim name As String = reader("name").ToString()
         Dim phone As String = reader("phone").ToString()
@@ -161,7 +161,6 @@ Public Class frm_Manager
         Dim status As Integer = Convert.ToInt32(reader("status").ToString())
         dgv_DeptManager.Rows.Add(No, id, name, phone, birthdayFormat, address, email, department_name, fromDateFormat, toDateFormat, dept_id, status, deptmanager_id)
     End Sub
-
 
     Private Sub LoadData()
         If con.State() <> 1 Then
@@ -248,7 +247,7 @@ Public Class frm_Manager
         Return CheckManagerExit
     End Function
 
-    Private Function CheckManagerExitForUpdate(ByVal emp_id As Integer, ByVal dept_id As Integer, ByVal from_date As Date, ByVal to_date As Date) As Boolean
+    Private Function CheckManagerExitForUpdate(ByVal emp_id As Integer, ByVal dept_id As Integer, ByVal id As Integer) As Boolean
         CheckManagerExitForUpdate = False
         If con.State <> 1 Then
             con.Open()
@@ -258,8 +257,7 @@ Public Class frm_Manager
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@emp_id", emp_id)
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
-                cmd.Parameters.AddWithValue("@from_date", from_date)
-                cmd.Parameters.AddWithValue("@to_date", to_date)
+                cmd.Parameters.AddWithValue("@id", id)
                 cmd.ExecuteNonQuery()
 
                 Dim isExited As Integer = 0
@@ -343,6 +341,8 @@ Public Class frm_Manager
                     cmd.ExecuteNonQuery()
                     MessageBox.Show(Message.Message.managerAddSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
+                ClearForm()
+                LoadData()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -355,17 +355,19 @@ Public Class frm_Manager
         Dim status As Integer = 1
         Dim empId As Integer = CInt(values(ManagerParameters.empId))
         Dim deptId As Integer = CInt(values(ManagerParameters.deptId))
+        Dim id As Integer = CInt(values(ManagerParameters.deptManagerId))
         Dim fromDate As Date = Convert.ToDateTime(values(ManagerParameters.fromDate))
         Dim toDate As Date = Convert.ToDateTime(values(ManagerParameters.toDate))
 
+        Console.WriteLine(String.Format("{0}, {1}, {2}, {3}", empId, deptId, fromDate, toDate))
         If CheckEmpDeptExit(empId, deptId) Then
             MessageBox.Show(Message.Message.employeeExitedForDepartment, titleNotif, buttonOK, warmIcon)
             Exit Sub
-        ElseIf CheckManagerExitForUpdate(empId, deptId, fromDate, toDate) Then
+        ElseIf CheckManagerExitForUpdate(empId, deptId, id) Then
             MessageBox.Show(Message.Message.managerDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckManagerDateBigger(empId, deptId, fromDate, toDate) Then
-            MessageBox.Show("Date is smaller than date exist in system. Please try again!!!", titleNotif, buttonOK, warmIcon)
+            MessageBox.Show(Message.Message.dateSmallerValid, titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then
@@ -385,6 +387,9 @@ Public Class frm_Manager
                     cmd.ExecuteNonQuery()
                     MessageBox.Show(Message.Message.managerUpdateSuccess, titleSucces, buttonOK, infoIcon)
                 End Using
+                ClearForm()
+                LoadData()
+                EnableAdd()
             Catch ex As Exception
                 MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
             Finally
@@ -594,8 +599,6 @@ Public Class frm_Manager
         values.Add(ManagerParameters.toDate, to_date)
 
         Add_Manager(values)
-        ClearForm()
-        LoadData()
     End Sub
 
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
@@ -669,9 +672,6 @@ Public Class frm_Manager
         values.Add(ManagerParameters.deptManagerId, DeptmangerId)
 
         Update_Manager(values)
-        ClearForm()
-        LoadData()
-        EnableAdd()
     End Sub
 
     Private Sub gbtn_Reset_Click(sender As Object, e As EventArgs) Handles gbtn_Reset.Click
@@ -684,9 +684,6 @@ Public Class frm_Manager
         dtp_FromDate.Value = selectedManagers.from_date
         dtp_ToDate.Value = selectedManagers.to_date
         DeptmangerId = selectedManagers.deptmanager_id
-    End Sub
-    Private Sub frm_Manager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        dgv_DeptManager.ClearSelection()
     End Sub
 
     Private Sub txt_Search_TextChanged(sender As Object, e As EventArgs) Handles txt_Search.TextChanged
@@ -702,8 +699,7 @@ Public Class frm_Manager
             Return data
         End If
     End Function
-
-    Public Function ExportSalarySlipToPDF(ByVal tmpPath As String) As String
+    Private Function ExportSalarySlipToPDF(ByVal tmpPath As String) As String
         If con.State <> 1 Then
             con.Open()
         End If
@@ -715,7 +711,7 @@ Public Class frm_Manager
                 Using reader As SqlDataReader = cmd.ExecuteReader()
                     Dim document As New Document
 
-                    document.SetMargins(10, 10, 10, 10)
+                    document.SetMargins(10, 10, 40, 40)
                     Dim outputStream As New FileStream(tmpPath, FileMode.Create)
 
                     Dim writer As PdfWriter = PdfWriter.GetInstance(document, outputStream)
@@ -724,15 +720,14 @@ Public Class frm_Manager
 
                     Dim fontTitle As Font = FontFactory.GetFont("Arial", 18, FontStyle.Bold, BaseColor.RED)
                     Dim titleText As String = "Employee Salary Slip"
-                    Dim cellPaddingTop As Single = 5
 
                     Dim titleUpper As String = titleText.ToUpper()
 
                     Dim title As New Paragraph(titleUpper, fontTitle)
                     title.Alignment = Element.ALIGN_CENTER
+                    title.SpacingAfter = 30 ' Remove spacing after the title
 
                     document.Add(title)
-                    document.Add(Chunk.NEWLINE)
                     Dim pathFont = Application.StartupPath
 
                     pathFont = pathFont.Replace("\bin\Debug", String.Empty)
@@ -751,6 +746,7 @@ Public Class frm_Manager
                                    "Salary", "Department", "Position"}
                     Dim table As New PdfPTable(columnWidths.Length)
                     table.DefaultCell.Padding = 5
+                    table.SpacingBefore = 0 ' Remove spacing before the table
 
                     table.WidthPercentage = 100
                     table.SetWidths(columnWidths)
@@ -840,9 +836,9 @@ Public Class frm_Manager
 
     Private Sub gbtn_ExportPDF_Click(sender As Object, e As EventArgs) Handles gbtn_ExportPDF.Click
         Dim tempPath As String = ExportSalarySlipToPDF(tmpPath)
-        Dim previewPDF As New PDFViewer()
-        previewPDF.SetData(tempPath)
-        previewPDF.Show()
+        'Dim previewPDF As New PDFViewer()
+        PDFViewer.SetData(tempPath)
+        PDFViewer.Show()
     End Sub
 
     Private Sub UpdatePaginationPicBox()
@@ -876,10 +872,17 @@ Public Class frm_Manager
         End If
         UpdatePaginationPicBox()
     End Sub
-
-
     Private Sub dgv_DeptManager_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgv_DeptManager.ColumnHeaderMouseClick
-        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptManager, e.ColumnIndex, "No")
+        FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptManager, "No")
         Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
+    End Sub
+
+    Private Sub dgv_DeptManager_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgv_DeptManager.CellMouseEnter
+        If (e.ColumnIndex = 6 OrElse e.ColumnIndex = 7) AndAlso e.RowIndex >= 0 Then
+            ' Set the pointer type to hand when hovering the mouse over the cell 
+            dgv_DeptManager.Cursor = Cursors.Hand
+        Else
+            dgv_DeptManager.Cursor = Cursors.Default
+        End If
     End Sub
 End Class

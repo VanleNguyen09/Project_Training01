@@ -29,6 +29,66 @@ Public Class NewDashboard
     Dim titleConfỉrm As String = GlobalVariables.titleConfirm
     Dim titleInfo As String = GlobalVariables.titleInfo
 
+    Private selectedButton As Button
+
+    Public currentSelection As String = ""
+    Public Sub UpdateTitleLabel()
+        If String.IsNullOrEmpty(currentSelection) Then
+            lbl_Title.Text = initialLabel
+        Else
+            lbl_Title.Text = currentSelection
+        End If
+    End Sub
+
+    Public Sub LoadUserData()
+        If isLoggedIn Then
+            Dim email As String = loggedInUserEmail
+            Dim fullName As String = GetFullNameByEmail(email)
+
+            If Not String.IsNullOrEmpty(fullName) Then
+                lbl_UserName.Text = fullName
+            End If
+            'Else
+            '    MessageBox.Show("Please login to access dashboard page!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            '    Me.Hide()
+            '    Dim login As New Login
+            '    login.ShowDialog()
+        End If
+    End Sub
+    Public Sub ShowFormInMainPanel(ByVal formToShow As Form)
+        If currentForm IsNot formToShow Then
+            ' Close currentForm
+            If currentForm IsNot Nothing Then
+                currentForm.Close()
+            End If
+
+            ' Display formToShow in pn_Main
+            formToShow.TopLevel = False
+            formToShow.TopMost = True
+            formToShow.FormBorderStyle = FormBorderStyle.None
+            formToShow.Dock = DockStyle.Fill
+            formToShow.AutoScroll = True
+            pn_Main.Controls.Clear()
+            pn_Main.Controls.Add(formToShow)
+            formToShow.Show()
+            Console.WriteLine(formToShow)
+
+            ' Update curentForm
+            currentForm = formToShow
+        End If
+    End Sub
+    Public Sub ChangeButtonColor(ByVal button As Button, ByVal backColor As Color, ByVal foreColor As Color)
+        button.BackColor = backColor
+        button.ForeColor = foreColor
+    End Sub
+    Public Sub ResetButtonColors(ByVal clickedButton As Button)
+        For Each btn As Button In pn_Sidebar.Controls.OfType(Of Button)()
+            If btn IsNot clickedButton Then
+                btn.BackColor = SystemColors.Control
+                btn.ForeColor = SystemColors.ControlText
+            End If
+        Next
+    End Sub
     Private Sub EnableDoubleBuffering(panel As Panel)
         Dim doubleBufferedProperty = GetType(Control).GetProperty("DoubleBuffered", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic)
         doubleBufferedProperty.SetValue(panel, True, Nothing)
@@ -58,18 +118,6 @@ Public Class NewDashboard
     Private Sub NewDashboard_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         LoadUserData()
     End Sub
-
-    Private selectedButton As Button
-
-    Public currentSelection As String = ""
-    Public Sub UpdateTitleLabel()
-        If String.IsNullOrEmpty(currentSelection) Then
-            lbl_Title.Text = initialLabel
-        Else
-            lbl_Title.Text = currentSelection
-        End If
-    End Sub
-
     Private Sub SetActiveButton(ByVal button As Button)
         ChangeButtonColor(button, Color.LightSalmon, Color.LavenderBlush)
         ' Check if has button item selected
@@ -81,23 +129,6 @@ Public Class NewDashboard
 
         selectedButton = button
     End Sub
-
-    Public Sub LoadUserData()
-        If isLoggedIn Then
-            Dim email As String = loggedInUserEmail
-            Dim fullName As String = GetFullNameByEmail(email)
-
-            If Not String.IsNullOrEmpty(fullName) Then
-                lbl_UserName.Text = fullName
-            End If
-        Else
-            MessageBox.Show("Please login to access dashboard page!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Me.Hide()
-            Dim login As New Login
-            login.ShowDialog()
-        End If
-    End Sub
-
     Private Sub CountTotalEmployees()
         If con.State <> 1 Then
             con.Open()
@@ -112,7 +143,6 @@ Public Class NewDashboard
             End Using
         End Using
     End Sub
-
     Private Sub CountTotalDepartments()
         If con.State <> 1 Then
             con.Open()
@@ -140,8 +170,6 @@ Public Class NewDashboard
             End Using
         End Using
     End Sub
-
-
     Private Sub CountTotalPositions()
         If con.State <> 1 Then
             con.Open()
@@ -169,8 +197,6 @@ Public Class NewDashboard
             End Using
         End Using
     End Sub
-
-
     Private Sub CountTotalSalaries()
         If con.State <> 1 Then
             con.Open()
@@ -223,7 +249,6 @@ Public Class NewDashboard
             End Using
         End Using
     End Sub
-
     Private Sub MaxDeptManager()
         If con.State <> 1 Then
             con.Open()
@@ -403,7 +428,6 @@ Public Class NewDashboard
         UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
-
     Private Sub btn_Salary_Click(sender As Object, e As EventArgs) Handles btn_Salary.Click
         ShowFormInMainPanel(SalaryEmp)
         Dim clickedButton As Button = CType(sender, Button)
@@ -412,7 +436,6 @@ Public Class NewDashboard
         UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
-
     Private Sub btn_Leave_Click(sender As Object, e As EventArgs) Handles btn_Leave.Click
         ShowFormInMainPanel(My.Forms.Leave)
         Dim clickedButton As Button = CType(sender, Button)
@@ -421,8 +444,6 @@ Public Class NewDashboard
         UpdateTitleLabel()
         ResetButtonColors(clickedButton)
     End Sub
-
-
     Private Sub btn_Signout_Click(sender As Object, e As EventArgs) Handles btn_Signout.Click
         Dim clickedButton As Button = CType(sender, Button)
         ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)

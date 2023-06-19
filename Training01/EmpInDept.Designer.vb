@@ -243,7 +243,7 @@ Partial Class frm_EmpInDept
         Me.dgv_DeptEmp.RowHeadersWidth = 51
         Me.dgv_DeptEmp.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgv_DeptEmp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_DeptEmp.Size = New System.Drawing.Size(1242, 295)
+        Me.dgv_DeptEmp.Size = New System.Drawing.Size(1240, 297)
         Me.dgv_DeptEmp.TabIndex = 89
         '
         'lbl_titleManager
@@ -511,12 +511,14 @@ Partial Class frm_EmpInDept
         Me.phone.HeaderText = "PHONE"
         Me.phone.MinimumWidth = 6
         Me.phone.Name = "phone"
+        Me.phone.Width = 95
         '
         'birthday
         '
         Me.birthday.HeaderText = "BIRTHDAY"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
+        Me.birthday.Width = 105
         '
         'address
         '
@@ -537,18 +539,21 @@ Partial Class frm_EmpInDept
         Me.department_name.HeaderText = "Department"
         Me.department_name.MinimumWidth = 6
         Me.department_name.Name = "department_name"
+        Me.department_name.Width = 95
         '
         'from_date
         '
         Me.from_date.HeaderText = "From Date"
         Me.from_date.MinimumWidth = 6
         Me.from_date.Name = "from_date"
+        Me.from_date.Width = 105
         '
         'to_date
         '
         Me.to_date.HeaderText = "To Date"
         Me.to_date.MinimumWidth = 6
         Me.to_date.Name = "to_date"
+        Me.to_date.Width = 105
         '
         'dept_id
         '

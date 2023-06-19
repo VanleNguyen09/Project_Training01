@@ -9,7 +9,7 @@ CREATE OR ALTER PROCEDURE DeleteManagerInDepartment
 	@dept_id INT
 AS
 BEGIN
-	UPDATE Dept_manager
+	UPDATE dbo.Dept_manager
 	SET status = 0
 	WHERE emp_id = @emp_id AND dept_id = @dept_id
 	 

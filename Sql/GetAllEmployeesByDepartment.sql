@@ -14,25 +14,8 @@ BEGIN
 	JOIN dbo.Department c
 	ON c.id = b.dept_id
 	WHERE b.status = 1 AND b.from_date IS NOT NULL AND b.to_date IS NOT NULL
-	ORDER BY b.id ASC
+	ORDER BY b.id DESC
 END
 GO
 
 EXEC dbo.GetAllEmployeesByDepartment
-
---SELECT a.*,  b.name AS Dept_name, c.name AS Emp_name   
---FROM dbo.Dept_emp a
---JOIN dbo.Department b
---ON a.dept_id = b.id
---JOIN dbo.Employees c
---ON a.emp_id = c.id
---WHERE a.emp_id = 78 AND a.dept_id = 61	
-
-
---SELECT a.*,  b.name AS Dept_name, c.name AS Emp_name   
---FROM dbo.Dept_manager a
---JOIN dbo.Department b
---ON a.dept_id = b.id
---JOIN dbo.Employees c
---ON a.emp_id = c.id
---WHERE a.emp_id = 78 AND a.dept_id = 61

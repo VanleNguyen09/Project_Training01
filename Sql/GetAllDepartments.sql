@@ -1,3 +1,4 @@
+
 SET ANSI_NULLS ON
 GO
 USE [EmployeeManagement]
@@ -12,7 +13,6 @@ AS
 BEGIN
 	SELECT * FROM dbo.Department
 	WHERE status = 1
-	ORDER BY id
+	ORDER BY id DESC
 END
 GO
-
