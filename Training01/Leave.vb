@@ -1,5 +1,4 @@
-﻿Imports System.ComponentModel
-Imports System.Data.SqlClient
+﻿Imports System.Data.SqlClient
 Imports Page = FuntionCommon.Pagination
 
 Public Class Leave
