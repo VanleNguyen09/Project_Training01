@@ -15,7 +15,7 @@ Public Class EditSalaryForm
         End If
         txtId.Text = TempData(0)
         txtName.Text = TempData(1)
-        txtSalary.Text = TempData(2)
+        txtSalary.Text = String.Format("{0:N2}", TempData(2))
         CustomElements.MovingForm(Me)
     End Sub
 
@@ -37,7 +37,7 @@ Public Class EditSalaryForm
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Dim salaryName = txtName.Text
-        Dim salary = txtSalary.Text
+        Dim salary = txtSalary.Text.Replace(",", "")
 
         If salaryName = String.Empty Then
             MessageBox.Show(Message.Message.emptyErrorMessage, Message.Title.error, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -107,6 +107,26 @@ Public Class EditSalaryForm
         If e.KeyChar = Convert.ToChar(Keys.Enter) Then
             btnSave.PerformClick()
         End If
+
+        ' Input number and dot
+        If (Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) AndAlso e.KeyChar <> "."c AndAlso e.KeyChar <> ","c) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtSalary_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtSalary.Validating
+        ' Check number in textbox
+        Dim number As Decimal
+        Dim txt = txtSalary.Text.Replace(",", "")
+
+        If (Not Decimal.TryParse(txt, number)) Then
+            MessageBox.Show(Message.Message.errorNumberType)
+            txtSalary.Text = String.Format("{0:N2}", TempData(2))
+            e.Cancel = True
+        Else
+            ' Format input
+            txtSalary.Text = String.Format("{0:N2}", number)
+        End If
     End Sub
 #End Region
 
@@ -123,4 +143,5 @@ Public Class EditSalaryForm
         End If
     End Sub
 #End Region
+
 End Class

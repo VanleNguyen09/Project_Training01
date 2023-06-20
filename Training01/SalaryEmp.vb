@@ -226,13 +226,14 @@ Public Class SalaryEmp
 
         ' Reset color of DGV Salaries when click other row in DGV Emps
         ' And check value of salary_id column in dgvSalaries
-        For Each salaryRow In dgvSalaries.Rows
-            salaryRow.DefaultCellStyle.BackColor = dgvSalaries.DefaultCellStyle.BackColor
-            salaryRow.Selected = False 'Check when nothing change
+        For i As Integer = 0 To dgvSalaries.Rows.Count - 1
+            dgvSalaries.Rows(i).DefaultCellStyle.BackColor = dgvSalaries.DefaultCellStyle.BackColor
+            dgvSalaries.Rows(i).Selected = False 'Check when nothing change
 
             'compare salary_id
-            If checkVariable And salaryRow.Cells("salary_id").Value = salaryId Then
-                salaryRow.Selected = True
+            If checkVariable And dgvSalaries.Rows(i).Cells("salary_id").Value = salaryId Then
+                dgvSalaries.Rows(i).Selected = True
+                dgvSalaries.FirstDisplayedScrollingRowIndex = i
             End If
         Next
     End Sub
@@ -359,8 +360,8 @@ Public Class SalaryEmp
                 con.Open()
             End If
 
-            Dim sql = "SELECT ROW_NUMBER() OVER(ORDER BY e.id) AS stt, e.id, e.name, e.phone, e.birthday, e.email, s.salary_name, s.salary FROM Employees e 
-                        LEFT JOIN SalaryEmp s ON s.id = e.salary_emp_id AND s.status = 1 
+            Dim sql = "SELECT ROW_NUMBER() OVER(ORDER BY e.id) AS stt, e.id, e.name, e.phone, CONVERT(date, e.birthday) AS birthday, e.email, s.salary_name, s.salary FROM Employees AS e 
+                        LEFT JOIN SalaryEmp AS s ON s.id = e.salary_emp_id AND s.status = 1 
                         WHERE e.status = 1"
             Using cmd As SqlCommand = New SqlCommand(sql, con)
                 cmd.CommandType = CommandType.Text
@@ -374,11 +375,6 @@ Public Class SalaryEmp
         Finally
             con.Close()
         End Try
-
-        ' Get "birthday" date
-        For i As Integer = 0 To data.Rows.Count - 1
-            data.Rows(i)("birthday") = data.Rows(i)("birthday").ToString().Split(" ")(0)
-        Next
 
         Dim excelPreview As New ExcelPreviewForm
         excelPreview.Datas = data
@@ -408,6 +404,10 @@ Public Class SalaryEmp
     End Sub
 
     Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+
         Dim totalPages = Math.Ceiling(EmpsDatas.Rows.Count / RowsPerPage)
         Page.PressEnterKeyTxtCurrentPage(txtCurrentPage, CurrentPage, totalPages, e.KeyChar, Sub() LoadDGVEmps())
     End Sub
@@ -429,6 +429,17 @@ Public Class SalaryEmp
         dgvEmps.CurrentCell = dgvEmps.Rows(selectedRowIndexInDGVEmps).Cells(0)
         dgvEmps_SelectionChanged(sender, e)
     End Sub
+
+    Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
+        Dim form As New ImportExcelPreview
+        form.CallBack = Sub()
+                            MessageBox.Show(Message.Message.successfully, Message.Title.success)
+                            LoadEmpsDatas()
+                            LoadDGVEmps()
+                            LoadDGVSalaryEmpAsync()
+                        End Sub
+        form.Show()
+    End Sub
 #End Region
 
 #Region "FUNCTIONS"
@@ -442,7 +453,7 @@ Public Class SalaryEmp
                 con.Open()
             End If
 
-            Dim sql = "SELECT ROW_NUMBER() OVER (ORDER BY id) as stt, id, name, birthday, salary_emp_id 
+            Dim sql = "SELECT ROW_NUMBER() OVER (ORDER BY id) as stt, id, name, CAST(birthday AS date) AS birthday, salary_emp_id 
                         FROM Employees
 	                    WHERE status = 1 
 	                    AND (name LIKE '%' + @words + '%' 
@@ -474,13 +485,18 @@ Public Class SalaryEmp
 
         Dim pagingDatas = Page.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, EmpsDatas)
         dgvEmps.Rows.Clear()
+        Dim stt As String
+        Dim id As String
+        Dim name As String
+        Dim birthday As String
+        Dim salaryEmpId As String
 
         For i As Integer = 0 To pagingDatas.Rows.Count - 1
-            Dim stt = pagingDatas.Rows(i)("stt").ToString()
-            Dim id = pagingDatas.Rows(i)("id").ToString()
-            Dim name = pagingDatas.Rows(i)("name").ToString()
-            Dim birthday = pagingDatas.Rows(i)("birthday").ToString().Split(" ")(0) 'Only get date
-            Dim salaryEmpId = If(pagingDatas.Rows(i)("salary_emp_id") Is DBNull.Value, -1, pagingDatas.Rows(i)("salary_emp_id"))
+            stt = pagingDatas.Rows(i)("stt").ToString()
+            id = pagingDatas.Rows(i)("id").ToString()
+            name = pagingDatas.Rows(i)("name").ToString()
+            birthday = pagingDatas.Rows(i)("birthday")
+            salaryEmpId = If(pagingDatas.Rows(i)("salary_emp_id") Is DBNull.Value, -1, pagingDatas.Rows(i)("salary_emp_id"))
 
             dgvEmps.Rows.Add(New String() {stt, id, name, birthday, salaryEmpId})
         Next
@@ -515,7 +531,7 @@ Public Class SalaryEmp
                 While reader.Read
                     dgvSalaries.Rows.Add({reader("stt").ToString(), reader("salary_id").ToString(),
                                          reader("salary_name").ToString(), reader("salary").ToString(),
-                                         reader("salary").ToString()})
+                                         reader("salary")})
                 End While
 
                 'Remove selected cell
@@ -544,5 +560,4 @@ Public Class SalaryEmp
         FuntionCommon.AsyncLoad.AsyncLoadDGV(dgvSalaries, Sub() Load_DGV_SalaryEmp())
     End Sub
 #End Region
-
 End Class

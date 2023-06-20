@@ -26,6 +26,15 @@ Partial Class EmpByPos
         Me.cbSearch = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dgvEmpByPos = New System.Windows.Forms.DataGridView()
+        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pos_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.selectionBtn = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.grb_create = New System.Windows.Forms.GroupBox()
         Me.btnAdd = New Guna.UI2.WinForms.Guna2Button()
         Me.cbEmpCreate = New System.Windows.Forms.ComboBox()
@@ -41,14 +50,6 @@ Partial Class EmpByPos
         Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.txtTotalPage = New Guna.UI2.WinForms.Guna2TextBox()
         Me.progressBar = New Guna.UI2.WinForms.Guna2CircleProgressBar()
-        Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.phone = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.pos_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.pos_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvEmpByPos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_create.SuspendLayout()
         CType(Me.closeApp, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -96,13 +97,82 @@ Partial Class EmpByPos
         '
         Me.dgvEmpByPos.AllowUserToAddRows = False
         Me.dgvEmpByPos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvEmpByPos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.stt, Me.id, Me.emp_name, Me.phone, Me.email, Me.birthday, Me.pos_name, Me.pos_id})
+        Me.dgvEmpByPos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.stt, Me.id, Me.emp_name, Me.phone, Me.email, Me.birthday, Me.pos_name, Me.pos_id, Me.selectionBtn})
         Me.dgvEmpByPos.Location = New System.Drawing.Point(24, 126)
         Me.dgvEmpByPos.Name = "dgvEmpByPos"
         Me.dgvEmpByPos.RowHeadersVisible = False
         Me.dgvEmpByPos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvEmpByPos.Size = New System.Drawing.Size(594, 246)
         Me.dgvEmpByPos.TabIndex = 3
+        '
+        'stt
+        '
+        Me.stt.HeaderText = "NO"
+        Me.stt.Name = "stt"
+        Me.stt.ReadOnly = True
+        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.stt.Width = 40
+        '
+        'id
+        '
+        Me.id.HeaderText = "ID"
+        Me.id.Name = "id"
+        Me.id.ReadOnly = True
+        Me.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.id.Visible = False
+        Me.id.Width = 70
+        '
+        'emp_name
+        '
+        Me.emp_name.HeaderText = "NAME"
+        Me.emp_name.Name = "emp_name"
+        Me.emp_name.ReadOnly = True
+        Me.emp_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        '
+        'phone
+        '
+        Me.phone.HeaderText = "PHONE"
+        Me.phone.Name = "phone"
+        Me.phone.ReadOnly = True
+        Me.phone.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.phone.Width = 110
+        '
+        'email
+        '
+        Me.email.HeaderText = "EMAIL"
+        Me.email.Name = "email"
+        Me.email.ReadOnly = True
+        Me.email.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.email.Width = 140
+        '
+        'birthday
+        '
+        Me.birthday.HeaderText = "BIRTHDAY"
+        Me.birthday.Name = "birthday"
+        Me.birthday.ReadOnly = True
+        Me.birthday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        '
+        'pos_name
+        '
+        Me.pos_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.pos_name.HeaderText = "POSITION"
+        Me.pos_name.Name = "pos_name"
+        Me.pos_name.ReadOnly = True
+        Me.pos_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        '
+        'pos_id
+        '
+        Me.pos_id.HeaderText = "PositionId"
+        Me.pos_id.Name = "pos_id"
+        Me.pos_id.ReadOnly = True
+        Me.pos_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.pos_id.Visible = False
+        '
+        'selectionBtn
+        '
+        Me.selectionBtn.HeaderText = ""
+        Me.selectionBtn.Name = "selectionBtn"
+        Me.selectionBtn.Width = 20
         '
         'grb_create
         '
@@ -339,69 +409,6 @@ Partial Class EmpByPos
         Me.progressBar.Text = "Guna2CircleProgressBar1"
         Me.progressBar.Visible = False
         '
-        'stt
-        '
-        Me.stt.HeaderText = "NO"
-        Me.stt.Name = "stt"
-        Me.stt.ReadOnly = True
-        Me.stt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.stt.Width = 40
-        '
-        'id
-        '
-        Me.id.HeaderText = "ID"
-        Me.id.Name = "id"
-        Me.id.ReadOnly = True
-        Me.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.id.Visible = False
-        Me.id.Width = 70
-        '
-        'emp_name
-        '
-        Me.emp_name.HeaderText = "NAME"
-        Me.emp_name.Name = "emp_name"
-        Me.emp_name.ReadOnly = True
-        Me.emp_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        '
-        'phone
-        '
-        Me.phone.HeaderText = "PHONE"
-        Me.phone.Name = "phone"
-        Me.phone.ReadOnly = True
-        Me.phone.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        Me.phone.Width = 110
-        '
-        'email
-        '
-        Me.email.HeaderText = "EMAIL"
-        Me.email.Name = "email"
-        Me.email.ReadOnly = True
-        Me.email.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        Me.email.Width = 140
-        '
-        'birthday
-        '
-        Me.birthday.HeaderText = "BIRTHDAY"
-        Me.birthday.Name = "birthday"
-        Me.birthday.ReadOnly = True
-        Me.birthday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        '
-        'pos_name
-        '
-        Me.pos_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.pos_name.HeaderText = "POSITION"
-        Me.pos_name.Name = "pos_name"
-        Me.pos_name.ReadOnly = True
-        Me.pos_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        '
-        'pos_id
-        '
-        Me.pos_id.HeaderText = "PositionId"
-        Me.pos_id.Name = "pos_id"
-        Me.pos_id.ReadOnly = True
-        Me.pos_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        Me.pos_id.Visible = False
-        '
         'EmpByPos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -464,4 +471,5 @@ Partial Class EmpByPos
     Friend WithEvents birthday As DataGridViewTextBoxColumn
     Friend WithEvents pos_name As DataGridViewTextBoxColumn
     Friend WithEvents pos_id As DataGridViewTextBoxColumn
+    Friend WithEvents selectionBtn As DataGridViewCheckBoxColumn
 End Class

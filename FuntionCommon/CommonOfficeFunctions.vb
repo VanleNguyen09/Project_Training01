@@ -1,8 +1,28 @@
 ﻿Imports Excel = Microsoft.Office.Interop.Excel
 Imports System.Windows.Forms
 Imports System.IO
+Imports System.Data.OleDb
 
 Public Class CommonOfficeFunctions
+    Public Shared Function ImportFromExcel() As DataTable
+        Dim dt As New DataTable()
+
+        Dim openFileDialog1 As New OpenFileDialog()
+        openFileDialog1.Filter = "Excel Files|*.xlsx;*.xls;*.xlsm"
+        openFileDialog1.Title = "Select an Excel File"
+        openFileDialog1.Multiselect = False
+
+        If openFileDialog1.ShowDialog() = DialogResult.OK Then
+            Dim connString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & openFileDialog1.FileName & ";Extended Properties='Excel 12.0 Xml;HDR=YES;'"
+            Dim conn As New OleDbConnection(connString)
+            conn.Open()
+            Dim cmd As New OleDbCommand("SELECT * FROM [Sheet1$]", conn)
+            Dim adapter As New OleDbDataAdapter(cmd)
+            adapter.Fill(dt)
+            conn.Close()
+        End If
+        Return dt
+    End Function
     Public Shared Sub ExportToExcel(ByVal data As DataTable, Optional ByVal callback As Action(Of String) = Nothing)
         ' Create Excel Object
         Dim excelApp As New Excel.Application()

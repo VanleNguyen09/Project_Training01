@@ -22,7 +22,7 @@ Partial Class Position
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvPositions = New System.Windows.Forms.DataGridView()
         Me.txtSearch = New System.Windows.Forms.TextBox()
@@ -65,6 +65,7 @@ Partial Class Position
         Me.dgvPositions.Name = "dgvPositions"
         Me.dgvPositions.RowHeadersVisible = False
         Me.dgvPositions.RowTemplate.Height = 30
+        Me.dgvPositions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvPositions.Size = New System.Drawing.Size(414, 226)
         Me.dgvPositions.TabIndex = 2
         '
@@ -183,14 +184,14 @@ Partial Class Position
         '
         Me.pos_name.HeaderText = "Name"
         Me.pos_name.Name = "pos_name"
-        Me.pos_name.Width = 140
+        Me.pos_name.Width = 110
         '
         'emp_num
         '
         Me.emp_num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        DataGridViewCellStyle1.Format = "N0"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.emp_num.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Format = "N0"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.emp_num.DefaultCellStyle = DataGridViewCellStyle2
         Me.emp_num.HeaderText = "Number of People"
         Me.emp_num.Name = "emp_num"
         Me.emp_num.ReadOnly = True

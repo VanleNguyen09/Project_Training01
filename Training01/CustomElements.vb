@@ -1,6 +1,4 @@
-﻿Imports Org.BouncyCastle.Asn1.X509
-
-Public Class CustomElements
+﻿Public Class CustomElements
 
     ''' <summary>
     ''' Add Sorted DGV Events and Prevent sort no column
