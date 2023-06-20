@@ -40,29 +40,27 @@ Public Class PDFViewer
     End Sub
     Private Sub SavePDFPreview()
         Dim folderPath As String = ""
-        Using dialog As New FolderBrowserDialog()
-            If dialog.ShowDialog() = DialogResult.OK Then
-                ' Get the path to the selected folder.
-                folderPath = dialog.SelectedPath
+        Dim dialog As New FolderBrowserDialog()
+        If dialog.ShowDialog() = DialogResult.OK Then
+            ' Get the path to the selected folder.
+            folderPath = dialog.SelectedPath
 
-                Using saveDialog As New SaveFileDialog()
-                    saveDialog.InitialDirectory = folderPath
-                    saveDialog.Filter = "PDF files (*.pdf)|*.pdf"
-                    If saveDialog.ShowDialog() = DialogResult.OK Then
-                        ' Get the path to the created file.
-                        Dim filePath As String = saveDialog.FileName
-                        ' Move tempPath to filePath to show in folder
-                        File.Move(tempPath, filePath)
-                        Dim result As DialogResult = MessageBox.Show("File saved successfully. Do you want to open it now?", "Open PDF File", buttonYesNo, infoIcon)
-                        If result = DialogResult.Yes Then
-                            Process.Start(filePath)
-                        Else
-                            MessageBox.Show("Show PDF has been canceled!!!", titleNotif, buttonOK, infoIcon)
-                        End If
-                    End If
-                End Using
+            Dim saveDialog As New SaveFileDialog()
+            saveDialog.InitialDirectory = folderPath
+            saveDialog.Filter = "PDF files (*.pdf)|*.pdf"
+            If saveDialog.ShowDialog() = DialogResult.OK Then
+                ' Get the path to the created file.
+                Dim filePath As String = saveDialog.FileName
+                ' Move tempPath to filePath to show in folder
+                File.Move(tempPath, filePath)
+                Dim result As DialogResult = MessageBox.Show("File saved successfully. Do you want to open it now?", "Open PDF File", buttonYesNo, infoIcon)
+                If result = DialogResult.Yes Then
+                    Process.Start(filePath)
+                Else
+                    MessageBox.Show("Show PDF has been canceled!!!", titleNotif, buttonOK, infoIcon)
+                End If
             End If
-        End Using
+        End If
     End Sub
 
     Private Sub gbtn_OK_Click(sender As Object, e As EventArgs) Handles gbtn_OK.Click

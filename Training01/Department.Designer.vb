@@ -22,22 +22,14 @@ Partial Class frm_Department
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.lbl_TitleDepartment = New System.Windows.Forms.Label()
         Me.txt_Name = New System.Windows.Forms.TextBox()
         Me.lbl_Name = New System.Windows.Forms.Label()
         Me.dgrv_Department = New System.Windows.Forms.DataGridView()
-        Me.No = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.department_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Number_Emp = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Number_Manager = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lbl_Search = New System.Windows.Forms.Label()
         Me.txt_Search = New System.Windows.Forms.TextBox()
-        Me.lbl_DepartmentID = New System.Windows.Forms.Label()
-        Me.txt_DepartmentID = New System.Windows.Forms.TextBox()
         Me.gbtn_Add = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.gbtn_Update = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.gbtn_Delete = New Guna.UI2.WinForms.Guna2GradientButton()
@@ -47,6 +39,13 @@ Partial Class frm_Department
         Me.ptb_Next = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.ptb_Previous = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.lbl_Page = New System.Windows.Forms.Label()
+        Me.ckb_Delete = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.Number_Manager = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Number_Emp = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.department_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.department_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.No = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgrv_Department, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -58,17 +57,18 @@ Partial Class frm_Department
         Me.lbl_TitleDepartment.BackColor = System.Drawing.Color.Transparent
         Me.lbl_TitleDepartment.Font = New System.Drawing.Font("Times New Roman", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_TitleDepartment.ForeColor = System.Drawing.Color.Linen
-        Me.lbl_TitleDepartment.Location = New System.Drawing.Point(287, 18)
+        Me.lbl_TitleDepartment.Location = New System.Drawing.Point(371, 9)
         Me.lbl_TitleDepartment.Name = "lbl_TitleDepartment"
         Me.lbl_TitleDepartment.Size = New System.Drawing.Size(404, 45)
         Me.lbl_TitleDepartment.TabIndex = 26
         Me.lbl_TitleDepartment.Text = "DEPARTMENT LIST"
+        Me.lbl_TitleDepartment.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'txt_Name
         '
         Me.txt_Name.AllowDrop = True
         Me.txt_Name.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Name.Location = New System.Drawing.Point(207, 138)
+        Me.txt_Name.Location = New System.Drawing.Point(207, 71)
         Me.txt_Name.Name = "txt_Name"
         Me.txt_Name.Size = New System.Drawing.Size(190, 30)
         Me.txt_Name.TabIndex = 32
@@ -79,7 +79,7 @@ Partial Class frm_Department
         Me.lbl_Name.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Name.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Name.ForeColor = System.Drawing.Color.Linen
-        Me.lbl_Name.Location = New System.Drawing.Point(44, 138)
+        Me.lbl_Name.Location = New System.Drawing.Point(44, 71)
         Me.lbl_Name.Name = "lbl_Name"
         Me.lbl_Name.Size = New System.Drawing.Size(66, 23)
         Me.lbl_Name.TabIndex = 33
@@ -91,7 +91,7 @@ Partial Class frm_Department
         Me.dgrv_Department.AllowUserToOrderColumns = True
         Me.dgrv_Department.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgrv_Department.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgrv_Department.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.No, Me.department_id, Me.department_name, Me.status, Me.Number_Emp, Me.Number_Manager})
+        Me.dgrv_Department.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.No, Me.department_id, Me.department_name, Me.status, Me.Number_Emp, Me.Number_Manager, Me.ckb_Delete})
         Me.dgrv_Department.Location = New System.Drawing.Point(444, 71)
         Me.dgrv_Department.Name = "dgrv_Department"
         Me.dgrv_Department.RowHeadersVisible = False
@@ -99,58 +99,8 @@ Partial Class frm_Department
         Me.dgrv_Department.RowTemplate.Height = 24
         Me.dgrv_Department.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgrv_Department.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgrv_Department.Size = New System.Drawing.Size(655, 322)
+        Me.dgrv_Department.Size = New System.Drawing.Size(720, 322)
         Me.dgrv_Department.TabIndex = 52
-        '
-        'No
-        '
-        Me.No.HeaderText = "NO"
-        Me.No.MinimumWidth = 6
-        Me.No.Name = "No"
-        Me.No.ReadOnly = True
-        Me.No.Width = 70
-        '
-        'department_id
-        '
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.department_id.DefaultCellStyle = DataGridViewCellStyle3
-        Me.department_id.HeaderText = "DepartmentID"
-        Me.department_id.MinimumWidth = 6
-        Me.department_id.Name = "department_id"
-        Me.department_id.ReadOnly = True
-        Me.department_id.Visible = False
-        Me.department_id.Width = 125
-        '
-        'department_name
-        '
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.department_name.DefaultCellStyle = DataGridViewCellStyle4
-        Me.department_name.HeaderText = "Department Name"
-        Me.department_name.MinimumWidth = 6
-        Me.department_name.Name = "department_name"
-        Me.department_name.Width = 180
-        '
-        'status
-        '
-        Me.status.HeaderText = "Status"
-        Me.status.MinimumWidth = 6
-        Me.status.Name = "status"
-        Me.status.Visible = False
-        Me.status.Width = 125
-        '
-        'Number_Emp
-        '
-        Me.Number_Emp.HeaderText = "Number Emp"
-        Me.Number_Emp.MinimumWidth = 6
-        Me.Number_Emp.Name = "Number_Emp"
-        Me.Number_Emp.Width = 125
-        '
-        'Number_Manager
-        '
-        Me.Number_Manager.HeaderText = "Number Manager"
-        Me.Number_Manager.MinimumWidth = 6
-        Me.Number_Manager.Name = "Number_Manager"
-        Me.Number_Manager.Width = 150
         '
         'lbl_Search
         '
@@ -158,7 +108,7 @@ Partial Class frm_Department
         Me.lbl_Search.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Search.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Search.ForeColor = System.Drawing.Color.Linen
-        Me.lbl_Search.Location = New System.Drawing.Point(44, 334)
+        Me.lbl_Search.Location = New System.Drawing.Point(44, 316)
         Me.lbl_Search.Name = "lbl_Search"
         Me.lbl_Search.Size = New System.Drawing.Size(75, 23)
         Me.lbl_Search.TabIndex = 70
@@ -167,31 +117,10 @@ Partial Class frm_Department
         'txt_Search
         '
         Me.txt_Search.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Search.Location = New System.Drawing.Point(153, 334)
+        Me.txt_Search.Location = New System.Drawing.Point(153, 316)
         Me.txt_Search.Name = "txt_Search"
         Me.txt_Search.Size = New System.Drawing.Size(244, 30)
         Me.txt_Search.TabIndex = 69
-        '
-        'lbl_DepartmentID
-        '
-        Me.lbl_DepartmentID.AutoSize = True
-        Me.lbl_DepartmentID.BackColor = System.Drawing.Color.Transparent
-        Me.lbl_DepartmentID.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_DepartmentID.ForeColor = System.Drawing.Color.Linen
-        Me.lbl_DepartmentID.Location = New System.Drawing.Point(44, 89)
-        Me.lbl_DepartmentID.Name = "lbl_DepartmentID"
-        Me.lbl_DepartmentID.Size = New System.Drawing.Size(144, 23)
-        Me.lbl_DepartmentID.TabIndex = 73
-        Me.lbl_DepartmentID.Text = "Department ID:"
-        '
-        'txt_DepartmentID
-        '
-        Me.txt_DepartmentID.AllowDrop = True
-        Me.txt_DepartmentID.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_DepartmentID.Location = New System.Drawing.Point(207, 89)
-        Me.txt_DepartmentID.Name = "txt_DepartmentID"
-        Me.txt_DepartmentID.Size = New System.Drawing.Size(190, 30)
-        Me.txt_DepartmentID.TabIndex = 72
         '
         'gbtn_Add
         '
@@ -209,7 +138,7 @@ Partial Class frm_Department
         Me.gbtn_Add.FillColor2 = System.Drawing.Color.LightGoldenrodYellow
         Me.gbtn_Add.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Add.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Add.Location = New System.Drawing.Point(40, 198)
+        Me.gbtn_Add.Location = New System.Drawing.Point(40, 180)
         Me.gbtn_Add.Name = "gbtn_Add"
         Me.gbtn_Add.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Add.Size = New System.Drawing.Size(88, 45)
@@ -232,7 +161,7 @@ Partial Class frm_Department
         Me.gbtn_Update.FillColor2 = System.Drawing.Color.LightGoldenrodYellow
         Me.gbtn_Update.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Update.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Update.Location = New System.Drawing.Point(153, 198)
+        Me.gbtn_Update.Location = New System.Drawing.Point(153, 180)
         Me.gbtn_Update.Name = "gbtn_Update"
         Me.gbtn_Update.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Update.Size = New System.Drawing.Size(116, 45)
@@ -255,7 +184,7 @@ Partial Class frm_Department
         Me.gbtn_Delete.FillColor2 = System.Drawing.Color.LightGoldenrodYellow
         Me.gbtn_Delete.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Delete.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Delete.Location = New System.Drawing.Point(294, 198)
+        Me.gbtn_Delete.Location = New System.Drawing.Point(294, 180)
         Me.gbtn_Delete.Name = "gbtn_Delete"
         Me.gbtn_Delete.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Delete.Size = New System.Drawing.Size(103, 45)
@@ -278,7 +207,7 @@ Partial Class frm_Department
         Me.gbtn_Reset.FillColor2 = System.Drawing.Color.LightGoldenrodYellow
         Me.gbtn_Reset.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Reset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Reset.Location = New System.Drawing.Point(95, 261)
+        Me.gbtn_Reset.Location = New System.Drawing.Point(95, 243)
         Me.gbtn_Reset.Name = "gbtn_Reset"
         Me.gbtn_Reset.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Reset.Size = New System.Drawing.Size(105, 45)
@@ -301,7 +230,7 @@ Partial Class frm_Department
         Me.gbtn_Clear.FillColor2 = System.Drawing.Color.LightGoldenrodYellow
         Me.gbtn_Clear.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Clear.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Clear.Location = New System.Drawing.Point(223, 261)
+        Me.gbtn_Clear.Location = New System.Drawing.Point(223, 243)
         Me.gbtn_Clear.Name = "gbtn_Clear"
         Me.gbtn_Clear.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Clear.Size = New System.Drawing.Size(116, 45)
@@ -324,7 +253,7 @@ Partial Class frm_Department
         Me.gbtn_Search.FillColor2 = System.Drawing.Color.LightGoldenrodYellow
         Me.gbtn_Search.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Search.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Search.Location = New System.Drawing.Point(48, 377)
+        Me.gbtn_Search.Location = New System.Drawing.Point(48, 359)
         Me.gbtn_Search.Name = "gbtn_Search"
         Me.gbtn_Search.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Search.Size = New System.Drawing.Size(349, 45)
@@ -339,7 +268,7 @@ Partial Class frm_Department
         Me.ptb_Next.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Next.Image = Global.Training01.My.Resources.Resources.right_arrow__1_
         Me.ptb_Next.ImageRotate = 0!
-        Me.ptb_Next.Location = New System.Drawing.Point(872, 397)
+        Me.ptb_Next.Location = New System.Drawing.Point(880, 397)
         Me.ptb_Next.Name = "ptb_Next"
         Me.ptb_Next.Size = New System.Drawing.Size(25, 25)
         Me.ptb_Next.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -354,7 +283,7 @@ Partial Class frm_Department
         Me.ptb_Previous.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Previous.Image = Global.Training01.My.Resources.Resources.left_arrow
         Me.ptb_Previous.ImageRotate = 0!
-        Me.ptb_Previous.Location = New System.Drawing.Point(681, 397)
+        Me.ptb_Previous.Location = New System.Drawing.Point(689, 397)
         Me.ptb_Previous.Name = "ptb_Previous"
         Me.ptb_Previous.Size = New System.Drawing.Size(25, 25)
         Me.ptb_Previous.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -367,11 +296,68 @@ Partial Class frm_Department
         Me.lbl_Page.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Page.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Page.ForeColor = System.Drawing.Color.Azure
-        Me.lbl_Page.Location = New System.Drawing.Point(728, 399)
+        Me.lbl_Page.Location = New System.Drawing.Point(736, 399)
         Me.lbl_Page.Name = "lbl_Page"
         Me.lbl_Page.Size = New System.Drawing.Size(57, 23)
         Me.lbl_Page.TabIndex = 117
         Me.lbl_Page.Text = "Page "
+        '
+        'ckb_Delete
+        '
+        Me.ckb_Delete.HeaderText = "Confirm"
+        Me.ckb_Delete.MinimumWidth = 6
+        Me.ckb_Delete.Name = "ckb_Delete"
+        Me.ckb_Delete.Width = 60
+        '
+        'Number_Manager
+        '
+        Me.Number_Manager.HeaderText = "Number Manager"
+        Me.Number_Manager.MinimumWidth = 6
+        Me.Number_Manager.Name = "Number_Manager"
+        Me.Number_Manager.Width = 140
+        '
+        'Number_Emp
+        '
+        Me.Number_Emp.HeaderText = "Number Emp"
+        Me.Number_Emp.MinimumWidth = 6
+        Me.Number_Emp.Name = "Number_Emp"
+        Me.Number_Emp.Width = 120
+        '
+        'status
+        '
+        Me.status.HeaderText = "Status"
+        Me.status.MinimumWidth = 6
+        Me.status.Name = "status"
+        Me.status.Visible = False
+        Me.status.Width = 125
+        '
+        'department_name
+        '
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.department_name.DefaultCellStyle = DataGridViewCellStyle7
+        Me.department_name.HeaderText = "Department Name"
+        Me.department_name.MinimumWidth = 6
+        Me.department_name.Name = "department_name"
+        Me.department_name.Width = 150
+        '
+        'department_id
+        '
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.department_id.DefaultCellStyle = DataGridViewCellStyle8
+        Me.department_id.HeaderText = "DepartmentID"
+        Me.department_id.MinimumWidth = 6
+        Me.department_id.Name = "department_id"
+        Me.department_id.ReadOnly = True
+        Me.department_id.Visible = False
+        Me.department_id.Width = 125
+        '
+        'No
+        '
+        Me.No.HeaderText = "NO"
+        Me.No.MinimumWidth = 6
+        Me.No.Name = "No"
+        Me.No.ReadOnly = True
+        Me.No.Width = 70
         '
         'frm_Department
         '
@@ -381,7 +367,7 @@ Partial Class frm_Department
         Me.BackColor = System.Drawing.Color.Linen
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1123, 467)
+        Me.ClientSize = New System.Drawing.Size(1189, 467)
         Me.Controls.Add(Me.ptb_Next)
         Me.Controls.Add(Me.ptb_Previous)
         Me.Controls.Add(Me.lbl_Page)
@@ -391,8 +377,6 @@ Partial Class frm_Department
         Me.Controls.Add(Me.gbtn_Delete)
         Me.Controls.Add(Me.gbtn_Update)
         Me.Controls.Add(Me.gbtn_Add)
-        Me.Controls.Add(Me.lbl_DepartmentID)
-        Me.Controls.Add(Me.txt_DepartmentID)
         Me.Controls.Add(Me.lbl_Search)
         Me.Controls.Add(Me.txt_Search)
         Me.Controls.Add(Me.dgrv_Department)
@@ -418,8 +402,6 @@ Partial Class frm_Department
     Friend WithEvents dgrv_Department As DataGridView
     Friend WithEvents lbl_Search As Label
     Friend WithEvents txt_Search As TextBox
-    Friend WithEvents lbl_DepartmentID As Label
-    Friend WithEvents txt_DepartmentID As TextBox
     Friend WithEvents gbtn_Add As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents gbtn_Update As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents gbtn_Delete As Guna.UI2.WinForms.Guna2GradientButton
@@ -435,4 +417,5 @@ Partial Class frm_Department
     Friend WithEvents status As DataGridViewTextBoxColumn
     Friend WithEvents Number_Emp As DataGridViewTextBoxColumn
     Friend WithEvents Number_Manager As DataGridViewTextBoxColumn
+    Friend WithEvents ckb_Delete As DataGridViewCheckBoxColumn
 End Class

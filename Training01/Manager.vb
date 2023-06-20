@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Data.SqlClient
 Imports System.IO
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports iTextSharp.text
 Imports iTextSharp.text.pdf
 
@@ -96,6 +97,11 @@ Public Class frm_Manager
         ptb_Next.Enabled = True
         ptb_Previous.Enabled = False
         grb_create.Enabled = True
+        ' Set Value of Checkbox to False
+        For Each row As DataGridViewRow In dgv_DeptManager.Rows
+            Dim checkboxCell As DataGridViewCheckBoxCell = DirectCast(row.Cells("ckb_Delete"), DataGridViewCheckBoxCell)
+            checkboxCell.Value = False
+        Next
         currentPage = 1
     End Sub
 
@@ -434,6 +440,7 @@ Public Class frm_Manager
                     While reader.Read()
                         ShowEmployeeManager(No, reader)
                         No = No + 1
+                        Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
                     End While
                 Else
                     MessageBox.Show(Message.Message.errorInvalidSearch, titleNotif, buttonOK, warmIcon)
@@ -485,7 +492,7 @@ Public Class frm_Manager
 
     Private Sub dgv_DeptManager_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgv_DeptManager.CellClick
 
-        If e.RowIndex >= 0 Then
+        If e.ColumnIndex = dgv_DeptManager.Columns.Count - 1 AndAlso e.RowIndex >= 0 Then
             Dim selectedrow = dgv_DeptManager.Rows(e.RowIndex)
             selectedEmpId = CInt(selectedrow.Cells("emp_id").Value)
             For Each item As ComboBoxItem In cb_DepCreate.Items
@@ -513,6 +520,17 @@ Public Class frm_Manager
             selectedManagers.to_date = dtp_ToDate.Value
             DeptmangerId = CInt(selectedrow.Cells("deptmanager_id").Value)
             selectedManagers.deptmanager_id = DeptmangerId
+            Dim checkboxCell As DataGridViewCheckBoxCell = DirectCast(dgv_DeptManager.Rows(e.RowIndex).Cells(e.ColumnIndex), DataGridViewCheckBoxCell)
+            Dim isChecked As Boolean = CBool(checkboxCell.Value)
+
+            ' Update value of checkbox
+            checkboxCell.Value = Not isChecked
+
+            ' Highlight or un-highlight the respective rows
+            For Each row As DataGridViewRow In dgv_DeptManager.Rows
+                Dim rowCheckboxCell As DataGridViewCheckBoxCell = DirectCast(row.Cells(e.ColumnIndex), DataGridViewCheckBoxCell)
+                row.Selected = CBool(rowCheckboxCell.Value)
+            Next
             dgv_DeptManager.ReadOnly = True
             gbtn_Add.Enabled = False
             gbtn_Delete.Enabled = True
@@ -528,6 +546,7 @@ Public Class frm_Manager
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleNotif, buttonOK, warmIcon)
             cb_Department.SelectedIndex = 0
+            dgv_DeptManager.Rows.Clear()
         End If
     End Sub
 
@@ -569,14 +588,14 @@ Public Class frm_Manager
         Dim to_date As Date = dtp_ToDate.Value
 
         If emp_id < 0 OrElse dept_id < 0 Then
-            MessageBox.Show(Message.Message.emptyErrorMessage, titleError, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleError, buttonOK, warmIcon)
             Exit Sub
         End If
 
         Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(from_date, to_date)
 
         If Not datesValid Then
-            MessageBox.Show(Message.Message.errorInvalidDate, titleError, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.errorInvalidDate, titleError, buttonOK, warmIcon)
             Exit Sub
         End If
 
@@ -628,8 +647,6 @@ Public Class frm_Manager
                     LoadData()
                     EnableAdd()
                 End If
-            Else
-                MessageBox.Show(Message.Message.cancelDelete, titleInfo, buttonOK, infoIcon)
             End If
         End If
     End Sub
@@ -640,14 +657,14 @@ Public Class frm_Manager
         Dim to_date As Date = dtp_ToDate.Value
 
         If emp_id < 0 OrElse dept_id < 0 Then
-            MessageBox.Show(Message.Message.emptyErrorMessage, titleError, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleError, buttonOK, warmIcon)
             Exit Sub
         End If
 
         Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(from_date, to_date)
 
         If Not datesValid Then
-            MessageBox.Show(Message.Message.errorInvalidDate, titleError, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.errorInvalidDate, titleError, buttonOK, warmIcon)
             Exit Sub
         End If
 
@@ -708,123 +725,133 @@ Public Class frm_Manager
             Using cmd As SqlCommand = New SqlCommand("GetSalarySlipData", con)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                Using reader As SqlDataReader = cmd.ExecuteReader()
-                    Dim document As New Document
+                Dim reader As SqlDataReader = cmd.ExecuteReader()
+                Dim document As New Document
 
-                    document.SetMargins(10, 10, 40, 40)
-                    Dim outputStream As New FileStream(tmpPath, FileMode.Create)
+                document.SetMargins(10, 10, 40, 40)
+                Dim outputStream As New FileStream(tmpPath, FileMode.Create)
 
-                    Dim writer As PdfWriter = PdfWriter.GetInstance(document, outputStream)
+                Dim writer As PdfWriter = PdfWriter.GetInstance(document, outputStream)
 
-                    document.Open()
+                document.Open()
 
-                    Dim fontTitle As Font = FontFactory.GetFont("Arial", 18, FontStyle.Bold, BaseColor.RED)
-                    Dim titleText As String = "Employee Salary Slip"
+                Dim fontTitle As Font = FontFactory.GetFont("Arial", 18, FontStyle.Bold, BaseColor.RED)
+                Dim titleText As String = "Employee Salary Slip"
 
-                    Dim titleUpper As String = titleText.ToUpper()
+                Dim titleUpper As String = titleText.ToUpper()
 
-                    Dim title As New Paragraph(titleUpper, fontTitle)
-                    title.Alignment = Element.ALIGN_CENTER
-                    title.SpacingAfter = 30 ' Remove spacing after the title
+                Dim title As New Paragraph(titleUpper, fontTitle)
+                title.Alignment = Element.ALIGN_CENTER
+                title.SpacingAfter = 30 ' Remove spacing after the title
 
-                    document.Add(title)
-                    Dim pathFont = Application.StartupPath
+                document.Add(title)
+                Dim pathFont = Application.StartupPath
 
-                    pathFont = pathFont.Replace("\bin\Debug", String.Empty)
+                pathFont = pathFont.Replace("\bin\Debug", String.Empty)
 
-                    Dim newfontPath As String = pathFont & "\Fonts\Arial.ttf"
+                Dim newfontPath As String = pathFont & "\Fonts\Arial.ttf"
 
-                    Dim baseFont As BaseFont = BaseFont.CreateFont(newfontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED)
+                Dim baseFont As BaseFont = BaseFont.CreateFont(newfontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED)
 
-                    Dim fontHeader As New Font(baseFont, 9, Font.Bold)
-                    Dim fontContent As New Font(baseFont, 8)
+                Dim fontHeader As New Font(baseFont, 9, Font.Bold)
+                Dim fontContent As New Font(baseFont, 8)
 
-                    ' Generate a list of column widths based on desired number of columns and width percentage
-                    Dim columnWidths() As Single = {20, 45, 45, 60, 45, 45, 45, 45}
+                ' Generate a list of column widths based on desired number of columns and width percentage
+                Dim columnWidths() As Single = {20, 45, 45, 60, 45, 45, 45, 45}
 
-                    Dim columnHeaders() As String = {"NO", "Name", "Phone", "Address", "Salary Name",
+                Dim columnHeaders() As String = {"NO", "Name", "Phone", "Address", "Salary Name",
                                    "Salary", "Department", "Position"}
-                    Dim table As New PdfPTable(columnWidths.Length)
-                    table.DefaultCell.Padding = 5
-                    table.SpacingBefore = 0 ' Remove spacing before the table
+                Dim table As New PdfPTable(columnWidths.Length)
+                table.DefaultCell.Padding = 5
+                table.SpacingBefore = 0 ' Remove spacing before the table
 
-                    table.WidthPercentage = 100
-                    table.SetWidths(columnWidths)
+                table.WidthPercentage = 100
+                table.SetWidths(columnWidths)
 
-                    Dim isFirstRow As Boolean = True
+                Dim isFirstRow As Boolean = True
 
-                    ' Set fixed height for table cells
-                    table.DefaultCell.FixedHeight = 30
+                ' Set fixed height for table cells
+                table.DefaultCell.FixedHeight = 30
 
-                    ' Read data from SqlDataReader and add content to table
-                    Dim no As Integer = 1
-                    While reader.Read()
-                        Dim employeeName As String = reader.GetString(1)
-                        Dim phone As String = reader.GetString(2)
-                        Dim address As String = reader.GetString(3)
-                        Dim salaryName As String = reader.GetString(4)
-                        Dim salary As Decimal = reader.GetDecimal(5)
-                        Dim department As String = reader.GetString(6)
-                        Dim fromDateDept As DateTime = reader.GetDateTime(7)
-                        Dim fromDateDeptFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(fromDateDept)
-                        Dim position As String = reader.GetString(8)
-                        Dim fromDatePos As DateTime = reader.GetDateTime(9)
-                        Dim fromDatePosFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(fromDatePos)
+                ' Read data from SqlDataReader and add content to table
+                Dim no As Integer = 1
+                Dim employeeName As String
+                Dim phone As String
+                Dim address As String
+                Dim salaryName As String
+                Dim salary As Decimal
+                Dim department As String
+                Dim fromDateDept As DateTime
+                Dim fromDateDeptFormat As String
+                Dim position As String
+                Dim fromDatePos As DateTime
+                Dim fromDatePosFormat As String
+                While reader.Read()
+                    employeeName = reader.GetString(1)
+                    phone = reader.GetString(2)
+                    address = reader.GetString(3)
+                    salaryName = reader.GetString(4)
+                    salary = reader.GetDecimal(5)
+                    department = reader.GetString(6)
+                    fromDateDept = reader.GetDateTime(7)
+                    fromDateDeptFormat = FuntionCommon.FormatDateTime.FormatDateTime(fromDateDept)
+                    position = reader.GetString(8)
+                    fromDatePos = reader.GetDateTime(9)
+                    fromDatePosFormat = FuntionCommon.FormatDateTime.FormatDateTime(fromDatePos)
 
-                        ' Process data with "..." for each column
-                        employeeName = ProcessDataWithEllipsis(employeeName)
-                        address = ProcessDataWithEllipsis(address)
-                        department = ProcessDataWithEllipsis(department)
-                        salaryName = ProcessDataWithEllipsis(salaryName)
-                        salary = ProcessDataWithEllipsis(salary)
-                        position = ProcessDataWithEllipsis(position)
+                    ' Process data with "..." for each column
+                    employeeName = ProcessDataWithEllipsis(employeeName)
+                    address = ProcessDataWithEllipsis(address)
+                    department = ProcessDataWithEllipsis(department)
+                    salaryName = ProcessDataWithEllipsis(salaryName)
+                    salary = ProcessDataWithEllipsis(salary)
+                    position = ProcessDataWithEllipsis(position)
 
-                        If isFirstRow Then
-                            ' Add column headers in the first row
-                            For Each columnHeader As String In columnHeaders
-                                Dim cell As New PdfPCell(New Phrase(columnHeader, fontHeader))
-                                cell.BackgroundColor = BaseColor.LIGHT_GRAY
-                                cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER
-                                cell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
-                                cell.FixedHeight = 30
+                    If isFirstRow Then
+                        ' Add column headers in the first row
+                        For Each columnHeader As String In columnHeaders
+                            Dim cell As New PdfPCell(New Phrase(columnHeader, fontHeader))
+                            cell.BackgroundColor = BaseColor.LIGHT_GRAY
+                            cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+                            cell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                            cell.FixedHeight = 30
 
-                                table.AddCell(cell)
-                            Next
+                            table.AddCell(cell)
+                        Next
 
-                            isFirstRow = False
-                        End If
+                        isFirstRow = False
+                    End If
 
-                        Dim employeeIDCell As New PdfPCell(New Phrase(CStr(no), fontContent))
-                        employeeIDCell.HorizontalAlignment = PdfPCell.ALIGN_CENTER
-                        employeeIDCell.VerticalAlignment = PdfPCell.ALIGN_CENTER
-                        employeeIDCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
-                        table.AddCell(employeeIDCell)
-                        Dim employeeNameCell As New PdfPCell(New PdfPCell(New Phrase(employeeName, fontContent)))
-                        employeeNameCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
-                        table.AddCell(employeeNameCell)
-                        Dim phoneCell As New PdfPCell(New PdfPCell(New Phrase(phone, fontContent)))
-                        phoneCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
-                        table.AddCell(phoneCell)
-                        Dim addressCell As New PdfPCell(New PdfPCell(New Phrase(address, fontContent)))
-                        addressCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
-                        table.AddCell(addressCell)
-                        Dim salaryNameCell As New PdfPCell(New Phrase(salaryName, fontContent))
-                        salaryNameCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
-                        table.AddCell(salaryNameCell)
-                        Dim salaryCell As New PdfPCell(New Phrase(salary, fontContent))
-                        salaryCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
-                        table.AddCell(salaryCell)
-                        Dim departmentCell As New PdfPCell(New Phrase(department, fontContent))
-                        departmentCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
-                        table.AddCell(departmentCell)
-                        Dim positionCell As New PdfPCell(New Phrase(position, fontContent))
-                        positionCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
-                        table.AddCell(positionCell)
-                        no += 1
-                    End While
-                    document.Add(table)
-                    document.Close()
-                End Using
+                    Dim employeeIDCell As New PdfPCell(New Phrase(CStr(no), fontContent))
+                    employeeIDCell.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+                    employeeIDCell.VerticalAlignment = PdfPCell.ALIGN_CENTER
+                    employeeIDCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                    table.AddCell(employeeIDCell)
+                    Dim employeeNameCell As New PdfPCell(New PdfPCell(New Phrase(employeeName, fontContent)))
+                    employeeNameCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                    table.AddCell(employeeNameCell)
+                    Dim phoneCell As New PdfPCell(New PdfPCell(New Phrase(phone, fontContent)))
+                    phoneCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                    table.AddCell(phoneCell)
+                    Dim addressCell As New PdfPCell(New PdfPCell(New Phrase(address, fontContent)))
+                    addressCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                    table.AddCell(addressCell)
+                    Dim salaryNameCell As New PdfPCell(New Phrase(salaryName, fontContent))
+                    salaryNameCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                    table.AddCell(salaryNameCell)
+                    Dim salaryCell As New PdfPCell(New Phrase(salary, fontContent))
+                    salaryCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                    table.AddCell(salaryCell)
+                    Dim departmentCell As New PdfPCell(New Phrase(department, fontContent))
+                    departmentCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                    table.AddCell(departmentCell)
+                    Dim positionCell As New PdfPCell(New Phrase(position, fontContent))
+                    positionCell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE
+                    table.AddCell(positionCell)
+                    no += 1
+                End While
+                document.Add(table)
+                document.Close()
             End Using
         Catch ex As Exception
             MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
@@ -836,7 +863,6 @@ Public Class frm_Manager
 
     Private Sub gbtn_ExportPDF_Click(sender As Object, e As EventArgs) Handles gbtn_ExportPDF.Click
         Dim tempPath As String = ExportSalarySlipToPDF(tmpPath)
-        'Dim previewPDF As New PDFViewer()
         PDFViewer.SetData(tempPath)
         PDFViewer.Show()
     End Sub
