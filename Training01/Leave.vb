@@ -350,6 +350,10 @@ Public Class Leave
     End Sub
 
     Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+
         Dim totalPages = Math.Ceiling(LeaveDatas.Rows.Count / RowsPerPage)
         Page.PressEnterKeyTxtCurrentPage(txtCurrentPage, CurrentPage, totalPages, e.KeyChar, Sub() LoadDGV())
     End Sub

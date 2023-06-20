@@ -242,6 +242,10 @@ Public Class EmpByPos
     End Sub
 
     Private Sub txtCurrentPage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCurrentPage.KeyPress
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+
         Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
         Page.PressEnterKeyTxtCurrentPage(txtCurrentPage, CurrentPage, totalPages, e.KeyChar, Sub() LoadDGV())
     End Sub
@@ -258,6 +262,16 @@ Public Class EmpByPos
             FuntionCommon.Sortation.SortDGVAndPreventNoColumn(dgvEmpByPos, EmpByPosDatas, sortedColumnIndex, "stt", replaceColumnNameList, Sub() LoadDGV())
             Me.SortedColumnIndex = sortedColumnIndex
             Me.SortedDirection = dgvEmpByPos.Columns(sortedColumnIndex).HeaderCell.SortGlyphDirection
+        End If
+    End Sub
+
+    Private Sub dgvEmpByPos_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEmpByPos.CellContentClick
+        If TypeOf dgvEmpByPos.Columns(e.ColumnIndex) Is DataGridViewCheckBoxColumn AndAlso e.RowIndex >= 0 Then
+            For Each row As DataGridViewRow In dgvEmpByPos.Rows
+                If row.Cells(e.ColumnIndex).Value = True Then
+                    row.Selected = True
+                End If
+            Next
         End If
     End Sub
 #End Region
@@ -280,11 +294,6 @@ Public Class EmpByPos
                 EmpByPosDatas.Rows.Clear()
                 EmpByPosDatas.Load(reader)
 
-                ' Get "birthday" date
-                For i As Integer = 0 To EmpByPosDatas.Rows.Count - 1
-                    EmpByPosDatas.Rows(i)("birthday") = EmpByPosDatas.Rows(i)("birthday").ToString().Split(" ")(0)
-                Next
-
                 'Load in datagridview
                 LoadDGV()
             End Using
@@ -297,6 +306,11 @@ Public Class EmpByPos
 
     Private Sub LoadDGV()
         Dim totalPages = Math.Ceiling(EmpByPosDatas.Rows.Count / RowsPerPage)
+        If totalPages = 0 Then
+            CurrentPage = 1
+            totalPages = 1
+        End If
+
         txtCurrentPage.Text = CurrentPage
         txtTotalPage.Text = totalPages
         Dim pagingDatas = Page.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, EmpByPosDatas)
@@ -308,6 +322,7 @@ Public Class EmpByPos
 
         Page.UpdatePaginationButtons(btnPrevious, Page.ButtonType.Previous, totalPages, CurrentPage)
         Page.UpdatePaginationButtons(btnNext, Page.ButtonType.Next, totalPages, CurrentPage)
+
         dgvEmpByPos.Select()
         dgvEmpByPos.CurrentCell = Nothing
     End Sub
