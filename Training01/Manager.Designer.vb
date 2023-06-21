@@ -61,6 +61,7 @@ Partial Class frm_Manager
         Me.dept_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.deptmanager_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ckb_Delete = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.grb_create.SuspendLayout()
         CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -87,12 +88,13 @@ Partial Class frm_Manager
         Me.lbl_titleManager.BackColor = System.Drawing.Color.Transparent
         Me.lbl_titleManager.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_titleManager.ForeColor = System.Drawing.Color.Linen
-        Me.lbl_titleManager.Location = New System.Drawing.Point(214, 9)
+        Me.lbl_titleManager.Location = New System.Drawing.Point(238, 9)
         Me.lbl_titleManager.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_titleManager.Name = "lbl_titleManager"
         Me.lbl_titleManager.Size = New System.Drawing.Size(622, 39)
         Me.lbl_titleManager.TabIndex = 55
         Me.lbl_titleManager.Text = "MANAGERS LIST BY DEPARTMENT"
+        Me.lbl_titleManager.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Label2
         '
@@ -483,7 +485,7 @@ Partial Class frm_Manager
         Me.dgv_DeptManager.AllowUserToAddRows = False
         Me.dgv_DeptManager.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgv_DeptManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_DeptManager.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NO, Me.emp_id, Me.emp_name, Me.phone, Me.birthday, Me.address, Me.email, Me.department_name, Me.from_date, Me.to_date, Me.dept_id, Me.status, Me.deptmanager_id})
+        Me.dgv_DeptManager.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NO, Me.emp_id, Me.emp_name, Me.phone, Me.birthday, Me.address, Me.email, Me.department_name, Me.from_date, Me.to_date, Me.dept_id, Me.status, Me.deptmanager_id, Me.ckb_Delete})
         Me.dgv_DeptManager.Location = New System.Drawing.Point(17, 357)
         Me.dgv_DeptManager.Margin = New System.Windows.Forms.Padding(4)
         Me.dgv_DeptManager.Name = "dgv_DeptManager"
@@ -491,7 +493,7 @@ Partial Class frm_Manager
         Me.dgv_DeptManager.RowHeadersWidth = 51
         Me.dgv_DeptManager.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgv_DeptManager.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_DeptManager.Size = New System.Drawing.Size(1240, 297)
+        Me.dgv_DeptManager.Size = New System.Drawing.Size(1262, 297)
         Me.dgv_DeptManager.TabIndex = 70
         '
         'NO
@@ -529,21 +531,21 @@ Partial Class frm_Manager
         Me.birthday.HeaderText = "BIRTHDAY"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
-        Me.birthday.Width = 105
+        Me.birthday.Width = 95
         '
         'address
         '
         Me.address.HeaderText = "ADDRESS"
         Me.address.MinimumWidth = 6
         Me.address.Name = "address"
-        Me.address.Width = 140
+        Me.address.Width = 130
         '
         'email
         '
         Me.email.HeaderText = "EMAIL"
         Me.email.MinimumWidth = 6
         Me.email.Name = "email"
-        Me.email.Width = 140
+        Me.email.Width = 130
         '
         'department_name
         '
@@ -557,14 +559,14 @@ Partial Class frm_Manager
         Me.from_date.HeaderText = "From Date"
         Me.from_date.MinimumWidth = 6
         Me.from_date.Name = "from_date"
-        Me.from_date.Width = 105
+        Me.from_date.Width = 98
         '
         'to_date
         '
         Me.to_date.HeaderText = "To Date"
         Me.to_date.MinimumWidth = 6
         Me.to_date.Name = "to_date"
-        Me.to_date.Width = 105
+        Me.to_date.Width = 98
         '
         'dept_id
         '
@@ -590,6 +592,13 @@ Partial Class frm_Manager
         Me.deptmanager_id.Visible = False
         Me.deptmanager_id.Width = 60
         '
+        'ckb_Delete
+        '
+        Me.ckb_Delete.HeaderText = "Confirm"
+        Me.ckb_Delete.MinimumWidth = 6
+        Me.ckb_Delete.Name = "ckb_Delete"
+        Me.ckb_Delete.Width = 60
+        '
         'frm_Manager
         '
         Me.AllowDrop = True
@@ -597,7 +606,7 @@ Partial Class frm_Manager
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1283, 713)
+        Me.ClientSize = New System.Drawing.Size(1391, 713)
         Me.Controls.Add(Me.grb_Search)
         Me.Controls.Add(Me.ptb_Next)
         Me.Controls.Add(Me.ptb_Previous)
@@ -665,4 +674,5 @@ Partial Class frm_Manager
     Friend WithEvents dept_id As DataGridViewTextBoxColumn
     Friend WithEvents status As DataGridViewTextBoxColumn
     Friend WithEvents deptmanager_id As DataGridViewTextBoxColumn
+    Friend WithEvents ckb_Delete As DataGridViewCheckBoxColumn
 End Class

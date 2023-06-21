@@ -313,16 +313,16 @@ Public Class NewDashboard
                 currentForm.Close()
             End If
 
+            pn_Main.Controls.Clear()
             ' Display formToShow in pn_Main
             formToShow.TopLevel = False
             formToShow.TopMost = True
             formToShow.FormBorderStyle = FormBorderStyle.None
             formToShow.Dock = DockStyle.Fill
             formToShow.AutoScroll = True
-            pn_Main.Controls.Clear()
             pn_Main.Controls.Add(formToShow)
 
-            ' Set WS_CHILD và WS_CLIPSIBLINGS to Prevent override UI
+            'Set WS_CHILD và WS_CLIPSIBLINGS to Prevent override UI
             Dim style As Integer = SetWindowLong(formToShow.Handle, -16, WS_CHILD Or WS_CLIPSIBLINGS)
             SetWindowPos(formToShow.Handle, IntPtr.Zero, 0, 0, 0, 0, &H10 Or &H20 Or &H1 Or &H2)
 

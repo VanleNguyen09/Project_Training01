@@ -86,6 +86,11 @@ Public Class frm_EmpInDept
         grb_create.Enabled = True
         ptb_Next.Enabled = True
         ptb_Previous.Enabled = False
+        ' Set Value of Checkbox to False
+        For Each row As DataGridViewRow In dgv_DeptEmp.Rows
+            Dim checkboxCell As DataGridViewCheckBoxCell = DirectCast(row.Cells("ckb_Delete"), DataGridViewCheckBoxCell)
+            checkboxCell.Value = False
+        Next
         currentPage = 1
     End Sub
 
@@ -323,7 +328,7 @@ Public Class frm_EmpInDept
             MessageBox.Show(Message.Message.managerExitedForDepartment, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckEmpDeptExit(empId, deptId) Then
-            MessageBox.Show(Message.Message.employeeDuplicate, titleNotif, buttonOK, warmIcon)
+            MessageBox.Show(Message.Message.empDeptDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         Else
             If con.State <> 1 Then
@@ -362,7 +367,7 @@ Public Class frm_EmpInDept
             MessageBox.Show(Message.Message.managerExitedForDepartment, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckEmpDeptExitForUpdate(empId, deptId, id) Then
-            MessageBox.Show(Message.Message.employeeDuplicate, titleNotif, buttonOK, warmIcon)
+            MessageBox.Show(Message.Message.empDeptDuplicate, titleNotif, buttonOK, warmIcon)
             Exit Sub
         ElseIf CheckEmpDeptDateBigger(empId, deptId, fromDate, toDate) Then
             MessageBox.Show(Message.Message.dateSmallerValid, titleNotif, buttonOK, warmIcon)
@@ -414,6 +419,7 @@ Public Class frm_EmpInDept
                     While reader.Read()
                         ShowEmployeeDept(No, reader)
                         No += 1
+                        Pagination.PaginateDataGridView(dgv_DeptEmp, currentPage)
                     End While
                 Else
                     MessageBox.Show(Message.Message.errorInvalidSearch, titleNotif, buttonOK, warmIcon)
@@ -491,14 +497,14 @@ Public Class frm_EmpInDept
         Dim to_date As Date = dtp_ToDate.Value
 
         If emp_id < 0 OrElse dept_id < 0 Then
-            MessageBox.Show(Message.Message.emptyErrorMessage, titleError, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleError, buttonOK, warmIcon)
             Exit Sub
         End If
 
         Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(from_date, to_date)
 
         If Not datesValid Then
-            MessageBox.Show(Message.Message.errorInvalidDate, titleError, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.errorInvalidDate, titleError, buttonOK, warmIcon)
             Exit Sub
         End If
 
@@ -536,6 +542,7 @@ Public Class frm_EmpInDept
         Else
             MessageBox.Show(Message.Message.emptyDataSearchMessage, titleNotif, buttonOK, warmIcon)
             cb_Department.SelectedIndex = 0
+            dgv_DeptEmp.Rows.Clear()
         End If
     End Sub
 
@@ -561,8 +568,6 @@ Public Class frm_EmpInDept
                     LoadData()
                     EnableAdd()
                 End If
-            Else
-                MessageBox.Show(Message.Message.cancelDelete, titleInfo, buttonOK, infoIcon)
             End If
         End If
     End Sub
@@ -573,14 +578,14 @@ Public Class frm_EmpInDept
         Dim to_date As Date = dtp_ToDate.Value
 
         If emp_id < 0 OrElse dept_id < 0 Then
-            MessageBox.Show(Message.Message.emptyErrorMessage, titleNotif, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.emptyErrorMessage, titleNotif, buttonOK, warmIcon)
             Exit Sub
         End If
 
         Dim datesValid As Boolean = FuntionCommon.Validation.ValidateDate(from_date, to_date)
 
         If Not datesValid Then
-            MessageBox.Show(Message.Message.errorInvalidDate, titleError, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.errorInvalidDate, titleError, buttonOK, warmIcon)
             Exit Sub
         End If
 
@@ -610,7 +615,7 @@ Public Class frm_EmpInDept
     Private selectedEmpId As Integer
 
     Private Sub dgv_DeptEmp_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgv_DeptEmp.CellClick
-        If e.RowIndex >= 0 Then
+        If e.ColumnIndex = dgv_DeptEmp.Columns.Count - 1 AndAlso e.RowIndex >= 0 Then
             Dim selectedrow = dgv_DeptEmp.Rows(e.RowIndex)
             selectedEmpId = CInt(selectedrow.Cells("emp_id").Value)
             For Each item As ComboBoxItem In cb_DepCreate.Items
@@ -640,7 +645,17 @@ Public Class frm_EmpInDept
             dtp_ToDate.Value = Convert.ToDateTime(selectedrow.Cells("to_date").Value)
             selectedEmpDept.to_date = dtp_ToDate.Value
             dgv_DeptEmp.ReadOnly = True
+            Dim checkboxCell As DataGridViewCheckBoxCell = DirectCast(dgv_DeptEmp.Rows(e.RowIndex).Cells(e.ColumnIndex), DataGridViewCheckBoxCell)
+            Dim isChecked As Boolean = CBool(checkboxCell.Value)
 
+            ' Update value of checkbox
+            checkboxCell.Value = Not isChecked
+
+            ' Highlight or un-highlight the respective rows
+            For Each row As DataGridViewRow In dgv_DeptEmp.Rows
+                Dim rowCheckboxCell As DataGridViewCheckBoxCell = DirectCast(row.Cells(e.ColumnIndex), DataGridViewCheckBoxCell)
+                row.Selected = CBool(rowCheckboxCell.Value)
+            Next
             gbtn_Add.Enabled = False
             gbtn_Delete.Enabled = True
             cb_EmpCreate.Enabled = False

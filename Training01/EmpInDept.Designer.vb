@@ -61,6 +61,7 @@ Partial Class frm_EmpInDept
         Me.dept_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.deptemp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ckb_Delete = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.grb_create.SuspendLayout()
         CType(Me.dgv_DeptEmp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -189,11 +190,11 @@ Partial Class frm_EmpInDept
         Me.grb_create.Controls.Add(Me.Label3)
         Me.grb_create.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grb_create.ForeColor = System.Drawing.Color.Lavender
-        Me.grb_create.Location = New System.Drawing.Point(23, 67)
+        Me.grb_create.Location = New System.Drawing.Point(17, 57)
         Me.grb_create.Margin = New System.Windows.Forms.Padding(4)
         Me.grb_create.Name = "grb_create"
         Me.grb_create.Padding = New System.Windows.Forms.Padding(4)
-        Me.grb_create.Size = New System.Drawing.Size(436, 297)
+        Me.grb_create.Size = New System.Drawing.Size(442, 297)
         Me.grb_create.TabIndex = 96
         Me.grb_create.TabStop = False
         Me.grb_create.Text = "CREATE AND UPDATE"
@@ -234,16 +235,16 @@ Partial Class frm_EmpInDept
         Me.dgv_DeptEmp.AllowUserToAddRows = False
         Me.dgv_DeptEmp.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgv_DeptEmp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_DeptEmp.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NO, Me.emp_id, Me.emp_name, Me.phone, Me.birthday, Me.address, Me.email, Me.department_name, Me.from_date, Me.to_date, Me.dept_id, Me.status, Me.deptemp_id})
+        Me.dgv_DeptEmp.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NO, Me.emp_id, Me.emp_name, Me.phone, Me.birthday, Me.address, Me.email, Me.department_name, Me.from_date, Me.to_date, Me.dept_id, Me.status, Me.deptemp_id, Me.ckb_Delete})
         Me.dgv_DeptEmp.Cursor = System.Windows.Forms.Cursors.Default
-        Me.dgv_DeptEmp.Location = New System.Drawing.Point(23, 366)
+        Me.dgv_DeptEmp.Location = New System.Drawing.Point(17, 362)
         Me.dgv_DeptEmp.Margin = New System.Windows.Forms.Padding(4)
         Me.dgv_DeptEmp.Name = "dgv_DeptEmp"
         Me.dgv_DeptEmp.RowHeadersVisible = False
         Me.dgv_DeptEmp.RowHeadersWidth = 51
         Me.dgv_DeptEmp.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgv_DeptEmp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_DeptEmp.Size = New System.Drawing.Size(1240, 297)
+        Me.dgv_DeptEmp.Size = New System.Drawing.Size(1262, 297)
         Me.dgv_DeptEmp.TabIndex = 89
         '
         'lbl_titleManager
@@ -252,12 +253,13 @@ Partial Class frm_EmpInDept
         Me.lbl_titleManager.BackColor = System.Drawing.Color.Transparent
         Me.lbl_titleManager.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_titleManager.ForeColor = System.Drawing.Color.Lavender
-        Me.lbl_titleManager.Location = New System.Drawing.Point(244, 11)
+        Me.lbl_titleManager.Location = New System.Drawing.Point(284, 9)
         Me.lbl_titleManager.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_titleManager.Name = "lbl_titleManager"
         Me.lbl_titleManager.Size = New System.Drawing.Size(637, 39)
         Me.lbl_titleManager.TabIndex = 86
         Me.lbl_titleManager.Text = "EMPLOYEES LIST BY DEPARTMENT"
+        Me.lbl_titleManager.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'cb_Department
         '
@@ -280,7 +282,7 @@ Partial Class frm_EmpInDept
         Me.ptb_Next.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Next.Image = Global.Training01.My.Resources.Resources.right_arrow__1_
         Me.ptb_Next.ImageRotate = 0!
-        Me.ptb_Next.Location = New System.Drawing.Point(731, 675)
+        Me.ptb_Next.Location = New System.Drawing.Point(771, 672)
         Me.ptb_Next.Name = "ptb_Next"
         Me.ptb_Next.Size = New System.Drawing.Size(25, 25)
         Me.ptb_Next.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -295,7 +297,7 @@ Partial Class frm_EmpInDept
         Me.ptb_Previous.FillColor = System.Drawing.Color.Transparent
         Me.ptb_Previous.Image = Global.Training01.My.Resources.Resources.left_arrow
         Me.ptb_Previous.ImageRotate = 0!
-        Me.ptb_Previous.Location = New System.Drawing.Point(476, 675)
+        Me.ptb_Previous.Location = New System.Drawing.Point(516, 672)
         Me.ptb_Previous.Name = "ptb_Previous"
         Me.ptb_Previous.Size = New System.Drawing.Size(25, 25)
         Me.ptb_Previous.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -308,7 +310,7 @@ Partial Class frm_EmpInDept
         Me.lbl_Page.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Page.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Page.ForeColor = System.Drawing.Color.Azure
-        Me.lbl_Page.Location = New System.Drawing.Point(551, 675)
+        Me.lbl_Page.Location = New System.Drawing.Point(591, 672)
         Me.lbl_Page.Name = "lbl_Page"
         Me.lbl_Page.Size = New System.Drawing.Size(57, 23)
         Me.lbl_Page.TabIndex = 105
@@ -330,7 +332,7 @@ Partial Class frm_EmpInDept
         Me.gbtn_Clear.FillColor2 = System.Drawing.Color.Aqua
         Me.gbtn_Clear.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Clear.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Clear.Location = New System.Drawing.Point(476, 76)
+        Me.gbtn_Clear.Location = New System.Drawing.Point(476, 66)
         Me.gbtn_Clear.Name = "gbtn_Clear"
         Me.gbtn_Clear.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Clear.Size = New System.Drawing.Size(114, 39)
@@ -353,7 +355,7 @@ Partial Class frm_EmpInDept
         Me.gbtn_Update.FillColor2 = System.Drawing.Color.Aqua
         Me.gbtn_Update.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Update.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Update.Location = New System.Drawing.Point(476, 133)
+        Me.gbtn_Update.Location = New System.Drawing.Point(476, 123)
         Me.gbtn_Update.Name = "gbtn_Update"
         Me.gbtn_Update.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Update.Size = New System.Drawing.Size(112, 39)
@@ -376,7 +378,7 @@ Partial Class frm_EmpInDept
         Me.gbtn_Reset.FillColor2 = System.Drawing.Color.Aqua
         Me.gbtn_Reset.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Reset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Reset.Location = New System.Drawing.Point(618, 133)
+        Me.gbtn_Reset.Location = New System.Drawing.Point(618, 123)
         Me.gbtn_Reset.Name = "gbtn_Reset"
         Me.gbtn_Reset.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Reset.Size = New System.Drawing.Size(119, 39)
@@ -399,7 +401,7 @@ Partial Class frm_EmpInDept
         Me.gbtn_Delete.FillColor2 = System.Drawing.Color.Aqua
         Me.gbtn_Delete.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Delete.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Delete.Location = New System.Drawing.Point(618, 76)
+        Me.gbtn_Delete.Location = New System.Drawing.Point(618, 66)
         Me.gbtn_Delete.Name = "gbtn_Delete"
         Me.gbtn_Delete.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Delete.Size = New System.Drawing.Size(119, 39)
@@ -433,7 +435,7 @@ Partial Class frm_EmpInDept
         '
         Me.btn_Exit.BackColor = System.Drawing.Color.Aquamarine
         Me.btn_Exit.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Exit.Location = New System.Drawing.Point(476, 312)
+        Me.btn_Exit.Location = New System.Drawing.Point(476, 302)
         Me.btn_Exit.Name = "btn_Exit"
         Me.btn_Exit.Size = New System.Drawing.Size(203, 39)
         Me.btn_Exit.TabIndex = 113
@@ -450,7 +452,7 @@ Partial Class frm_EmpInDept
         Me.grb_Search.Controls.Add(Me.txt_Search)
         Me.grb_Search.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grb_Search.ForeColor = System.Drawing.Color.Lavender
-        Me.grb_Search.Location = New System.Drawing.Point(476, 181)
+        Me.grb_Search.Location = New System.Drawing.Point(476, 171)
         Me.grb_Search.Name = "grb_Search"
         Me.grb_Search.Size = New System.Drawing.Size(552, 116)
         Me.grb_Search.TabIndex = 115
@@ -489,7 +491,7 @@ Partial Class frm_EmpInDept
         Me.NO.MinimumWidth = 6
         Me.NO.Name = "NO"
         Me.NO.ReadOnly = True
-        Me.NO.Width = 50
+        Me.NO.Width = 40
         '
         'emp_id
         '
@@ -518,21 +520,21 @@ Partial Class frm_EmpInDept
         Me.birthday.HeaderText = "BIRTHDAY"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
-        Me.birthday.Width = 105
+        Me.birthday.Width = 95
         '
         'address
         '
         Me.address.HeaderText = "ADDRESS"
         Me.address.MinimumWidth = 6
         Me.address.Name = "address"
-        Me.address.Width = 140
+        Me.address.Width = 130
         '
         'email
         '
         Me.email.HeaderText = "EMAIL"
         Me.email.MinimumWidth = 6
         Me.email.Name = "email"
-        Me.email.Width = 140
+        Me.email.Width = 130
         '
         'department_name
         '
@@ -546,14 +548,14 @@ Partial Class frm_EmpInDept
         Me.from_date.HeaderText = "From Date"
         Me.from_date.MinimumWidth = 6
         Me.from_date.Name = "from_date"
-        Me.from_date.Width = 105
+        Me.from_date.Width = 98
         '
         'to_date
         '
         Me.to_date.HeaderText = "To Date"
         Me.to_date.MinimumWidth = 6
         Me.to_date.Name = "to_date"
-        Me.to_date.Width = 105
+        Me.to_date.Width = 98
         '
         'dept_id
         '
@@ -579,6 +581,15 @@ Partial Class frm_EmpInDept
         Me.deptemp_id.Visible = False
         Me.deptemp_id.Width = 60
         '
+        'ckb_Delete
+        '
+        Me.ckb_Delete.HeaderText = "Confirm"
+        Me.ckb_Delete.MinimumWidth = 6
+        Me.ckb_Delete.Name = "ckb_Delete"
+        Me.ckb_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ckb_Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.ckb_Delete.Width = 60
+        '
         'frm_EmpInDept
         '
         Me.AllowDrop = True
@@ -586,7 +597,7 @@ Partial Class frm_EmpInDept
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1283, 713)
+        Me.ClientSize = New System.Drawing.Size(1391, 713)
         Me.Controls.Add(Me.grb_Search)
         Me.Controls.Add(Me.btn_Exit)
         Me.Controls.Add(Me.gbtn_Delete)
@@ -656,4 +667,5 @@ Partial Class frm_EmpInDept
     Friend WithEvents dept_id As DataGridViewTextBoxColumn
     Friend WithEvents status As DataGridViewTextBoxColumn
     Friend WithEvents deptemp_id As DataGridViewTextBoxColumn
+    Friend WithEvents ckb_Delete As DataGridViewCheckBoxColumn
 End Class

@@ -42,8 +42,6 @@ Partial Class frm_Employee
         Me.lbl_Phone = New System.Windows.Forms.Label()
         Me.txt_Name = New System.Windows.Forms.TextBox()
         Me.lbl_Name = New System.Windows.Forms.Label()
-        Me.txt_EmployeeID = New System.Windows.Forms.TextBox()
-        Me.lbl_EmployeeID = New System.Windows.Forms.Label()
         Me.ptb_Employee = New System.Windows.Forms.PictureBox()
         Me.dgrv_Employee = New System.Windows.Forms.DataGridView()
         Me.No = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -56,6 +54,7 @@ Partial Class frm_Employee
         Me.birthday = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ckb_Delete = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.lbl_TitleEmployee = New System.Windows.Forms.Label()
         Me.txt_Search = New System.Windows.Forms.TextBox()
         Me.lbl_Page = New System.Windows.Forms.Label()
@@ -78,7 +77,7 @@ Partial Class frm_Employee
         'txt_Email
         '
         Me.txt_Email.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Email.Location = New System.Drawing.Point(505, 197)
+        Me.txt_Email.Location = New System.Drawing.Point(506, 190)
         Me.txt_Email.Name = "txt_Email"
         Me.txt_Email.Size = New System.Drawing.Size(192, 30)
         Me.txt_Email.TabIndex = 40
@@ -89,7 +88,7 @@ Partial Class frm_Employee
         Me.lbl_Email.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Email.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Email.ForeColor = System.Drawing.Color.Ivory
-        Me.lbl_Email.Location = New System.Drawing.Point(389, 199)
+        Me.lbl_Email.Location = New System.Drawing.Point(389, 194)
         Me.lbl_Email.Name = "lbl_Email"
         Me.lbl_Email.Size = New System.Drawing.Size(65, 23)
         Me.lbl_Email.TabIndex = 39
@@ -103,7 +102,7 @@ Partial Class frm_Employee
         Me.dtp_Birthday.CustomFormat = "dd/MM/yyyy"
         Me.dtp_Birthday.Font = New System.Drawing.Font("Times New Roman", 13.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtp_Birthday.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtp_Birthday.Location = New System.Drawing.Point(505, 131)
+        Me.dtp_Birthday.Location = New System.Drawing.Point(158, 190)
         Me.dtp_Birthday.Name = "dtp_Birthday"
         Me.dtp_Birthday.Size = New System.Drawing.Size(193, 33)
         Me.dtp_Birthday.TabIndex = 38
@@ -115,7 +114,7 @@ Partial Class frm_Employee
         Me.lbl_Birthday.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Birthday.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Birthday.ForeColor = System.Drawing.Color.Ivory
-        Me.lbl_Birthday.Location = New System.Drawing.Point(389, 138)
+        Me.lbl_Birthday.Location = New System.Drawing.Point(23, 194)
         Me.lbl_Birthday.Name = "lbl_Birthday"
         Me.lbl_Birthday.Size = New System.Drawing.Size(90, 23)
         Me.lbl_Birthday.TabIndex = 37
@@ -128,7 +127,7 @@ Partial Class frm_Employee
         Me.rdo_Female.BackColor = System.Drawing.Color.Transparent
         Me.rdo_Female.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.rdo_Female.ForeColor = System.Drawing.Color.Ivory
-        Me.rdo_Female.Location = New System.Drawing.Point(991, 87)
+        Me.rdo_Female.Location = New System.Drawing.Point(608, 140)
         Me.rdo_Female.Name = "rdo_Female"
         Me.rdo_Female.Size = New System.Drawing.Size(89, 26)
         Me.rdo_Female.TabIndex = 36
@@ -143,7 +142,7 @@ Partial Class frm_Employee
         Me.rdo_Male.BackColor = System.Drawing.Color.Transparent
         Me.rdo_Male.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.rdo_Male.ForeColor = System.Drawing.Color.Ivory
-        Me.rdo_Male.Location = New System.Drawing.Point(887, 86)
+        Me.rdo_Male.Location = New System.Drawing.Point(506, 140)
         Me.rdo_Male.Name = "rdo_Male"
         Me.rdo_Male.Size = New System.Drawing.Size(72, 26)
         Me.rdo_Male.TabIndex = 35
@@ -157,7 +156,7 @@ Partial Class frm_Employee
         Me.lbl_Gender.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Gender.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Gender.ForeColor = System.Drawing.Color.Ivory
-        Me.lbl_Gender.Location = New System.Drawing.Point(745, 87)
+        Me.lbl_Gender.Location = New System.Drawing.Point(389, 138)
         Me.lbl_Gender.Name = "lbl_Gender"
         Me.lbl_Gender.Size = New System.Drawing.Size(81, 23)
         Me.lbl_Gender.TabIndex = 34
@@ -167,7 +166,7 @@ Partial Class frm_Employee
         '
         Me.txt_Address.AllowDrop = True
         Me.txt_Address.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Address.Location = New System.Drawing.Point(158, 192)
+        Me.txt_Address.Location = New System.Drawing.Point(158, 136)
         Me.txt_Address.Name = "txt_Address"
         Me.txt_Address.Size = New System.Drawing.Size(193, 30)
         Me.txt_Address.TabIndex = 33
@@ -178,7 +177,7 @@ Partial Class frm_Employee
         Me.lbl_Address.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Address.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Address.ForeColor = System.Drawing.Color.Ivory
-        Me.lbl_Address.Location = New System.Drawing.Point(16, 199)
+        Me.lbl_Address.Location = New System.Drawing.Point(20, 138)
         Me.lbl_Address.Name = "lbl_Address"
         Me.lbl_Address.Size = New System.Drawing.Size(85, 23)
         Me.lbl_Address.TabIndex = 32
@@ -187,7 +186,7 @@ Partial Class frm_Employee
         'txt_Phone
         '
         Me.txt_Phone.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Phone.Location = New System.Drawing.Point(158, 134)
+        Me.txt_Phone.Location = New System.Drawing.Point(504, 80)
         Me.txt_Phone.Name = "txt_Phone"
         Me.txt_Phone.Size = New System.Drawing.Size(193, 30)
         Me.txt_Phone.TabIndex = 31
@@ -198,7 +197,7 @@ Partial Class frm_Employee
         Me.lbl_Phone.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Phone.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Phone.ForeColor = System.Drawing.Color.Ivory
-        Me.lbl_Phone.Location = New System.Drawing.Point(17, 136)
+        Me.lbl_Phone.Location = New System.Drawing.Point(389, 88)
         Me.lbl_Phone.Name = "lbl_Phone"
         Me.lbl_Phone.Size = New System.Drawing.Size(69, 23)
         Me.lbl_Phone.TabIndex = 30
@@ -208,7 +207,7 @@ Partial Class frm_Employee
         '
         Me.txt_Name.AllowDrop = True
         Me.txt_Name.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Name.Location = New System.Drawing.Point(505, 82)
+        Me.txt_Name.Location = New System.Drawing.Point(158, 83)
         Me.txt_Name.Name = "txt_Name"
         Me.txt_Name.Size = New System.Drawing.Size(193, 30)
         Me.txt_Name.TabIndex = 29
@@ -219,41 +218,18 @@ Partial Class frm_Employee
         Me.lbl_Name.BackColor = System.Drawing.Color.Transparent
         Me.lbl_Name.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Name.ForeColor = System.Drawing.Color.Ivory
-        Me.lbl_Name.Location = New System.Drawing.Point(389, 84)
+        Me.lbl_Name.Location = New System.Drawing.Point(20, 87)
         Me.lbl_Name.Name = "lbl_Name"
         Me.lbl_Name.Size = New System.Drawing.Size(66, 23)
         Me.lbl_Name.TabIndex = 28
         Me.lbl_Name.Text = "Name:"
-        '
-        'txt_EmployeeID
-        '
-        Me.txt_EmployeeID.AllowDrop = True
-        Me.txt_EmployeeID.Enabled = False
-        Me.txt_EmployeeID.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_EmployeeID.Location = New System.Drawing.Point(158, 82)
-        Me.txt_EmployeeID.Name = "txt_EmployeeID"
-        Me.txt_EmployeeID.ReadOnly = True
-        Me.txt_EmployeeID.Size = New System.Drawing.Size(193, 30)
-        Me.txt_EmployeeID.TabIndex = 27
-        '
-        'lbl_EmployeeID
-        '
-        Me.lbl_EmployeeID.AutoSize = True
-        Me.lbl_EmployeeID.BackColor = System.Drawing.Color.Transparent
-        Me.lbl_EmployeeID.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_EmployeeID.ForeColor = System.Drawing.Color.Ivory
-        Me.lbl_EmployeeID.Location = New System.Drawing.Point(16, 79)
-        Me.lbl_EmployeeID.Name = "lbl_EmployeeID"
-        Me.lbl_EmployeeID.Size = New System.Drawing.Size(122, 23)
-        Me.lbl_EmployeeID.TabIndex = 26
-        Me.lbl_EmployeeID.Text = "Employee Id:"
         '
         'ptb_Employee
         '
         Me.ptb_Employee.BackgroundImage = Global.Training01.My.Resources.Resources.avatar2
         Me.ptb_Employee.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ptb_Employee.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.ptb_Employee.Location = New System.Drawing.Point(749, 131)
+        Me.ptb_Employee.Location = New System.Drawing.Point(730, 80)
         Me.ptb_Employee.Name = "ptb_Employee"
         Me.ptb_Employee.Size = New System.Drawing.Size(111, 96)
         Me.ptb_Employee.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -266,7 +242,7 @@ Partial Class frm_Employee
         Me.dgrv_Employee.BackgroundColor = System.Drawing.Color.DarkGray
         Me.dgrv_Employee.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgrv_Employee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgrv_Employee.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.No, Me.EmployeeID, Me.EmployeeName, Me.images, Me.phone, Me.address, Me.gender, Me.birthday, Me.email, Me.status})
+        Me.dgrv_Employee.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.No, Me.EmployeeID, Me.EmployeeName, Me.images, Me.phone, Me.address, Me.gender, Me.birthday, Me.email, Me.status, Me.ckb_Delete})
         Me.dgrv_Employee.Location = New System.Drawing.Point(21, 306)
         Me.dgrv_Employee.Name = "dgrv_Employee"
         Me.dgrv_Employee.RowHeadersVisible = False
@@ -274,7 +250,7 @@ Partial Class frm_Employee
         Me.dgrv_Employee.RowTemplate.Height = 24
         Me.dgrv_Employee.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgrv_Employee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgrv_Employee.Size = New System.Drawing.Size(1192, 322)
+        Me.dgrv_Employee.Size = New System.Drawing.Size(1230, 322)
         Me.dgrv_Employee.TabIndex = 54
         '
         'No
@@ -323,7 +299,7 @@ Partial Class frm_Employee
         Me.phone.HeaderText = "Phone"
         Me.phone.MinimumWidth = 6
         Me.phone.Name = "phone"
-        Me.phone.Width = 125
+        Me.phone.Width = 110
         '
         'address
         '
@@ -341,7 +317,7 @@ Partial Class frm_Employee
         Me.gender.HeaderText = "Gender"
         Me.gender.MinimumWidth = 6
         Me.gender.Name = "gender"
-        Me.gender.Width = 80
+        Me.gender.Width = 70
         '
         'birthday
         '
@@ -350,7 +326,7 @@ Partial Class frm_Employee
         Me.birthday.HeaderText = "Birthday"
         Me.birthday.MinimumWidth = 6
         Me.birthday.Name = "birthday"
-        Me.birthday.Width = 125
+        Me.birthday.Width = 110
         '
         'email
         '
@@ -369,22 +345,30 @@ Partial Class frm_Employee
         Me.status.Visible = False
         Me.status.Width = 60
         '
+        'ckb_Delete
+        '
+        Me.ckb_Delete.HeaderText = "Confirm"
+        Me.ckb_Delete.MinimumWidth = 6
+        Me.ckb_Delete.Name = "ckb_Delete"
+        Me.ckb_Delete.Width = 60
+        '
         'lbl_TitleEmployee
         '
         Me.lbl_TitleEmployee.AutoSize = True
         Me.lbl_TitleEmployee.BackColor = System.Drawing.Color.Transparent
         Me.lbl_TitleEmployee.Font = New System.Drawing.Font("Times New Roman", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_TitleEmployee.ForeColor = System.Drawing.Color.Ivory
-        Me.lbl_TitleEmployee.Location = New System.Drawing.Point(354, 9)
+        Me.lbl_TitleEmployee.Location = New System.Drawing.Point(376, 9)
         Me.lbl_TitleEmployee.Name = "lbl_TitleEmployee"
         Me.lbl_TitleEmployee.Size = New System.Drawing.Size(353, 45)
         Me.lbl_TitleEmployee.TabIndex = 25
         Me.lbl_TitleEmployee.Text = "EMPLOYEE LIST"
+        Me.lbl_TitleEmployee.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'txt_Search
         '
         Me.txt_Search.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Search.Location = New System.Drawing.Point(880, 194)
+        Me.txt_Search.Location = New System.Drawing.Point(730, 190)
         Me.txt_Search.Name = "txt_Search"
         Me.txt_Search.Size = New System.Drawing.Size(220, 30)
         Me.txt_Search.TabIndex = 59
@@ -532,7 +516,7 @@ Partial Class frm_Employee
         Me.gbtn_Upload.FillColor2 = System.Drawing.Color.AntiqueWhite
         Me.gbtn_Upload.Font = New System.Drawing.Font("Times New Roman", 10.2!, System.Drawing.FontStyle.Bold)
         Me.gbtn_Upload.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Upload.Location = New System.Drawing.Point(880, 131)
+        Me.gbtn_Upload.Location = New System.Drawing.Point(861, 80)
         Me.gbtn_Upload.Name = "gbtn_Upload"
         Me.gbtn_Upload.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Upload.Size = New System.Drawing.Size(142, 40)
@@ -555,7 +539,7 @@ Partial Class frm_Employee
         Me.gbtn_Search.FillColor2 = System.Drawing.Color.AntiqueWhite
         Me.gbtn_Search.Font = New System.Drawing.Font("Times New Roman", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbtn_Search.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.gbtn_Search.Location = New System.Drawing.Point(1114, 192)
+        Me.gbtn_Search.Location = New System.Drawing.Point(967, 185)
         Me.gbtn_Search.Name = "gbtn_Search"
         Me.gbtn_Search.PressedColor = System.Drawing.Color.Transparent
         Me.gbtn_Search.Size = New System.Drawing.Size(99, 35)
@@ -612,7 +596,7 @@ Partial Class frm_Employee
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1225, 685)
+        Me.ClientSize = New System.Drawing.Size(1289, 685)
         Me.Controls.Add(Me.btn_EmpDept)
         Me.Controls.Add(Me.ptb_Next)
         Me.Controls.Add(Me.ptb_Previous)
@@ -640,8 +624,6 @@ Partial Class frm_Employee
         Me.Controls.Add(Me.lbl_Phone)
         Me.Controls.Add(Me.txt_Name)
         Me.Controls.Add(Me.lbl_Name)
-        Me.Controls.Add(Me.txt_EmployeeID)
-        Me.Controls.Add(Me.lbl_EmployeeID)
         Me.Controls.Add(Me.lbl_TitleEmployee)
         Me.DoubleBuffered = True
         Me.ForeColor = System.Drawing.SystemColors.ControlText
@@ -669,8 +651,6 @@ Partial Class frm_Employee
     Friend WithEvents lbl_Phone As Label
     Friend WithEvents txt_Name As TextBox
     Friend WithEvents lbl_Name As Label
-    Friend WithEvents txt_EmployeeID As TextBox
-    Friend WithEvents lbl_EmployeeID As Label
     Friend WithEvents ptb_Employee As PictureBox
     Friend WithEvents dgrv_Employee As DataGridView
     Friend WithEvents name1 As DataGridViewTextBoxColumn
@@ -686,6 +666,7 @@ Partial Class frm_Employee
     Friend WithEvents gbtn_Search As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents ptb_Previous As Guna.UI2.WinForms.Guna2PictureBox
     Friend WithEvents ptb_Next As Guna.UI2.WinForms.Guna2PictureBox
+    Friend WithEvents btn_EmpDept As Button
     Friend WithEvents No As DataGridViewTextBoxColumn
     Friend WithEvents EmployeeID As DataGridViewTextBoxColumn
     Friend WithEvents EmployeeName As DataGridViewTextBoxColumn
@@ -696,5 +677,5 @@ Partial Class frm_Employee
     Friend WithEvents birthday As DataGridViewTextBoxColumn
     Friend WithEvents email As DataGridViewTextBoxColumn
     Friend WithEvents status As DataGridViewTextBoxColumn
-    Friend WithEvents btn_EmpDept As Button
+    Friend WithEvents ckb_Delete As DataGridViewCheckBoxColumn
 End Class

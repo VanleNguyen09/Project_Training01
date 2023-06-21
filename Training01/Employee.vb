@@ -24,6 +24,7 @@ Public Class frm_Employee
     Dim titleError As String = GlobalVariables.titleError
     Dim titleConfỉrm As String = GlobalVariables.titleConfirm
     Dim titleInfo As String = GlobalVariables.titleInfo
+    Private Property Id As Integer
 
     Private Class Selected_Employees
         Public id As Integer = 0
@@ -53,8 +54,10 @@ Public Class frm_Employee
         rdo_Female.Checked = False
         EnableAdd()
         dgrv_Employee.Rows.Clear()
+        totalRows = GetTotalRowsEmployees()
         LoadData()
-        txt_EmployeeID.Enabled = False
+        'LoadData(currentPage, pageSize)
+        'txt_EmployeeID.Enabled = False
         dgrv_Employee.ClearSelection()
     End Sub
 
@@ -241,6 +244,27 @@ Public Class frm_Employee
         End Try
     End Sub
 
+    Private Function GetTotalRowsEmployees() As Integer
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("CountTotalEmployees", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                Using reader As SqlDataReader = cmd.ExecuteReader()
+                    If reader.Read Then
+                        totalRows = reader("SL_NV").ToString()
+                    End If
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
+        Finally
+            con.Close()
+        End Try
+        Return totalRows
+    End Function
+
     Private Sub ShowEmployee(ByVal No As Integer, ByVal reader As SqlDataReader)
         Dim id As Integer = Convert.ToInt32(reader("id").ToString())
         Dim name As String = reader("name").ToString()
@@ -258,7 +282,6 @@ Public Class frm_Employee
             End If
         End If
 
-
         Dim phone As String = reader("phone").ToString()
         Dim address As String = reader("address").ToString()
         Dim gender As String = reader("gender").ToString()
@@ -266,14 +289,41 @@ Public Class frm_Employee
         Dim birthdayFormat As String = FuntionCommon.FormatDateTime.FormatDateTime(birthday)
         Dim email As String = reader("email").ToString()
         Dim status As Integer = Convert.ToInt32(reader("status").ToString())
+
         dgrv_Employee.Rows.Add(No, id, name, img, phone, address, gender, birthdayFormat, email, status)
     End Sub
+
+    'Private Sub LoadData(ByVal currentPage As Integer, ByVal pageSize As Integer)
+    '    If con.State <> 1 Then
+    '        con.Open()
+    '    End If
+    '    dgrv_Employee.Rows.Clear()
+    '    Using cmd As SqlCommand = New SqlCommand("GetAllEmployees", con)
+    '        cmd.CommandType = CommandType.StoredProcedure
+    '        cmd.Parameters.AddWithValue("@curentPage", currentPage)
+    '        cmd.Parameters.AddWithValue("@pageSize", pageSize)
+    '        cmd.ExecuteNonQuery()
+    '        Dim reader As SqlDataReader = cmd.ExecuteReader()
+    '        Dim No As Integer = 1
+    '        While reader.Read()
+    '            ShowEmployee(No, reader)
+    '            No += 1
+    '        End While
+    '        con.Close()
+    '    End Using
+    '    Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
+    'End Sub
     Private Sub LoadData()
         If con.State <> 1 Then
             con.Open()
         End If
         dgrv_Employee.Rows.Clear()
+        Console.WriteLine(totalRows)
+        Console.WriteLine(dgrv_Employee.Rows.Count)
         Using cmd As SqlCommand = New SqlCommand("GetAllEmployees", con)
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@curentPage", currentPage)
+            cmd.Parameters.AddWithValue("@pageSize", pageSize)
             Dim reader As SqlDataReader = cmd.ExecuteReader()
             Dim No As Integer = 1
             While reader.Read()
@@ -282,7 +332,7 @@ Public Class frm_Employee
             End While
             con.Close()
         End Using
-        Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
+        Pagination.PaginateDataGridView1(dgrv_Employee, currentPage, totalRows)
     End Sub
     Private Sub EnableAdd()
         gbtn_Add.Enabled = True
@@ -301,7 +351,7 @@ Public Class frm_Employee
         txt_Name.Text = String.Empty
         txt_Address.Text = String.Empty
         txt_Phone.Text = String.Empty
-        txt_EmployeeID.Text = String.Empty
+        'txt_EmployeeID.Text = String.Empty
         txt_Email.Text = String.Empty
         rdo_Male.Checked = True
         rdo_Female.Checked = False
@@ -310,6 +360,11 @@ Public Class frm_Employee
         currentPage = 1
         ptb_Next.Enabled = True
         ptb_Previous.Enabled = False
+        ' Set Value of Checkbox to False
+        For Each row As DataGridViewRow In dgrv_Employee.Rows
+            Dim checkboxCell As DataGridViewCheckBoxCell = DirectCast(row.Cells("ckb_Delete"), DataGridViewCheckBoxCell)
+            checkboxCell.Value = False
+        Next
         dgrv_Employee.ClearSelection()
     End Sub
 
@@ -328,6 +383,7 @@ Public Class frm_Employee
                     While reader.Read()
                         ShowEmployee(No, reader)
                         No += 1
+                        Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
                     End While
                 Else
                     MessageBox.Show(Message.Message.errorInvalidSearch, titleNotif, buttonOK, warmIcon)
@@ -348,7 +404,6 @@ Public Class frm_Employee
         Dim address As String = txt_Address.Text.Trim()
         Dim gender As String
 
-
         If rdo_Male.Checked = True Then
             gender = "Male"
         Else
@@ -362,17 +417,17 @@ Public Class frm_Employee
             String.IsNullOrEmpty(address) OrElse
             String.IsNullOrEmpty(gender) OrElse
             String.IsNullOrEmpty(email) Then
-            MessageBox.Show(Message.Message.emptyDataErrorMessage, titleNotif, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.emptyDataErrorMessage, titleNotif, buttonOK, warmIcon)
             Return
         End If
 
         If Not FuntionCommon.Validation.IsEmail(email) Then
-            MessageBox.Show(Message.Message.emailInvalidMessage, titleNotif, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.emailInvalidMessage, titleNotif, buttonOK, warmIcon)
             Exit Sub
         End If
 
         If Not FuntionCommon.Validation.ValidatePhone(phone) Then
-            MessageBox.Show(Message.Message.phoneInvalidMessage, titleNotif, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.phoneInvalidMessage, titleNotif, buttonOK, warmIcon)
             Exit Sub
         End If
 
@@ -382,13 +437,13 @@ Public Class frm_Employee
         Dim isValid As Boolean = FuntionCommon.Validation.ValidateYear(inputYear, currentYear)
 
         If Not isValid Then
-            MessageBox.Show(Message.Message.yearInvalidError, titleNotif, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.yearInvalidError, titleNotif, buttonOK, warmIcon)
             Exit Sub
         End If
 
         Dim img As Byte() = ImageToByte(ptb_Employee.Image)
         If imageSelected = False Then
-            MessageBox.Show(Message.Message.imageEmptyError, titleNotif, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.imageEmptyError, titleNotif, buttonOK, warmIcon)
             Exit Sub
         End If
 
@@ -405,7 +460,7 @@ Public Class frm_Employee
     End Sub
 
     Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
-        Dim id As Integer = Convert.ToInt32(txt_EmployeeID.Text)
+        'Dim id As Integer = Convert.ToInt32()
         Dim name As String = txt_Name.Text.Trim()
         Dim phone As String = txt_Phone.Text.Trim()
         Dim address As String = txt_Address.Text.Trim()
@@ -425,17 +480,17 @@ Public Class frm_Employee
                 String.IsNullOrEmpty(address) OrElse
                 String.IsNullOrEmpty(gender) OrElse
                 String.IsNullOrEmpty(email) Then
-            MessageBox.Show(Message.Message.emptyDataErrorMessage, titleNotif, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.emptyDataErrorMessage, titleNotif, buttonOK, warmIcon)
             Return
         End If
 
         If Not FuntionCommon.Validation.IsEmail(email) Then
-            MessageBox.Show(Message.Message.emailInvalidMessage, titleNotif, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.emailInvalidMessage, titleNotif, buttonOK, warmIcon)
             Exit Sub
         End If
 
         If Not FuntionCommon.Validation.ValidatePhone(phone) Then
-            MessageBox.Show(Message.Message.phoneInvalidMessage, titleNotif, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.phoneInvalidMessage, titleNotif, buttonOK, warmIcon)
             Exit Sub
         End If
 
@@ -445,7 +500,7 @@ Public Class frm_Employee
         Dim isValid As Boolean = FuntionCommon.Validation.ValidateYear(inputYear, currentYear)
 
         If Not isValid Then
-            MessageBox.Show(Message.Message.yearInvalidError, titleNotif, buttonOK, errorIcon)
+            MessageBox.Show(Message.Message.yearInvalidError, titleNotif, buttonOK, warmIcon)
             Exit Sub
         End If
 
@@ -460,46 +515,68 @@ Public Class frm_Employee
         values.Add(EmployeeParameters.Birthday, birthday)
         values.Add(EmployeeParameters.Email, email)
         values.Add(EmployeeParameters.Image, img)
-        values.Add(EmployeeParameters.Id, id)
+        values.Add(EmployeeParameters.Id, Id)
 
         Update_Employee(values)
     End Sub
 
     Private Sub dgrv_employee_cellclick(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Employee.CellClick
 
-        If e.RowIndex >= 0 Then
+        If e.ColumnIndex = dgrv_Employee.Columns.Count - 1 AndAlso e.RowIndex >= 0 Then
             DisableAdd()
-            Dim selectedrow = dgrv_Employee.Rows(e.RowIndex)
-            txt_EmployeeID.Text = selectedrow.Cells("employeeid").Value.ToString()
-            selectedEmployees.id = txt_EmployeeID.Text
-            txt_EmployeeID.ReadOnly = True
-            txt_Name.Text = selectedrow.Cells("employeename").Value.ToString()
-            selectedEmployees.name = txt_Name.Text
-            txt_Phone.Text = selectedrow.Cells("phone").Value.ToString()
-            selectedEmployees.phone = txt_Phone.Text
-            txt_Email.Text = selectedrow.Cells("email").Value.ToString()
-            selectedEmployees.email = txt_Email.Text
-            dgrv_Employee.ReadOnly = True
 
-            Dim cellValue As Object = selectedrow.Cells("images").Value
-            selectedEmployees.img = cellValue
-            If TypeOf cellValue Is Image Then
-                Dim image As Image = DirectCast(cellValue, Image)
-                ptb_Employee.Image = image
+            Dim checkboxCell As DataGridViewCheckBoxCell = DirectCast(dgrv_Employee.Rows(e.RowIndex).Cells(e.ColumnIndex), DataGridViewCheckBoxCell)
+            Dim isChecked As Boolean = CBool(checkboxCell.Value)
+
+            ' Update value of checkbox
+            checkboxCell.Value = Not isChecked
+
+            ' Highlight or un-highlight the respective rows
+            For Each row As DataGridViewRow In dgrv_Employee.Rows
+                Dim rowCheckboxCell As DataGridViewCheckBoxCell = DirectCast(row.Cells(e.ColumnIndex), DataGridViewCheckBoxCell)
+                row.Selected = CBool(rowCheckboxCell.Value)
+            Next
+
+            If checkboxCell.Value Then
+                Dim selectedrow = dgrv_Employee.Rows(e.RowIndex)
+                Id = CInt(selectedrow.Cells("EmployeeID").Value)
+                txt_Name.Text = selectedrow.Cells("employeename").Value.ToString()
+                selectedEmployees.name = txt_Name.Text
+                txt_Phone.Text = selectedrow.Cells("phone").Value.ToString()
+                selectedEmployees.phone = txt_Phone.Text
+                txt_Email.Text = selectedrow.Cells("email").Value.ToString()
+                selectedEmployees.email = txt_Email.Text
+                dgrv_Employee.ReadOnly = True
+
+                Dim cellValue As Object = selectedrow.Cells("images").Value
+                selectedEmployees.img = cellValue
+                If TypeOf cellValue Is Image Then
+                    Dim image As Image = DirectCast(cellValue, Image)
+                    ptb_Employee.Image = image
+                Else
+                    ptb_Employee.Image = Nothing
+                End If
+                txt_Address.Text = selectedrow.Cells("address").Value.ToString()
+                selectedEmployees.address = txt_Address.Text
+                Dim gender = selectedrow.Cells("gender")
+                If CBool(gender.Value) = True Then
+                    rdo_Male.Checked = True
+                Else
+                    rdo_Female.Checked = True
+                End If
+                selectedEmployees.gender = CBool(gender.Value)
+                dtp_Birthday.Value = Convert.ToDateTime(selectedrow.Cells("birthday").Value)
+                selectedEmployees.birthday = dtp_Birthday.Value
             Else
+                txt_Name.Text = ""
+                txt_Phone.Text = ""
+                txt_Email.Text = ""
                 ptb_Employee.Image = Nothing
+                txt_Address.Text = ""
+                rdo_Male.Checked = False
+                rdo_Female.Checked = False
+                dtp_Birthday.Value = DateTime.Now
             End If
-            txt_Address.Text = selectedrow.Cells("address").Value.ToString()
-            selectedEmployees.address = txt_Address.Text
-            Dim gender = selectedrow.Cells("gender")
-            If CBool(gender.Value) = True Then
-                rdo_Male.Checked = True
-            Else
-                rdo_Female.Checked = True
-            End If
-            selectedEmployees.gender = CBool(gender.Value)
-            dtp_Birthday.Value = Convert.ToDateTime(selectedrow.Cells("birthday").Value)
-            selectedEmployees.birthday = dtp_Birthday.Value
         End If
     End Sub
 
@@ -567,7 +644,7 @@ Public Class frm_Employee
         End If
     End Sub
     Private Sub gbtn_Reset_Click(sender As Object, e As EventArgs) Handles gbtn_Reset.Click
-        txt_EmployeeID.Text = selectedEmployees.id
+        'txt_EmployeeID.Text = selectedEmployees.id
         txt_Name.Text = selectedEmployees.name
         txt_Phone.Text = selectedEmployees.phone
         ptb_Employee.Image = selectedEmployees.img
@@ -666,7 +743,7 @@ Public Class frm_Employee
     Private Sub ptb_Previous_Click(sender As Object, e As EventArgs) Handles ptb_Previous.Click
         If currentPage > 1 Then
             currentPage -= 1
-            Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
+            LoadData()
         End If
         UpdatePaginationPicBox()
     End Sub
@@ -677,7 +754,7 @@ Public Class frm_Employee
 
         If currentPage < totalPages Then
             currentPage += 1
-            Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
+            LoadData()
         End If
         UpdatePaginationPicBox()
     End Sub
