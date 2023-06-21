@@ -7,9 +7,14 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE OR ALTER PROCEDURE [dbo].[GetEmpDeptByKeyWord]
 	@keyword NVARCHAR(255),
-	@department_id INT
+	@department_id INT,
+	@currentPage INT,
+	@pageSize INT
 AS
 BEGIN
+	DECLARE @starIndex INT, @rowsToFetch INT;
+	SET @starIndex = (@currentPage - 1) * @pageSize
+	SET @rowsToFetch = @pageSize;
 	IF @department_id != -1 
 	BEGIN
 	SELECT a.*, c.name AS department_name, b.id AS deptemp_id, 
@@ -28,7 +33,9 @@ BEGIN
 	OR from_date LIKE '%' + @keyword + '%' OR to_date 
 	LIKE '%' + @keyword + '%') AND (b.status = 1 AND a.status = 1)
 	AND (b.dept_id = @department_id)
-	ORDER BY b.id
+	ORDER BY b.id DESC
+	OFFSET @starIndex ROWS
+	FETCH NEXT @rowsToFetch ROWS ONLY
 	END
 	ELSE 
 		BEGIN 
@@ -47,10 +54,14 @@ BEGIN
 	OR c.name  LIKE '%' + @keyword + '%'
 	OR from_date LIKE '%' + @keyword + '%' OR to_date 
 	LIKE '%' + @keyword + '%') AND (b.status = 1 AND a.status = 1)
-	ORDER BY b.id	
+	ORDER BY b.id DESC
+	OFFSET @starIndex ROWS
+	FETCH NEXT @rowsToFetch ROWS ONLY
 END
 END
 GO
 
 EXEC dbo.GetEmpDeptByKeyWord @keyword = N'Phong',    -- nvarchar(255)
                              @department_id = 2 -- int
+							 @currentPage = 1
+							 @pageSize = 10

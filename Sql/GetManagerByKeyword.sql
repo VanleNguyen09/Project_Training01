@@ -6,9 +6,14 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE OR ALTER PROCEDURE [dbo].[GetManagersByKeyWord]
 	@keyword NVARCHAR(255),
-	@department_id INT
+	@department_id INT,
+	@currentPage INT,
+	@pageSize INT
 AS
 BEGIN
+	DECLARE @starIndex INT, @rowsToFetch INT;
+	SET @starIndex = (@currentPage - 1) * @pageSize
+	SET @rowsToFetch = @pageSize;
 	IF @department_id != -1 
 	BEGIN
 	SELECT b.*, c.name AS department_name, a.dept_id AS dept_id,
@@ -27,7 +32,9 @@ BEGIN
 	OR a.from_date LIKE '%' + @keyword + '%' OR a.to_date 
 	LIKE '%' + @keyword + '%')  AND (a.status = 1  AND b.status = 1) 
 	AND (a.dept_id = @department_id)
-	ORDER BY a.id
+	ORDER BY a.id DESC
+	OFFSET @starIndex ROWS
+	FETCH NEXT @rowsToFetch ROWS ONLY
 	END
 	ELSE 
 		BEGIN 
@@ -46,7 +53,9 @@ BEGIN
 	OR c.name  LIKE '%' + @keyword + '%'
 	OR a.from_date LIKE '%' + @keyword + '%' OR a.to_date 
 	LIKE '%' + @keyword + '%') AND (a.status = 1 AND b.status = 1)
-	ORDER BY a.id
+	ORDER BY a.id DESC
+	OFFSET @starIndex ROWS
+	FETCH NEXT @rowsToFetch ROWS ONLY
 	END
 END
 GO

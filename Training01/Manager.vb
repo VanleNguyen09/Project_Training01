@@ -58,10 +58,34 @@ Public Class frm_Manager
         dgv_DeptManager.Columns("No").SortMode = DataGridViewColumnSortMode.NotSortable
         EnableAdd()
         dgv_DeptManager.Rows.Clear()
+        totalRows = GetTotalRowsManagers()
+        UpdatePaginationPicBox()
         LoadData()
         Select_Departments()
         Select_Employees()
     End Sub
+
+    Private Function GetTotalRowsManagers() As Integer
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("CountTotalManagers", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                Using reader As SqlDataReader = cmd.ExecuteReader()
+                    If reader.Read Then
+                        totalRows = reader("SL_MG").ToString()
+                    End If
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
+        Finally
+            con.Close()
+        End Try
+        Return totalRows
+    End Function
+
 
     Private Sub frm_Manager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         dgv_DeptManager.ClearSelection()
@@ -91,8 +115,8 @@ Public Class frm_Manager
         cb_DepCreate.SelectedIndex = 0
         cb_EmpCreate.SelectedIndex = 0
         dtp_FromDate.Value = Date.Now()
-        cb_EmpCreate.Enabled = True
         dtp_ToDate.Value = Date.Now()
+        cb_EmpCreate.Enabled = True
         dgv_DeptManager.ClearSelection()
         ptb_Next.Enabled = True
         ptb_Previous.Enabled = False
@@ -174,6 +198,9 @@ Public Class frm_Manager
         End If
         dgv_DeptManager.Rows.Clear()
         Using cmd As SqlCommand = New SqlCommand("GetAllEmployeesManager", con)
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@currentPage", currentPage)
+            cmd.Parameters.AddWithValue("@pageSize", pageSize)
             Dim reader As SqlDataReader = cmd.ExecuteReader()
             Dim No As Integer = 1
 
@@ -183,8 +210,7 @@ Public Class frm_Manager
             End While
             con.Close()
         End Using
-
-        Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
+        Pagination.Paginatedatagridview2(currentPage, totalRows)
     End Sub
 
     Private Function CheckEmpDeptExit(ByVal emp_id As Integer, ByVal dept_id As Integer) As Boolean
@@ -433,6 +459,8 @@ Public Class frm_Manager
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@keyword", keyword)
             cmd.Parameters.AddWithValue("@department_id", department_id)
+            cmd.Parameters.AddWithValue("@currentPage", currentPage)
+            cmd.Parameters.AddWithValue("@pageSize", pageSize)
             Dim No As Integer = 1
 
             Using reader As SqlDataReader = cmd.ExecuteReader()
@@ -440,19 +468,23 @@ Public Class frm_Manager
                     While reader.Read()
                         ShowEmployeeManager(No, reader)
                         No = No + 1
-                        Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
                     End While
+                    totalRows = dgv_DeptManager.Rows.Count
                 Else
                     MessageBox.Show(Message.Message.errorInvalidSearch, titleNotif, buttonOK, warmIcon)
                     reload = True
                 End If
+                Pagination.Paginatedatagridview2(currentPage, totalRows)
+                UpdatePaginationPicBox()
             End Using
         End Using
         con.Close()
         If reload Then
             txt_Search.Text = Nothing
-            cb_Department.SelectedIndex = 0
+            totalRows = GetTotalRowsManagers()
             LoadData()
+            UpdatePaginationPicBox()
+            cb_Department.SelectedIndex = 0
         End If
     End Sub
 
@@ -466,6 +498,8 @@ Public Class frm_Manager
         If dept_id = -1 Then
             Using cmd As SqlCommand = New SqlCommand("GetAllEmployeesManager", con)
                 cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@currentPage", currentPage)
+                cmd.Parameters.AddWithValue("@pageSize", pageSize)
                 reader = cmd.ExecuteReader()
                 Dim No As Integer = 1
                 While reader.Read()
@@ -474,69 +508,74 @@ Public Class frm_Manager
                 End While
                 con.Close()
             End Using
+            Pagination.Paginatedatagridview2(currentPage, totalRows)
         Else
             Using cmd As SqlCommand = New SqlCommand("GetManagerByDeptId", con)
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@dept_id", dept_id)
+                cmd.Parameters.AddWithValue("@currentPage", currentPage)
+                cmd.Parameters.AddWithValue("@pageSize", pageSize)
                 reader = cmd.ExecuteReader()
                 Dim No As Integer = 1
                 While reader.Read()
                     ShowEmployeeManager(No, reader)
                     No = No + 1
                 End While
+                totalRows = dgv_DeptManager.Rows.Count
+                Pagination.Paginatedatagridview2(currentPage, totalRows)
+                UpdatePaginationPicBox()
                 con.Close()
             End Using
         End If
-        Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
+
     End Sub
 
     Private Sub dgv_DeptManager_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgv_DeptManager.CellClick
 
-        If e.ColumnIndex = dgv_DeptManager.Columns.Count - 1 AndAlso e.RowIndex >= 0 Then
-            Dim selectedrow = dgv_DeptManager.Rows(e.RowIndex)
-            selectedEmpId = CInt(selectedrow.Cells("emp_id").Value)
-            For Each item As ComboBoxItem In cb_DepCreate.Items
-                If item.displayvalue = selectedrow.Cells("department_name").Value.ToString() Then
-                    cb_DepCreate.SelectedItem = item
-                    Exit For
-                End If
-            Next
-
-            Dim empId As Integer
-            If Integer.TryParse(selectedrow.Cells("emp_id").Value.ToString(), empId) Then
-                For Each item As ComboBoxItem In cb_EmpCreate.Items
-                    If CInt(item.hiddenvalue) = empId Then
-                        cb_EmpCreate.SelectedItem = item
+        If e.ColumnIndex = dgv_DeptManager.Columns.Count - 1 Then
+            dgv_DeptManager.SelectionMode = DataGridViewSelectionMode.CellSelect
+            dgv_DeptManager.ReadOnly = False
+            cb_DepCreate.SelectedIndex = 0
+            cb_EmpCreate.SelectedIndex = 0
+            dtp_FromDate.Value = Date.Now()
+            dtp_ToDate.Value = Date.Now()
+        Else
+            If e.RowIndex >= 0 Then
+                Dim selectedrow = dgv_DeptManager.Rows(e.RowIndex)
+                selectedEmpId = CInt(selectedrow.Cells("emp_id").Value)
+                For Each item As ComboBoxItem In cb_DepCreate.Items
+                    If item.displayvalue = selectedrow.Cells("department_name").Value.ToString() Then
+                        cb_DepCreate.SelectedItem = item
                         Exit For
                     End If
                 Next
+
+                Dim empId As Integer
+                If Integer.TryParse(selectedrow.Cells("emp_id").Value.ToString(), empId) Then
+                    For Each item As ComboBoxItem In cb_EmpCreate.Items
+                        If CInt(item.hiddenvalue) = empId Then
+                            cb_EmpCreate.SelectedItem = item
+                            Exit For
+                        End If
+                    Next
+                End If
+
+                selectedManagers.department_name = cb_DepCreate.SelectedItem.displayvalue
+
+                dtp_FromDate.Value = Convert.ToDateTime(selectedrow.Cells("from_date").Value)
+                selectedManagers.from_date = dtp_FromDate.Value
+                dtp_ToDate.Value = Convert.ToDateTime(selectedrow.Cells("to_date").Value)
+                selectedManagers.to_date = dtp_ToDate.Value
+                DeptmangerId = CInt(selectedrow.Cells("deptmanager_id").Value)
+                selectedManagers.deptmanager_id = DeptmangerId
+                dgv_DeptManager.ReadOnly = True
+                gbtn_Add.Enabled = False
+                gbtn_Delete.Enabled = True
+                cb_EmpCreate.Enabled = False
             End If
 
-            selectedManagers.department_name = cb_DepCreate.SelectedItem.displayvalue
-
-            dtp_FromDate.Value = Convert.ToDateTime(selectedrow.Cells("from_date").Value)
-            selectedManagers.from_date = dtp_FromDate.Value
-            dtp_ToDate.Value = Convert.ToDateTime(selectedrow.Cells("to_date").Value)
-            selectedManagers.to_date = dtp_ToDate.Value
-            DeptmangerId = CInt(selectedrow.Cells("deptmanager_id").Value)
-            selectedManagers.deptmanager_id = DeptmangerId
-            Dim checkboxCell As DataGridViewCheckBoxCell = DirectCast(dgv_DeptManager.Rows(e.RowIndex).Cells(e.ColumnIndex), DataGridViewCheckBoxCell)
-            Dim isChecked As Boolean = CBool(checkboxCell.Value)
-
-            ' Update value of checkbox
-            checkboxCell.Value = Not isChecked
-
-            ' Highlight or un-highlight the respective rows
-            For Each row As DataGridViewRow In dgv_DeptManager.Rows
-                Dim rowCheckboxCell As DataGridViewCheckBoxCell = DirectCast(row.Cells(e.ColumnIndex), DataGridViewCheckBoxCell)
-                row.Selected = CBool(rowCheckboxCell.Value)
-            Next
-            dgv_DeptManager.ReadOnly = True
-            gbtn_Add.Enabled = False
-            gbtn_Delete.Enabled = True
-            cb_EmpCreate.Enabled = False
-            DisableAdd()
         End If
+            DisableAdd()
     End Sub
     Private Sub gbtn_Search_Click(sender As Object, e As EventArgs) Handles gbtn_Search.Click
         Dim keyword As String = txt_Search.Text.Trim()
@@ -544,7 +583,6 @@ Public Class frm_Manager
         If Not String.IsNullOrEmpty(keyword) Then
             SearchManagersByKeyword(keyword, department_id)
         Else
-            MessageBox.Show(Message.Message.emptyDataSearchMessage, titleNotif, buttonOK, warmIcon)
             cb_Department.SelectedIndex = 0
             dgv_DeptManager.Rows.Clear()
         End If
@@ -622,33 +660,64 @@ Public Class frm_Manager
 
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
-        Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
+        LoadData()
         EnableAdd()
     End Sub
     Private Sub gbtn_Delete_Click(sender As Object, e As EventArgs) Handles gbtn_Delete.Click
-        Dim selectedRows As DataGridViewSelectedRowCollection = dgv_DeptManager.SelectedRows
+        ' Check if any row is selected
+        Dim selectedRows As New List(Of DataGridViewRow)()
 
-        If selectedRows.Count > 0 Then
-            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected manager(s)?", titleConfỉrm, buttonYesNo, questionIcon)
-
-            If result = DialogResult.Yes Then
-                Dim empIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("emp_id")
-                Dim deptIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("dept_id")
-
-                If empIdColumn IsNot Nothing And deptIdColumn IsNot Nothing Then
-                    MessageBox.Show(Message.Message.managerDeleteSuccess, titleSucces, buttonOK, infoIcon)
-                    For i As Integer = 0 To selectedRows.Count - 1
-                        Dim selectedRow As DataGridViewRow = selectedRows(i)
-                        Dim emp_id As Integer = CInt(selectedRow.Cells(empIdColumn.Index).Value)
-                        Dim dept_id As Integer = CInt(selectedRow.Cells(deptIdColumn.Index).Value)
-                        Delete_Manager(emp_id, dept_id)
-                        ClearForm()
-                    Next
-                    LoadData()
-                    EnableAdd()
-                End If
+        For Each row As DataGridViewRow In dgv_DeptManager.Rows
+            Dim checkboxCell As DataGridViewCheckBoxCell = TryCast(row.Cells("ckb_Delete"), DataGridViewCheckBoxCell)
+            If checkboxCell IsNot Nothing AndAlso checkboxCell.Value = True Then
+                selectedRows.Add(row)
             End If
+        Next
+
+        ' Check if no row is selected
+        If selectedRows.Count = 0 Then
+            MessageBox.Show("Please select at least one checkbox to delete", titleNotif, buttonOK, warmIcon)
+            Return
         End If
+
+        ' Show delete confirmation message
+        Dim confirmResult As DialogResult = MessageBox.Show("Are you sure you want to delete the selected employee?", titleConfỉrm, buttonYesNo, questionIcon)
+        Dim employeeIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("EmployeeID")
+
+        ' Delete rows if user confirm
+        Dim empIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("emp_id")
+        Dim deptIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("dept_id")
+        If confirmResult = DialogResult.Yes Then
+            For Each row As DataGridViewRow In selectedRows
+                Dim emp_id As Integer = CInt(row.Cells(empIdColumn.Index).Value)
+                Dim dept_id As Integer = CInt(row.Cells(deptIdColumn.Index).Value)
+                Delete_Manager(emp_id, dept_id)
+                ClearForm()
+            Next
+            LoadData()
+            EnableAdd()
+        End If
+
+        'If selectedRows.Count > 0 Then
+        '    Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete the selected manager(s)?", titleConfỉrm, buttonYesNo, questionIcon)
+
+        '    If result = DialogResult.Yes Then
+        '        Dim empIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("emp_id")
+        '        Dim deptIdColumn As DataGridViewColumn = dgv_DeptManager.Columns("dept_id")
+
+        '        If empIdColumn IsNot Nothing And deptIdColumn IsNot Nothing Then
+        '            MessageBox.Show(Message.Message.managerDeleteSuccess, titleSucces, buttonOK, infoIcon)
+        '            For i As Integer = 0 To selectedRows.Count - 1
+        '                Dim selectedRow As DataGridViewRow = selectedRows(i)
+        '                Dim emp_id As Integer = CInt(selectedRow.Cells(empIdColumn.Index).Value)
+        '                Dim dept_id As Integer = CInt(selectedRow.Cells(deptIdColumn.Index).Value)
+        '                Delete_Manager(emp_id, dept_id)
+        '                ClearForm()
+        '            Next
+        '            LoadData()
+        '            EnableAdd()
+        '        End If
+        '    End If
     End Sub
     Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
         Dim dept_id As Integer = CInt(cb_DepCreate.SelectedItem.hiddenvalue)
@@ -874,7 +943,7 @@ Public Class frm_Manager
             ptb_Previous.Enabled = True
         End If
 
-        If currentPage = Math.Ceiling(dgv_DeptManager.Rows.Count / pageSize) Then
+        If currentPage = Math.Ceiling(totalRows / pageSize) Then
             ptb_Next.Enabled = False
         Else
             ptb_Next.Enabled = True
@@ -883,24 +952,23 @@ Public Class frm_Manager
     Private Sub ptb_Previous_Click(sender As Object, e As EventArgs) Handles ptb_Previous.Click
         If currentPage > 1 Then
             currentPage -= 1
-            Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
+            LoadData()
         End If
         UpdatePaginationPicBox()
     End Sub
 
     Private Sub ptb_Next_Click(sender As Object, e As EventArgs) Handles ptb_Next.Click
-        totalRows = dgv_DeptManager.Rows.Count
         totalPages = Math.Ceiling(totalRows / pageSize)
 
         If currentPage < totalPages Then
             currentPage += 1
-            Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
+            LoadData()
         End If
         UpdatePaginationPicBox()
     End Sub
     Private Sub dgv_DeptManager_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgv_DeptManager.ColumnHeaderMouseClick
         FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgv_DeptManager, "No")
-        Pagination.PaginateDataGridView(dgv_DeptManager, currentPage)
+        Pagination.Paginatedatagridview2(currentPage, totalRows)
     End Sub
 
     Private Sub dgv_DeptManager_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgv_DeptManager.CellMouseEnter

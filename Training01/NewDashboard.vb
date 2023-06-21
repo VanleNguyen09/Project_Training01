@@ -40,6 +40,19 @@ Public Class NewDashboard
         End If
     End Sub
 
+    Public Sub GetInfoManagement()
+        CountTotalEmployees()
+        CountTotalDepartments()
+        CountTotalManagers()
+        CountTotalPositions()
+        CountTotalLeaves()
+        CountTotalSalaries()
+        MaxEmpDept()
+        MaxDeptEmp()
+        MaxDeptManager()
+        MaxPosEmp()
+    End Sub
+
     Public Sub LoadUserData()
         If isLoggedIn Then
             Dim email As String = loggedInUserEmail
@@ -70,16 +83,7 @@ Public Class NewDashboard
         EnableDoubleBuffering(pn_Content)
         Me.Controls.Add(pn_Sidebar)
         SetActiveButton(btn_Dashboard)
-        CountTotalEmployees()
-        CountTotalDepartments()
-        CountTotalManagers()
-        CountTotalPositions()
-        CountTotalLeaves()
-        CountTotalSalaries()
-        MaxEmpDept()
-        MaxDeptEmp()
-        MaxDeptManager()
-        MaxPosEmp()
+        GetInfoManagement()
         CustomElements.MovingDashboardByPanels(Me, pn_Header, pn_Sidebar)
     End Sub
     Private Sub NewDashboard_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
