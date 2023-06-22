@@ -1,10 +1,10 @@
 ﻿Imports Excel = Microsoft.Office.Interop.Excel
 Imports System.Windows.Forms
 Imports System.IO
-Imports System.Data.OleDb
+Imports System.Threading
 
 Public Class CommonOfficeFunctions
-    Public Shared Function ImportFromExcel() As DataTable
+    Public Shared Function ImportFromExcel(loadingBar As Action) As DataTable
         Dim dt As New DataTable()
 
         Dim openFileDialog1 As New OpenFileDialog()
@@ -13,16 +13,56 @@ Public Class CommonOfficeFunctions
         openFileDialog1.Multiselect = False
 
         If openFileDialog1.ShowDialog() = DialogResult.OK Then
-            Dim connString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & openFileDialog1.FileName & ";Extended Properties='Excel 12.0 Xml;HDR=YES;'"
-            Dim conn As New OleDbConnection(connString)
-            conn.Open()
-            Dim cmd As New OleDbCommand("SELECT * FROM [Sheet1$]", conn)
-            Dim adapter As New OleDbDataAdapter(cmd)
-            adapter.Fill(dt)
-            conn.Close()
+            Dim thread As New Thread(Sub() loadingBar.Invoke())
+            thread.SetApartmentState(ApartmentState.STA)
+            thread.Start()
+
+            Dim excelApp As New Excel.Application()
+            Dim workbook As Excel.Workbook = excelApp.Workbooks.Open(openFileDialog1.FileName)
+            Dim worksheet As Excel.Worksheet = workbook.Worksheets(1)
+
+            Try
+                Dim rowCount As Integer = worksheet.UsedRange.Rows.Count
+                Dim colCount As Integer = worksheet.UsedRange.Columns.Count
+
+                ' Header column name
+                For col As Integer = 1 To colCount
+                    Dim headerValue As String = worksheet.Cells(1, col).Value2
+                    If Not String.IsNullOrEmpty(headerValue) Then
+                        dt.Columns.Add(headerValue.Trim())
+                    End If
+                Next
+
+                ' Row's Datas
+                For row As Integer = 2 To rowCount
+                    Dim dataRow As DataRow = dt.NewRow()
+                    Dim columnIndex As Integer = 0
+
+                    For col As Integer = 1 To colCount
+                        Dim headerValue As String = worksheet.Cells(1, col).Value2
+                        If Not String.IsNullOrEmpty(headerValue) Then
+                            dataRow(columnIndex) = worksheet.Cells(row, col).Value2
+                            columnIndex += 1
+                        End If
+                    Next
+                    dt.Rows.Add(dataRow)
+                Next
+
+                thread.Abort()
+            Catch ex As Exception
+                MsgBox("Error: " & ex.Message)
+            Finally
+                workbook.Close(False)
+                excelApp.Quit()
+
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet)
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook)
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp)
+            End Try
         End If
         Return dt
     End Function
+
     Public Shared Sub ExportToExcel(ByVal data As DataTable, Optional ByVal callback As Action(Of String) = Nothing)
         ' Create Excel Object
         Dim excelApp As New Excel.Application()

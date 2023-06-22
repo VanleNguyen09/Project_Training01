@@ -208,9 +208,7 @@ Public Class EmpByPos
 
     Private Sub btnManagePos_Click(sender As Object, e As EventArgs) Handles btnManagePos.Click
         NewDashboard.LoadUserData()
-        NewDashboard.ShowFormInMainPanel(Position)
-        NewDashboard.currentSelection = "Positions"
-        NewDashboard.UpdateTitleLabel()
+        NewDashboard.btnPosManagement.PerformClick()
         Me.Close()
     End Sub
 
