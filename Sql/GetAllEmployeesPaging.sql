@@ -15,10 +15,7 @@ BEGIN
 	SELECT * FROM dbo.Employees
 	WHERE status = 1
 	ORDER BY id DESC
-	OFFSET @starIndex * @rowsToFetch ROWS
+	OFFSET @starIndex ROWS
 	FETCH NEXT @rowsToFetch ROWS ONLY
 END
 GO
-
-EXEC dbo.GetAllEmployeesPaging @currentPage = 1, @pageSize = 10
-EXEC dbo.GetAllEmployeesPaging @currentPage = 2, @pageSize = 10

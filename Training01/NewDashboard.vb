@@ -41,16 +41,44 @@ Public Class NewDashboard
     End Sub
 
     Public Sub GetInfoManagement()
-        CountTotalEmployees()
-        CountTotalDepartments()
-        CountTotalManagers()
-        CountTotalPositions()
-        CountTotalLeaves()
-        CountTotalSalaries()
-        MaxEmpDept()
-        MaxDeptEmp()
-        MaxDeptManager()
-        MaxPosEmp()
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("GetInfoManagement", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                Dim reader As SqlDataReader = cmd.ExecuteReader
+                If reader.Read Then
+                    lbl_EmployeeTotal.Text = reader("SL_NV").ToString()
+                    lbl_DepartmentTotal.Text = reader("SL_DP").ToString()
+                    lbl_TotalManager.Text = reader("SL_MG").ToString()
+                    lbl_TotalPositon.Text = reader("SL_PS").ToString()
+                    Dim salary = reader("TOTAL_SALARIES").ToString()
+                    lbl_TotalSalary.Text = FuntionCommon.CurrencyFormat.ConvertCurrencyVND(salary)
+                    lbl_TotalLeave.Text = reader("SL_Leaves").ToString()
+                    Dim EmpString As String = "Best Emp Dept: " & " " & reader("EmpDeptMax").ToString()
+                    lbl_EmptDeptMax.Text = EmpString
+                    lbl_EmptDeptMax.Font = New Font(lbl_EmptDeptMax.Font, FontStyle.Bold)
+                    lbl_EmptDeptMax.ForeColor = Color.Orange
+                    Dim DeptString As String = "Best Dept Emp: " & " " & reader("DeptEmpMax").ToString()
+                    lbl_DeptEmpMax.Text = DeptString
+                    lbl_DeptEmpMax.Font = New Font(lbl_DeptEmpMax.Font, FontStyle.Bold)
+                    lbl_DeptEmpMax.ForeColor = Color.Red
+                    Dim DeptMgString As String = "Best Dept Manager: " & " " & vbCrLf & reader("DeptManagerMax").ToString()
+                    lbl_DeptManagerMax.Text = DeptMgString
+                    lbl_DeptManagerMax.Font = New Font(lbl_DeptManagerMax.Font, FontStyle.Bold)
+                    lbl_DeptManagerMax.ForeColor = Color.Navy
+                    Dim PosString As String = "Best Pos Emp: " & " " & reader("PosEmpMax").ToString()
+                    lbl_PosEmpMax.Text = PosString
+                    lbl_PosEmpMax.Font = New Font(lbl_PosEmpMax.Font, FontStyle.Bold)
+                    lbl_PosEmpMax.ForeColor = Color.SpringGreen
+                End If
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
+        Finally
+            con.Close()
+        End Try
     End Sub
 
     Public Sub LoadUserData()
@@ -77,11 +105,11 @@ Public Class NewDashboard
         EnableDoubleBuffering(pn_Sidebar)
         EnableDoubleBuffering(pn_Content)
         Me.Controls.Add(pn_Sidebar)
-        SetActiveButton(btn_Dashboard)
+        'SetActiveButton(btn_Dashboard)
+        SetActivePanel(pnDashboard, btn_Dashboard)
         GetInfoManagement()
         CustomElements.MovingDashboardByPanels(Me, pn_Header, pn_Sidebar)
     End Sub
-
 
     Private Sub NewDashboard_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         LoadUserData()
@@ -109,164 +137,6 @@ Public Class NewDashboard
 
         selectedButton = button
     End Sub
-    Private Sub CountTotalEmployees()
-        If con.State <> 1 Then
-            con.Open()
-        End If
-
-        Using cmd As SqlCommand = New SqlCommand("CountTotalEmployees", con)
-            cmd.CommandType = CommandType.StoredProcedure
-            Using reader As SqlDataReader = cmd.ExecuteReader()
-                If reader.Read Then
-                    lb_EmployeeTotal.Text = reader("SL_NV").ToString()
-                End If
-            End Using
-        End Using
-    End Sub
-    Private Sub CountTotalDepartments()
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Using cmd As SqlCommand = New SqlCommand("CountTotalDepartments", con)
-            cmd.CommandType = CommandType.StoredProcedure
-            Using reader As SqlDataReader = cmd.ExecuteReader()
-                If reader.Read Then
-                    lbl_DepartmentTotal.Text = reader("SL_DP").ToString()
-                End If
-            End Using
-        End Using
-    End Sub
-
-    Private Sub CountTotalManagers()
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Using cmd As SqlCommand = New SqlCommand("CountTotalManagers", con)
-            cmd.CommandType = CommandType.StoredProcedure
-            Using reader As SqlDataReader = cmd.ExecuteReader()
-                If reader.Read Then
-                    lbl_TotalManager.Text = reader("SL_MG").ToString()
-                End If
-            End Using
-        End Using
-    End Sub
-    Private Sub CountTotalPositions()
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Using cmd As SqlCommand = New SqlCommand("CountTotalPositions", con)
-            cmd.CommandType = CommandType.StoredProcedure
-            Using reader As SqlDataReader = cmd.ExecuteReader()
-                If reader.Read Then
-                    lbl_TotalPositon.Text = reader("SL_PS").ToString()
-                End If
-            End Using
-        End Using
-    End Sub
-
-    Private Sub CountTotalLeaves()
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Using cmd As SqlCommand = New SqlCommand("CountTotalLeaves", con)
-            cmd.CommandType = CommandType.StoredProcedure
-            Using reader As SqlDataReader = cmd.ExecuteReader()
-                If reader.Read Then
-                    lbl_TotalLeave.Text = reader("SL_Leaves").ToString()
-                End If
-            End Using
-        End Using
-    End Sub
-    Private Sub CountTotalSalaries()
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Using cmd As SqlCommand = New SqlCommand("CountTotalSalaries", con)
-            cmd.CommandType = CommandType.StoredProcedure
-            Using reader As SqlDataReader = cmd.ExecuteReader()
-                If reader.Read Then
-                    Dim salary = reader("TOTAL_SALARIES").ToString()
-                    lbl_TotalSalary.Text = FuntionCommon.CurrencyFormat.ConvertCurrencyVND(salary)
-                End If
-            End Using
-        End Using
-    End Sub
-
-    Private Sub MaxEmpDept()
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Using cmd As SqlCommand = New SqlCommand("MaxEmpDept", con)
-            cmd.CommandType = CommandType.StoredProcedure
-            Using reader As SqlDataReader = cmd.ExecuteReader()
-                If reader.Read Then
-                    Dim emp_name = reader("employee_name").ToString()
-                    Dim dept_count = reader("department_count").ToString()
-                    Dim EmpString As String = "Best Emp Dept: " & " " & emp_name & " - " & dept_count
-                    lbl_EmptDeptMax.Text = EmpString
-                    lbl_EmptDeptMax.Font = New Font(lbl_EmptDeptMax.Font, FontStyle.Bold)
-                    lbl_EmptDeptMax.ForeColor = Color.Orange
-                End If
-            End Using
-        End Using
-    End Sub
-
-    Private Sub MaxDeptEmp()
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Using cmd As SqlCommand = New SqlCommand("MaxDeptEmp", con)
-            cmd.CommandType = CommandType.StoredProcedure
-            Using reader As SqlDataReader = cmd.ExecuteReader()
-                If reader.Read Then
-                    Dim dept_name = reader("department_name").ToString()
-                    Dim emp_count = reader("employee_count").ToString()
-                    Dim DeptString As String = "Best Dept Emp: " & " " & dept_name & " - " & emp_count
-                    lbl_DeptEmpMax.Text = DeptString
-                    lbl_DeptEmpMax.Font = New Font(lbl_DeptEmpMax.Font, FontStyle.Bold)
-                    lbl_DeptEmpMax.ForeColor = Color.Red
-                End If
-            End Using
-        End Using
-    End Sub
-    Private Sub MaxDeptManager()
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Using cmd As SqlCommand = New SqlCommand("MaxDeptManager", con)
-            cmd.CommandType = CommandType.StoredProcedure
-            Using reader As SqlDataReader = cmd.ExecuteReader()
-                If reader.Read Then
-                    Dim manager_name = reader("manager_name").ToString()
-                    Dim dept_count = reader("department_count").ToString()
-                    Dim DeptMgString As String = "Best Dept Manager: " & " " & vbCrLf & manager_name & " - " & dept_count
-                    lbl_DeptManagerMax.Text = DeptMgString
-                    lbl_DeptManagerMax.Font = New Font(lbl_DeptManagerMax.Font, FontStyle.Bold)
-                    lbl_DeptManagerMax.ForeColor = Color.Navy
-                End If
-            End Using
-        End Using
-    End Sub
-
-    Private Sub MaxPosEmp()
-        If con.State <> 1 Then
-            con.Open()
-        End If
-        Using cmd As SqlCommand = New SqlCommand("MaxPosEmp", con)
-            cmd.CommandType = CommandType.StoredProcedure
-            Using reader As SqlDataReader = cmd.ExecuteReader()
-                If reader.Read Then
-                    Dim pos_name = reader("position_name").ToString()
-                    Dim emp_count = reader("employee_count").ToString()
-                    Dim PosString As String = "Best Pos Emp: " & " " & pos_name & " - " & emp_count
-                    lbl_PosEmpMax.Text = PosString
-                    lbl_PosEmpMax.Font = New Font(lbl_PosEmpMax.Font, FontStyle.Bold)
-                    lbl_PosEmpMax.ForeColor = Color.SpringGreen
-                End If
-            End Using
-        End Using
-    End Sub
-
     Private Sub pn_Main_Paint(sender As Object, e As PaintEventArgs) Handles pn_Main.Paint
         initialContentPanel = pn_Content
     End Sub

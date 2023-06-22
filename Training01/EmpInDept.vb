@@ -53,8 +53,8 @@ Public Class frm_EmpInDept
         EnableAdd()
         dgv_DeptEmp.Rows.Clear()
         totalRows = GetTotalRowsEmpDept()
-        LoadData()
         UpdatePaginationPicBox()
+        LoadData()
         Select_Departments()
         Select_Employees()
     End Sub
@@ -79,8 +79,6 @@ Public Class frm_EmpInDept
         End Try
         Return totalRows
     End Function
-
-
     Private Sub frm_EmpInDept_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         dgv_DeptEmp.ClearSelection()
     End Sub
@@ -501,10 +499,12 @@ Public Class frm_EmpInDept
                 While reader.Read()
                     ShowEmployeeDept(No, reader)
                     No += 1
-                    Pagination.Paginatedatagridview2(currentPage, totalRows)
                 End While
                 con.Close()
             End Using
+            totalRows = GetTotalRowsEmpDept()
+            Pagination.Paginatedatagridview2(currentPage, totalRows)
+            UpdatePaginationPicBox()
         Else
             Using cmd As SqlCommand = New SqlCommand("GetEmployeeByDepartment", con)
                 cmd.CommandType = CommandType.StoredProcedure
@@ -516,10 +516,12 @@ Public Class frm_EmpInDept
                 While reader.Read()
                     ShowEmployeeDept(No, reader)
                     No += 1
-                    Pagination.Paginatedatagridview2(currentPage, totalRows)
                 End While
                 con.Close()
             End Using
+            totalRows = dgv_DeptEmp.Rows.Count
+            Pagination.Paginatedatagridview2(currentPage, totalRows)
+            UpdatePaginationPicBox()
         End If
     End Sub
     Private Sub gbtn_Add_Click(sender As Object, e As EventArgs) Handles gbtn_Add.Click
@@ -794,7 +796,6 @@ Public Class frm_EmpInDept
             ptb_Next.Enabled = True
         End If
     End Sub
-
     Private Sub ptb_Previous_Click(sender As Object, e As EventArgs) Handles ptb_Previous.Click
         If currentPage > 1 Then
             currentPage -= 1

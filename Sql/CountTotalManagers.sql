@@ -11,5 +11,3 @@ BEGIN
 	WHERE status = 1
 END
 GO
-
-EXEC dbo.CountTotalManagers
