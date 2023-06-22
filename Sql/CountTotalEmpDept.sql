@@ -1,0 +1,15 @@
+USE [EmployeeManagement]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE OR ALTER PROCEDURE [dbo].[CountTotalEmpDept]
+AS
+BEGIN
+	SELECT COUNT(*) AS SL_ED FROM dbo.Dept_emp
+	WHERE status = 1
+END
+GO
+
+EXEC dbo.CountTotalEmpDept

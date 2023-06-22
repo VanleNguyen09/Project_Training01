@@ -23,7 +23,6 @@ Public Class frm_Department
     Private Property Id As Integer
 
     Private Class Selected_Departments
-        Public id As Integer = 0
         Public name As String = ""
         Public Sub New()
         End Sub
@@ -37,13 +36,35 @@ Public Class frm_Department
 
         gbtn_Update.Enabled = False
         gbtn_Delete.Enabled = False
-        'txt_DepartmentID.Enabled = False
         GlobalVariables.lblPage = lbl_Page
+        totalRows = GetTotalRowsDepartments()
         dgrv_Department.Columns("No").SortMode = DataGridViewColumnSortMode.NotSortable
         EnableAdd()
         dgrv_Department.Rows.Clear()
+        UpdatePaginationPicBox()
         LoadData()
     End Sub
+
+    Private Function GetTotalRowsDepartments() As Integer
+        If con.State <> 1 Then
+            con.Open()
+        End If
+        Try
+            Using cmd As SqlCommand = New SqlCommand("CountTotalDepartments", con)
+                cmd.CommandType = CommandType.StoredProcedure
+                Using reader As SqlDataReader = cmd.ExecuteReader()
+                    If reader.Read Then
+                        totalRows = reader("SL_DP").ToString()
+                    End If
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error: " + ex.Message, titleError, buttonOK, errorIcon)
+        Finally
+            con.Close()
+        End Try
+        Return totalRows
+    End Function
 
     Private Sub frm_Department_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         dgrv_Department.ClearSelection()
@@ -68,7 +89,7 @@ Public Class frm_Department
 
         Using cmd As SqlCommand = New SqlCommand("GetCountEmpManagerAllDepartments", con)
             cmd.CommandType = CommandType.StoredProcedure
-            cmd.Parameters.AddWithValue("@curentPage", currentPage)
+            cmd.Parameters.AddWithValue("@currentPage", currentPage)
             cmd.Parameters.AddWithValue("@pageSize", pageSize)
 
             Dim reader As SqlDataReader = cmd.ExecuteReader()
@@ -80,7 +101,7 @@ Public Class frm_Department
             con.Close()
         End Using
 
-        Pagination.PaginateDataGridView(dgrv_Department, currentPage)
+        Pagination.Paginatedatagridview2(currentPage, totalRows)
     End Sub
 
     Private Sub EnableAdd()
@@ -226,24 +247,30 @@ Public Class frm_Department
         Using cmd As SqlCommand = New SqlCommand("GetDepartmentsByKeyWord", con)
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@keyword", keyword)
+            cmd.Parameters.AddWithValue("@currentPage", currentPage)
+            cmd.Parameters.AddWithValue("@pageSize", pageSize)
             Using reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     Dim No As Integer = 1
                     While reader.Read()
                         ShowDepartment(No, reader)
                         No += 1
-                        Pagination.PaginateDataGridView(dgrv_Department, currentPage)
                     End While
+                    totalRows = dgrv_Department.Rows.Count
                 Else
                     MessageBox.Show(Message.Message.errorInvalidSearch, titleNotif, buttonOK, warmIcon)
                     reload = True
                 End If
+                Pagination.Paginatedatagridview2(currentPage, totalRows)
+                UpdatePaginationPicBox()
             End Using
         End Using
         con.Close()
         If reload Then
+            totalRows = GetTotalRowsDepartments()
             txt_Search.Text = Nothing
             LoadData()
+            UpdatePaginationPicBox()
         End If
     End Sub
 
@@ -277,7 +304,6 @@ Public Class frm_Department
     End Sub
     Private Sub gbtn_Update_Click(sender As Object, e As EventArgs) Handles gbtn_Update.Click
         Dim name As String = txt_Name.Text
-        'Dim id As Integer = CInt(txt_DepartmentID.Text)
 
         If String.IsNullOrEmpty(name) Then
             MessageBox.Show(Message.Message.emptyDataErrorMessage, titleNotif, buttonOK, warmIcon)
@@ -287,59 +313,77 @@ Public Class frm_Department
         Update_Department(name, Id)
     End Sub
     Private Sub dgrv_Department_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Department.CellClick
-        If e.ColumnIndex = dgrv_Department.Columns.Count - 1 AndAlso e.RowIndex >= 0 Then
+        If e.ColumnIndex = dgrv_Department.Columns.Count - 1 Then
+            dgrv_Department.SelectionMode = DataGridViewSelectionMode.CellSelect
+            dgrv_Department.ReadOnly = False
+            txt_Name.Text = Nothing
+        Else
+            If e.RowIndex >= 0 Then
+                Dim selectedRow = dgrv_Department.Rows(e.RowIndex)
+                Id = CInt(selectedRow.Cells("department_id").Value)
+                txt_Name.Text = selectedRow.Cells("department_name").Value.ToString()
+                selectedDepartment.name = txt_Name.Text
+                dgrv_Department.ReadOnly = True
+            End If
             DisableAdd()
-            Dim selectedRow = dgrv_Department.Rows(e.RowIndex)
-            'txt_DepartmentID.Text = selectedRow.Cells("department_id").Value.ToString()
-            'selectedDepartment.id = txt_DepartmentID.Text
-            Id = CInt(selectedRow.Cells("department_id").Value)
-            txt_Name.Text = selectedRow.Cells("department_name").Value.ToString()
-
-            Dim checkboxCell As DataGridViewCheckBoxCell = DirectCast(dgrv_Department.Rows(e.RowIndex).Cells(e.ColumnIndex), DataGridViewCheckBoxCell)
-            Dim isChecked As Boolean = CBool(checkboxCell.Value)
-
-            ' Update value of checkbox
-            checkboxCell.Value = Not isChecked
-
-            ' Highlight or un-highlight the respective rows
-            For Each row As DataGridViewRow In dgrv_Department.Rows
-                Dim rowCheckboxCell As DataGridViewCheckBoxCell = DirectCast(row.Cells(e.ColumnIndex), DataGridViewCheckBoxCell)
-                row.Selected = CBool(rowCheckboxCell.Value)
-            Next
-
-            selectedDepartment.name = txt_Name.Text
-            dgrv_Department.ReadOnly = True
         End If
+
     End Sub
     Private Sub gbtn_Delete_Click(sender As Object, e As EventArgs) Handles gbtn_Delete.Click
-        Dim selectedRows As DataGridViewSelectedRowCollection = dgrv_Department.SelectedRows
+        Dim selectedRows As New List(Of DataGridViewRow)()
 
-        If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected department? Employee involved will also be deleted", titleConfỉrm, buttonYesNo, questionIcon) = DialogResult.Yes Then
-            Dim departmentIdColumn As DataGridViewColumn = dgrv_Department.Columns("department_id") ' Replace "name" with the actual column name for department ID
-            If departmentIdColumn IsNot Nothing Then
-                MessageBox.Show(Message.Message.departmentDeleteSuccess, titleSucces, buttonOK, infoIcon)
-                For i As Integer = 0 To selectedRows.Count - 1
-                    Dim selectedRow As DataGridViewRow = selectedRows(i)
-                    Dim id As Integer = CInt(selectedRow.Cells(departmentIdColumn.Index).Value)
-                    Delete_Department(id)
-                    ClearForm()
-                Next
-
-                LoadData()
-                EnableAdd()
-            Else
-                MessageBox.Show("Unable to find the department ID column.", titleError, buttonOK, warmIcon)
+        For Each row As DataGridViewRow In dgrv_Department.Rows
+            Dim checkboxCell As DataGridViewCheckBoxCell = TryCast(row.Cells("ckb_Delete"), DataGridViewCheckBoxCell)
+            If checkboxCell IsNot Nothing AndAlso checkboxCell.Value = True Then
+                selectedRows.Add(row)
             End If
+        Next
+
+        ' Check if no row is selected
+        If selectedRows.Count = 0 Then
+            MessageBox.Show("Please select at least one checkbox to delete", titleNotif, buttonOK, warmIcon)
+            Return
         End If
+
+        ' Show delete confirmation message
+        Dim confirmResult As DialogResult = MessageBox.Show("Are you sure you want to delete the selected department? Employee involved will also be deleted", titleConfỉrm, buttonYesNo, questionIcon)
+        Dim departmentIdColumn As DataGridViewColumn = dgrv_Department.Columns("department_id")
+
+        ' Delete rows if user confirm
+        If confirmResult = DialogResult.Yes Then
+            For Each row As DataGridViewRow In selectedRows
+                Dim id As Integer = CInt(row.Cells(departmentIdColumn.Index).Value)
+                Delete_Department(id)
+                ClearForm()
+            Next
+            LoadData()
+            EnableAdd()
+        End If
+        'If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected department? Employee involved will also be deleted", titleConfỉrm, buttonYesNo, questionIcon) = DialogResult.Yes Then
+        '    Dim departmentIdColumn As DataGridViewColumn = dgrv_Department.Columns("department_id") ' Replace "name" with the actual column name for department ID
+        '    If departmentIdColumn IsNot Nothing Then
+        '        MessageBox.Show(Message.Message.departmentDeleteSuccess, titleSucces, buttonOK, infoIcon)
+        '        For i As Integer = 0 To selectedRows.Count - 1
+        '            Dim selectedRow As DataGridViewRow = selectedRows(i)
+        '            Dim id As Integer = CInt(selectedRow.Cells(departmentIdColumn.Index).Value)
+        '            Delete_Department(id)
+        '            ClearForm()
+        '        Next
+
+        '        LoadData()
+        '        EnableAdd()
+        '    Else
+        '        MessageBox.Show("Unable to find the department ID column.", titleError, buttonOK, warmIcon)
+        '    End If
+        'End If
     End Sub
 
     Private Sub gbtn_Reset_Click(sender As Object, e As EventArgs) Handles gbtn_Reset.Click
-        'txt_DepartmentID.Text = selectedDepartment.id
         txt_Name.Text = selectedDepartment.name
     End Sub
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
-        Pagination.PaginateDataGridView(dgrv_Department, currentPage)
+        LoadData()
         EnableAdd()
     End Sub
 
@@ -348,8 +392,7 @@ Public Class frm_Department
         If Not String.IsNullOrEmpty(keyword) Then
             SearchDepartmentsByKeyword(keyword)
         Else
-            MessageBox.Show(Message.Message.emptyDataSearchMessage, titleNotif, buttonOK, warmIcon)
-            dgrv_Department.Rows.Clear
+            dgrv_Department.Rows.Clear()
         End If
     End Sub
 
@@ -364,7 +407,7 @@ Public Class frm_Department
             ptb_Previous.Enabled = True
         End If
 
-        If currentPage = Math.Ceiling(dgrv_Department.Rows.Count / pageSize) Then
+        If currentPage = Math.Ceiling(totalRows / pageSize) Then
             ptb_Next.Enabled = False
         Else
             ptb_Next.Enabled = True
@@ -373,24 +416,24 @@ Public Class frm_Department
     Private Sub ptb_Previous_Click(sender As Object, e As EventArgs) Handles ptb_Previous.Click
         If currentPage > 1 Then
             currentPage -= 1
-            Pagination.PaginateDataGridView(dgrv_Department, currentPage)
+            LoadData()
         End If
         UpdatePaginationPicBox()
     End Sub
 
     Private Sub ptb_Next_Click(sender As Object, e As EventArgs) Handles ptb_Next.Click
-        totalRows = dgrv_Department.Rows.Count
+        'totalRows = dgrv_Department.Rows.Count
         totalPages = Math.Ceiling(totalRows / pageSize)
 
         If currentPage < totalPages Then
             currentPage += 1
-            Pagination.PaginateDataGridView(dgrv_Department, currentPage)
+            LoadData()
         End If
         UpdatePaginationPicBox()
     End Sub
     Private Sub dgrv_Department_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgrv_Department.ColumnHeaderMouseClick
         FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Department, "No")
-        Pagination.PaginateDataGridView(dgrv_Department, currentPage)
+        Pagination.Paginatedatagridview2(currentPage, totalRows)
     End Sub
     Private Sub dgrv_Department_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Department.CellMouseEnter
         If (e.ColumnIndex = 6 OrElse e.ColumnIndex = 7) AndAlso e.RowIndex >= 0 Then

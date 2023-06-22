@@ -5,8 +5,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE OR ALTER PROCEDURE [dbo].[GetAllEmployeesManager]
+	@currentPage INT,
+	@pageSize INT
 AS
 BEGIN
+	DECLARE @starIndex INT, @rowsToFetch INT;
+	SET @starIndex = (@currentPage - 1) * @pageSize 
+	SET @rowsToFetch = @pageSize;
+
 	SELECT a.*,c.name AS department_name, b.id AS deptmanager_id, b.dept_id AS dept_id,
 	b.from_date AS from_date, b.to_date AS to_date 
 	FROM dbo.Employees a
@@ -16,8 +22,10 @@ BEGIN
 	ON c.id = b.dept_id
 	WHERE b.status = 1
 	ORDER BY b.id DESC
+	OFFSET @starIndex ROWS
+	FETCH NEXT @rowsToFetch ROWS ONLY
 END
 GO
 
-EXEC dbo.GetAllEmployeesManager
+EXEC dbo.GetAllEmployeesManager @currentPage = 1, @pageSize = 10
 GO	

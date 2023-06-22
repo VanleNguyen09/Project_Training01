@@ -4,10 +4,15 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE OR ALTER PROCEDURE GetManagerByDeptId
-	@dept_id INT
+	@dept_id INT,
+	@currentPage INT,
+	@pageSize INT
 AS
 BEGIN
-	SET NOCOUNT ON;
+	DECLARE @starIndex INT, @rowsToFetch INT;
+	SET @starIndex = (@currentPage - 1) * @pageSize
+	SET @rowsToFetch = @pageSize;
+
     -- Insert statements for procedure here
 	SELECT a.*, c.name AS department_name, b.id AS deptmanager_id, b.dept_id AS dept_id,
 	b.from_date AS from_date, b.to_date AS to_date  
@@ -18,6 +23,7 @@ BEGIN
 	ON c.id = b.dept_id
 	WHERE b.dept_id = @dept_id AND b.status = 1
 	ORDER BY b.id
+	OFFSET @starIndex ROWS
+	FETCH NEXT @rowsToFetch ROWS ONLY
 END
 GO
-
