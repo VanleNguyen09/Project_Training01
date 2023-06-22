@@ -143,15 +143,24 @@ Public Class EmpByPos
 
     Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
         Dim selectedRows As New List(Of DataGridViewRow)()
-        If dgvEmpByPos.SelectedCells.Count > 0 Then
-            For Each cell As DataGridViewCell In dgvEmpByPos.SelectedCells
-                Dim row As DataGridViewRow = dgvEmpByPos.Rows(cell.RowIndex)
+        Dim checkedRows As New List(Of DataGridViewRow)()
 
-                'Check row is existed?
-                If Not selectedRows.Contains(row) Then
-                    selectedRows.Add(row)
+        If dgvEmpByPos.SelectedCells.Count > 0 Then
+            For Each row As DataGridViewRow In dgvEmpByPos.Rows
+                If (row.Cells("selectionBtn").Value = True) Then
+                    checkedRows.Add(row)
                 End If
             Next
+
+            If (checkedRows.Count = 0) Then
+                For Each cell As DataGridViewCell In dgvEmpByPos.SelectedCells
+                    Dim row As DataGridViewRow = dgvEmpByPos.Rows(cell.RowIndex)
+                    'Check row is existed?
+                    If Not selectedRows.Contains(row) Then
+                        selectedRows.Add(row)
+                    End If
+                Next
+            End If
         Else
             MessageBox.Show(Message.Message.selectedRowError, Message.Title.notif, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
@@ -166,10 +175,17 @@ Public Class EmpByPos
                 Dim idEmpList As List(Of Integer) = New List(Of Integer)
                 Dim posIdList As List(Of Integer) = New List(Of Integer)
 
-                For Each dgvr As DataGridViewRow In selectedRows
-                    idEmpList.Add(dgvr.Cells("id").Value)
-                    posIdList.Add(dgvr.Cells("pos_id").Value)
-                Next
+                If (checkedRows.Count = 0) Then
+                    For Each dgvr As DataGridViewRow In selectedRows
+                        idEmpList.Add(dgvr.Cells("id").Value)
+                        posIdList.Add(dgvr.Cells("pos_id").Value)
+                    Next
+                Else
+                    For Each dgvr As DataGridViewRow In checkedRows
+                        idEmpList.Add(dgvr.Cells("id").Value)
+                        posIdList.Add(dgvr.Cells("pos_id").Value)
+                    Next
+                End If
 
                 Dim sql = "DeleteEmpInPos"
                 Try
@@ -262,16 +278,6 @@ Public Class EmpByPos
             Me.SortedDirection = dgvEmpByPos.Columns(sortedColumnIndex).HeaderCell.SortGlyphDirection
         End If
     End Sub
-
-    Private Sub dgvEmpByPos_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEmpByPos.CellContentClick
-        If TypeOf dgvEmpByPos.Columns(e.ColumnIndex) Is DataGridViewCheckBoxColumn AndAlso e.RowIndex >= 0 Then
-            For Each row As DataGridViewRow In dgvEmpByPos.Rows
-                If row.Cells(e.ColumnIndex).Value = True Then
-                    row.Selected = True
-                End If
-            Next
-        End If
-    End Sub
 #End Region
 
 #Region "FUNCTIONS"
@@ -311,8 +317,13 @@ Public Class EmpByPos
 
         txtCurrentPage.Text = CurrentPage
         txtTotalPage.Text = totalPages
-        Dim pagingDatas = Page.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, EmpByPosDatas)
-        dgvEmpByPos.DataSource = pagingDatas
+        'Dim pagingDatas = Page.PaginateDataTable(CurrentPage, RowsPerPage, totalPages, EmpByPosDatas)
+        Dim pagingDatas = From row In EmpByPosDatas.AsEnumerable()
+                          Select row
+                          Skip (RowsPerPage * (CurrentPage - 1))
+                          Take (RowsPerPage)
+
+        dgvEmpByPos.DataSource = pagingDatas.CopyToDataTable()
 
         If SortedColumnIndex > -1 Then
             dgvEmpByPos.Columns(SortedColumnIndex).HeaderCell.SortGlyphDirection = Me.SortedDirection

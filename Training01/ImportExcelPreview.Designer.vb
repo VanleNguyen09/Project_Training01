@@ -32,7 +32,6 @@ Partial Class ImportExcelPreview
         Me.btnSave = New Guna.UI2.WinForms.Guna2Button()
         Me.btnCancel = New Guna.UI2.WinForms.Guna2Button()
         Me.dgv = New Guna.UI2.WinForms.Guna2DataGridView()
-        Me.loadingBar = New Guna.UI2.WinForms.Guna2CircleProgressBar()
         Me.stt = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -41,6 +40,7 @@ Partial Class ImportExcelPreview
         Me.email = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.salary_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.salary = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.loadingBar = New Guna.UI2.WinForms.Guna2CircleProgressBar()
         Me.headerPanel.SuspendLayout()
         CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -181,23 +181,6 @@ Partial Class ImportExcelPreview
         Me.dgv.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dgv.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
         '
-        'loadingBar
-        '
-        Me.loadingBar.Animated = True
-        Me.loadingBar.BackColor = System.Drawing.Color.White
-        Me.loadingBar.FillColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(218, Byte), Integer), CType(CType(223, Byte), Integer))
-        Me.loadingBar.Font = New System.Drawing.Font("Segoe UI", 12.0!)
-        Me.loadingBar.ForeColor = System.Drawing.Color.White
-        Me.loadingBar.Location = New System.Drawing.Point(331, 222)
-        Me.loadingBar.Minimum = 0
-        Me.loadingBar.Name = "loadingBar"
-        Me.loadingBar.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
-        Me.loadingBar.Size = New System.Drawing.Size(110, 110)
-        Me.loadingBar.TabIndex = 4
-        Me.loadingBar.Text = "Loading..."
-        Me.loadingBar.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Value
-        Me.loadingBar.Visible = False
-        '
         'stt
         '
         Me.stt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
@@ -276,6 +259,23 @@ Partial Class ImportExcelPreview
         Me.salary.Name = "salary"
         Me.salary.ReadOnly = True
         Me.salary.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'loadingBar
+        '
+        Me.loadingBar.Animated = True
+        Me.loadingBar.BackColor = System.Drawing.Color.White
+        Me.loadingBar.FillColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(218, Byte), Integer), CType(CType(223, Byte), Integer))
+        Me.loadingBar.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.loadingBar.ForeColor = System.Drawing.Color.White
+        Me.loadingBar.Location = New System.Drawing.Point(331, 222)
+        Me.loadingBar.Minimum = 0
+        Me.loadingBar.Name = "loadingBar"
+        Me.loadingBar.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
+        Me.loadingBar.Size = New System.Drawing.Size(110, 110)
+        Me.loadingBar.TabIndex = 4
+        Me.loadingBar.Text = "Loading..."
+        Me.loadingBar.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Value
+        Me.loadingBar.Visible = False
         '
         'ImportExcelPreview
         '
