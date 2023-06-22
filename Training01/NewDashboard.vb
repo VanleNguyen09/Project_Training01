@@ -61,11 +61,6 @@ Public Class NewDashboard
             If Not String.IsNullOrEmpty(fullName) Then
                 lbl_UserName.Text = fullName
             End If
-            'Else
-            '    MessageBox.Show("Please login to access dashboard page!!!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            '    Me.Hide()
-            '    Dim login As New Login
-            '    login.ShowDialog()
         End If
     End Sub
 
@@ -86,11 +81,25 @@ Public Class NewDashboard
         GetInfoManagement()
         CustomElements.MovingDashboardByPanels(Me, pn_Header, pn_Sidebar)
     End Sub
+
+
     Private Sub NewDashboard_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         LoadUserData()
     End Sub
     Private Sub SetActiveButton(ByVal button As Button)
         ChangeButtonColor(button, Color.LightSalmon, Color.LavenderBlush)
+        ' Check if has button item selected
+        If selectedButton IsNot Nothing Then
+            ' Set active state to defaut for previous button item 
+            selectedButton.BackColor = Color.Transparent
+            selectedButton.Cursor = Cursors.Default
+        End If
+
+        selectedButton = button
+    End Sub
+
+    Private Sub SetActivePanel(ByVal panel As Panel, ByVal button As Button)
+        ChangePanelColor(panel)
         ' Check if has button item selected
         If selectedButton IsNot Nothing Then
             ' Set active state to defaut for previous button item 
@@ -342,11 +351,25 @@ Public Class NewDashboard
         button.ForeColor = foreColor
     End Sub
 
+    Public Sub ChangePanelColor(ByVal panel As Panel)
+        panel.BackColor = Color.LightSalmon
+        panel.ForeColor = Color.LavenderBlush
+    End Sub
+
     Public Sub ResetButtonColors(ByVal clickedButton As Button)
         For Each btn As Button In pn_Sidebar.Controls.OfType(Of Button)()
             If btn IsNot clickedButton Then
                 btn.BackColor = SystemColors.Control
                 btn.ForeColor = SystemColors.ControlText
+            End If
+        Next
+    End Sub
+
+    Public Sub ResetPanelColors(clickedPanel As Panel)
+        For Each pn As Panel In pn_Sidebar.Controls.OfType(Of Panel)()
+            If pn IsNot clickedPanel Then
+                pn.BackColor = Color.Transparent
+                pn.ForeColor = Color.White
             End If
         Next
     End Sub
@@ -357,71 +380,74 @@ Public Class NewDashboard
 
     Private Sub btn_Dashboard_Click(sender As Object, e As EventArgs) Handles btn_Dashboard.Click
         ResetMainPanel()
-        Dim clickedButton As Button = CType(sender, Button)
-        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        'Dim clickedButton As Button = CType(sender, Button)
+        'ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        ChangePanelColor(pnDashboard)
         currentSelection = "Dashboard"
         UpdateTitleLabel()
-        ResetButtonColors(clickedButton)
+        'ResetButtonColors(clickedButton)
+        ResetPanelColors(pnDashboard)
     End Sub
 
     Private Sub btn_Employee_Click(sender As Object, e As EventArgs) Handles btn_Employee.Click
-        ShowFormInMainPanel(frm_Employee)
-        Dim clickedButton As Button = CType(sender, Button)
-        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        ChangePanelColor(pnEmp)
         currentSelection = "Employee"
         UpdateTitleLabel()
-        ResetButtonColors(clickedButton)
+        ResetPanelColors(pnEmp)
+        ShowFormInMainPanel(frm_Employee)
     End Sub
 
     Private Sub btn_Department_Click(sender As Object, e As EventArgs) Handles btn_Department.Click
-        ShowFormInMainPanel(frm_Department)
-        Dim clickedButton As Button = CType(sender, Button)
-        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        ChangePanelColor(pnDept)
         currentSelection = "Department"
         UpdateTitleLabel()
-        ResetButtonColors(clickedButton)
+        ResetPanelColors(pnDept)
+        ShowFormInMainPanel(frm_Department)
     End Sub
 
     Private Sub btn_Manager_Click(sender As Object, e As EventArgs) Handles btn_Manager.Click
-        ShowFormInMainPanel(frm_Manager)
-        Dim clickedButton As Button = CType(sender, Button)
-        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        ChangePanelColor(pnManager)
         currentSelection = "Manager"
         UpdateTitleLabel()
-        ResetButtonColors(clickedButton)
+        ResetPanelColors(pnManager)
+        ShowFormInMainPanel(frm_Manager)
     End Sub
 
     Private Sub btn_Position_Click(sender As Object, e As EventArgs) Handles btn_Position.Click
-        ShowFormInMainPanel(PositionMenu)
-        Dim clickedButton As Button = CType(sender, Button)
-        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-        currentSelection = "Position"
-        UpdateTitleLabel()
-        ResetButtonColors(clickedButton)
+        'LoadUserData()
+        'ChangePanelColor(pnPosition)
+        'currentSelection = "Position Menu"
+        'UpdateTitleLabel()
+        'ResetPanelColors(pnPosition)
+        'ShowFormInMainPanel(PositionMenu)
+
+        If pnEmpByPos.Visible = False Then
+            pbDropDownPosition.BackgroundImage = My.Resources.arrow_down
+        Else
+            pbDropDownPosition.BackgroundImage = My.Resources.arrow_up
+        End If
+
+        pnEmpByPos.Visible = Not pnEmpByPos.Visible
+        pnPosManagement.Visible = Not pnPosManagement.Visible
     End Sub
+
     Private Sub btn_Salary_Click(sender As Object, e As EventArgs) Handles btn_Salary.Click
-        ShowFormInMainPanel(SalaryEmp)
-        Dim clickedButton As Button = CType(sender, Button)
-        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        ChangePanelColor(pnSalary)
         currentSelection = "Salary"
         UpdateTitleLabel()
-        ResetButtonColors(clickedButton)
+        ResetPanelColors(pnSalary)
+        ShowFormInMainPanel(SalaryEmp)
     End Sub
+
     Private Sub btn_Leave_Click(sender As Object, e As EventArgs) Handles btn_Leave.Click
-        ShowFormInMainPanel(My.Forms.Leave)
-        Dim clickedButton As Button = CType(sender, Button)
-        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
+        ChangePanelColor(pnLeave)
         currentSelection = "Leave"
         UpdateTitleLabel()
-        ResetButtonColors(clickedButton)
+        ResetPanelColors(pnLeave)
+        ShowFormInMainPanel(My.Forms.Leave)
     End Sub
-    Private Sub btn_Signout_Click(sender As Object, e As EventArgs) Handles btn_Signout.Click
-        Dim clickedButton As Button = CType(sender, Button)
-        ChangeButtonColor(clickedButton, Color.LightSalmon, Color.LavenderBlush)
-        currentSelection = "Signout"
-        UpdateTitleLabel()
-        ResetButtonColors(clickedButton)
 
+    Private Sub btn_Signout_Click(sender As Object, e As EventArgs) Handles btn_Signout.Click
         If isLoggedIn Then
             Dim result As DialogResult = MessageBox.Show("Are you sure to log out user!!!", titleConfirm, buttonYesNo, questionIcon)
 
@@ -447,5 +473,25 @@ Public Class NewDashboard
 
     Private Sub ptb_Icon_MouseLeave(sender As Object, e As EventArgs) Handles ptb_Icon.MouseLeave
         ptb_Icon.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub pbDropDownPosition_Click(sender As Object, e As EventArgs) Handles pbDropDownPosition.Click
+        btn_Position.PerformClick()
+    End Sub
+
+    Private Sub btnPosManagement_Click(sender As Object, e As EventArgs) Handles btnPosManagement.Click
+        ChangePanelColor(pnPosManagement)
+        currentSelection = "Positions"
+        UpdateTitleLabel()
+        ResetPanelColors(pnPosManagement)
+        ShowFormInMainPanel(Position)
+    End Sub
+
+    Private Sub btnEmpByPos_Click(sender As Object, e As EventArgs) Handles btnEmpByPos.Click
+        ChangePanelColor(pnEmpByPos)
+        currentSelection = "Employees In Positions"
+        UpdateTitleLabel()
+        ResetPanelColors(pnEmpByPos)
+        ShowFormInMainPanel(EmpByPos)
     End Sub
 End Class

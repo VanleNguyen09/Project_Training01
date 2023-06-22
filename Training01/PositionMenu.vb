@@ -9,17 +9,13 @@
 
     Private Sub btnEmployee_Click(sender As Object, e As EventArgs) Handles btnEmployee.Click
         NewDashboard.LoadUserData()
-        NewDashboard.ShowFormInMainPanel(EmpByPos)
-        NewDashboard.currentSelection = "Employees In Positions"
-        NewDashboard.UpdateTitleLabel()
+        NewDashboard.btnEmpByPos.PerformClick()
         Me.Close()
     End Sub
 
     Private Sub btnPosition_Click(sender As Object, e As EventArgs) Handles btnPosition.Click
         NewDashboard.LoadUserData()
-        NewDashboard.ShowFormInMainPanel(Position)
-        NewDashboard.currentSelection = "Positions"
-        NewDashboard.UpdateTitleLabel()
+        NewDashboard.btnPosManagement.PerformClick()
         Me.Close()
     End Sub
 

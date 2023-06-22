@@ -46,7 +46,7 @@ Partial Class PositionMenu
         '
         Me.btnEmployee.BackColor = System.Drawing.Color.White
         Me.btnEmployee.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnEmployee.Location = New System.Drawing.Point(265, 236)
+        Me.btnEmployee.Location = New System.Drawing.Point(265, 308)
         Me.btnEmployee.Margin = New System.Windows.Forms.Padding(0)
         Me.btnEmployee.Name = "btnEmployee"
         Me.btnEmployee.Size = New System.Drawing.Size(291, 39)
@@ -58,7 +58,7 @@ Partial Class PositionMenu
         '
         Me.btnPosition.BackColor = System.Drawing.Color.White
         Me.btnPosition.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPosition.Location = New System.Drawing.Point(265, 320)
+        Me.btnPosition.Location = New System.Drawing.Point(265, 218)
         Me.btnPosition.Margin = New System.Windows.Forms.Padding(0)
         Me.btnPosition.Name = "btnPosition"
         Me.btnPosition.Size = New System.Drawing.Size(291, 39)
