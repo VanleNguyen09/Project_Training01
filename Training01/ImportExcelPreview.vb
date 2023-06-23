@@ -55,7 +55,12 @@ Public Class ImportExcelPreview
 #Region "FUNCTIONS"
     Private Sub UpdateCircleProgressBar()
         While loadingBar.Value < loadingBar.Maximum
-            loadingBar.Invoke(Sub() loadingBar.Value += 1)
+            loadingBar.Invoke(Sub()
+                                  loadingBar.Value += 1
+                                  If loadingBar.Value = loadingBar.Maximum Then
+                                      loadingBar.Value = 1
+                                  End If
+                              End Sub)
             Thread.Sleep(100)
         End While
     End Sub

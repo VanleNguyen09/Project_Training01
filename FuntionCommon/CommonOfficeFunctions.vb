@@ -2,6 +2,7 @@
 Imports System.Windows.Forms
 Imports System.IO
 Imports System.Threading
+Imports System.Globalization
 
 Public Class CommonOfficeFunctions
     Public Shared Function ImportFromExcel(loadingBar As Action) As DataTable
@@ -38,10 +39,21 @@ Public Class CommonOfficeFunctions
                     Dim dataRow As DataRow = dt.NewRow()
                     Dim columnIndex As Integer = 0
 
+                    Dim headerValue As String
+                    Dim cellValue As Object
+                    Dim dateValue As DateTime
+
                     For col As Integer = 1 To colCount
-                        Dim headerValue As String = worksheet.Cells(1, col).Value2
+                        headerValue = worksheet.Cells(1, col).Value2
                         If Not String.IsNullOrEmpty(headerValue) Then
-                            dataRow(columnIndex) = worksheet.Cells(row, col).Value2
+                            cellValue = worksheet.Cells(row, col).Value2
+                            If TypeOf cellValue Is Double AndAlso headerValue = "BIRTHDAY" AndAlso
+                                DateTime.FromOADate(cellValue).ToString("dd/MM/yyyy") <> "01/01/1900" Then
+                                dateValue = DateTime.FromOADate(cellValue).Date
+                                dataRow(columnIndex) = dateValue.ToString("dd/MM/yyyy")
+                            Else
+                                dataRow(columnIndex) = cellValue
+                            End If
                             columnIndex += 1
                         End If
                     Next
