@@ -34,20 +34,6 @@ Partial Class frm_EmpInDept
         Me.gbtn_Add = New Guna.UI2.WinForms.Guna2GradientButton()
         Me.txt_Search = New System.Windows.Forms.TextBox()
         Me.dgv_DeptEmp = New System.Windows.Forms.DataGridView()
-        Me.lbl_titleManager = New System.Windows.Forms.Label()
-        Me.cb_Department = New System.Windows.Forms.ComboBox()
-        Me.ptb_Next = New Guna.UI2.WinForms.Guna2PictureBox()
-        Me.ptb_Previous = New Guna.UI2.WinForms.Guna2PictureBox()
-        Me.lbl_Page = New System.Windows.Forms.Label()
-        Me.gbtn_Clear = New Guna.UI2.WinForms.Guna2GradientButton()
-        Me.gbtn_Update = New Guna.UI2.WinForms.Guna2GradientButton()
-        Me.gbtn_Reset = New Guna.UI2.WinForms.Guna2GradientButton()
-        Me.gbtn_Delete = New Guna.UI2.WinForms.Guna2GradientButton()
-        Me.gbtn_Search = New Guna.UI2.WinForms.Guna2GradientButton()
-        Me.btn_Exit = New System.Windows.Forms.Button()
-        Me.grb_Search = New System.Windows.Forms.GroupBox()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.NO = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.emp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.emp_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -62,11 +48,25 @@ Partial Class frm_EmpInDept
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.deptemp_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ckb_Delete = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.lbl_titleManager = New System.Windows.Forms.Label()
+        Me.cb_Department = New System.Windows.Forms.ComboBox()
+        Me.gbtn_Clear = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Update = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Reset = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Delete = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.gbtn_Search = New Guna.UI2.WinForms.Guna2GradientButton()
+        Me.btn_Exit = New System.Windows.Forms.Button()
+        Me.grb_Search = New System.Windows.Forms.GroupBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.ptb_Next = New Guna.UI2.WinForms.Guna2PictureBox()
+        Me.ptb_Previous = New Guna.UI2.WinForms.Guna2PictureBox()
+        Me.lbl_Page = New System.Windows.Forms.Label()
         Me.grb_create.SuspendLayout()
         CType(Me.dgv_DeptEmp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grb_Search.SuspendLayout()
         CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grb_Search.SuspendLayout()
         Me.SuspendLayout()
         '
         'dtp_ToDate
@@ -247,6 +247,111 @@ Partial Class frm_EmpInDept
         Me.dgv_DeptEmp.Size = New System.Drawing.Size(1262, 297)
         Me.dgv_DeptEmp.TabIndex = 89
         '
+        'NO
+        '
+        Me.NO.HeaderText = "NO"
+        Me.NO.MinimumWidth = 6
+        Me.NO.Name = "NO"
+        Me.NO.ReadOnly = True
+        Me.NO.Width = 40
+        '
+        'emp_id
+        '
+        Me.emp_id.HeaderText = "Emp ID"
+        Me.emp_id.MinimumWidth = 6
+        Me.emp_id.Name = "emp_id"
+        Me.emp_id.Visible = False
+        Me.emp_id.Width = 50
+        '
+        'emp_name
+        '
+        Me.emp_name.HeaderText = "NAME"
+        Me.emp_name.MinimumWidth = 6
+        Me.emp_name.Name = "emp_name"
+        Me.emp_name.Width = 110
+        '
+        'phone
+        '
+        Me.phone.HeaderText = "PHONE"
+        Me.phone.MinimumWidth = 6
+        Me.phone.Name = "phone"
+        Me.phone.Width = 95
+        '
+        'birthday
+        '
+        Me.birthday.HeaderText = "BIRTHDAY"
+        Me.birthday.MinimumWidth = 6
+        Me.birthday.Name = "birthday"
+        Me.birthday.Width = 95
+        '
+        'address
+        '
+        Me.address.HeaderText = "ADDRESS"
+        Me.address.MinimumWidth = 6
+        Me.address.Name = "address"
+        Me.address.Width = 130
+        '
+        'email
+        '
+        Me.email.HeaderText = "EMAIL"
+        Me.email.MinimumWidth = 6
+        Me.email.Name = "email"
+        Me.email.Width = 130
+        '
+        'department_name
+        '
+        Me.department_name.HeaderText = "Department"
+        Me.department_name.MinimumWidth = 6
+        Me.department_name.Name = "department_name"
+        Me.department_name.Width = 95
+        '
+        'from_date
+        '
+        Me.from_date.HeaderText = "From Date"
+        Me.from_date.MinimumWidth = 6
+        Me.from_date.Name = "from_date"
+        Me.from_date.Width = 98
+        '
+        'to_date
+        '
+        Me.to_date.HeaderText = "To Date"
+        Me.to_date.MinimumWidth = 6
+        Me.to_date.Name = "to_date"
+        Me.to_date.Width = 98
+        '
+        'dept_id
+        '
+        Me.dept_id.HeaderText = "Department ID"
+        Me.dept_id.MinimumWidth = 6
+        Me.dept_id.Name = "dept_id"
+        Me.dept_id.Visible = False
+        Me.dept_id.Width = 60
+        '
+        'status
+        '
+        Me.status.HeaderText = "Status"
+        Me.status.MinimumWidth = 6
+        Me.status.Name = "status"
+        Me.status.Visible = False
+        Me.status.Width = 50
+        '
+        'deptemp_id
+        '
+        Me.deptemp_id.HeaderText = "DeptEmp ID"
+        Me.deptemp_id.MinimumWidth = 6
+        Me.deptemp_id.Name = "deptemp_id"
+        Me.deptemp_id.Visible = False
+        Me.deptemp_id.Width = 60
+        '
+        'ckb_Delete
+        '
+        Me.ckb_Delete.HeaderText = "Confirm"
+        Me.ckb_Delete.MinimumWidth = 6
+        Me.ckb_Delete.Name = "ckb_Delete"
+        Me.ckb_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ckb_Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.ckb_Delete.Width = 60
+        '
         'lbl_titleManager
         '
         Me.lbl_titleManager.AutoSize = True
@@ -273,48 +378,6 @@ Partial Class frm_EmpInDept
         Me.cb_Department.Name = "cb_Department"
         Me.cb_Department.Size = New System.Drawing.Size(229, 30)
         Me.cb_Department.TabIndex = 85
-        '
-        'ptb_Next
-        '
-        Me.ptb_Next.BackColor = System.Drawing.Color.Transparent
-        Me.ptb_Next.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ptb_Next.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ptb_Next.FillColor = System.Drawing.Color.Transparent
-        Me.ptb_Next.Image = Global.Training01.My.Resources.Resources.right_arrow__1_
-        Me.ptb_Next.ImageRotate = 0!
-        Me.ptb_Next.Location = New System.Drawing.Point(771, 672)
-        Me.ptb_Next.Name = "ptb_Next"
-        Me.ptb_Next.Size = New System.Drawing.Size(25, 25)
-        Me.ptb_Next.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.ptb_Next.TabIndex = 107
-        Me.ptb_Next.TabStop = False
-        '
-        'ptb_Previous
-        '
-        Me.ptb_Previous.BackColor = System.Drawing.Color.Transparent
-        Me.ptb_Previous.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ptb_Previous.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ptb_Previous.FillColor = System.Drawing.Color.Transparent
-        Me.ptb_Previous.Image = Global.Training01.My.Resources.Resources.left_arrow
-        Me.ptb_Previous.ImageRotate = 0!
-        Me.ptb_Previous.Location = New System.Drawing.Point(516, 672)
-        Me.ptb_Previous.Name = "ptb_Previous"
-        Me.ptb_Previous.Size = New System.Drawing.Size(25, 25)
-        Me.ptb_Previous.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.ptb_Previous.TabIndex = 106
-        Me.ptb_Previous.TabStop = False
-        '
-        'lbl_Page
-        '
-        Me.lbl_Page.AutoSize = True
-        Me.lbl_Page.BackColor = System.Drawing.Color.Transparent
-        Me.lbl_Page.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_Page.ForeColor = System.Drawing.Color.Azure
-        Me.lbl_Page.Location = New System.Drawing.Point(591, 672)
-        Me.lbl_Page.Name = "lbl_Page"
-        Me.lbl_Page.Size = New System.Drawing.Size(57, 23)
-        Me.lbl_Page.TabIndex = 105
-        Me.lbl_Page.Text = "Page "
         '
         'gbtn_Clear
         '
@@ -485,110 +548,47 @@ Partial Class frm_EmpInDept
         Me.Label8.TabIndex = 78
         Me.Label8.Text = "Search"
         '
-        'NO
+        'ptb_Next
         '
-        Me.NO.HeaderText = "NO"
-        Me.NO.MinimumWidth = 6
-        Me.NO.Name = "NO"
-        Me.NO.ReadOnly = True
-        Me.NO.Width = 40
+        Me.ptb_Next.BackColor = System.Drawing.Color.Transparent
+        Me.ptb_Next.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Next.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ptb_Next.FillColor = System.Drawing.Color.Transparent
+        Me.ptb_Next.Image = Global.Training01.My.Resources.Resources.right_arrow__1_
+        Me.ptb_Next.ImageRotate = 0!
+        Me.ptb_Next.Location = New System.Drawing.Point(725, 670)
+        Me.ptb_Next.Name = "ptb_Next"
+        Me.ptb_Next.Size = New System.Drawing.Size(25, 25)
+        Me.ptb_Next.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ptb_Next.TabIndex = 118
+        Me.ptb_Next.TabStop = False
         '
-        'emp_id
+        'ptb_Previous
         '
-        Me.emp_id.HeaderText = "Emp ID"
-        Me.emp_id.MinimumWidth = 6
-        Me.emp_id.Name = "emp_id"
-        Me.emp_id.Visible = False
-        Me.emp_id.Width = 50
+        Me.ptb_Previous.BackColor = System.Drawing.Color.Transparent
+        Me.ptb_Previous.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ptb_Previous.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ptb_Previous.FillColor = System.Drawing.Color.Transparent
+        Me.ptb_Previous.Image = Global.Training01.My.Resources.Resources.left_arrow
+        Me.ptb_Previous.ImageRotate = 0!
+        Me.ptb_Previous.Location = New System.Drawing.Point(515, 670)
+        Me.ptb_Previous.Name = "ptb_Previous"
+        Me.ptb_Previous.Size = New System.Drawing.Size(25, 25)
+        Me.ptb_Previous.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ptb_Previous.TabIndex = 117
+        Me.ptb_Previous.TabStop = False
         '
-        'emp_name
+        'lbl_Page
         '
-        Me.emp_name.HeaderText = "NAME"
-        Me.emp_name.MinimumWidth = 6
-        Me.emp_name.Name = "emp_name"
-        Me.emp_name.Width = 110
-        '
-        'phone
-        '
-        Me.phone.HeaderText = "PHONE"
-        Me.phone.MinimumWidth = 6
-        Me.phone.Name = "phone"
-        Me.phone.Width = 95
-        '
-        'birthday
-        '
-        Me.birthday.HeaderText = "BIRTHDAY"
-        Me.birthday.MinimumWidth = 6
-        Me.birthday.Name = "birthday"
-        Me.birthday.Width = 95
-        '
-        'address
-        '
-        Me.address.HeaderText = "ADDRESS"
-        Me.address.MinimumWidth = 6
-        Me.address.Name = "address"
-        Me.address.Width = 130
-        '
-        'email
-        '
-        Me.email.HeaderText = "EMAIL"
-        Me.email.MinimumWidth = 6
-        Me.email.Name = "email"
-        Me.email.Width = 130
-        '
-        'department_name
-        '
-        Me.department_name.HeaderText = "Department"
-        Me.department_name.MinimumWidth = 6
-        Me.department_name.Name = "department_name"
-        Me.department_name.Width = 95
-        '
-        'from_date
-        '
-        Me.from_date.HeaderText = "From Date"
-        Me.from_date.MinimumWidth = 6
-        Me.from_date.Name = "from_date"
-        Me.from_date.Width = 98
-        '
-        'to_date
-        '
-        Me.to_date.HeaderText = "To Date"
-        Me.to_date.MinimumWidth = 6
-        Me.to_date.Name = "to_date"
-        Me.to_date.Width = 98
-        '
-        'dept_id
-        '
-        Me.dept_id.HeaderText = "Department ID"
-        Me.dept_id.MinimumWidth = 6
-        Me.dept_id.Name = "dept_id"
-        Me.dept_id.Visible = False
-        Me.dept_id.Width = 60
-        '
-        'status
-        '
-        Me.status.HeaderText = "Status"
-        Me.status.MinimumWidth = 6
-        Me.status.Name = "status"
-        Me.status.Visible = False
-        Me.status.Width = 50
-        '
-        'deptemp_id
-        '
-        Me.deptemp_id.HeaderText = "DeptEmp ID"
-        Me.deptemp_id.MinimumWidth = 6
-        Me.deptemp_id.Name = "deptemp_id"
-        Me.deptemp_id.Visible = False
-        Me.deptemp_id.Width = 60
-        '
-        'ckb_Delete
-        '
-        Me.ckb_Delete.HeaderText = "Confirm"
-        Me.ckb_Delete.MinimumWidth = 6
-        Me.ckb_Delete.Name = "ckb_Delete"
-        Me.ckb_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ckb_Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.ckb_Delete.Width = 60
+        Me.lbl_Page.AutoSize = True
+        Me.lbl_Page.BackColor = System.Drawing.Color.Transparent
+        Me.lbl_Page.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Page.ForeColor = System.Drawing.Color.Azure
+        Me.lbl_Page.Location = New System.Drawing.Point(576, 672)
+        Me.lbl_Page.Name = "lbl_Page"
+        Me.lbl_Page.Size = New System.Drawing.Size(57, 23)
+        Me.lbl_Page.TabIndex = 116
+        Me.lbl_Page.Text = "Page "
         '
         'frm_EmpInDept
         '
@@ -598,15 +598,15 @@ Partial Class frm_EmpInDept
         Me.BackgroundImage = Global.Training01.My.Resources.Resources.tech_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1391, 713)
+        Me.Controls.Add(Me.ptb_Next)
+        Me.Controls.Add(Me.ptb_Previous)
+        Me.Controls.Add(Me.lbl_Page)
         Me.Controls.Add(Me.grb_Search)
         Me.Controls.Add(Me.btn_Exit)
         Me.Controls.Add(Me.gbtn_Delete)
         Me.Controls.Add(Me.gbtn_Reset)
         Me.Controls.Add(Me.gbtn_Update)
         Me.Controls.Add(Me.gbtn_Clear)
-        Me.Controls.Add(Me.ptb_Next)
-        Me.Controls.Add(Me.ptb_Previous)
-        Me.Controls.Add(Me.lbl_Page)
         Me.Controls.Add(Me.grb_create)
         Me.Controls.Add(Me.dgv_DeptEmp)
         Me.Controls.Add(Me.lbl_titleManager)
@@ -619,10 +619,10 @@ Partial Class frm_EmpInDept
         Me.grb_create.ResumeLayout(False)
         Me.grb_create.PerformLayout()
         CType(Me.dgv_DeptEmp, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grb_Search.ResumeLayout(False)
         Me.grb_Search.PerformLayout()
+        CType(Me.ptb_Next, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ptb_Previous, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -641,9 +641,6 @@ Partial Class frm_EmpInDept
     Friend WithEvents dgv_DeptEmp As DataGridView
     Friend WithEvents lbl_titleManager As Label
     Friend WithEvents cb_Department As ComboBox
-    Friend WithEvents ptb_Next As Guna.UI2.WinForms.Guna2PictureBox
-    Friend WithEvents ptb_Previous As Guna.UI2.WinForms.Guna2PictureBox
-    Friend WithEvents lbl_Page As Label
     Friend WithEvents gbtn_Add As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents gbtn_Clear As Guna.UI2.WinForms.Guna2GradientButton
     Friend WithEvents gbtn_Update As Guna.UI2.WinForms.Guna2GradientButton
@@ -668,4 +665,7 @@ Partial Class frm_EmpInDept
     Friend WithEvents status As DataGridViewTextBoxColumn
     Friend WithEvents deptemp_id As DataGridViewTextBoxColumn
     Friend WithEvents ckb_Delete As DataGridViewCheckBoxColumn
+    Friend WithEvents ptb_Next As Guna.UI2.WinForms.Guna2PictureBox
+    Friend WithEvents ptb_Previous As Guna.UI2.WinForms.Guna2PictureBox
+    Friend WithEvents lbl_Page As Label
 End Class

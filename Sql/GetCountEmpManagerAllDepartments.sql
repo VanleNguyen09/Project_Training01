@@ -8,12 +8,12 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE OR ALTER PROCEDURE [dbo].[GetCountEmpManagerAllDepartments]
-	@curentPage INT,
+	@currentPage INT,
 	@pageSize INT
 AS
 BEGIN
 	DECLARE @starIndex INT, @rowsToFetch INT;
-	SET @starIndex = (@curentPage - 1) * @pageSize 
+	SET @starIndex = (@currentPage - 1) * @pageSize 
 	SET @rowsToFetch = @pageSize;
 
 	SELECT a.id, a.name, a.status, ISNULL(COUNT(DISTINCT b.emp_id), 0) AS Number_Emp, ISNULL(COUNT(DISTINCT d.emp_id), 0) 
@@ -31,5 +31,3 @@ BEGIN
 	FETCH NEXT @rowsToFetch ROWS ONLY
 END
 GO
-
-EXEC dbo.GetCountEmpManagerAllDepartments @curentPage = 1, @pageSize = 10

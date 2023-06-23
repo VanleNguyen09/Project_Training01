@@ -28,7 +28,3 @@ BEGIN
 	FETCH NEXT @rowsToFetch ROWS ONLY
 END
 GO
-
-EXEC dbo.GetDepartmentsByKeyWord @keyword = N'th', @currentPage = 1, @pageSize = 10
-
-

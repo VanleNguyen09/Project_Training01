@@ -18,5 +18,3 @@ BEGIN
 	ORDER BY COUNT(b.pos_id) DESC
 END
 GO	
-
---EXEC dbo.MaxPosEmp

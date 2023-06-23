@@ -18,6 +18,4 @@ BEGIN
 	ORDER BY COUNT(b.emp_id) DESC
 	
 END
-GO	
-
-EXEC dbo.MaxDeptEmp
+GO

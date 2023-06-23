@@ -18,5 +18,3 @@ BEGIN
 	ORDER BY COUNT(b.dept_id) DESC
 END
 GO	
-
---EXEC dbo.MaxDeptManager

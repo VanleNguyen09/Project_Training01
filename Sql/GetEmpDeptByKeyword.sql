@@ -62,6 +62,6 @@ END
 GO
 
 EXEC dbo.GetEmpDeptByKeyWord @keyword = N'Phong',    -- nvarchar(255)
-                             @department_id = 2 -- int
-							 @currentPage = 1
+                             @department_id = 2, -- int
+							 @currentPage = 1,
 							 @pageSize = 10

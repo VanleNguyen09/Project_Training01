@@ -85,8 +85,6 @@ Public Class frm_Manager
         End Try
         Return totalRows
     End Function
-
-
     Private Sub frm_Manager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         dgv_DeptManager.ClearSelection()
     End Sub
@@ -508,7 +506,9 @@ Public Class frm_Manager
                 End While
                 con.Close()
             End Using
+            totalRows = GetTotalRowsManagers()
             Pagination.Paginatedatagridview2(currentPage, totalRows)
+            UpdatePaginationPicBox()
         Else
             Using cmd As SqlCommand = New SqlCommand("GetManagerByDeptId", con)
                 cmd.CommandType = CommandType.StoredProcedure
@@ -521,11 +521,11 @@ Public Class frm_Manager
                     ShowEmployeeManager(No, reader)
                     No = No + 1
                 End While
-                totalRows = dgv_DeptManager.Rows.Count
-                Pagination.Paginatedatagridview2(currentPage, totalRows)
-                UpdatePaginationPicBox()
                 con.Close()
             End Using
+            totalRows = dgv_DeptManager.Rows.Count
+            Pagination.Paginatedatagridview2(currentPage, totalRows)
+            UpdatePaginationPicBox()
         End If
 
     End Sub
