@@ -243,11 +243,9 @@ Public Class NewDashboard
             End If
         Next
     End Sub
-
     Private Sub ResetFormState()
         lbl_UserName.Text = initialUserName
     End Sub
-
     Private Sub btn_Dashboard_Click(sender As Object, e As EventArgs) Handles btn_Dashboard.Click
         ResetMainPanel()
         'Dim clickedButton As Button = CType(sender, Button)
@@ -284,13 +282,6 @@ Public Class NewDashboard
     End Sub
 
     Private Sub btn_Position_Click(sender As Object, e As EventArgs) Handles btn_Position.Click
-        'LoadUserData()
-        'ChangePanelColor(pnPosition)
-        'currentSelection = "Position Menu"
-        'UpdateTitleLabel()
-        'ResetPanelColors(pnPosition)
-        'ShowFormInMainPanel(PositionMenu)
-
         If pnEmpByPos.Visible = False Then
             pbDropDownPosition.BackgroundImage = My.Resources.arrow_down
         Else

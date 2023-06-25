@@ -101,7 +101,7 @@ Public Class frm_Department
             con.Close()
         End Using
 
-        Pagination.Paginatedatagridview2(currentPage, totalRows)
+        Pagination.Paginatedatagridview(currentPage, totalRows)
     End Sub
 
     Private Sub EnableAdd()
@@ -261,9 +261,9 @@ Public Class frm_Department
                     MessageBox.Show(Message.Message.errorInvalidSearch, titleNotif, buttonOK, warmIcon)
                     reload = True
                 End If
-                Pagination.Paginatedatagridview2(currentPage, totalRows)
-                UpdatePaginationPicBox()
             End Using
+            Pagination.Paginatedatagridview(currentPage, totalRows)
+            UpdatePaginationPicBox()
         End Using
         con.Close()
         If reload Then
@@ -318,6 +318,7 @@ Public Class frm_Department
             dgrv_Department.ReadOnly = False
             txt_Name.Text = Nothing
         Else
+            dgrv_Department.SelectionMode = DataGridViewSelectionMode.FullRowSelect
             If e.RowIndex >= 0 Then
                 Dim selectedRow = dgrv_Department.Rows(e.RowIndex)
                 Id = CInt(selectedRow.Cells("department_id").Value)
@@ -325,16 +326,16 @@ Public Class frm_Department
                 selectedDepartment.name = txt_Name.Text
                 dgrv_Department.ReadOnly = True
             End If
-            DisableAdd()
         End If
-
+        DisableAdd()
     End Sub
     Private Sub gbtn_Delete_Click(sender As Object, e As EventArgs) Handles gbtn_Delete.Click
+        ' Check if any row is selected
         Dim selectedRows As New List(Of DataGridViewRow)()
 
         For Each row As DataGridViewRow In dgrv_Department.Rows
             Dim checkboxCell As DataGridViewCheckBoxCell = TryCast(row.Cells("ckb_Delete"), DataGridViewCheckBoxCell)
-            If checkboxCell IsNot Nothing AndAlso checkboxCell.Value = True Then
+            If checkboxCell IsNot Nothing AndAlso checkboxCell.Value = True AndAlso checkboxCell.Selected Then
                 selectedRows.Add(row)
             End If
         Next
@@ -351,6 +352,7 @@ Public Class frm_Department
 
         ' Delete rows if user confirm
         If confirmResult = DialogResult.Yes Then
+            MessageBox.Show(Message.Message.departmentDeleteSuccess, titleSucces, buttonOK, infoIcon)
             For Each row As DataGridViewRow In selectedRows
                 Dim id As Integer = CInt(row.Cells(departmentIdColumn.Index).Value)
                 Delete_Department(id)
@@ -359,23 +361,6 @@ Public Class frm_Department
             LoadData()
             EnableAdd()
         End If
-        'If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected department? Employee involved will also be deleted", titleConfỉrm, buttonYesNo, questionIcon) = DialogResult.Yes Then
-        '    Dim departmentIdColumn As DataGridViewColumn = dgrv_Department.Columns("department_id") ' Replace "name" with the actual column name for department ID
-        '    If departmentIdColumn IsNot Nothing Then
-        '        MessageBox.Show(Message.Message.departmentDeleteSuccess, titleSucces, buttonOK, infoIcon)
-        '        For i As Integer = 0 To selectedRows.Count - 1
-        '            Dim selectedRow As DataGridViewRow = selectedRows(i)
-        '            Dim id As Integer = CInt(selectedRow.Cells(departmentIdColumn.Index).Value)
-        '            Delete_Department(id)
-        '            ClearForm()
-        '        Next
-
-        '        LoadData()
-        '        EnableAdd()
-        '    Else
-        '        MessageBox.Show("Unable to find the department ID column.", titleError, buttonOK, warmIcon)
-        '    End If
-        'End If
     End Sub
 
     Private Sub gbtn_Reset_Click(sender As Object, e As EventArgs) Handles gbtn_Reset.Click
@@ -383,6 +368,7 @@ Public Class frm_Department
     End Sub
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
+        totalRows = GetTotalRowsDepartments()
         LoadData()
         EnableAdd()
     End Sub
@@ -433,7 +419,7 @@ Public Class frm_Department
     End Sub
     Private Sub dgrv_Department_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgrv_Department.ColumnHeaderMouseClick
         FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Department, "No")
-        Pagination.Paginatedatagridview2(currentPage, totalRows)
+        Pagination.Paginatedatagridview(currentPage, totalRows)
     End Sub
     Private Sub dgrv_Department_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Department.CellMouseEnter
         If (e.ColumnIndex = 6 OrElse e.ColumnIndex = 7) AndAlso e.RowIndex >= 0 Then

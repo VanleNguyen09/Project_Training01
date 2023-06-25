@@ -97,8 +97,14 @@
     <Reference Include="GrapeCity.ActiveReports.Core.Document.Drawing.Gc, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
       <HintPath>..\packages\GrapeCity.ActiveReports.Core.Document.Drawing.Gc.4.1.1\lib\net462\GrapeCity.ActiveReports.Core.Document.Drawing.Gc.dll</HintPath>
     </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Core.Document.Drawing.Gdi, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <HintPath>..\packages\GrapeCity.ActiveReports.Core.Document.Drawing.Gdi.4.1.1\lib\net462\GrapeCity.ActiveReports.Core.Document.Drawing.Gdi.dll</HintPath>
+    </Reference>
     <Reference Include="GrapeCity.ActiveReports.Core.Drawing.Gc, Version=3.6.0.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
       <HintPath>..\packages\GrapeCity.ActiveReports.Core.Drawing.Gc.3.6.0\lib\net462\GrapeCity.ActiveReports.Core.Drawing.Gc.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Core.Drawing.Gdi, Version=3.6.0.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <HintPath>..\packages\GrapeCity.ActiveReports.Core.Drawing.Gdi.3.6.0\lib\net462\GrapeCity.ActiveReports.Core.Drawing.Gdi.dll</HintPath>
     </Reference>
     <Reference Include="GrapeCity.ActiveReports.Core.Rdl, Version=3.6.0.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
       <HintPath>..\packages\GrapeCity.ActiveReports.Core.Rdl.3.6.0\lib\net462\GrapeCity.ActiveReports.Core.Rdl.dll</HintPath>
@@ -108,6 +114,15 @@
     </Reference>
     <Reference Include="GrapeCity.ActiveReports.Core.Scripting, Version=3.6.0.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
       <HintPath>..\packages\GrapeCity.ActiveReports.Core.Scripting.3.6.0\lib\net462\GrapeCity.ActiveReports.Core.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Design.Win, Version=17.1.1.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <HintPath>..\packages\GrapeCity.ActiveReports.Design.Win.17.1.1\lib\net462\GrapeCity.ActiveReports.Design.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Viewer.Common, Version=17.1.1.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <HintPath>..\packages\GrapeCity.ActiveReports.Viewer.Common.17.1.1\lib\net462\GrapeCity.ActiveReports.Viewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Viewer.Win, Version=17.1.1.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <HintPath>..\packages\GrapeCity.ActiveReports.Viewer.Win.17.1.1\lib\net462\GrapeCity.ActiveReports.Viewer.Win.dll</HintPath>
     </Reference>
     <Reference Include="GrapeCity.ActiveReports.Win, Version=17.1.1.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
       <HintPath>..\packages\GrapeCity.ActiveReports.17.1.1\lib\net462\GrapeCity.ActiveReports.Win.dll</HintPath>
@@ -138,10 +153,12 @@
     </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Design" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
@@ -209,6 +226,12 @@
     <Compile Include="Dashboard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="DatabaseDataContext.vb" />
+    <Compile Include="DataClasses1.designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </Compile>
     <Compile Include="DTFormat.vb" />
     <Compile Include="Department.Designer.vb">
       <DependentUpon>Department.vb</DependentUpon>
@@ -245,6 +268,11 @@
     </Compile>
     <Compile Include="Employee.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeeManagementDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmployeeManagementDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="ExcelPreviewForm.Designer.vb">
       <DependentUpon>ExcelPreviewForm.vb</DependentUpon>
@@ -331,6 +359,12 @@
     <Compile Include="RegisterUser.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Report.Designer.vb">
+      <DependentUpon>Report.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Report.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SalaryEmp.Designer.vb">
       <DependentUpon>SalaryEmp.vb</DependentUpon>
     </Compile>
@@ -383,6 +417,7 @@
     <EmbeddedResource Include="Manager.resx">
       <DependentUpon>Manager.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -404,12 +439,34 @@
     <EmbeddedResource Include="RegisterUser.resx">
       <DependentUpon>RegisterUser.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report.resx">
+      <DependentUpon>Report.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SalaryEmp.resx">
       <DependentUpon>SalaryEmp.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="DataClasses1.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses1.designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataClasses1.dbml.layout">
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </None>
+    <None Include="EmployeeManagementDataSet.xsc">
+      <DependentUpon>EmployeeManagementDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="EmployeeManagementDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EmployeeManagementDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="EmployeeManagementDataSet.xss">
+      <DependentUpon>EmployeeManagementDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Fonts\ARIAL.TTF" />
     <None Include="Fonts\ARIALBD.TTF" />
     <None Include="Fonts\ARIALBI.TTF" />
@@ -441,6 +498,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Rdl1.rdlx" />
     <None Include="Resources\view.png" />
     <None Include="Resources\hide.png" />
     <None Include="Resources\heroimg.png" />
@@ -538,6 +596,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

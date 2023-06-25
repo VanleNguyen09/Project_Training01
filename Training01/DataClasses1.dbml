@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="" Member="Employees">
+    <Type Name="Employees">
+      <Column Name="status" Type="System.Int32" CanBeNull="false" />
+      <Column Name="name" Type="System.String" CanBeNull="false" />
+      <Column Name="phone" Type="System.String" CanBeNull="false" />
+      <Column Name="address" Type="System.String" CanBeNull="false" />
+      <Column Name="gender" Type="System.Boolean" CanBeNull="false" />
+      <Column Name="email" Type="System.String" CanBeNull="false" />
+      <Column Member="id" Type="System.Int32" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Departments">
+    <Type Name="Department">
+      <Column Name="name" Type="System.String" CanBeNull="false" />
+      <Column Name="status" Type="System.Int32" CanBeNull="false" />
+      <Column Member="id" Type="System.Int32" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Dept_emps">
+    <Type Name="Dept_emp">
+      <Column Name="emp_id" Type="System.Int32" CanBeNull="false" />
+      <Column Name="dept_id" Type="System.Int32" CanBeNull="false" />
+      <Column Name="from_date" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="to_date" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="status" Type="System.Int32" CanBeNull="false" />
+      <Column Member="id" Type="System.Int32" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
