@@ -290,27 +290,6 @@ Public Class frm_Employee
 
         dgrv_Employee.Rows.Add(No, id, name, img, phone, address, gender, birthdayFormat, email, status)
     End Sub
-
-    'Private Sub LoadData(ByVal currentPage As Integer, ByVal pageSize As Integer)
-    '    If con.State <> 1 Then
-    '        con.Open()
-    '    End If
-    '    dgrv_Employee.Rows.Clear()
-    '    Using cmd As SqlCommand = New SqlCommand("GetAllEmployees", con)
-    '        cmd.CommandType = CommandType.StoredProcedure
-    '        cmd.Parameters.AddWithValue("@curentPage", currentPage)
-    '        cmd.Parameters.AddWithValue("@pageSize", pageSize)
-    '        cmd.ExecuteNonQuery()
-    '        Dim reader As SqlDataReader = cmd.ExecuteReader()
-    '        Dim No As Integer = 1
-    '        While reader.Read()
-    '            ShowEmployee(No, reader)
-    '            No += 1
-    '        End While
-    '        con.Close()
-    '    End Using
-    '    Pagination.PaginateDataGridView(dgrv_Employee, currentPage)
-    'End Sub
     Private Sub LoadData()
         If con.State <> 1 Then
             con.Open()
@@ -328,7 +307,7 @@ Public Class frm_Employee
             End While
             con.Close()
         End Using
-        Pagination.Paginatedatagridview2(currentPage, totalRows)
+        Pagination.Paginatedatagridview(currentPage, totalRows)
     End Sub
     Private Sub EnableAdd()
         gbtn_Add.Enabled = True
@@ -347,7 +326,6 @@ Public Class frm_Employee
         txt_Name.Text = String.Empty
         txt_Address.Text = String.Empty
         txt_Phone.Text = String.Empty
-        'txt_EmployeeID.Text = String.Empty
         txt_Email.Text = String.Empty
         rdo_Male.Checked = True
         rdo_Female.Checked = False
@@ -387,7 +365,7 @@ Public Class frm_Employee
                     MessageBox.Show(Message.Message.errorInvalidSearch, titleNotif, buttonOK, warmIcon)
                     reload = True
                 End If
-                Pagination.Paginatedatagridview2(currentPage, totalRows)
+                Pagination.Paginatedatagridview(currentPage, totalRows)
                 UpdatePaginationPicBox()
             End Using
         End Using
@@ -476,7 +454,6 @@ Public Class frm_Employee
         Dim birthday As Date = dtp_Birthday.Value
         Dim email As String = txt_Email.Text.Trim()
 
-
         If String.IsNullOrEmpty(name) OrElse
                 String.IsNullOrEmpty(phone) OrElse
                 String.IsNullOrEmpty(address) OrElse
@@ -523,7 +500,6 @@ Public Class frm_Employee
     End Sub
 
     Private Sub dgrv_employee_cellclick(sender As Object, e As DataGridViewCellEventArgs) Handles dgrv_Employee.CellClick
-        dgrv_Employee.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         If e.ColumnIndex = dgrv_Employee.Columns.Count - 1 Then
             dgrv_Employee.SelectionMode = DataGridViewSelectionMode.CellSelect
             dgrv_Employee.ReadOnly = False
@@ -536,6 +512,7 @@ Public Class frm_Employee
             dtp_Birthday.Value = Date.Now()
             ptb_Employee.Image = Nothing
         Else
+            dgrv_Employee.SelectionMode = DataGridViewSelectionMode.FullRowSelect
             If e.RowIndex >= 0 Then
                 Dim selectedrow = dgrv_Employee.Rows(e.RowIndex)
                 Id = CInt(selectedrow.Cells("EmployeeID").Value)
@@ -572,18 +549,12 @@ Public Class frm_Employee
     End Sub
 
     Private Sub gbtn_Delete_Click(sender As Object, e As EventArgs) Handles gbtn_Delete.Click
-
-        'Dim Checked As Boolean = CType(dgrv_Employee.CurrentCell.Value, Boolean)
-
-        'For Each gvrow As DataGridViewRow In dgrv_Employee.Rows
-        '    Dim Checked As Boolean = CType(dgrv_Employee.CurrentCell.Value, Boolean)
-        'Next
         ' Check if any row is selected
         Dim selectedRows As New List(Of DataGridViewRow)()
 
         For Each row As DataGridViewRow In dgrv_Employee.Rows
             Dim checkboxCell As DataGridViewCheckBoxCell = TryCast(row.Cells("ckb_Delete"), DataGridViewCheckBoxCell)
-            If checkboxCell IsNot Nothing AndAlso checkboxCell.Value = True Then
+            If checkboxCell IsNot Nothing AndAlso checkboxCell.Value = True AndAlso checkboxCell.Selected Then
                 selectedRows.Add(row)
             End If
         Next
@@ -600,6 +571,7 @@ Public Class frm_Employee
 
         ' Delete rows if user confirm
         If confirmResult = DialogResult.Yes Then
+            MessageBox.Show(Message.Message.departmentDeleteSuccess, titleSucces, buttonOK, infoIcon)
             For Each row As DataGridViewRow In selectedRows
                 Dim id As Integer = CInt(row.Cells(employeeIdColumn.Index).Value)
                 Delete_Employee(id)
@@ -608,26 +580,6 @@ Public Class frm_Employee
             LoadData()
             EnableAdd()
         End If
-
-
-        'Dim selectedRows As DataGridViewSelectedRowCollection = dgrv_Employee.SelectedRows
-        'Dim employeeIdColumn As DataGridViewColumn = dgrv_Employee.Columns("EmployeeID")
-
-        'If selectedRows.Count > 0 AndAlso MessageBox.Show("Are you sure you want to delete the selected employee?", titleConfỉrm, buttonYesNo, questionIcon) = DialogResult.Yes Then
-        '    If employeeIdColumn IsNot Nothing Then
-        '        MessageBox.Show(Message.Message.employeeDeleteSuccess, titleSucces, buttonOK, infoIcon)
-        '        For i As Integer = 0 To selectedRows.Count - 1
-        '            Dim selectedRow As DataGridViewRow = selectedRows(i)
-        '            Dim id As Integer = CInt(selectedRow.Cells(employeeIdColumn.Index).Value)
-        '            Delete_Employee(id)
-        '            ClearForm()
-        '        Next
-        '        LoadData()
-        '        EnableAdd()
-        '    Else
-        '        MessageBox.Show("Unable to find the employee ID column.", titleError, buttonOK, errorIcon)
-        '    End If
-        'End If
     End Sub
 
     Private Sub txt_Phone_TextChanged(sender As Object, e As EventArgs) Handles txt_Phone.TextChanged
@@ -688,6 +640,7 @@ Public Class frm_Employee
 
     Private Sub gbtn_Clear_Click(sender As Object, e As EventArgs) Handles gbtn_Clear.Click
         ClearForm()
+        totalRows = GetTotalRowsEmployees()
         LoadData()
         EnableAdd()
     End Sub
@@ -783,7 +736,7 @@ Public Class frm_Employee
 
     Private Sub dgrv_Employee_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgrv_Employee.ColumnHeaderMouseClick
         FuntionCommon.SortationNO.SortAndPreventNoColumnSorting(dgrv_Employee, "No")
-        Pagination.Paginatedatagridview2(currentPage, totalRows)
+        Pagination.Paginatedatagridview(currentPage, totalRows)
     End Sub
 
     Private Sub btn_EmpDept_Click(sender As Object, e As EventArgs) Handles btn_EmpDept.Click
@@ -801,5 +754,9 @@ Public Class frm_Employee
         Else
             dgrv_Employee.Cursor = Cursors.Default
         End If
+    End Sub
+
+    Private Sub gbtn_Report_Click(sender As Object, e As EventArgs) Handles gbtn_Report.Click
+        Report.Show()
     End Sub
 End Class

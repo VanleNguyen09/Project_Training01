@@ -85,9 +85,9 @@ Partial Class PDFViewer
         Me.pn_Botttom.Controls.Add(Me.gbtn_OK)
         Me.pn_Botttom.Controls.Add(gbtn_Cancel)
         Me.pn_Botttom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pn_Botttom.Location = New System.Drawing.Point(0, 776)
+        Me.pn_Botttom.Location = New System.Drawing.Point(0, 779)
         Me.pn_Botttom.Name = "pn_Botttom"
-        Me.pn_Botttom.Size = New System.Drawing.Size(1464, 119)
+        Me.pn_Botttom.Size = New System.Drawing.Size(1464, 116)
         Me.pn_Botttom.TabIndex = 4
         '
         'closeApp
@@ -127,14 +127,11 @@ Partial Class PDFViewer
         '
         'AxAcroPDF1
         '
-        Me.AxAcroPDF1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AxAcroPDF1.Enabled = True
-        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 0)
+        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 76)
         Me.AxAcroPDF1.Name = "AxAcroPDF1"
         Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.AxAcroPDF1.Size = New System.Drawing.Size(1464, 895)
+        Me.AxAcroPDF1.Size = New System.Drawing.Size(1464, 704)
         Me.AxAcroPDF1.TabIndex = 1
         '
         'PDFViewer

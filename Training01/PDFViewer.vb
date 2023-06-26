@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports iTextSharp.text.pdf
 
 Public Class PDFViewer
     Private Property tempPath As String
@@ -24,9 +25,6 @@ Public Class PDFViewer
         Dim left As Integer = (screenRectangle.Width - Me.Width) \ 2
         Dim top As Integer = (screenRectangle.Height - Me.Height) \ 2
         Me.Location = New Point(left, top)
-    End Sub
-
-    Public Sub setViewRect(ByVal left As Single, ByVal top As Single, ByVal width As Single, ByVal height As Single)
     End Sub
 
     Private Sub PDFViewer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -77,5 +75,10 @@ Public Class PDFViewer
 
     Private Sub closeApp_Click(sender As Object, e As EventArgs) Handles closeApp.Click
         Me.Close()
+    End Sub
+
+    Private Sub PDFViewer_Resize(sender As Object, e As EventArgs) 
+        AxAcroPDF1.Size = New Size(Me.Width, Me.Height)
+        AxAcroPDF1.Location = New Point(0, 0)
     End Sub
 End Class
